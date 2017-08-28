@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/home_background"
+    android:orientation="vertical"
+    android:padding="5dp"
+    android:weightSum="1"
+    tools:context="com.effone.reservopia.Activity.AppointementBookingActivity">
+
+
+    <EditText
+        android:id="@+id/et_date"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:clickable="true"
+        android:editable="false"
+        android:layout_weight=".09"
+        android:focusable="false" />
+
+    <GridView
+        android:id="@+id/gv_timeSlots"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".3"
+        android:gravity="left"
+        android:numColumns="4"
+        android:stretchMode="columnWidth"></GridView>
+
+    <TextView
+        android:id="@+id/tv_registeration_form_details"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.05"
+        android:gravity="left|center"
+        android:text="@string/registeration"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.47">
+
+        <include
+            layout="@layout/registerationpage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_submit"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.08"
+        android:background="@color/dayName"
+        android:gravity="center"
+        android:text="@string/submit"
+        android:textAlignment="center"
+        android:textSize="22dp" />
+</LinearLayout>

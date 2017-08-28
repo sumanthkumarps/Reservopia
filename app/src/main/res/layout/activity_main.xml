@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/home_background"
+    android:orientation="vertical"
+    android:weightSum="1"
+    tools:context="com.effone.reservopia.MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".72"
+        android:orientation="horizontal">
+
+        <!--  first section we are handling her-->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".49"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <ImageView
+                android:id="@+id/img_icon"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight=".25"
+                android:src="@mipmap/ic_launcher" />
+
+            <TextView
+                android:id="@+id/tv_dateandtime"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight=".25"
+                android:gravity="right|center"
+                android:textSize="@dimen/date_time" />
+
+            <TextView
+                android:id="@+id/tv_about_heading"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight=".10"
+                android:drawableRight="@mipmap/ic_info"
+                android:gravity="left|center"
+                android:text="About"
+                android:textSize="@dimen/heading" />
+
+            <TextView
+                android:id="@+id/tv_about_text"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight=".40"
+                android:text="@string/aboutUs"
+                android:textSize="@dimen/about" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".02"
+            android:background="@color/divider" />
+
+        <!--  seconf section we are handling her-->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".49"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_booking_app"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.33"
+                android:drawableTop="@mipmap/ic_launcher"
+                android:gravity="bottom|center"
+                android:padding="5dp"
+                android:text="@string/booking_app"
+                android:textSize="@dimen/heading" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight=".01"
+                android:background="@color/divider" />
+
+            <TextView
+                android:id="@+id/tv_history"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.33"
+                android:drawableTop="@mipmap/ic_history"
+                android:gravity="bottom|center"
+                android:padding="5dp"
+                android:text="@string/histroy"
+                android:textSize="@dimen/heading" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight=".01"
+                android:background="@color/divider" />
+
+            <TextView
+                android:id="@+id/tv_contact_us"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.33"
+                android:drawableTop="@mipmap/ic_contact_us"
+                android:gravity="bottom|center"
+                android:padding="5dp"
+                android:text="@string/contact_us"
+                android:textSize="@dimen/heading" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".28"
+        android:weightSum="1"
+        android:padding="5dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.02"
+            android:paddingBottom="5dp"
+            android:text="@string/upcomingAppointment"
+            android:textSize="@dimen/heading" />
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.98"
+            android:id="@+id/lv_upcomingAppointent"></ListView>
+    </LinearLayout>
+</LinearLayout>

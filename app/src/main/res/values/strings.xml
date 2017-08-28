@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Reservopia</string>
+    <string name="histroy">History</string>
+    <string name="upcomingAppointment">Upcoming Appointment</string>
+    <string name="about">About</string>
+    <string name="booking_app">Booking Appointment</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="aboutUs">EffOne is a global IT consulting services company with experience that spans over two decades. We have presence in over 20 cities in the USA and India and our customers come from 4 </string>
+    <string name="scheduling">ScheduleAppointment</string>
+    <string name="email">Email :</string>
+    <string name="phone">phone :</string>
+    <string name="radio_male">Male</string>
+    <string name="radio_female">Female</string>
+    <string name="first">First Name :</string>
+    <string name="last">Last Name :</string>
+    <string name="password">Password :</string>
+    <string name="conf_password">Confirm Password</string>
+    <string name="createAccount">Create Account</string>
+    <string name="submit">Book Appointment</string>
+    <string name="registeration">User Register : </string>
+    <string name="available_service">Available Service</string>
+    <string name="appointment">appointment</string>
+    <string name="city">City</string>
+    <string name="zip">Zip</string>
+    <string name="address">Address</string>
+    <string name="CA">CA</string>
+</resources>
