@@ -1,0 +1,224 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.effone.reservopia.Activity.LocationServiceActivity"
+    android:weightSum="1">
+
+    <include layout="@layout/fragment_common_header"
+        android:layout_weight="0.02" />
+
+    <TextView
+        android:id="@+id/tv_serviceTypeAdapter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left|center"
+       android:padding="5dp"
+        android:text="@string/confirmation_details"
+        android:textAllCaps="false"
+        android:textSize="@dimen/font_size"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+       >
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_confirmation_no_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left|center"
+                android:padding="5dp"
+                android:text="@string/confirmation_no"
+                android:textSize="@dimen/font_size" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+               
+                android:gravity="right"
+                android:text=":" />
+
+            <TextView
+                android:id="@+id/tv_confirmation_no_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left|center"
+                android:padding="5dp"
+                android:textSize="@dimen/font_size" />
+        </TableRow>
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+           >
+
+            <TextView
+                android:id="@+id/tv_name_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                
+                android:gravity="left|center"
+                android:padding="5dp"
+                android:text="@string/name"
+                android:textSize="@dimen/font_size" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+               
+                android:gravity="right"
+                android:text=":" />
+
+            <TextView
+                android:id="@+id/tv_name_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left|center"
+                android:padding="5dp"
+                android:textSize="@dimen/font_size" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+           >
+
+            <TextView
+                android:id="@+id/tv_service_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:gravity="left|center"
+                android:padding="5dp"
+                android:text="@string/service"
+                android:textSize="@dimen/font_size" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+               
+                android:gravity="right"
+                android:text=":" />
+
+            <TextView
+                android:id="@+id/tv_service_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left|center"
+                android:padding="5dp"
+                android:textSize="@dimen/font_size" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+           >
+
+            <TextView
+                android:id="@+id/tv_date_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left|center"
+                android:padding="5dp"
+                android:text="@string/date"
+                android:textSize="@dimen/font_size" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text=":" />
+
+            <TextView
+                android:id="@+id/tv_date_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left|center"
+                android:padding="5dp"
+                android:textSize="@dimen/font_size" />
+        </TableRow>
+
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                android:id="@+id/tv_phone_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:gravity="left|center"
+                android:padding="5dp"
+                android:text="@string/phone_column"
+                android:textSize="@dimen/font_size" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+               
+                android:gravity="right"
+                android:text=":" />
+
+            <TextView
+                android:id="@+id/tv_phone_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left|center"
+                android:padding="5dp"
+                android:textSize="@dimen/font_size" />
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                android:id="@+id/tv_address_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:gravity="left|center"
+                android:padding="5dp"
+                android:text="@string/address_coloumn"
+                android:textSize="@dimen/font_size" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:gravity="right"
+                android:text=":" />
+
+            <TextView
+                android:id="@+id/tv_address_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left|center"
+                android:padding="5dp"
+                android:textSize="@dimen/font_size" />
+        </TableRow>
+    </TableLayout>
+</LinearLayout>
+

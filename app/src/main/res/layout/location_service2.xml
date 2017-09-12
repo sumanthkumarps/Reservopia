@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1"
+    tools:context="com.effone.reservopia.Activity.LocationServiceActivity">
+    <include layout="@layout/fragment_common_header"
+        android:id="@+id/in_headder"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.60"
+        android:background="@mipmap/logo">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/select_service_type"
+            android:id="@+id/tv_upcoming"
+            android:textSize="22sp"
+            android:padding="5dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+    </RelativeLayout>
+    
+    <android.support.v7.widget.AppCompatSpinner
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="0.1"
+        android:id="@+id/sp_location"/>
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.12"
+        android:id="@+id/lv_service_type"
+        >
+
+    </ListView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.08"/>
+    <TextView
+        android:id="@+id/tv_book_appointment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="5dp"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center"
+        android:layout_weight="0.09"
+        android:textColor="@android:color/white"
+        android:background="@color/dayName"
+        android:gravity="center"
+        android:text="@string/booking_app"
+        android:textAlignment="center"
+        android:textSize="@dimen/font_size" />
+
+</LinearLayout>

@@ -3,30 +3,63 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/home_background"
+    android:background="@android:color/white"
     android:orientation="vertical"
-    android:padding="5dp"
     android:weightSum="1"
     tools:context="com.effone.reservopia.Activity.AppointementBookingActivity">
+    <include layout="@layout/fragment_common_header" />
 
-
-    <EditText
-        android:id="@+id/et_date"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:clickable="true"
-        android:editable="false"
-        android:layout_weight=".09"
-        android:focusable="false" />
+        android:layout_weight=".08"
+        android:weightSum="1"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="left|center"
+            android:text="@string/date_time"
+            android:textSize="@dimen/font_size"
+            android:layout_weight=".4"/>
+        <EditText
+            android:id="@+id/et_date"
+            android:layout_width="0dp"
+            android:layout_weight=".6"
+            android:layout_height="40dp"
+            android:clickable="true"
+            android:editable="false"
+            android:focusable="false" />
 
-    <GridView
-        android:id="@+id/gv_timeSlots"
+    </LinearLayout>
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight=".3"
-        android:gravity="left"
-        android:numColumns="4"
-        android:stretchMode="columnWidth"></GridView>
+        android:layout_weight="0.37"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:paddingLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.05"
+            android:text="@string/time_slot"
+            android:textSize="@dimen/font_size" />
+        <GridView
+            android:id="@+id/gv_timeSlots"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="left"
+            android:layout_weight=".27"
+            android:numColumns="4"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/rounded_corner"
+            android:stretchMode="columnWidth"></GridView>
+    </LinearLayout>
+
+
 
     <TextView
         android:id="@+id/tv_registeration_form_details"
@@ -34,13 +67,19 @@
         android:layout_height="0dp"
         android:layout_weight="0.05"
         android:gravity="left|center"
+        android:paddingLeft="10dp"
         android:text="@string/registeration"
         android:textSize="18sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.47">
+        android:layout_weight="0.40"
+        android:padding="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/rounded_corner">
 
         <include
             layout="@layout/registerationpage"
@@ -53,10 +92,12 @@
         android:id="@+id/tv_submit"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.08"
+        android:layout_weight="0.09"
         android:background="@color/dayName"
         android:gravity="center"
         android:text="@string/submit"
+        android:layout_margin="5dp"
         android:textAlignment="center"
+        android:textColor="@android:color/white"
         android:textSize="22dp" />
 </LinearLayout>

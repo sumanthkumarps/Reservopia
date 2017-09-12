@@ -17,7 +17,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activity.AppointementBookingActivity" />
-        <activity android:name=".Activity.LocationServiceActivity"></activity>
+        <activity android:name=".Activity.LocationServiceActivity" />
+        <activity android:name=".Activity.AppointmentAcknowledgementActivity" />
+        <activity android:name=".Activity.AppointmentHistoryActivity"></activity>
+        <activity android:name=".Activity.AppointmentDetailsActivity"/>
     </application>
 
 </manifest>

@@ -21,11 +21,13 @@ public class ServiceTypeAdapter extends BaseAdapter {
     private Context mContext;
     private List<AppointmentDataTime> mAppointmentDateTime;
     private LayoutInflater mLayoutInflater ;
-    public ServiceTypeAdapter(Context context, List<AppointmentDataTime> list) {
+    private  int setVisiblity;
+    public ServiceTypeAdapter(Context context, List<AppointmentDataTime> list, int i) {
         this.mContext=context;
         this.mAppointmentDateTime=list;
         mLayoutInflater = (LayoutInflater) mContext
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.setVisiblity=i;
 
     }
 
@@ -49,17 +51,23 @@ public class ServiceTypeAdapter extends BaseAdapter {
         View vi = view;
         final ServiceTypeItems holder;
 
-        if(view==null) {
-            view = mLayoutInflater.inflate(R.layout.service_type_list, null);
+        if(vi==null) {
+            vi = mLayoutInflater.inflate(R.layout.service_type_list, null);
             holder = new  ServiceTypeItems();
-            holder.mIvServiceTypeIcon=(ImageView)view.findViewById(R.id.img_service_type_icon);
-            holder.mTvServiceType = (TextView)    view.findViewById(R.id.tv_serviceType);
+
+            holder.mTvServiceType = (TextView)    vi.findViewById(R.id.tv_serviceType);
+            holder.mIvServiceTypeIcon=(ImageView) vi.findViewById(R.id.iv_appointment);
+            vi.setTag( holder );
         }else
             holder = (ServiceTypeItems) vi.getTag();
 
-        holder.mTvServiceType.setText(mAppointmentDateTime.get(position).getServiceType());
+        holder.mTvServiceType.setText(mAppointmentDateTime.get(position).getServiceName());
+        if(setVisiblity == 1 ){
+            holder.mIvServiceTypeIcon.setVisibility(View.VISIBLE);
+        }else
+            holder.mIvServiceTypeIcon.setVisibility(View.INVISIBLE);
 
-        return view;
+        return vi;
     }
     public static class ServiceTypeItems{
         public TextView mTvServiceType;

@@ -1,27 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="1">
-
+    android:padding="10dp">
+<!--
     <ImageView
         android:id="@+id/img_service_type_icon"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight=".2" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:src="@mipmap/logo" />-->
 
     <TextView
         android:id="@+id/tv_serviceType"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight=".5" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="haircut"
+        android:gravity="left"
+        android:textStyle="bold"
+        android:textSize="22sp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/iv_appointment"
+        android:layout_toStartOf="@+id/iv_appointment" />
+
+    <ImageView
+        android:id="@+id/iv_appointment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:src="@android:drawable/ic_media_next"
+        android:padding="10dp"
+        android:textColor="@android:color/white"
+        android:layout_alignParentEnd="true"
+        />
 
     <TextView
-        android:id="@+id/tv_appointment"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight=".3"
-        android:gravity="center"
-        android:text="@string/appointment" />
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/iv_appointment"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:textSize="18sp"
+        android:layout_alignParentStart="true"
+        android:text="cut the hair in diffrent style"
+        android:layout_toLeftOf="@+id/iv_appointment"
+        android:layout_toStartOf="@+id/iv_appointment"
+        android:layout_below="@+id/tv_serviceType" />
 
-</LinearLayout>
+</RelativeLayout>

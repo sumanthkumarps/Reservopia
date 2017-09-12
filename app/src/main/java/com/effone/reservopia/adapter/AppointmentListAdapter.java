@@ -1,6 +1,7 @@
 package com.effone.reservopia.adapter;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,7 +57,7 @@ public class AppointmentListAdapter extends BaseAdapter {
             holder = (AppointmentListItems) vi.getTag();
 
 
-        holder.mTvDateTime.setText(mAppointmentDateTime.get(position).getDate()+" "+mAppointmentDateTime.get(position).getTime());
+        holder.mTvDateTime.setText(Html.fromHtml(mAppointmentDateTime.get(position).getAppointmentDateTime()));
 
         return view;
     }

@@ -2,5 +2,5 @@
 <resources>
     <dimen name="heading">18sp</dimen>
     <dimen name="about">14sp</dimen>
-    <dimen name="date_time">22sp</dimen>
+    <dimen name="date_time">20sp</dimen>
 </resources>

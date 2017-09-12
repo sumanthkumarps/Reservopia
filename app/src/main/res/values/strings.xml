@@ -2,13 +2,14 @@
     <string name="app_name">Reservopia</string>
     <string name="histroy">History</string>
     <string name="upcomingAppointment">Upcoming Appointment</string>
+    <string name="select_service_type">Select Location &amp; Service : </string>
     <string name="about">About</string>
-    <string name="booking_app">Booking Appointment</string>
+    <string name="booking_app">Book Appointment</string>
     <string name="contact_us">Contact Us</string>
     <string name="aboutUs">EffOne is a global IT consulting services company with experience that spans over two decades. We have presence in over 20 cities in the USA and India and our customers come from 4 </string>
     <string name="scheduling">ScheduleAppointment</string>
     <string name="email">Email :</string>
-    <string name="phone">phone :</string>
+    <string name="phone">Phone :</string>
     <string name="radio_male">Male</string>
     <string name="radio_female">Female</string>
     <string name="first">First Name :</string>
@@ -22,6 +23,19 @@
     <string name="appointment">appointment</string>
     <string name="city">City</string>
     <string name="zip">Zip</string>
-    <string name="address">Address</string>
+    <string name="address">Address:</string>
     <string name="CA">CA</string>
+    <string name="appointment_confirmation">Appointment Confirmation</string>
+    <string name="name">Name</string>
+    <string name="service">Service</string>
+    <string name="date">Date</string>
+    <string name="address_coloumn">Address</string>
+    <string name="phone_column">Phone</string>
+    <string name="confirmation_no">Confirmation #</string>
+    <string name="confirmation_details">Confirmation Details </string>
+    <string name="appointment_history">Appointment History</string>
+    <string name="service_type">Service Type</string>
+    <string name="date_time">Select Date : </string>
+    <string name="time_slot">Pick one time slot :</string>
+    <string name="appointment_details">Appointment Details</string>
 </resources>

@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.effone.reservopia.Activity.AppointmentDetailsActivity">
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/fragment_common_header"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"></include>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tool_bar"
+        android:text="@string/upcomingAppointment"
+        android:id="@+id/tv_upcoming"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:padding="5dp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider"
+        android:id="@+id/line2"
+        android:layout_below="@+id/tv_upcoming"/>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="5dp"
+        android:layout_below="@+id/tv_upcoming"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+        <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/appointmentScreen"
+        android:layout_marginTop="10dp"
+        android:text="Confirmation #"
+        android:layout_alignRight="@+id/textView7"
+        android:layout_alignEnd="@+id/textView7"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        style="@style/appointmentScreen"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView2"
+        android:layout_marginTop="10dp"
+        android:text="Email"
+        android:layout_toStartOf="@+id/tv_email"
+        android:layout_alignRight="@+id/textView2"
+        android:layout_alignEnd="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        style="@style/appointmentScreen"
+        android:text="User Name"
+        android:layout_below="@+id/textView3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/textView2"
+        android:layout_alignEnd="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView4"
+        style="@style/appointmentScreen"
+        android:layout_marginTop="10dp"
+        android:text="Appointment ID"
+        android:layout_alignRight="@+id/textView4"
+        android:layout_alignEnd="@+id/textView4" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView5"
+        style="@style/appointmentScreen"
+        android:layout_marginTop="10dp"
+        android:text="Loc Name"
+        android:layout_alignRight="@+id/textView4"
+        android:layout_alignEnd="@+id/textView4" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView6"
+        style="@style/appointmentScreen"
+        android:layout_marginTop="10dp"
+        android:text="Service Name"
+        android:layout_alignRight="@+id/textView20"
+        android:layout_alignEnd="@+id/textView20" />
+
+    <TextView
+        android:id="@+id/tv_confimration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        style="@style/appointmentScreen"
+        android:layout_alignBaseline="@+id/textView2"
+        android:layout_alignBottom="@+id/textView2"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@+id/textView14"
+        android:layout_toEndOf="@+id/textView14" />
+
+        <TextView
+            android:id="@+id/tv_email"
+            style="@style/appointmentScreen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView15"
+            android:layout_alignBottom="@+id/textView15"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_toEndOf="@+id/textView14"
+            android:layout_toRightOf="@+id/textView14"
+            android:text="TextView"
+            />
+
+    <TextView
+        android:id="@+id/tv_userName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        style="@style/appointmentScreen"
+        android:layout_below="@+id/tv_email"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/textView15"
+        android:layout_alignLeft="@+id/tv_email"
+        android:layout_alignStart="@+id/tv_email"
+        android:layout_alignBottom="@+id/textView16" />
+
+    <TextView
+        android:id="@+id/tv_appointment_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/textView5"
+        style="@style/appointmentScreen"
+        android:text="TextView"
+        android:layout_toEndOf="@+id/textView17"
+        android:layout_alignLeft="@+id/tv_userName"
+        android:layout_alignStart="@+id/tv_userName" />
+
+    <TextView
+        android:id="@+id/tv_locName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/appointmentScreen"
+        android:layout_alignLeft="@+id/tv_appointment_id"
+        android:layout_alignStart="@+id/tv_appointment_id"
+        android:layout_alignTop="@+id/textView6"
+        android:text="TextView"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/tv_serviceName"
+        android:layout_width="wrap_content"
+        style="@style/appointmentScreen"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/textView7"
+        android:text="TextView"
+        android:layout_toEndOf="@+id/textView19"
+        android:layout_alignLeft="@+id/tv_locName"
+        android:layout_alignStart="@+id/tv_locName" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        style="@style/appointmentScreen"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tv_confimration"
+        android:layout_alignBottom="@+id/tv_confimration"
+        android:layout_centerHorizontal="true"
+        android:text=":"
+        android:layout_marginRight="10dp"/>
+
+    <TextView
+        android:id="@+id/textView15"
+        style="@style/appointmentScreen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView3"
+        android:layout_alignBottom="@+id/textView3"
+        android:layout_alignLeft="@+id/textView14"
+        android:layout_alignStart="@+id/textView14"
+        android:text=":" />
+
+    <TextView
+        android:id="@+id/textView16"
+        style="@style/appointmentScreen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView15"
+        android:layout_alignStart="@+id/textView15"
+        android:layout_alignTop="@+id/textView4"
+        android:text=":" />
+
+    <TextView
+        style="@style/appointmentScreen"
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView5"
+        android:layout_alignBottom="@+id/textView5"
+        android:layout_alignLeft="@+id/textView16"
+        android:layout_alignStart="@+id/textView16"
+        android:text=":" />
+
+    <TextView
+        android:id="@+id/textView18"
+        style="@style/appointmentScreen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tv_locName"
+        android:layout_alignBottom="@+id/tv_locName"
+        android:layout_centerHorizontal="true"
+        android:text=":" />
+
+    <TextView
+        android:id="@+id/textView19"
+        style="@style/appointmentScreen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/textView18"
+        android:layout_alignRight="@+id/textView18"
+        android:layout_alignTop="@+id/textView7"
+        android:text=":" />
+
+    <TextView
+        android:id="@+id/textView20"
+        style="@style/appointmentScreen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView7"
+        android:layout_marginTop="10dp"
+        android:text="Appointment Date" />
+
+    <TextView
+        android:id="@+id/textView21"
+        style="@style/appointmentScreen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView20"
+        android:layout_marginTop="40dp"
+        android:text="Scheduled Time Zone"
+        android:layout_toStartOf="@+id/textView11" />
+
+    <TextView
+        android:id="@+id/textView22"
+        style="@style/appointmentScreen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView19"
+        android:layout_alignStart="@+id/textView19"
+        android:layout_alignTop="@+id/textView20"
+        android:text=":" />
+
+        <TextView
+            android:id="@+id/textView23"
+            style="@style/appointmentScreen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textview20"
+            android:layout_alignBottom="@+id/textview20"
+            android:layout_toLeftOf="@+id/tv_address"
+            android:text=":"
+            android:layout_alignLeft="@+id/textView11"
+            android:layout_alignStart="@+id/textView11" />
+
+        <TextView
+            android:id="@+id/textView11"
+            style="@style/appointmentScreen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textView21"
+            android:layout_alignEnd="@+id/textView22"
+            android:layout_alignLeft="@+id/textView22"
+            android:layout_alignRight="@+id/textView22"
+            android:layout_alignStart="@+id/textView22"
+            android:layout_alignTop="@+id/textView21"
+            android:text=": " />
+
+        <TextView
+            android:id="@+id/textView8"
+            style="@style/appointmentScreen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/textView18"
+            android:layout_alignRight="@+id/textView18"
+            android:layout_alignTop="@+id/textView7"
+            android:text=":" />
+
+        <TextView
+        android:id="@+id/tv_appointment_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/appointmentScreen"
+        android:text="TextView"
+        android:layout_alignBaseline="@+id/textView22"
+        android:layout_alignBottom="@+id/textView22"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignLeft="@+id/tv_serviceName"
+        android:layout_alignStart="@+id/tv_serviceName" />
+
+    <TextView
+        android:id="@+id/tv_timeZone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        style="@style/appointmentScreen"
+        android:layout_alignBaseline="@+id/textView11"
+        android:layout_alignBottom="@+id/textView11"
+        android:layout_alignLeft="@+id/tv_appointment_date"
+        android:layout_alignStart="@+id/tv_appointment_date"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+
+        <TextView
+            android:id="@+id/textview20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Address"
+            style="@style/appointmentScreen"
+            android:layout_below="@+id/textView21"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="13dp"
+            android:layout_alignRight="@+id/textView21"
+            android:layout_alignEnd="@+id/textView21" />
+
+        <TextView
+            android:id="@+id/tv_address"
+            style="@style/appointmentScreen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_timeZone"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignStart="@+id/tv_timeZone"
+            android:layout_alignTop="@+id/textView23"
+            android:text="Sumanth is done this Appointment "
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+
+
+</RelativeLayout>

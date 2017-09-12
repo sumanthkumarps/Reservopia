@@ -6,19 +6,26 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.effone.reservopia.Activity.LocationServiceActivity">
-    <TextView
+
+   <include layout="@layout/fragment_common_header"/>
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:id="@+id/tv_location"
-        android:drawableRight="@mipmap/ic_location"
-        />
+        android:layout_height="wrap_content">
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:gravity="left|center"
         android:textSize="@dimen/header"
+        android:paddingLeft="10dp"
+        android:layout_alignParentLeft="true"
         android:id="@+id/tv_serviceTypeAdapter"
         android:text="@string/available_service"/>
+        <android.support.v7.widget.AppCompatSpinner
+            android:layout_width="wrap_content"
+            android:layout_alignParentRight="true"
+            android:id="@+id/sp_location"
+            android:layout_height="wrap_content"></android.support.v7.widget.AppCompatSpinner>
+    </RelativeLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"

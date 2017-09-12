@@ -3,11 +3,10 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/ad_tv_date_time"
-    android:padding="10dp"
+    android:padding="5dp"
     android:textStyle="bold"
-    android:gravity="center_vertical"
-    android:drawableTint="@android:color/darker_gray"
-    android:drawableRight="@drawable/forward"
+    android:gravity="center"
+    android:textAlignment="center"
     android:textSize="18sp">
 
 </TextView>
