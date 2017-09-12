@@ -6,7 +6,7 @@
     android:padding="10dp"
     android:textStyle="bold"
     android:gravity="center_vertical"
-    android:drawableTint="@android:color/darker_gray"
+    android:drawableTint="@android:color/black"
     android:drawableRight="@drawable/forward"
     android:textSize="18sp">
 
