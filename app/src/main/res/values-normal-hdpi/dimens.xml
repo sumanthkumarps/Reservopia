@@ -3,4 +3,5 @@
     <dimen name="header">22sp</dimen>
     <dimen name="font_size">18sp</dimen>
     <dimen name="heading">10sp</dimen>
+    <dimen name="date_time">14sp</dimen>
 </resources>

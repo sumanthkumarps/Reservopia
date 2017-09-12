@@ -28,19 +28,19 @@
             <ImageView
                 android:id="@+id/img_icon"
                 android:layout_width="match_parent"
-                android:paddingTop="10dp"
+                android:paddingTop="20dp"
                 android:layout_height="0dp"
-                android:layout_weight=".25"
-                android:background="@android:color/darker_gray"
+                android:layout_weight=".27"
+                android:background="@color/logo_bg"
                 android:src="@mipmap/logo" />
             <TextView
                 android:id="@+id/tv_comapany_name"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight=".15"
+                android:layout_weight=".12"
                 android:gravity="center"
-                android:textColor="@android:color/black"
-                android:background="@android:color/darker_gray"
+                android:textColor="@android:color/white"
+                android:background="@color/logo_bg"
                 android:text="Effone Technolgies"
                 android:textSize="@dimen/about" />
             <View
@@ -183,6 +183,6 @@
             android:id="@+id/lv_upcomingAppointent"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.98"></ListView>
+            android:layout_weight="0.98"/>
     </LinearLayout>
 </LinearLayout>
