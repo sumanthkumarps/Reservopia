@@ -2,19 +2,39 @@ package com.effone.reservopia.Activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.effone.reservopia.MainActivity;
 import com.effone.reservopia.R;
 import com.effone.reservopia.adapter.AppointmentHistoryAdapter;
+import com.effone.reservopia.adapter.AppointmentListAdapter;
+import com.effone.reservopia.model.History;
 import com.effone.reservopia.model.HistoryAppointment;
+import com.effone.reservopia.model.Result;
+import com.effone.reservopia.model.UpCommingAppointmentModel;
+import com.effone.reservopia.rest.ApiClient;
+import com.effone.reservopia.rest.ApiInterface;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-public class AppointmentHistoryActivity extends AppCompatActivity {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class AppointmentHistoryActivity extends AppCompatActivity implements View.OnClickListener {
+    private static final String TAG = "AppointmentHistory";
     private TextView mTvTitle;
     private ListView mLvAppointmentHistoryList;
+    ArrayList<HistoryAppointment> mAppointments;
+    private  ImageView mIvBackBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,31 +45,55 @@ public class AppointmentHistoryActivity extends AppCompatActivity {
     private void init() {
         mTvTitle=(TextView)findViewById(R.id.tv_title);
         mTvTitle.setText(getString(R.string.appointment_history));
-        ArrayList<HistoryAppointment> appointments=new ArrayList<>();
-        HistoryAppointment h1=new HistoryAppointment();
-        h1.setLocation("Bangalore");
-        h1.setName("Sumanth");
-        h1.setDate("08/29/2017 : 01:00 PM");
-        h1.setSerivice("Hair cut");
-        h1.setAppointment_id("33333");
-        appointments.add(h1);
-        HistoryAppointment h2=new HistoryAppointment();
-        h2.setLocation("Manglore");
-        h2.setName("Sumanth");
-        h2.setDate("08/26/2017 : 01:00 PM");
-        h2.setSerivice("Sahaving");
-        h2.setAppointment_id("33373");
-        appointments.add(h2);
-        HistoryAppointment h3=new HistoryAppointment();
-        h3.setLocation("Hindupur");
-        h3.setName("Sumanth");
-        h3.setDate("08/21/2017 : 01:00 PM");
-        h3.setSerivice("Facial");
-        h3.setAppointment_id("33353");
-        appointments.add(h3);
+        mIvBackBtn=(ImageView)findViewById(R.id.iv_back_btn);
+        mIvBackBtn.setOnClickListener(this);
         mLvAppointmentHistoryList=(ListView)findViewById(R.id.lv_appointment_history);
-        AppointmentHistoryAdapter adapter=new AppointmentHistoryAdapter(this,R.layout.appointment_list_item,appointments);
-        mLvAppointmentHistoryList.setAdapter(adapter);
+        getAppointmentHistoryList();
+    }
+    private void getAppointmentHistoryList() {
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
 
+        Call<UpCommingAppointmentModel> call = apiService.getUpCommingAppointmentDetails(getString(R.string.token),"application/json", 1, "abdulrahim.sk.dev@gmail.com");
+        call.enqueue(new Callback<UpCommingAppointmentModel>() {
+            @Override
+            public void onResponse(Call<UpCommingAppointmentModel> call, Response<UpCommingAppointmentModel> response) {
+                Result results = response.body().getResult();
+                fillListView(Arrays.asList(results.getHistory()));
+
+            }
+
+            @Override
+            public void onFailure(Call<UpCommingAppointmentModel> call, Throwable t) {
+                // Log error here since request failed
+                Log.e(TAG, t.toString());
+            }
+        });
+
+
+
+    }
+
+    private void fillListView(List<History> histories) {
+        mAppointments=new ArrayList<>();
+        for (int i = 0; i <histories.size(); i++) {
+            HistoryAppointment historyAppointment=new HistoryAppointment();
+            historyAppointment.setLocation(histories.get(i).getLocName());
+            historyAppointment.setName(histories.get(i).getUserName());
+            historyAppointment.setConfirmationNo(histories.get(i).getConfirmationNo());
+            historyAppointment.setDate(histories.get(i).getAppointmentDateTime());
+            historyAppointment.setSerivice(histories.get(i).getServiceName());
+            historyAppointment.setAppointment_id(histories.get(i).getAppointmentID());
+            mAppointments.add(historyAppointment);
+        }
+        AppointmentHistoryAdapter adapter=new AppointmentHistoryAdapter(this,R.layout.appointment_list_item,mAppointments);
+        mLvAppointmentHistoryList.setAdapter(adapter);
+    }
+
+    @Override
+    public void onClick(View view) {
+        if(view.getId() == R.id.iv_back_btn){
+            finish();
+        }
     }
 }

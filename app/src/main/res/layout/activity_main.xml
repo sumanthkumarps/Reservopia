@@ -14,6 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight=".62"
+        android:background="@color/background_home"
         android:orientation="horizontal">
 
         <!--  first section we are handling her-->
@@ -28,16 +29,16 @@
             <ImageView
                 android:id="@+id/img_icon"
                 android:layout_width="match_parent"
-                android:paddingTop="20dp"
+                android:paddingTop="10dp"
                 android:layout_height="0dp"
-                android:layout_weight=".27"
+                android:layout_weight=".25"
                 android:background="@color/logo_bg"
                 android:src="@mipmap/logo" />
             <TextView
                 android:id="@+id/tv_comapany_name"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight=".12"
+                android:layout_weight="0.09"
                 android:gravity="center"
                 android:textColor="@android:color/white"
                 android:background="@color/logo_bg"
@@ -51,8 +52,9 @@
                 android:id="@+id/tv_dateandtime"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight=".15"
-                android:textColor="@android:color/black"
+                android:layout_weight="0.17"
+                android:text="mm/dd/yyyy \n Monday"
+                android:textColor="@color/black"
                 android:gravity="right|center"
                 android:textSize="@dimen/date_time" />
 
@@ -60,9 +62,9 @@
                 android:id="@+id/tv_about_heading"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight=".10"
+                android:layout_weight="0.08"
                 android:gravity="left|center"
-                android:textColor="@android:color/black"
+                android:textColor="@color/black"
                 android:text="About"
                 android:textSize="@dimen/heading" />
 
@@ -70,7 +72,7 @@
                 android:id="@+id/tv_about_text"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight=".40"
+                android:layout_weight=".38"
                 android:text="@string/aboutUs"
                 android:textSize="@dimen/about" />
         </LinearLayout>
@@ -99,7 +101,7 @@
                 android:drawableTop="@mipmap/ic_booking_appiontment"
                 android:gravity="center"
                 android:padding="10dp"
-                android:textColor="@android:color/black"
+                android:textColor="@color/black"
                 android:text="@string/booking_app"
                 android:textAlignment="center"
                 android:textSize="@dimen/heading" />
@@ -119,7 +121,7 @@
                 android:gravity="center"
                 android:padding="10dp"
                 android:text="@string/histroy"
-                android:textColor="@android:color/black"
+                android:textColor="@color/black"
                 android:textAlignment="center"
                 android:textSize="@dimen/heading" />
 
@@ -138,7 +140,7 @@
                 android:gravity="center"
                 android:padding="10dp"
                 android:text="@string/contact_us"
-                android:textColor="@android:color/black"
+                android:textColor="@color/black"
                 android:textAlignment="center"
                 android:textSize="@dimen/heading" />
         </LinearLayout>
@@ -155,7 +157,7 @@
         android:layout_height="0dp"
         android:layout_weight=".38"
         android:orientation="vertical"
-        android:padding="5dp"
+        android:background="@color/list_back"
         android:weightSum="1"
         >
 
@@ -169,7 +171,7 @@
             android:paddingTop="10dp"
             android:background="@color/dayName"
             android:text="@string/upcomingAppointment"
-            android:textColor="@android:color/white"
+            android:textColor="#ffffff"
             android:textSize="@dimen/heading"
             android:textStyle="bold" />
 
@@ -183,6 +185,7 @@
             android:id="@+id/lv_upcomingAppointent"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:background="@android:color/transparent"
             android:layout_weight="0.98"/>
     </LinearLayout>
 </LinearLayout>

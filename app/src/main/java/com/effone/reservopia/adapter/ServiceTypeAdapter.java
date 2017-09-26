@@ -10,8 +10,11 @@ import android.widget.TextView;
 
 import com.effone.reservopia.R;
 import com.effone.reservopia.model.AppointmentDataTime;
+import com.effone.reservopia.realmdb.ServiceTable;
 
 import java.util.List;
+
+import io.realm.RealmResults;
 
 /**
  * Created by sumanth.peddinti on 8/24/2017.
@@ -19,16 +22,14 @@ import java.util.List;
 
 public class ServiceTypeAdapter extends BaseAdapter {
     private Context mContext;
-    private List<AppointmentDataTime> mAppointmentDateTime;
+    private RealmResults<ServiceTable> mAppointmentDateTime;
     private LayoutInflater mLayoutInflater ;
-    private  int setVisiblity;
-    public ServiceTypeAdapter(Context context, List<AppointmentDataTime> list, int i) {
+
+    public ServiceTypeAdapter(Context context, RealmResults<ServiceTable> list) {
         this.mContext=context;
         this.mAppointmentDateTime=list;
         mLayoutInflater = (LayoutInflater) mContext
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.setVisiblity=i;
-
     }
 
     @Override
@@ -54,15 +55,16 @@ public class ServiceTypeAdapter extends BaseAdapter {
         if(vi==null) {
             vi = mLayoutInflater.inflate(R.layout.service_type_list, null);
             holder = new  ServiceTypeItems();
-
             holder.mTvServiceType = (TextView)    vi.findViewById(R.id.tv_serviceType);
+            holder.mTvSerDescription=(TextView)    vi.findViewById(R.id.tv_ser_desc);
             holder.mIvServiceTypeIcon=(ImageView) vi.findViewById(R.id.iv_appointment);
             vi.setTag( holder );
         }else
             holder = (ServiceTypeItems) vi.getTag();
 
         holder.mTvServiceType.setText(mAppointmentDateTime.get(position).getServiceName());
-        if(setVisiblity == 1 ){
+        holder.mTvSerDescription.setText(mAppointmentDateTime.get(position).getDescription());
+        if(mAppointmentDateTime.size() != 1 || mAppointmentDateTime.size() >1){
             holder.mIvServiceTypeIcon.setVisibility(View.VISIBLE);
         }else
             holder.mIvServiceTypeIcon.setVisibility(View.INVISIBLE);
@@ -71,6 +73,7 @@ public class ServiceTypeAdapter extends BaseAdapter {
     }
     public static class ServiceTypeItems{
         public TextView mTvServiceType;
+        public TextView mTvSerDescription;
         public ImageView mIvServiceTypeIcon;
     }
 }

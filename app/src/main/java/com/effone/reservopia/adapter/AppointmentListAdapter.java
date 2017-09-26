@@ -1,6 +1,7 @@
 package com.effone.reservopia.adapter;
 
 import android.content.Context;
+import android.os.Build;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,24 +12,31 @@ import android.widget.TextView;
 import com.effone.reservopia.MainActivity;
 import com.effone.reservopia.R;
 import com.effone.reservopia.model.AppointmentDataTime;
+import com.effone.reservopia.model.History;
+import com.effone.reservopia.model.UpCommingAppointmentModel;
 
 import java.util.List;
+
+import retrofit2.Callback;
 
 /**
  * Created by sumanth.peddinti on 8/24/2017.
  */
 
+@SuppressWarnings("deprecation")
 public class AppointmentListAdapter extends BaseAdapter {
     private Context mContext;
-    private List<AppointmentDataTime> mAppointmentDateTime;
+    private List<History> mAppointmentDateTime;
     private LayoutInflater mLayoutInflater ;
-    public AppointmentListAdapter(Context context, List<AppointmentDataTime> list) {
+    public AppointmentListAdapter(Context context, List<History> list) {
         this.mContext=context;
         this.mAppointmentDateTime=list;
         mLayoutInflater = (LayoutInflater) mContext
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
     }
+
+
 
     @Override
     public int getCount() {
@@ -47,23 +55,27 @@ public class AppointmentListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
-        View vi = view;
+        View vi=view ;
         final AppointmentListItems holder;
-        if(view==null) {
-            view = mLayoutInflater.inflate(R.layout.date_time_slot, null);
+        if(vi==null) {
+            vi = mLayoutInflater.inflate(R.layout.date_time_slot, null);
             holder=new AppointmentListItems();
-         holder.mTvDateTime= (TextView) view.findViewById(R.id.ad_tv_date_time);
+            holder.mTvDateTime= (TextView) vi.findViewById(R.id.ad_tv_date_time);
+            vi.setTag(holder);
+
         }else
             holder = (AppointmentListItems) vi.getTag();
 
-
-        holder.mTvDateTime.setText(Html.fromHtml(mAppointmentDateTime.get(position).getAppointmentDateTime()));
-
-        return view;
+      String[] timedate= mAppointmentDateTime.get(position).getAppointmentDateTime().split(",");
+        if (Build.VERSION.SDK_INT >= 24) {
+            holder.mTvDateTime.setText(Html.fromHtml("<font color='#f1c40f'>"+timedate[1]+","+timedate[2]+"</font>"+" : "+"<font color='#F4F6F7'>"+timedate[0]+"</font>",100));
+        } else {
+            holder.mTvDateTime.setText(Html.fromHtml("<font color='#f1c40f'>"+timedate[1]+","+timedate[2]+"</font>"+" : "+"<font color='#F4F6F7'>"+timedate[0]+"</font>"));
+        }
+        return vi;
     }
 
     public static class AppointmentListItems{
         public TextView mTvDateTime;
-
     }
 }

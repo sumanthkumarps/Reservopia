@@ -10,6 +10,7 @@ public class HistoryAppointment {
     private String date;
     private String location;
     private String serivice;
+    private String ConfirmationNo;
 
     public String getSerivice() {
         return serivice;
@@ -51,6 +52,14 @@ public class HistoryAppointment {
         this.location = location;
     }
 
+    public String getConfirmationNo ()
+    {
+        return ConfirmationNo;
+    }
 
+    public void setConfirmationNo (String ConfirmationNo)
+    {
+        this.ConfirmationNo = ConfirmationNo;
+    }
 
 }
