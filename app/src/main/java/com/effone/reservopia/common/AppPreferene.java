@@ -10,11 +10,11 @@ import android.content.SharedPreferences;
 public class AppPreferene {
     private static final String PRE_LOAD = "preLoad";
     private static final String PREFS_NAME = "prefs";
+    private static final String SERVICE_COUNT = "count" ;
     private static AppPreferene instance;
     private final SharedPreferences sharedPreferences;
 
     public AppPreferene(Context context) {
-
         sharedPreferences = context.getApplicationContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
     }
 
@@ -36,6 +36,19 @@ public class AppPreferene {
 
     public boolean getPreLoad(){
         return sharedPreferences.getBoolean(PRE_LOAD, false);
+    }
+
+
+    public void setMulitpleService(boolean count) {
+
+        sharedPreferences
+                .edit()
+                .putBoolean(SERVICE_COUNT, count)
+                .apply();
+    }
+
+    public boolean getMulitpleService(){
+        return sharedPreferences.getBoolean(SERVICE_COUNT, false);
     }
 
 }

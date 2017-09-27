@@ -71,10 +71,6 @@ public class AppointementBookingActivity extends AppCompatActivity implements Ad
         locationTable= getIntent().getStringExtra("Location");
         serviceTable=getIntent().getStringExtra("Service");
         Toast.makeText(this," LOC=="+locationTable+"Service =="+serviceTable,Toast.LENGTH_SHORT).show();
-
-        this.arraySpinner = new String[]{
-                " ", "Mr", "Miss", "Ms", "Mrs", "Dr"
-        };
         mGvTimeSlots = (GridView) findViewById(R.id.gv_timeSlots);
         mGvTimeSlots.setOnItemClickListener(this);
         declarations();
@@ -84,7 +80,7 @@ public class AppointementBookingActivity extends AppCompatActivity implements Ad
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
 
-        Call<DateTime> call = apiService.getDateTimeSlots(getString(R.string.token),1,1/*locaiton.getLocID(),service.getServiceID()*/,Date,"India Standard Time");
+        Call<DateTime> call = apiService.getDateTimeSlots(getString(R.string.token),locationTable,serviceTable,Date,"India Standard Time");
         call.enqueue(new Callback<DateTime>() {
             @Override
             public void onResponse(Call<DateTime> call, Response<DateTime> response) {
@@ -188,12 +184,18 @@ public class AppointementBookingActivity extends AppCompatActivity implements Ad
                 @Override
                 public void onResponse(Call<com.effone.reservopia.model.Response> call, Response<com.effone.reservopia.model.Response> rawResponse) {
                     try {
-                        Toast.makeText(AppointementBookingActivity.this, "done" +rawResponse.body().getResult().getID(), Toast.LENGTH_SHORT).show();
-                        //get your response....
-                        //Log.e(TAG, "RetroFit2.0 :RetroGetLogin: " + rawResponse.body());
-                        Intent intent=new Intent(AppointementBookingActivity.this,AppointmentAcknowledgementActivity.class);
-                        intent.putExtra(getString(R.string.confirmation_no),rawResponse.body().getResult().getID());
-                        startActivity(intent);
+
+                        if(rawResponse.body().getResult().getID() != null) {
+// Toast.makeText(AppointementBookingActivity.this, "done" + rawResponse.body().getResult().getID(), Toast.LENGTH_SHORT).show();
+                            //get your response....
+                            //Log.e(TAG, "RetroFit2.0 :RetroGetLogin: " + rawResponse.body());
+                            Intent intent = new Intent(AppointementBookingActivity.this, AppointmentAcknowledgementActivity.class);
+                            intent.putExtra(getString(R.string.confirmation_no), rawResponse.body().getResult().getID());
+                            startActivity(intent);
+                            finish();
+                        }else{
+                            Toast.makeText(AppointementBookingActivity.this, "done" + rawResponse.body().getResult().getID(), Toast.LENGTH_SHORT).show();
+                        }
 
 
 

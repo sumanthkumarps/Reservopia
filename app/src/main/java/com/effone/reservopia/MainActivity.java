@@ -1,13 +1,19 @@
 package com.effone.reservopia;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
 import java.util.Arrays;
 import java.util.Calendar;
+
+import android.content.IntentFilter;
+import android.graphics.Color;
+import android.net.ConnectivityManager;
 import android.net.ParseException;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
@@ -15,6 +21,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -22,9 +29,12 @@ import com.effone.reservopia.Activity.AppointementBookingActivity;
 import com.effone.reservopia.Activity.AppointmentDetailsActivity;
 import com.effone.reservopia.Activity.AppointmentHistoryActivity;
 import com.effone.reservopia.Activity.LocationServiceActivity;
+import com.effone.reservopia.Activity.MultipleLocationServiceActivity;
+import com.effone.reservopia.Activity.NetworkErrorActivity;
 import com.effone.reservopia.adapter.AppointmentListAdapter;
 import com.effone.reservopia.common.AppPreferene;
 import com.effone.reservopia.model.AppointmentDataTime;
+import com.effone.reservopia.model.GetTimeZones;
 import com.effone.reservopia.model.History;
 import com.effone.reservopia.model.LocationAndService;
 import com.effone.reservopia.model.LocationAndServiceResult;
@@ -32,11 +42,15 @@ import com.effone.reservopia.model.Locations;
 import com.effone.reservopia.model.LocationsXServices;
 import com.effone.reservopia.model.Result;
 import com.effone.reservopia.model.Services;
+import com.effone.reservopia.model.TimeZoneDetails;
+import com.effone.reservopia.model.Title;
+import com.effone.reservopia.model.TitleNames;
 import com.effone.reservopia.model.UpCommingAppointmentModel;
 import com.effone.reservopia.realmdb.LocXServiceTable;
 import com.effone.reservopia.realmdb.LocationTable;
 import com.effone.reservopia.realmdb.ServiceProvidedTable;
 import com.effone.reservopia.realmdb.ServiceTable;
+import com.effone.reservopia.receivers.NetworkChangeReceiver;
 import com.effone.reservopia.rest.ApiClient;
 import com.effone.reservopia.rest.ApiInterface;
 import com.google.gson.Gson;
@@ -56,6 +70,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener ,AdapterView.OnItemClickListener{
+
     private TextView mTvBookingAppiontemnt, mTvHistory, mTvContactUs, mTvAboutUsText,mTvDateTime;
     private ImageView mImgIcon;
     private  Calendar mCalendar;
@@ -67,28 +82,133 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String TAG="MainActivity";
     private ArrayList<Locations> mLocation;
     private ArrayList<Services> mService;
+    private ArrayList<TitleNames> mTitle;
+    private ArrayList<TimeZoneDetails> mTimeZoneDetails;
     private Realm mRealm;
     private ArrayList<LocationsXServices> mLocationXService;
-
-
+    private BroadcastReceiver mNetworkReceiver;
+    private static LinearLayout linearLayout;
+    private NetworkChangeReceiver networkChangeReceiver;
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        linearLayout=(LinearLayout)findViewById(R.id.linearLayout);
+        mNetworkReceiver = new NetworkChangeReceiver();
+        networkChangeReceiver =new NetworkChangeReceiver();
         mCalendar= Calendar.getInstance();
         declarations();
+        registerNetworkBroadcastForNougat();
         mRealm=Realm.getDefaultInstance();
         if(!AppPreferene.with(this).getPreLoad()){
             getLocationAndServicesAndSave();
+            getTitleAndSave();
+            getTimeZoneAndSave();
         }
     }
 
+    private void getTimeZoneAndSave() {
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
+
+        Call<GetTimeZones> call = apiService.getTimeZoneDetails(getString(R.string.token));
+        call.enqueue(new Callback<GetTimeZones>() {
+            @Override
+            public void onResponse(Call<GetTimeZones> call, Response<GetTimeZones> response) {
+                mTimeZoneDetails=response.body().getResult();
+                insertTimeZoneIntoDatabase();
+            }
+
+            @Override
+            public void onFailure(Call<GetTimeZones> call, Throwable t) {
+                // Log error here since request failed
+                Log.e(TAG, t.toString());
+            }
+
+        });
+
+    }
+
+    private void insertTimeZoneIntoDatabase() {
+        for(int i=0;i<mTimeZoneDetails.size();i++){
+            mRealm.beginTransaction();
+            TimeZoneDetails timeZoneDetails=new TimeZoneDetails();
+            timeZoneDetails.setDisplayName(mTimeZoneDetails.get(i).getDisplayName());
+            timeZoneDetails.setDisplayShortName(mTimeZoneDetails.get(i).getDisplayShortName());
+            timeZoneDetails.setId(mTimeZoneDetails.get(i).getId());
+            timeZoneDetails.setStandardName(mTimeZoneDetails.get(i).getStandardName());
+            mRealm.insert(timeZoneDetails);
+            mRealm.commitTransaction();
+        }
+    }
+
+    private void getTitleAndSave() {
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
+
+        Call<Title> call = apiService.getTitleDetails(getString(R.string.token));
+        call.enqueue(new Callback<Title>() {
+            @Override
+            public void onResponse(Call<Title> call, Response<Title> response) {
+                mTitle=response.body().getResult();
+                insertTitleDataIntoDatabase();
+            }
+            @Override
+            public void onFailure(Call<Title> call, Throwable t) {
+                // Log error here since request failed
+                Log.e(TAG, t.toString());
+            }
+        });
+
+    }
+
+    protected void unregisterNetworkChanges() {
+        try {
+            unregisterReceiver(mNetworkReceiver);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unregisterNetworkChanges();
+    }
+    public static void dialog(boolean value){
+
+        if(value) {
+          final  Snackbar snackbar = Snackbar
+                    .make(linearLayout, "No Internet Connection", Snackbar.LENGTH_LONG);
+            snackbar.setAction("RETRY", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            snackbar.dismiss();
+                        }
+                    });
+            snackbar.setActionTextColor(Color.RED);
+            snackbar.setDuration(Snackbar.LENGTH_INDEFINITE);
+            View snackbarView = snackbar.getView();
+            snackbarView.setBackgroundColor(Color.DKGRAY);
+            TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
+            textView.setTextColor(Color.YELLOW);
+            snackbar.show();
+        }
+    }
+
+    private void registerNetworkBroadcastForNougat() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            registerReceiver(mNetworkReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            registerReceiver(mNetworkReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        }
+    }
     private void getLocationAndServicesAndSave() {
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
 
-        Call<LocationAndService> call = apiService.getLocationNService(getString(R.string.token), 1);
+        Call<LocationAndService> call = apiService.getLocationNService(getString(R.string.token), getString(R.string.org_id));
         call.enqueue(new Callback<LocationAndService>() {
             @Override
             public void onResponse(Call<LocationAndService> call, Response<LocationAndService> response) {
@@ -114,8 +234,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             insertServiceDataIntoDatabase();
             insertLocXServDataIntoDatabase();
 
+
         }catch (Exception e){
 
+        }
+    }
+
+    private void insertTitleDataIntoDatabase() {
+        for(int i=0;i<mTitle.size();i++)
+        {
+            mRealm.beginTransaction();
+            TitleNames  titleNames=mRealm.createObject(TitleNames.class);
+            titleNames.setText(mTitle.get(i).getText());
+            titleNames.setText(mTitle.get(i).getValue());
+            mRealm.insert(titleNames);
+            mRealm.commitTransaction();
         }
     }
 
@@ -129,7 +262,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mRealm.insert(locationsXService);
             mRealm.commitTransaction();
         }
+
         AppPreferene.with(this).setPreLoad(true);
+        if(mService.size() == 1 || mService == null){
+            AppPreferene.with(this).setMulitpleService(true);
+        }else{
+            AppPreferene.with(this).setMulitpleService(false);
+        }
 
     }
 
@@ -145,6 +284,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mRealm.insert(services);
             mRealm.commitTransaction();
         }
+
     }
 
     private void insertLocationDataIntoDatabase() {
@@ -213,12 +353,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         settingData();
         settingAboutUs();
         upcomingAppointmentList();
+
     }
     private void upcomingAppointmentList() {
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
 
-        Call<UpCommingAppointmentModel> call = apiService.getUpCommingAppointmentDetails(getString(R.string.token),"application/json", 1, "abdulrahim.sk.dev@gmail.com");
+        Call<UpCommingAppointmentModel> call = apiService.getUpCommingAppointmentDetails(getString(R.string.token),"application/json", getString(R.string.org_id), "abdulrahim.sk.dev@gmail.com");
         call.enqueue(new Callback<UpCommingAppointmentModel>() {
             @Override
             public void onResponse(Call<UpCommingAppointmentModel> call, Response<UpCommingAppointmentModel> response) {
@@ -233,6 +374,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onFailure(Call<UpCommingAppointmentModel> call, Throwable t) {
                 // Log error here since request failed
                 Log.e(TAG, t.toString());
+                mLvAppointmentList.setEmptyView(findViewById(R.id.tv_history));
+
             }
         });
 
@@ -275,7 +418,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch(view.getId()){
             case R.id.tv_booking_app:
-                openActivity(this, LocationServiceActivity.class);
+
+                if(networkChangeReceiver.isOnline(this)) {
+                    if (AppPreferene.with(this).getMulitpleService()) {
+                        openActivity(this, LocationServiceActivity.class);
+                    } else {
+                        openActivity(this, MultipleLocationServiceActivity.class);
+                    }
+                }else{
+                    openActivity(this,NetworkErrorActivity.class);
+                }
+
                 break;
             case R.id.tv_history:
                 openActivity(this, AppointmentHistoryActivity.class);

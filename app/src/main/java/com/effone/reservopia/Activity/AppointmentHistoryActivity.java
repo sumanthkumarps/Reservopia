@@ -54,7 +54,7 @@ public class AppointmentHistoryActivity extends AppCompatActivity implements Vie
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
 
-        Call<UpCommingAppointmentModel> call = apiService.getUpCommingAppointmentDetails(getString(R.string.token),"application/json", 1, "abdulrahim.sk.dev@gmail.com");
+        Call<UpCommingAppointmentModel> call = apiService.getUpCommingAppointmentDetails(getString(R.string.token),"application/json",  getString(R.string.org_id), "abdulrahim.sk.dev@gmail.com");
         call.enqueue(new Callback<UpCommingAppointmentModel>() {
             @Override
             public void onResponse(Call<UpCommingAppointmentModel> call, Response<UpCommingAppointmentModel> response) {

@@ -1,6 +1,5 @@
 package com.effone.reservopia.Activity;
 
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
@@ -10,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.effone.reservopia.R;
-import com.effone.reservopia.common.ResvUtils;
 import com.effone.reservopia.model.Confirmation;
 import com.effone.reservopia.model.ConfirmationDetails;
 import com.effone.reservopia.rest.ApiClient;
@@ -40,6 +38,8 @@ public class AppointmentAcknowledgementActivity extends AppCompatActivity {
     private void getUpComingAppointmentList() {
         mTvImgBackButton=(ImageView) findViewById(R.id.iv_back_btn);
         mTvImgBackButton.setVisibility(View.GONE);
+        mIvHomeBtn=(ImageView)findViewById(R.id.iv_home_btn);
+        mIvHomeBtn.setOnClickListener(this);
         mTvTitle=(TextView)findViewById(R.id.tv_title);
         mTvTitle.setText(R.string.confirmation_details);
         mTvHeading=(TextView)findViewById(R.id.tv_upcoming);
@@ -101,4 +101,11 @@ public class AppointmentAcknowledgementActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onClick(View view) {
+        if(view.getId() == R.id.iv_home_btn){
+            Intent intent=new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
+    }
 }
