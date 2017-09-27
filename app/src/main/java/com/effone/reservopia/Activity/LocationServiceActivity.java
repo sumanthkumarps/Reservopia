@@ -17,6 +17,7 @@ import com.effone.reservopia.R;
 import com.effone.reservopia.adapter.AppointmentListAdapter;
 import com.effone.reservopia.adapter.LocationAdapter;
 import com.effone.reservopia.adapter.ServiceTypeAdapter;
+import com.effone.reservopia.common.ResvUtils;
 import com.effone.reservopia.model.AppointmentDataTime;
 import com.effone.reservopia.model.Locations;
 import com.effone.reservopia.realmdb.LocationTable;
@@ -47,6 +48,7 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.location_service2);
+        ResvUtils.enableBackButton(this);
         mIvBackBtn=(ImageView)findViewById(R.id.iv_back_btn);
         mIvBackBtn.setOnClickListener(this);
         mLvServiceType=(ListView)findViewById(R.id.lv_service_type);

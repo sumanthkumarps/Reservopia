@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.effone.reservopia.R;
+import com.effone.reservopia.common.ResvUtils;
 import com.effone.reservopia.receivers.NetworkChangeReceiver;
 
 import static com.effone.reservopia.R.id.linearLayout;
@@ -25,6 +26,7 @@ public class NetworkErrorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_network_error);
+        ResvUtils.enableBackButton(this);
         mTvTitle=(TextView)findViewById(R.id.tv_title);
         mTvTitle.setText(getString(R.string.noConn));
         mIvBackBtn=(ImageView)findViewById(R.id.iv_back_btn);

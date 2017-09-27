@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.effone.reservopia.R;
+import com.effone.reservopia.common.ResvUtils;
 
 /**
  * Created by sarith.vasu on 26-09-2017.
@@ -21,5 +22,6 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         mTvTitle=(TextView)findViewById(R.id.tv_title);
         mTvTitle.setText("Registration");
+        ResvUtils.enableBackButton(this);
     }
 }

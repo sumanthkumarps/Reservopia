@@ -1,5 +1,6 @@
 package com.effone.reservopia.common;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -8,6 +9,8 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.effone.reservopia.R;
 
 /**
  * Created by sarith.vasu on 26-09-2017.
@@ -41,5 +44,13 @@ public class ResvUtils {
         }
         titleText.setGravity(Gravity.CENTER);
         alert.show();
+    }
+    public static void enableBackButton(final Activity context){
+        context.findViewById(R.id.iv_back_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                context.finish();
+            }
+        });
     }
 }

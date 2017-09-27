@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.effone.reservopia.R;
+import com.effone.reservopia.common.ResvUtils;
 import com.effone.reservopia.model.AppointmentDataTime;
 import com.effone.reservopia.model.History;
 
@@ -31,6 +32,7 @@ public class AppointmentDetailsActivity extends AppCompatActivity implements Vie
         setContentView(R.layout.activity_appointment_details);
 
         mAppointmentDateTime = (History) getIntent().getSerializableExtra("selectedItem");
+        ResvUtils.enableBackButton(this);
         getUpComingAppointmentList();
     }
 

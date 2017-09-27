@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.effone.reservopia.R;
 import com.effone.reservopia.adapter.TimeSlotAdapter;
+import com.effone.reservopia.common.ResvUtils;
 import com.effone.reservopia.model.AppointmentBookingModel;
 import com.effone.reservopia.model.DateTime;
 import com.effone.reservopia.model.Time;
@@ -40,6 +41,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
+import io.realm.internal.Util;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -67,7 +69,7 @@ public class AppointementBookingActivity extends AppCompatActivity implements Ad
         myCalendar = Calendar.getInstance();
         mIvBackBtn=(ImageView)findViewById(R.id.iv_back_btn);
         mIvBackBtn.setOnClickListener(this);
-
+        ResvUtils.enableBackButton(this);
         locationTable= getIntent().getStringExtra("Location");
         serviceTable=getIntent().getStringExtra("Service");
         Toast.makeText(this," LOC=="+locationTable+"Service =="+serviceTable,Toast.LENGTH_SHORT).show();

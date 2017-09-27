@@ -36,6 +36,7 @@ public class AppointmentAcknowledgementActivity extends AppCompatActivity implem
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_appointment_details);
+        ResvUtils.enableBackButton(this);
         confirmationCode=getIntent().getStringExtra(getString(R.string.confirmation_no));
         getUpComingAppointmentList();
     }
