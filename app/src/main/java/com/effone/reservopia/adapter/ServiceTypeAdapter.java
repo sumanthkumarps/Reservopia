@@ -14,6 +14,7 @@ import com.effone.reservopia.realmdb.ServiceTable;
 
 import java.util.List;
 
+import io.realm.RealmList;
 import io.realm.RealmResults;
 
 /**
@@ -22,10 +23,10 @@ import io.realm.RealmResults;
 
 public class ServiceTypeAdapter extends BaseAdapter {
     private Context mContext;
-    private RealmResults<ServiceTable> mAppointmentDateTime;
+    private RealmList<ServiceTable> mAppointmentDateTime;
     private LayoutInflater mLayoutInflater ;
 
-    public ServiceTypeAdapter(Context context, RealmResults<ServiceTable> list) {
+    public ServiceTypeAdapter(Context context, RealmList<ServiceTable> list) {
         this.mContext=context;
         this.mAppointmentDateTime=list;
         mLayoutInflater = (LayoutInflater) mContext

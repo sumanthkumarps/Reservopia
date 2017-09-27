@@ -1,5 +1,6 @@
 package com.effone.reservopia.Activity;
 
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.effone.reservopia.R;
+import com.effone.reservopia.common.ResvUtils;
 import com.effone.reservopia.model.Confirmation;
 import com.effone.reservopia.model.ConfirmationDetails;
 import com.effone.reservopia.rest.ApiClient;
@@ -65,19 +67,29 @@ public class AppointmentAcknowledgementActivity extends AppCompatActivity {
         call.enqueue(new Callback<Confirmation>() {
             @Override
             public void onResponse(Call<Confirmation> call, Response<Confirmation> response) {
-                ConfirmationDetails confirmationDetails = response.body().getResult();
-
-                mTvConfirmationId.setText(confirmationDetails.getConfirmationNo());
-                mTvLastName.setText(confirmationDetails.getLastName());
-                mTvLocName.setText(confirmationDetails.getLocName());
-                mTvUserName.setText(confirmationDetails.getFirstName());
-                mTvEmail.setText(confirmationDetails.getEmail());
-                mTvServiceName.setText(confirmationDetails.getServiceName());
-                mTvAppointmentDateTime.setText(Html.fromHtml(confirmationDetails.getScheduledDateTime()));
-                mTvScheduledTimeZone.setText(confirmationDetails.getScheduledTimeZone());
-                mTvAddress.setText(confirmationDetails.getAddress()+" "+confirmationDetails.getCity()+" "+confirmationDetails.getState()
-                        +" "+confirmationDetails.getZip() );
-                mTvOrgName.setText(confirmationDetails.getOrgName());
+                if(response.body()!=null) {
+                    ConfirmationDetails confirmationDetails = response.body().getResult();
+                    mTvConfirmationId.setText(confirmationDetails.getConfirmationNo());
+                    mTvLastName.setText(confirmationDetails.getLastName());
+                    mTvLocName.setText(confirmationDetails.getLocName());
+                    mTvUserName.setText(confirmationDetails.getFirstName());
+                    mTvEmail.setText(confirmationDetails.getEmail());
+                    mTvServiceName.setText(confirmationDetails.getServiceName());
+                    mTvAppointmentDateTime.setText(Html.fromHtml(confirmationDetails.getScheduledDateTime()));
+                    mTvScheduledTimeZone.setText(confirmationDetails.getScheduledTimeZone());
+                    mTvAddress.setText(confirmationDetails.getAddress() + " " + confirmationDetails.getCity() + " " + confirmationDetails.getState()
+                            + " " + confirmationDetails.getZip());
+                    mTvOrgName.setText(confirmationDetails.getOrgName());
+                }
+                else{
+                    ResvUtils.createErrorAlert(AppointmentAcknowledgementActivity.this,getString(R.string.error),""+response.message());
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                          finish();
+                        }
+                    }, 5000);
+                }
 
             }
 

@@ -20,6 +20,7 @@ import com.effone.reservopia.adapter.ServiceTypeAdapter;
 import com.effone.reservopia.model.AppointmentDataTime;
 import com.effone.reservopia.model.Locations;
 import com.effone.reservopia.realmdb.LocationTable;
+import com.effone.reservopia.realmdb.ServiceProvidedTable;
 import com.effone.reservopia.realmdb.ServiceTable;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
+import io.realm.RealmList;
 import io.realm.RealmResults;
 
 public class LocationServiceActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener, AdapterView.OnItemSelectedListener {
@@ -66,7 +68,9 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
         mSpinner.setAdapter(new LocationAdapter(this,mRealm.where(LocationTable.class).findAll()));
         mLocationTable=(LocationTable)mSpinner.getItemAtPosition(0);
         mSpinner.setOnItemSelectedListener(this);
-        mLvServiceType.setAdapter(new ServiceTypeAdapter(this,mRealm.where(ServiceTable.class).findAll()));
+        /*RealmList<ServiceTable> serviceTables=new RealmList<ServiceTable>();
+        serviceTables.addAll(mRealm.where(ServiceTable.class).findAll());
+        mLvServiceType.setAdapter(new ServiceTypeAdapter(this,serviceTables));*/
 
     }
 
@@ -110,7 +114,13 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
     }
 
     private void setServiceList(int locID) {
-       // LocationTable student = mRealm.where(LocationTable.class).equalTo(LocationTable., locID).findFirst();
+        LocationTable locationById = mRealm.where(LocationTable.class).equalTo("LocID", locID).findFirst();
+        RealmList<ServiceProvidedTable>  servicesByLocId=locationById.getServiceProvidedTables();
+        RealmList<ServiceTable> serviceTable=new RealmList<ServiceTable>();
+        for (ServiceProvidedTable serviceProvided:servicesByLocId) {
+            serviceTable.add( mRealm.where(ServiceTable.class).equalTo("ServiceID", serviceProvided.getServiceID()).findFirst());
+        }
+        mLvServiceType.setAdapter(new ServiceTypeAdapter(this,serviceTable));
     }
 
     @Override

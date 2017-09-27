@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+   >
+<include layout="@layout/fragment_common_header"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <EditText
+                android:layout_marginTop="15dp"
+                android:id="@+id/et_email"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:hint="@string/email" />
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Create A Account"/>
+
+            <EditText
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:hint="@string/password" />
+
+            <EditText
+                android:id="@+id/et_conf_pass"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:hint="@string/conf_password" />
+
+            <EditText
+                android:id="@+id/et_phone"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:hint="@string/phone" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:weightSum="1">
+
+                <EditText
+                    android:id="@+id/et_firstname"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".5"
+                    android:hint="@string/first" />
+
+                <EditText
+                    android:id="@+id/et_lastName"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".5"
+                    android:hint="@string/last" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:weightSum="1">
+                <EditText
+                    android:id="@+id/et_title"
+                    android:layout_width="0dp"
+                    android:layout_weight=".5"
+                    android:layout_height="match_parent"
+                    android:hint="@string/title" />
+                <EditText
+                    android:id="@+id/et_date_birth"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".5"
+                    android:hint="@string/dob" />
+
+
+            </LinearLayout>
+
+            <RadioGroup
+                android:id="@+id/radioSex"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <RadioButton
+                    android:id="@+id/radioMale"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:checked="true"
+                    android:text="@string/radio_male" />
+
+                <RadioButton
+                    android:id="@+id/radioFemale"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/radio_female"
+                    android:layout_weight="0.5" />
+
+            </RadioGroup>
+            <EditText
+                android:id="@+id/et_address"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:hint="@string/address" />
+
+ <!--           <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:weightSum="1">
+
+                <EditText
+                    android:id="@+id/et_state"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
+                    android:hint="@string/CA" />
+
+                <EditText
+                    android:id="@+id/et_city"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.4"
+                    android:hint="@string/city" />
+
+                <EditText
+                    android:id="@+id/et_zip"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".4"
+                    android:hint="@string/zip" />
+            </LinearLayout>-->
+
+            <Button
+                android:id="@+id/bt_submit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:background="@color/dayName"
+                android:textColor="@android:color/white"
+                android:text="@string/signUp" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -15,7 +15,7 @@
     <string name="first">First Name :</string>
     <string name="last">Last Name :</string>
     <string name="password">Password :</string>
-    <string name="conf_password">Confirm Password</string>
+    <string name="conf_password">Confirm Password : </string>
     <string name="createAccount">Create Account</string>
     <string name="submit">Book Appointment</string>
     <string name="registeration">User Register : </string>
@@ -39,4 +39,8 @@
     <string name="time_slot">Pick one time slot :</string>
     <string name="appointment_details">Appointment Details</string>
     <string name="token">B3Yhavq16yxYIDDVYT4hyS20Y597dsDa</string>
+    <string name="error">Error</string>
+    <string name="title">Title</string>
+    <string name="dob">dob(mm/dd/yyyy)</string>
+    <string name="signUp">Sign Up</string>
 </resources>

@@ -11,17 +11,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".Activity.AppointementBookingActivity" />
         <activity android:name=".Activity.LocationServiceActivity" />
         <activity android:name=".Activity.AppointmentAcknowledgementActivity" />
         <activity android:name=".Activity.AppointmentHistoryActivity"></activity>
         <activity android:name=".Activity.AppointmentDetailsActivity"/>
+        <activity android:name=".Activity.RegisterActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
