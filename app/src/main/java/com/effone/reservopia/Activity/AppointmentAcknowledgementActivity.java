@@ -1,5 +1,7 @@
 package com.effone.reservopia.Activity;
 
+import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
@@ -8,7 +10,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.effone.reservopia.MainActivity;
 import com.effone.reservopia.R;
+import com.effone.reservopia.common.ResvUtils;
 import com.effone.reservopia.model.Confirmation;
 import com.effone.reservopia.model.ConfirmationDetails;
 import com.effone.reservopia.rest.ApiClient;
@@ -18,7 +22,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AppointmentAcknowledgementActivity extends AppCompatActivity {
+public class AppointmentAcknowledgementActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG ="" ;
 
     private TextView mTvConfirmationId,mTvEmail,mTvUserName,mTvLastName,mTvTitle,
@@ -26,6 +30,7 @@ public class AppointmentAcknowledgementActivity extends AppCompatActivity {
     private String confirmationCode;
 
     private ImageView mTvImgBackButton;
+    private ImageView mIvHomeBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
