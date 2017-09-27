@@ -69,7 +69,7 @@ public class AppointmentAcknowledgementActivity extends AppCompatActivity implem
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
 
-        Call<Confirmation> call = apiService.getConfirmationDetails(getString(R.string.token), confirmationCode);
+        Call<Confirmation> call = apiService.getConfirmationDetails(getString(R.string.token), confirmationCode, getString(R.string.org_id));
         call.enqueue(new Callback<Confirmation>() {
             @Override
             public void onResponse(Call<Confirmation> call, Response<Confirmation> response) {

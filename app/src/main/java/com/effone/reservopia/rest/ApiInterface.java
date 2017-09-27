@@ -40,8 +40,8 @@ public interface ApiInterface {
                                     @Query("serviceId") String serviceId, @Query("startTime") String date, @Query("localTimeZone") String timeZone);
 
 
-    @GET("Appointment/GetAppointmentByConfirmationNo")
-    Call<Confirmation> getConfirmationDetails(@Header("Token") String apiKey, @Query("confirmationNo") String confiramtionNo);
+    @GET("Appointment/GetAppointmentInfoByConformationNo")
+    Call<Confirmation> getConfirmationDetails(@Header("Token") String apiKey, @Query("confirmationNo") String confiramtionNo, @Query("orgID") String orgId);
 
     @GET("UserRegister/GetCultureSpecificTitles")
     Call<Title> getTitleDetails(@Header("Token") String apiKey);
