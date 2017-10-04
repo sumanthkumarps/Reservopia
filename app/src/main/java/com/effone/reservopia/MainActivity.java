@@ -62,6 +62,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import io.realm.Realm;
 import io.realm.RealmList;
@@ -101,6 +102,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         declarations();
         registerNetworkBroadcastForNougat();
         mRealm=Realm.getDefaultInstance();
+        TimeZone tz = TimeZone.getDefault();
+        tz.getDisplayName(Locale.getDefault());
         if(!AppPreferene.with(this).getPreLoad()){
             getLocationAndServicesAndSave();
             getTitleAndSave();

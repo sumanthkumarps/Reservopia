@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.effone.reservopia.R;
 import com.effone.reservopia.adapter.ServiceTypeAdapter;
+import com.effone.reservopia.common.ResvUtils;
 import com.effone.reservopia.model.Locations;
 
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class MultipleLocationServiceActivity extends AppCompatActivity implement
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location_service);
+        ResvUtils.enableBackButton(this);
         mLvServiceType=(ListView)findViewById(R.id.lv_service_type);
         mTvTitle=(TextView)findViewById(R.id.tv_title);
         mTvTitle.setText(getString(R.string.service_type));

@@ -13,6 +13,7 @@ import com.effone.reservopia.MainActivity;
 import com.effone.reservopia.R;
 import com.effone.reservopia.adapter.AppointmentHistoryAdapter;
 import com.effone.reservopia.adapter.AppointmentListAdapter;
+import com.effone.reservopia.common.ResvUtils;
 import com.effone.reservopia.model.History;
 import com.effone.reservopia.model.HistoryAppointment;
 import com.effone.reservopia.model.Result;
@@ -39,6 +40,7 @@ public class AppointmentHistoryActivity extends AppCompatActivity implements Vie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_appointment_history);
+        ResvUtils.enableBackButton(this);
         init();
     }
 
