@@ -1,5 +1,6 @@
 package com.effone.reservopia.Activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -55,6 +56,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private CheckBox mCbCreateAccount;
     private Spinner mSpTitle;
    private AppointmentBookingModel appointmentBookingModel;
+    private ProgressDialog mCommonProgressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +66,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         appointmentBookingModel = (AppointmentBookingModel) getIntent().getSerializableExtra("appointment_details");
         apiService = ApiClient.getClient().create(ApiInterface.class);
-
 
 
 
@@ -155,10 +157,20 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         bookingAppointmentUserDetails.setAppointment(appointmentBookingModel);
         bookingAppointmentUserDetails.setUser(user);
 
+        if (mCommonProgressDialog == null) {
+            mCommonProgressDialog = ResvUtils.createProgressDialog(this);
+            mCommonProgressDialog.show();
+            mCommonProgressDialog.setMessage("Please wait...");
+            mCommonProgressDialog.setCancelable(false);
+        } else {
+            mCommonProgressDialog.show();
+        }
         Call<Response> response = apiService.createAcountAndAppointemnt(getString(R.string.token), bookingAppointmentUserDetails);
         response.enqueue(new Callback<Response>() {
             @Override
             public void onResponse(Call<com.effone.reservopia.model.Response> call, retrofit2.Response<Response> rawResponse) {
+                if (mCommonProgressDialog != null)
+                    mCommonProgressDialog.cancel();
                 try {
 
                     if (rawResponse.body().getResult().getID() != null) {
@@ -187,7 +199,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
             @Override
             public void onFailure(Call<com.effone.reservopia.model.Response> call, Throwable throwable) {
-                // other stuff...
+                if (mCommonProgressDialog != null)
+                    mCommonProgressDialog.cancel();
                 Log.e(TAG, "RetroFit2.0 :RetroGetLogin: " + throwable.toString());
             }
         });

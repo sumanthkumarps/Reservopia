@@ -1,5 +1,6 @@
 package com.effone.reservopia;
 
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -33,6 +34,7 @@ import com.effone.reservopia.Activity.MultipleLocationServiceActivity;
 import com.effone.reservopia.Activity.NetworkErrorActivity;
 import com.effone.reservopia.adapter.AppointmentListAdapter;
 import com.effone.reservopia.common.AppPreferene;
+import com.effone.reservopia.common.ResvUtils;
 import com.effone.reservopia.model.AppointmentDataTime;
 import com.effone.reservopia.model.GetTimeZones;
 import com.effone.reservopia.model.History;
@@ -67,6 +69,7 @@ import java.util.TimeZone;
 
 import io.realm.Realm;
 import io.realm.RealmList;
+import io.realm.internal.Util;
 import okhttp3.HttpUrl;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -92,6 +95,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private BroadcastReceiver mNetworkReceiver;
     private static LinearLayout linearLayout;
     private NetworkChangeReceiver networkChangeReceiver;
+    private ProgressDialog mCommonProgressDialog;
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,13 +125,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         call.enqueue(new Callback<GetTimeZones>() {
             @Override
             public void onResponse(Call<GetTimeZones> call, Response<GetTimeZones> response) {
+                if (mCommonProgressDialog != null)
+                    mCommonProgressDialog.cancel();
                 mTimeZoneDetails=response.body().getResult();
                 insertTimeZoneIntoDatabase();
             }
 
             @Override
             public void onFailure(Call<GetTimeZones> call, Throwable t) {
-                // Log error here since request failed
+                if (mCommonProgressDialog != null)
+                    mCommonProgressDialog.cancel();
                 Log.e(TAG, t.toString());
             }
 
@@ -156,12 +163,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         call.enqueue(new Callback<Title>() {
             @Override
             public void onResponse(Call<Title> call, Response<Title> response) {
+                if (mCommonProgressDialog != null)
+                    mCommonProgressDialog.cancel();
                 mTitle=response.body().getResult();
                 insertTitleDataIntoDatabase();
             }
             @Override
             public void onFailure(Call<Title> call, Throwable t) {
-                // Log error here since request failed
+                if (mCommonProgressDialog != null)
+                    mCommonProgressDialog.cancel();
                 Log.e(TAG, t.toString());
             }
         });
@@ -210,6 +220,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
     private void getLocationAndServicesAndSave() {
+
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
 
@@ -217,6 +228,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         call.enqueue(new Callback<LocationAndService>() {
             @Override
             public void onResponse(Call<LocationAndService> call, Response<LocationAndService> response) {
+                if (mCommonProgressDialog != null)
+                    mCommonProgressDialog.cancel();
                 LocationAndServiceResult locationAndService = response.body().getResult();
                 mLocation = locationAndService.getLocations();
                 mService = locationAndService.getServices();
@@ -226,7 +239,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onFailure(Call<LocationAndService> call, Throwable t) {
-                // Log error here since request failed
+                if (mCommonProgressDialog != null)
+                    mCommonProgressDialog.cancel();
                 Log.e(TAG, t.toString());
             }
         });
@@ -363,6 +377,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void upcomingAppointmentList() {
+        if (mCommonProgressDialog == null) {
+            mCommonProgressDialog = ResvUtils.createProgressDialog(this);
+            mCommonProgressDialog.show();
+            mCommonProgressDialog.setMessage("Please wait...");
+            mCommonProgressDialog.setCancelable(false);
+        } else {
+            mCommonProgressDialog.show();
+        }
+
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
 
@@ -371,6 +394,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
           call.enqueue(new Callback<UpCommingAppointmentModel>() {
             @Override
             public void onResponse(Call<UpCommingAppointmentModel> call, Response<UpCommingAppointmentModel> response) {
+                if (mCommonProgressDialog != null)
+                    mCommonProgressDialog.cancel();
               HttpUrl url= response.raw().request().url();
                 try {
                     Call<UpCommingAppointmentModel> appointmentModelCall=call;
@@ -389,6 +414,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onFailure(Call<UpCommingAppointmentModel> call, Throwable t) {
                 // Log error here since request failed
                 Log.e(TAG, t.toString());
+                if (mCommonProgressDialog != null)
+                    mCommonProgressDialog.cancel();
                 mLvAppointmentList.setEmptyView(findViewById(R.id.tv_history));
 
             }

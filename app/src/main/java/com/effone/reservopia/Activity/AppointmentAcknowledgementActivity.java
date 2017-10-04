@@ -1,5 +1,6 @@
 package com.effone.reservopia.Activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -32,6 +33,8 @@ public class AppointmentAcknowledgementActivity extends AppCompatActivity implem
 
     private ImageView mTvImgBackButton;
     private ImageView mIvHomeBtn;
+    private ProgressDialog mCommonProgressDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +70,14 @@ public class AppointmentAcknowledgementActivity extends AppCompatActivity implem
     }
 
     private void gettingDataFromServer() {
+        if (mCommonProgressDialog == null) {
+            mCommonProgressDialog = ResvUtils.createProgressDialog(this);
+            mCommonProgressDialog.show();
+            mCommonProgressDialog.setMessage("Please wait...");
+            mCommonProgressDialog.setCancelable(false);
+        } else {
+            mCommonProgressDialog.show();
+        }
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
 
@@ -74,6 +85,8 @@ public class AppointmentAcknowledgementActivity extends AppCompatActivity implem
         call.enqueue(new Callback<Confirmation>() {
             @Override
             public void onResponse(Call<Confirmation> call, Response<Confirmation> response) {
+                if (mCommonProgressDialog != null)
+                    mCommonProgressDialog.cancel();
                 if(response.body()!=null) {
                     ConfirmationDetails confirmationDetails = response.body().getResult();
                     AppPreferene.with(AppointmentAcknowledgementActivity.this).setUserId(confirmationDetails.getUserID());
@@ -104,7 +117,8 @@ public class AppointmentAcknowledgementActivity extends AppCompatActivity implem
 
             @Override
             public void onFailure(Call<Confirmation> call, Throwable t) {
-                // Log error here since request failed
+                if (mCommonProgressDialog != null)
+                    mCommonProgressDialog.cancel();
                 Log.e(TAG, t.toString());
             }
         });

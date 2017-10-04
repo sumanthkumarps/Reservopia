@@ -3,6 +3,7 @@ package com.effone.reservopia.Activity;
 import android.annotation.TargetApi;
 import android.app.DatePickerDialog;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
@@ -62,6 +63,8 @@ public class AppointementBookingActivity extends AppCompatActivity implements Ad
     private String locationTable,timeZoneTable,appointment_id;
     private String serviceTable;
     private ImageView mIvBackBtn;
+    private ProgressDialog mCommonProgressDialog;
+
 
 
     @Override
@@ -84,6 +87,14 @@ public class AppointementBookingActivity extends AppCompatActivity implements Ad
     }
 
     private void settingDataIntoGrid(String Date) {
+        if (mCommonProgressDialog == null) {
+            mCommonProgressDialog = ResvUtils.createProgressDialog(this);
+            mCommonProgressDialog.show();
+            mCommonProgressDialog.setMessage("Please wait...");
+            mCommonProgressDialog.setCancelable(false);
+        } else {
+            mCommonProgressDialog.show();
+        }
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
 
@@ -91,6 +102,8 @@ public class AppointementBookingActivity extends AppCompatActivity implements Ad
         call.enqueue(new Callback<DateTime>() {
             @Override
             public void onResponse(Call<DateTime> call, Response<DateTime> response) {
+                if (mCommonProgressDialog != null)
+                    mCommonProgressDialog.cancel();
                 try {
                     movies = response.body().getResult();
                     if (movies.size() > 0 && movies.get(0).getTimeSlotStrings().size() != 0) {
@@ -108,6 +121,8 @@ public class AppointementBookingActivity extends AppCompatActivity implements Ad
             @Override
             public void onFailure(Call<DateTime>call, Throwable t) {
                 // Log error here since request failed
+                if (mCommonProgressDialog != null)
+                    mCommonProgressDialog.cancel();
                 Log.e(TAG, t.toString());
             }
         });
