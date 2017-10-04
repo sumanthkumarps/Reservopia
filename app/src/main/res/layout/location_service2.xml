@@ -12,7 +12,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.60"
+        android:layout_weight="0.50"
         android:background="@mipmap/logo">
         <TextView
             android:layout_width="match_parent"
@@ -33,6 +33,24 @@
         android:layout_marginBottom="10dp"
         android:layout_weight="0.1"
         android:id="@+id/sp_location"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/time_Zone"
+        android:id="@+id/tv_tme"
+        android:textSize="22sp"
+        android:padding="5dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <android.support.v7.widget.AppCompatSpinner
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="0.1"
+        android:id="@+id/sp_timeZone"/>
+
     <ListView
         android:layout_width="match_parent"
         android:layout_height="0dp"

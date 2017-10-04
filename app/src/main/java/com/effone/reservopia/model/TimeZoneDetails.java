@@ -1,12 +1,14 @@
 package com.effone.reservopia.model;
 
+import java.io.Serializable;
+
 import io.realm.RealmObject;
 
 /**
  * Created by sumanth.peddinti on 9/27/2017.
  */
 
-public class TimeZoneDetails extends RealmObject{
+public class TimeZoneDetails extends RealmObject implements Serializable{
     private String StandardName;
 
     private String DisplayShortName;

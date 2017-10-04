@@ -7,6 +7,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
+import com.effone.reservopia.Activity.NetworkErrorActivity;
+
 import static com.effone.reservopia.MainActivity.dialog;
 
 /**
@@ -15,24 +17,27 @@ import static com.effone.reservopia.MainActivity.dialog;
 
 public class NetworkChangeReceiver extends BroadcastReceiver
 {
+    public  static  boolean connectionValue=false;
     @Override
     public void onReceive(Context context, Intent intent)
     {
         try
         {
             if (!isOnline(context)) {
-                dialog(true);
-
-            } else {
-                dialog(false);
-
+                //dialog(true);
+                connectionValue=true;
+                openActivity(context,NetworkErrorActivity.class);
             }
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
     }
 
-
+    public void openActivity(Context context,Class<?> calledActivity){
+        Intent intent = new Intent(context,calledActivity);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+    }
 
     public  boolean isOnline(Context context) {
         try {

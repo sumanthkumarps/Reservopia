@@ -15,12 +15,13 @@ import com.effone.reservopia.R;
 import com.effone.reservopia.receivers.NetworkChangeReceiver;
 
 import static com.effone.reservopia.R.id.linearLayout;
+import static com.effone.reservopia.receivers.NetworkChangeReceiver.connectionValue;
 
-public class NetworkErrorActivity extends AppCompatActivity {
+public class NetworkErrorActivity extends AppCompatActivity implements View.OnClickListener {
     private static ConstraintLayout mCoordinatorLayout;
-    private BroadcastReceiver broadcastReceiver;
+    private NetworkChangeReceiver broadcastReceiver;
     private  ImageView mIvBackBtn;
-    private TextView mTvTitle;
+    private TextView mTvTitle,mTvRetry;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,21 +32,24 @@ public class NetworkErrorActivity extends AppCompatActivity {
         mIvBackBtn.setVisibility(View.GONE);
         mCoordinatorLayout=(ConstraintLayout)findViewById(R.id.condintra);
         broadcastReceiver=new NetworkChangeReceiver();
-        final  Snackbar snackbar = Snackbar
-                .make(mCoordinatorLayout, "No Connection", Snackbar.LENGTH_LONG);
-        snackbar.setAction("RETRY", null);
-        snackbar.setActionTextColor(Color.RED);
-        snackbar.setDuration(Snackbar.LENGTH_INDEFINITE);
-        View snackbarView = snackbar.getView();
-        snackbarView.setBackgroundColor(Color.DKGRAY);
-        TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
-        textView.setTextColor(Color.YELLOW);
-        snackbar.show();
+        mTvRetry=(TextView)findViewById(R.id.tv_retry);
+        mTvRetry.setOnClickListener(this);
+    }
+
+    public  void dialog(boolean value){
+
+
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         System.exit(0);
+    }
+
+    @Override
+    public void onClick(View view) {
+       if(connectionValue)
+           finish();
     }
 }

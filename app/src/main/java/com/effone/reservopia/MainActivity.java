@@ -352,22 +352,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mLvAppointmentList=(ListView)findViewById(R.id.lv_upcomingAppointent);
         settingData();
         settingAboutUs();
-        upcomingAppointmentList();
+
 
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        upcomingAppointmentList();
+    }
+
     private void upcomingAppointmentList() {
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
 
-        Call<UpCommingAppointmentModel> call = apiService.getUpCommingAppointmentDetails(getString(R.string.token),"application/json", getString(R.string.org_id), "abdulrahim.sk.dev@gmail.com");
+        Call<UpCommingAppointmentModel> call = apiService.getUpCommingAppointmentDetails(getString(R.string.token),"application/json", getString(R.string.org_id), "sumanth.peddinti@effonetech.com");
         call.enqueue(new Callback<UpCommingAppointmentModel>() {
             @Override
             public void onResponse(Call<UpCommingAppointmentModel> call, Response<UpCommingAppointmentModel> response) {
-                Result results = response.body().getResult();
-                List<History> histories= Arrays.asList(results.getUpcoming());
-                mAppointmentListAdapter=new AppointmentListAdapter(MainActivity.this, histories);
-                mLvAppointmentList.setAdapter(mAppointmentListAdapter);
-                mLvAppointmentList.setOnItemClickListener(MainActivity.this);
+                try {
+                    Result results = response.body().getResult();
+                    List<History> histories = Arrays.asList(results.getUpcoming());
+                    mAppointmentListAdapter = new AppointmentListAdapter(MainActivity.this, histories);
+                    mLvAppointmentList.setAdapter(mAppointmentListAdapter);
+                    mLvAppointmentList.setOnItemClickListener(MainActivity.this);
+                }catch (Exception e){
+                    mLvAppointmentList.setEmptyView(findViewById(R.id.tv_history));
+                }
             }
 
             @Override
@@ -431,7 +442,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 break;
             case R.id.tv_history:
+                if(networkChangeReceiver.isOnline(this)) {
                 openActivity(this, AppointmentHistoryActivity.class);
+                }else{
+                    openActivity(this,NetworkErrorActivity.class);
+                }
                 break;
         }
 

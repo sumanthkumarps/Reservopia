@@ -5,6 +5,7 @@ package com.effone.reservopia.rest;
 import com.effone.reservopia.model.AppointmentBookingModel;
 import com.effone.reservopia.model.Confirmation;
 import com.effone.reservopia.model.DateTime;
+import com.effone.reservopia.model.EmailValid;
 import com.effone.reservopia.model.GetTimeZones;
 import com.effone.reservopia.model.LocationAndService;
 import com.effone.reservopia.model.Response;
@@ -40,12 +41,18 @@ public interface ApiInterface {
                                     @Query("serviceId") String serviceId, @Query("startTime") String date, @Query("localTimeZone") String timeZone);
 
 
-    @GET("Appointment/GetAppointmentByConfirmationNo")
-    Call<Confirmation> getConfirmationDetails(@Header("Token") String apiKey, @Query("confirmationNo") String confiramtionNo);
+    @GET("Appointment/GetAppointmentInfoByConformationNo")
+    Call<Confirmation> getConfirmationDetails(@Header("Token") String apiKey, @Query("confirmationNo") String confiramtionNo, @Query("orgID") String orgID);
 
     @GET("UserRegister/GetCultureSpecificTitles")
     Call<Title> getTitleDetails(@Header("Token") String apiKey);
 
     @GET("Common/GetTimeZones")
     Call<GetTimeZones> getTimeZoneDetails(@Header("Token") String apiKey);
+
+    @GET("Register/IsUserEmailExist")
+    Call<EmailValid> getEmailExists(@Header("Token") String apiKey, @Query("email") String email);
+
+
+
 }

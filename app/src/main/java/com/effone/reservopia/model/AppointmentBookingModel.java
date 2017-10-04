@@ -33,17 +33,19 @@ public class AppointmentBookingModel {
 
     private String IsCancelled;
 
+    private String OrgID;
+
     private String ConfirmationNo;
 
     private String ServiceID;
 
-    private String Duration;
+    private String IsEndUser;
 
     private String CancelTypeRefID;
 
-    private String AdditionalEmail;
-
     private String EndTime;
+
+    private String AdditionalEmail;
 
     private String StartTime;
 
@@ -187,6 +189,16 @@ public class AppointmentBookingModel {
         this.IsCancelled = IsCancelled;
     }
 
+    public String getOrgID ()
+    {
+        return OrgID;
+    }
+
+    public void setOrgID (String OrgID)
+    {
+        this.OrgID = OrgID;
+    }
+
     public String getConfirmationNo ()
     {
         return ConfirmationNo;
@@ -207,14 +219,14 @@ public class AppointmentBookingModel {
         this.ServiceID = ServiceID;
     }
 
-    public String getDuration ()
+    public String getIsEndUser ()
     {
-        return Duration;
+        return IsEndUser;
     }
 
-    public void setDuration (String Duration)
+    public void setIsEndUser (String IsEndUser)
     {
-        this.Duration = Duration;
+        this.IsEndUser = IsEndUser;
     }
 
     public String getCancelTypeRefID ()
@@ -227,16 +239,6 @@ public class AppointmentBookingModel {
         this.CancelTypeRefID = CancelTypeRefID;
     }
 
-    public String getAdditionalEmail ()
-    {
-        return AdditionalEmail;
-    }
-
-    public void setAdditionalEmail (String AdditionalEmail)
-    {
-        this.AdditionalEmail = AdditionalEmail;
-    }
-
     public String getEndTime ()
     {
         return EndTime;
@@ -245,6 +247,16 @@ public class AppointmentBookingModel {
     public void setEndTime (String EndTime)
     {
         this.EndTime = EndTime;
+    }
+
+    public String getAdditionalEmail ()
+    {
+        return AdditionalEmail;
+    }
+
+    public void setAdditionalEmail (String AdditionalEmail)
+    {
+        this.AdditionalEmail = AdditionalEmail;
     }
 
     public String getStartTime ()
@@ -260,6 +272,6 @@ public class AppointmentBookingModel {
     @Override
     public String toString()
     {
-        return "ClassPojo [CancelledBy = "+CancelledBy+", IsAssigned = "+IsAssigned+", LocID = "+LocID+", IsLoggedIn = "+IsLoggedIn+", UserID = "+UserID+", AssignedTo = "+AssignedTo+", AppointmentID = "+AppointmentID+", SendTextReminder = "+SendTextReminder+", AuditID = "+AuditID+", IsCheckedIn = "+IsCheckedIn+", AppointmentTypeRefID = "+AppointmentTypeRefID+", SendEmailReminder = "+SendEmailReminder+", ScheduledTimeZone = "+ScheduledTimeZone+", IsCancelled = "+IsCancelled+", ConfirmationNo = "+ConfirmationNo+", ServiceID = "+ServiceID+", Duration = "+Duration+", CancelTypeRefID = "+CancelTypeRefID+", AdditionalEmail = "+AdditionalEmail+", EndTime = "+EndTime+", StartTime = "+StartTime+"]";
+        return "ClassPojo [CancelledBy = "+CancelledBy+", IsAssigned = "+IsAssigned+", LocID = "+LocID+", IsLoggedIn = "+IsLoggedIn+", UserID = "+UserID+", AssignedTo = "+AssignedTo+", AppointmentID = "+AppointmentID+", SendTextReminder = "+SendTextReminder+", AuditID = "+AuditID+", IsCheckedIn = "+IsCheckedIn+", AppointmentTypeRefID = "+AppointmentTypeRefID+", SendEmailReminder = "+SendEmailReminder+", ScheduledTimeZone = "+ScheduledTimeZone+", IsCancelled = "+IsCancelled+", OrgID = "+OrgID+", ConfirmationNo = "+ConfirmationNo+", ServiceID = "+ServiceID+", IsEndUser = "+IsEndUser+", CancelTypeRefID = "+CancelTypeRefID+", EndTime = "+EndTime+", AdditionalEmail = "+AdditionalEmail+", StartTime = "+StartTime+"]";
     }
 }

@@ -44,6 +44,7 @@ public class AppointmentAcknowledgementActivity extends AppCompatActivity implem
         mTvImgBackButton=(ImageView) findViewById(R.id.iv_back_btn);
         mTvImgBackButton.setVisibility(View.GONE);
         mIvHomeBtn=(ImageView)findViewById(R.id.iv_home_btn);
+        mIvHomeBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_home));
         mIvHomeBtn.setOnClickListener(this);
         mTvTitle=(TextView)findViewById(R.id.tv_title);
         mTvTitle.setText(R.string.confirmation_details);
@@ -68,7 +69,7 @@ public class AppointmentAcknowledgementActivity extends AppCompatActivity implem
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
 
-        Call<Confirmation> call = apiService.getConfirmationDetails(getString(R.string.token), confirmationCode);
+        Call<Confirmation> call = apiService.getConfirmationDetails(getString(R.string.token), confirmationCode,getString(R.string.org_id));
         call.enqueue(new Callback<Confirmation>() {
             @Override
             public void onResponse(Call<Confirmation> call, Response<Confirmation> response) {
@@ -82,7 +83,7 @@ public class AppointmentAcknowledgementActivity extends AppCompatActivity implem
                     mTvServiceName.setText(confirmationDetails.getServiceName());
                     mTvAppointmentDateTime.setText(Html.fromHtml(confirmationDetails.getScheduledDateTime()));
                     mTvScheduledTimeZone.setText(confirmationDetails.getScheduledTimeZone());
-                    mTvAddress.setText(confirmationDetails.getAddress() + " " + confirmationDetails.getCity() + " " + confirmationDetails.getState()
+                    mTvAddress.setText(confirmationDetails.getAddress1() + " " + confirmationDetails.getCity() + " " + confirmationDetails.getState()
                             + " " + confirmationDetails.getZip());
                     mTvOrgName.setText(confirmationDetails.getOrgName());
                 }

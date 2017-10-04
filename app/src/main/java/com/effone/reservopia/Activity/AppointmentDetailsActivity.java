@@ -1,6 +1,7 @@
 package com.effone.reservopia.Activity;
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,7 +20,7 @@ import com.effone.reservopia.model.History;
 public class AppointmentDetailsActivity extends AppCompatActivity implements View.OnClickListener {
     private  History mAppointmentDateTime;
     private TextView mTvConfirmationId,mTvEmail,mTvUserName,mTvAppointmentID,
-    mTvLocName,mTvServiceName,mTvAppointmentDateTime,mTvScheduledTimeZone,mTvAddress,mTvTitile,mTvOrgName;
+    mTvLocName,mTvServiceName,mTvAppointmentDateTime,mTvScheduledTimeZone,mTvAddress,mTvTitile,mTvOrgName,mTvEditAppointment;
     private Toolbar toolbar;
 
     private LinearLayout mLiOrgName,li_last_name;
@@ -52,6 +53,9 @@ public class AppointmentDetailsActivity extends AppCompatActivity implements Vie
         mTvAppointmentDateTime=(TextView)findViewById(R.id.tv_appointment_date);
         mTvScheduledTimeZone=(TextView)findViewById(R.id.tv_timeZone);
         mTvAddress=(TextView)findViewById(R.id.tv_address);
+        mTvEditAppointment=(TextView)findViewById(R.id.tv_editAppointment);
+        mTvEditAppointment.setVisibility(View.VISIBLE);
+        mTvEditAppointment.setOnClickListener(this);
         settingValues();
     }
 
@@ -81,6 +85,12 @@ public class AppointmentDetailsActivity extends AppCompatActivity implements Vie
     public void onClick(View view) {
         if(view.getId() == R.id.iv_back_btn){
             finish();
+        }else if(view.getId() == R.id.tv_editAppointment){
+            Intent intent= new Intent(this,LocationServiceActivity.class);
+            intent.putExtra("check",true);
+            intent.putExtra("id",mAppointmentDateTime.getAppointmentID());
+            intent.putExtra("service_id",mAppointmentDateTime.getServiceID());
+            startActivity(intent);
         }
     }
 }
