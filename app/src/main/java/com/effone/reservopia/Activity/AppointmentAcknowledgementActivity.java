@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.effone.reservopia.MainActivity;
 import com.effone.reservopia.R;
+import com.effone.reservopia.common.AppPreferene;
 import com.effone.reservopia.common.ResvUtils;
 import com.effone.reservopia.model.Confirmation;
 import com.effone.reservopia.model.ConfirmationDetails;
@@ -45,6 +46,7 @@ public class AppointmentAcknowledgementActivity extends AppCompatActivity implem
         mTvImgBackButton.setVisibility(View.GONE);
         mIvHomeBtn=(ImageView)findViewById(R.id.iv_home_btn);
         mIvHomeBtn.setOnClickListener(this);
+        mIvHomeBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_home));
         mTvTitle=(TextView)findViewById(R.id.tv_title);
         mTvTitle.setText(R.string.confirmation_details);
         mTvHeading=(TextView)findViewById(R.id.tv_upcoming);
@@ -68,12 +70,14 @@ public class AppointmentAcknowledgementActivity extends AppCompatActivity implem
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
 
-        Call<Confirmation> call = apiService.getConfirmationDetails(getString(R.string.token), confirmationCode);
+        Call<Confirmation> call = apiService.getConfirmationDetails(getString(R.string.token), confirmationCode,getString(R.string.org_id));
         call.enqueue(new Callback<Confirmation>() {
             @Override
             public void onResponse(Call<Confirmation> call, Response<Confirmation> response) {
                 if(response.body()!=null) {
                     ConfirmationDetails confirmationDetails = response.body().getResult();
+                    AppPreferene.with(AppointmentAcknowledgementActivity.this).setUserId(confirmationDetails.getUserID());
+                    AppPreferene.with(AppointmentAcknowledgementActivity.this).setEmail(confirmationDetails.getEmail());
                     mTvConfirmationId.setText(confirmationDetails.getConfirmationNo());
                     mTvLastName.setText(confirmationDetails.getLastName());
                     mTvLocName.setText(confirmationDetails.getLocName());
@@ -82,7 +86,7 @@ public class AppointmentAcknowledgementActivity extends AppCompatActivity implem
                     mTvServiceName.setText(confirmationDetails.getServiceName());
                     mTvAppointmentDateTime.setText(Html.fromHtml(confirmationDetails.getScheduledDateTime()));
                     mTvScheduledTimeZone.setText(confirmationDetails.getScheduledTimeZone());
-                    mTvAddress.setText(confirmationDetails.getAddress() + " " + confirmationDetails.getCity() + " " + confirmationDetails.getState()
+                    mTvAddress.setText(confirmationDetails.getAddress1() + " " + confirmationDetails.getCity() + " " + confirmationDetails.getState()
                             + " " + confirmationDetails.getZip());
                     mTvOrgName.setText(confirmationDetails.getOrgName());
                 }

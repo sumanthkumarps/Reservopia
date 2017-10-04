@@ -1,10 +1,12 @@
 package com.effone.reservopia.model;
 
+import java.io.Serializable;
+
 /**
  * Created by sumanth.peddinti on 9/13/2017.
  */
 
-public class AppointmentBookingModel {
+public class AppointmentBookingModel implements Serializable {
     private String CancelledBy;
 
     private String IsAssigned;

@@ -11,14 +11,17 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.effone.reservopia.R;
 import com.effone.reservopia.adapter.AppointmentListAdapter;
 import com.effone.reservopia.adapter.LocationAdapter;
 import com.effone.reservopia.adapter.ServiceTypeAdapter;
+import com.effone.reservopia.adapter.TimeZoneAdapter;
 import com.effone.reservopia.model.AppointmentDataTime;
 import com.effone.reservopia.model.Locations;
+import com.effone.reservopia.model.TimeZoneDetails;
 import com.effone.reservopia.realmdb.LocationTable;
 import com.effone.reservopia.realmdb.ServiceProvidedTable;
 import com.effone.reservopia.realmdb.ServiceTable;
@@ -38,15 +41,21 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
     private ListView mLvServiceType;
     private TextView mTvTitle,mTvBookAppoin;
     private ServiceTypeAdapter mServiceTypeAdapter;
-    private AppCompatSpinner mSpinner;
+    private AppCompatSpinner mSpinner,mTimeZone;
     private int countOfServiceType=0;
     private Realm mRealm;
-
+    private String appointment_id=""+0,service_ID;
     private ImageView mIvBackBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.location_service2);
+
+        appointment_id= getIntent().getStringExtra("id");
+        service_ID= getIntent().getStringExtra("service_id");
+        if(appointment_id == null)
+            appointment_id = ""+0;
+
         mIvBackBtn=(ImageView)findViewById(R.id.iv_back_btn);
         mIvBackBtn.setOnClickListener(this);
         mLvServiceType=(ListView)findViewById(R.id.lv_service_type);
@@ -55,6 +64,7 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
         mTvBookAppoin.setOnClickListener(this);
         mTvTitle.setText(getString(R.string.service_type));
         mSpinner=(AppCompatSpinner)findViewById(R.id.sp_location);
+        mTimeZone=(AppCompatSpinner)findViewById(R.id.sp_timeZone);
        /* mLvServiceType.setOnItemClickListener(this);*/
         mRealm= Realm.getDefaultInstance();
         getLOcationAndServiceFromRealm();
@@ -64,9 +74,13 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
     }
     ServiceTable mServiceTable;
     LocationTable mLocationTable;
+    TimeZoneDetails mTimeZoneDetails;
     private void getLOcationAndServiceFromRealm() {
         mSpinner.setAdapter(new LocationAdapter(this,mRealm.where(LocationTable.class).findAll()));
         mLocationTable=(LocationTable)mSpinner.getItemAtPosition(0);
+        mTimeZone.setAdapter(new TimeZoneAdapter(this,mRealm.where(TimeZoneDetails.class).findAll()));
+        mLocationTable=(LocationTable)mSpinner.getItemAtPosition(0);
+        mTimeZoneDetails=(TimeZoneDetails)mTimeZone.getItemAtPosition(0);
         mSpinner.setOnItemSelectedListener(this);
         /*RealmList<ServiceTable> serviceTables=new RealmList<ServiceTable>();
         serviceTables.addAll(mRealm.where(ServiceTable.class).findAll());
@@ -98,8 +112,10 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
 
 
             Intent inte=new Intent(this,AppointementBookingActivity.class);
+            inte.putExtra("id",appointment_id);
             inte.putExtra("Location",""+mLocationTable.getLocID());
             inte.putExtra("Service",mServiceTable.getServiceID());
+            inte.putExtra("TimeZone",mTimeZoneDetails.getStandardName());
             startActivity(inte);
         }else if(view.getId() == R.id.iv_back_btn){
             finish();
@@ -109,8 +125,14 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        mLocationTable=(LocationTable)mSpinner.getSelectedItem();
-        setServiceList(mLocationTable.getLocID());
+        Spinner spinner = (Spinner) adapterView;
+        if(spinner.getId() == R.id.sp_location) {
+            mLocationTable = (LocationTable) mSpinner.getSelectedItem();
+            setServiceList(mLocationTable.getLocID());
+
+        }else  if(spinner.getId() == R.id.sp_timeZone) {
+            mTimeZoneDetails=(TimeZoneDetails)mTimeZone.getSelectedItem();
+        }
     }
 
     private void setServiceList(int locID) {

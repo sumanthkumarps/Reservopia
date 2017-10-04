@@ -11,6 +11,8 @@ public class AppPreferene {
     private static final String PRE_LOAD = "preLoad";
     private static final String PREFS_NAME = "prefs";
     private static final String SERVICE_COUNT = "count" ;
+    private static final String USER_ID = "user_id";
+    private static final String EMAIL_ID = "email_id" ;
     private static AppPreferene instance;
     private final SharedPreferences sharedPreferences;
 
@@ -50,5 +52,31 @@ public class AppPreferene {
     public boolean getMulitpleService(){
         return sharedPreferences.getBoolean(SERVICE_COUNT, false);
     }
+
+
+    public void setUserId(String  userId) {
+
+        sharedPreferences
+                .edit()
+                .putString(USER_ID, userId)
+                .apply();
+    }
+
+    public String getUserId(){
+        return sharedPreferences.getString(USER_ID, "");
+    }
+    public void setEmail(String   email) {
+
+        sharedPreferences
+                .edit()
+                .putString(EMAIL_ID, email)
+                .apply();
+    }
+
+    public String getEmail(){
+        return sharedPreferences.getString(EMAIL_ID, "");
+    }
+
+
 
 }

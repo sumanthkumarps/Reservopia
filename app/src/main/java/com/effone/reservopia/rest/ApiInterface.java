@@ -3,8 +3,10 @@ package com.effone.reservopia.rest;
 
 
 import com.effone.reservopia.model.AppointmentBookingModel;
+import com.effone.reservopia.model.BookingAppointmentUserDetails;
 import com.effone.reservopia.model.Confirmation;
 import com.effone.reservopia.model.DateTime;
+import com.effone.reservopia.model.EmailValid;
 import com.effone.reservopia.model.GetTimeZones;
 import com.effone.reservopia.model.LocationAndService;
 import com.effone.reservopia.model.Response;
@@ -40,8 +42,8 @@ public interface ApiInterface {
                                     @Query("serviceId") String serviceId, @Query("startTime") String date, @Query("localTimeZone") String timeZone);
 
 
-    @GET("Appointment/GetAppointmentByConfirmationNo")
-    Call<Confirmation> getConfirmationDetails(@Header("Token") String apiKey, @Query("confirmationNo") String confiramtionNo);
+    @GET("Appointment/GetAppointmentInfoByConformationNo")
+    Call<Confirmation> getConfirmationDetails(@Header("Token") String apiKey, @Query("confirmationNo") String confirmation, @Query("orgID") String orgId);
 
     @GET("UserRegister/GetCultureSpecificTitles")
     Call<Title> getTitleDetails(@Header("Token") String apiKey);
@@ -50,8 +52,10 @@ public interface ApiInterface {
     Call<GetTimeZones> getTimeZoneDetails(@Header("Token") String apiKey);
 
     @GET("Register/IsUserEmailExist")
-    Call<EmailValid> getEmailExists(@Header("Token") String apiKey, @Query("email") String email);
+    Call<Response> getEmailExists(@Header("Token") String apiKey, @Query("email") String email);
 
-
+    @Headers("Content-type: application/json")
+    @POST("Appointment/CreateUserNBookAppointment")
+    Call<Response> createAcountAndAppointemnt(@Header("Token") String apiKey, @Body BookingAppointmentUserDetails bookingAppointmentUserDetails);
 
 }

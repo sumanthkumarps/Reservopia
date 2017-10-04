@@ -54,6 +54,7 @@ import com.effone.reservopia.receivers.NetworkChangeReceiver;
 import com.effone.reservopia.rest.ApiClient;
 import com.effone.reservopia.rest.ApiInterface;
 import com.google.gson.Gson;
+import com.google.gson.internal.Streams;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -66,6 +67,7 @@ import java.util.TimeZone;
 
 import io.realm.Realm;
 import io.realm.RealmList;
+import okhttp3.HttpUrl;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -236,8 +238,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             insertLocationDataIntoDatabase();
             insertServiceDataIntoDatabase();
             insertLocXServDataIntoDatabase();
-
-
         }catch (Exception e){
 
         }
@@ -265,14 +265,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mRealm.insert(locationsXService);
             mRealm.commitTransaction();
         }
-
         AppPreferene.with(this).setPreLoad(true);
         if(mService.size() == 1 || mService == null){
             AppPreferene.with(this).setMulitpleService(true);
         }else{
             AppPreferene.with(this).setMulitpleService(false);
         }
-
     }
 
     private void insertServiceDataIntoDatabase() {
@@ -287,9 +285,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mRealm.insert(services);
             mRealm.commitTransaction();
         }
-
     }
-
     private void insertLocationDataIntoDatabase() {
         for (int i = 0; i < mLocation.size(); i++) {
             //If name is not blank creating a new Inventory object
@@ -362,6 +358,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onStart() {
         super.onStart();
+        if(!AppPreferene.with(this).getEmail().equals(""))
         upcomingAppointmentList();
     }
 
@@ -369,12 +366,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
 
-        Call<UpCommingAppointmentModel> call = apiService.getUpCommingAppointmentDetails(getString(R.string.token),"application/json", getString(R.string.org_id), "sumanth.peddinti@effonetech.com");
-        call.enqueue(new Callback<UpCommingAppointmentModel>() {
+        Call<UpCommingAppointmentModel> call = apiService.getUpCommingAppointmentDetails(getString(R.string.token),"application/json", getString(R.string.org_id),AppPreferene.with(this).getEmail());
+
+          call.enqueue(new Callback<UpCommingAppointmentModel>() {
             @Override
             public void onResponse(Call<UpCommingAppointmentModel> call, Response<UpCommingAppointmentModel> response) {
+              HttpUrl url= response.raw().request().url();
                 try {
+                    Call<UpCommingAppointmentModel> appointmentModelCall=call;
                     Result results = response.body().getResult();
+
                     List<History> histories = Arrays.asList(results.getUpcoming());
                     mAppointmentListAdapter = new AppointmentListAdapter(MainActivity.this, histories);
                     mLvAppointmentList.setAdapter(mAppointmentListAdapter);

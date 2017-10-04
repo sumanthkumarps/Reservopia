@@ -25,7 +25,7 @@
         <activity android:name=".Activity.AppointmentAcknowledgementActivity" />
         <activity android:name=".Activity.AppointmentHistoryActivity" />
         <activity android:name=".Activity.AppointmentDetailsActivity" />
-
+        <activity android:name=".Activity.RegisterActivity"/>
         <receiver android:name=".receivers.NetworkChangeReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />

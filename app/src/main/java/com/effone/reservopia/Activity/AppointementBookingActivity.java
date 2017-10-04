@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.location.Location;
 import android.os.Build;
 
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,6 +23,8 @@ import android.widget.Toast;
 
 import com.effone.reservopia.R;
 import com.effone.reservopia.adapter.TimeSlotAdapter;
+import com.effone.reservopia.common.AppPreferene;
+import com.effone.reservopia.common.ResvUtils;
 import com.effone.reservopia.model.AppointmentBookingModel;
 import com.effone.reservopia.model.DateTime;
 import com.effone.reservopia.model.Time;
@@ -30,7 +33,7 @@ import com.effone.reservopia.realmdb.LocationTable;
 import com.effone.reservopia.realmdb.ServiceTable;
 import com.effone.reservopia.rest.ApiClient;
 import com.effone.reservopia.rest.ApiInterface;
-
+import com.google.gson.Gson;
 
 
 import java.text.SimpleDateFormat;
@@ -56,9 +59,11 @@ public class AppointementBookingActivity extends AppCompatActivity implements Ad
     private TextView mTvTitle;
     private ArrayList<Time> movies;
     private  TimeSlotAdapter adapter;
-    private String locationTable;
+    private String locationTable,timeZoneTable,appointment_id;
     private String serviceTable;
     private ImageView mIvBackBtn;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,9 +73,11 @@ public class AppointementBookingActivity extends AppCompatActivity implements Ad
         mIvBackBtn=(ImageView)findViewById(R.id.iv_back_btn);
         mIvBackBtn.setOnClickListener(this);
 
+        appointment_id= getIntent().getStringExtra("id");
         locationTable= getIntent().getStringExtra("Location");
         serviceTable=getIntent().getStringExtra("Service");
-        Toast.makeText(this," LOC=="+locationTable+"Service =="+serviceTable,Toast.LENGTH_SHORT).show();
+        timeZoneTable=getIntent().getStringExtra("TimeZone");
+        Toast.makeText(this,"Appointment_id=="+ appointment_id+"LOC=="+locationTable+"Service =="+serviceTable,Toast.LENGTH_SHORT).show();
         mGvTimeSlots = (GridView) findViewById(R.id.gv_timeSlots);
         mGvTimeSlots.setOnItemClickListener(this);
         declarations();
@@ -155,16 +162,18 @@ public class AppointementBookingActivity extends AppCompatActivity implements Ad
     private void postingData() {
         if(timeSlotStrings != null) {
             AppointmentBookingModel body = new AppointmentBookingModel();
-            body.setAppointmentID("0");
-            body.setLocID(""+locationTable);
-            body.setUserID("3");
+            body.setAppointmentID(appointment_id);
+            body.setLocID("" + locationTable);
+            if(AppPreferene.with(AppointementBookingActivity.this).getUserId().equals(""))
+            body.setUserID("0");
+            else
+             body.setUserID(AppPreferene.with(AppointementBookingActivity.this).getUserId());
             body.setConfirmationNo("0");
             body.setAppointmentTypeRefID("27");
-            body.setServiceID(""+serviceTable);
-            body.setStartTime(""+timeSlotStrings.getStartTime());
-            body.setEndTime(""+timeSlotStrings.getEndTime());
-            body.setDuration("");
-            body.setScheduledTimeZone("India Standard Time");
+            body.setServiceID("" + serviceTable);
+            body.setStartTime("" + timeSlotStrings.getStartTime());
+            body.setEndTime("" + timeSlotStrings.getEndTime());
+            body.setScheduledTimeZone("" + timeZoneTable);
             body.setSendEmailReminder("0");
             body.setSendTextReminder("0");
             body.setAdditionalEmail("");
@@ -175,41 +184,56 @@ public class AppointementBookingActivity extends AppCompatActivity implements Ad
             body.setCancelledBy("null");
             body.setIsAssigned("0");
             body.setAssignedTo("null");
-            body.setAuditID("6");
+            body.setAuditID("5");
 
-            ApiInterface apiService =
-                    ApiClient.getClient().create(ApiInterface.class);
-            Call<com.effone.reservopia.model.Response> response = apiService.createAppointment(getString(R.string.token), body);
-            response.enqueue(new Callback<com.effone.reservopia.model.Response>() {
-                @Override
-                public void onResponse(Call<com.effone.reservopia.model.Response> call, Response<com.effone.reservopia.model.Response> rawResponse) {
-                    try {
+            if (!body.getUserID().equals("0")) {
 
-                        if(rawResponse.body().getResult().getID() != null) {
+                ApiInterface apiService =
+                        ApiClient.getClient().create(ApiInterface.class);
+                Call<com.effone.reservopia.model.Response> response = apiService.createAppointment(getString(R.string.token), body);
+                response.enqueue(new Callback<com.effone.reservopia.model.Response>() {
+                    @Override
+                    public void onResponse(Call<com.effone.reservopia.model.Response> call, Response<com.effone.reservopia.model.Response> rawResponse) {
+                        try {
+                            if(!rawResponse.body().getResult().getOperation().equals("501")) {
+                                if (rawResponse.body().getResult().getID() != null) {
 // Toast.makeText(AppointementBookingActivity.this, "done" + rawResponse.body().getResult().getID(), Toast.LENGTH_SHORT).show();
-                            //get your response....
-                            //Log.e(TAG, "RetroFit2.0 :RetroGetLogin: " + rawResponse.body());
-                            Intent intent = new Intent(AppointementBookingActivity.this, AppointmentAcknowledgementActivity.class);
-                            intent.putExtra(getString(R.string.confirmation_no), rawResponse.body().getResult().getID());
-                            startActivity(intent);
-                            finish();
-                        }else{
-                            Toast.makeText(AppointementBookingActivity.this, "done" + rawResponse.body().getResult().getID(), Toast.LENGTH_SHORT).show();
+                                    //get your response....
+                                    //Log.e(TAG, "RetroFit2.0 :RetroGetLogin: " + rawResponse.body());
+                                    Intent intent = new Intent(AppointementBookingActivity.this, AppointmentAcknowledgementActivity.class);
+                                    intent.putExtra(getString(R.string.confirmation_no), rawResponse.body().getResult().getID());
+                                    startActivity(intent);
+                                    finish();
+                                } else {
+                                    ResvUtils.createErrorAlert(AppointementBookingActivity.this, getString(R.string.error), "" + rawResponse.message());
+                                    new Handler().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            finish();
+                                        }
+                                    }, 5000);
+                                }
+                            }else{
+                                Toast.makeText(AppointementBookingActivity.this,"Appointment has been Booked ",Toast.LENGTH_SHORT).show();
+                            }
+
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-
-
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
                     }
-                }
 
-                @Override
-                public void onFailure(Call<com.effone.reservopia.model.Response> call, Throwable throwable) {
-                    // other stuff...
-                    Log.e(TAG, "RetroFit2.0 :RetroGetLogin: " + throwable.toString());
-                }
-            });
+                    @Override
+                    public void onFailure(Call<com.effone.reservopia.model.Response> call, Throwable throwable) {
+                        // other stuff...
+                        Log.e(TAG, "RetroFit2.0 :RetroGetLogin: " + throwable.toString());
+                    }
+                });
+            }else {
+                Intent intent =new Intent(this,RegisterActivity.class);
+                intent.putExtra("appointment_details",body);
+                startActivity(intent);
+            }
         }else{
             Toast.makeText(this,"Select one time Slots",Toast.LENGTH_SHORT).show();
         }
