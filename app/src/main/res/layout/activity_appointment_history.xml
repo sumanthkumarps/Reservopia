@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.effone.reservopia.Activity.AppointmentHistoryActivity">
+    tools:context="com.effone.mobile.Activity.AppointmentHistoryActivity">
 
     <include layout="@layout/fragment_common_header" />
     <ListView

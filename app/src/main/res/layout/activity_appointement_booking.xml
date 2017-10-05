@@ -6,7 +6,7 @@
     android:background="@android:color/white"
     android:orientation="vertical"
     android:weightSum="1"
-    tools:context="com.effone.reservopia.Activity.AppointementBookingActivity">
+    tools:context="com.effone.mobile.Activity.AppointementBookingActivity">
     <include layout="@layout/fragment_common_header" />
 
     <LinearLayout

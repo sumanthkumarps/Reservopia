@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:id="@+id/linearLayout"
     android:weightSum="1"
-    tools:context="com.effone.reservopia.MainActivity">
+    tools:context="com.effone.mobile.MainActivity">
 
     <include layout="@layout/fragment_common_header" />
 

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.effone.reservopia.Activity.LocationServiceActivity"
+    tools:context="com.effone.mobile.Activity.LocationServiceActivity"
     android:weightSum="1">
 
     <include layout="@layout/fragment_common_header"

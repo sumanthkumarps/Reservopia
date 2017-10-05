@@ -4,9 +4,6 @@
     android:layout_height="match_parent"
     android:id="@+id/ad_tv_date_time"
     android:padding="5dp"
-    android:textStyle="bold"
-    android:gravity="center"
-    android:textAlignment="center"
     android:textSize="18sp">
 
 </TextView>
