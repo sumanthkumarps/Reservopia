@@ -15,6 +15,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,6 +54,8 @@ public class AppointementBookingActivity extends AppCompatActivity implements Ad
     private String serviceTable;
     private ImageView mIvBackBtn;
     private ProgressDialog mCommonProgressDialog;
+    private TextView mtvRegisterationFormDetails;
+    private LinearLayout mLlUserReg;
 
 
 
@@ -63,7 +66,12 @@ public class AppointementBookingActivity extends AppCompatActivity implements Ad
        // mAppPreferences=new AppPreferences(this);
         myCalendar = Calendar.getInstance();
         mIvBackBtn=(ImageView)findViewById(R.id.iv_back_btn);
+        mtvRegisterationFormDetails=(TextView)findViewById(R.id.tv_registeration_form_details);
+        mtvRegisterationFormDetails.setVisibility(View.GONE);
+        mLlUserReg=(LinearLayout)findViewById(R.id.ll_user_reg);
+        mLlUserReg.setVisibility(View.GONE);
         mIvBackBtn.setOnClickListener(this);
+
 
         appointment_id= getIntent().getStringExtra("id");
         locationTable= getIntent().getStringExtra("Location");
@@ -99,6 +107,7 @@ public class AppointementBookingActivity extends AppCompatActivity implements Ad
                         adapter = new TimeSlotAdapter(AppointementBookingActivity.this, movies.get(1).getTimeSlotStrings());
                         mGvTimeSlots.setAdapter(adapter);
                     } else {
+                        mGvTimeSlots.setAdapter(null);
                         Toast.makeText(AppointementBookingActivity.this, "No Time SLots", Toast.LENGTH_SHORT).show();
                     }
                 }catch (Exception e) {
