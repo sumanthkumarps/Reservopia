@@ -57,7 +57,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
+        ResvUtils.enableBackButton(this);
 
         appointmentBookingModel = (AppointmentBookingModel) getIntent().getSerializableExtra("appointment_details");
         apiService = ApiClient.getClient().create(ApiInterface.class);
