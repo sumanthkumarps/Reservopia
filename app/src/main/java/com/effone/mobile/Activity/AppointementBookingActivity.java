@@ -146,14 +146,14 @@ public class AppointementBookingActivity extends AppCompatActivity implements Ad
         mEtDate = (EditText) findViewById(R.id.et_date);
         mTvTitle=(TextView)findViewById(R.id.tv_title);
         mTvTitle.setText(getString(R.string.booking_app));
-        mTvSubmit=(TextView)findViewById(R.id.tv_submit);
+       /* mTvSubmit=(TextView)findViewById(R.id.tv_submit);
         mTvSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 postingData();
            //     openActivity(AppointementBookingActivity.this, AppointmentAcknowledgementActivity.class);
             }
-        });
+        });*/
         mEtDate.setText(formattedDate);
         settingDataIntoGrid(formattedDate);
         mEtDate.setOnClickListener(new View.OnClickListener() {
