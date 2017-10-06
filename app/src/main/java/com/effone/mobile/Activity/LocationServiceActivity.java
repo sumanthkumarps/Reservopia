@@ -15,6 +15,7 @@ import com.effone.mobile.R;
 import com.effone.mobile.adapter.LocationAdapter;
 import com.effone.mobile.adapter.ServiceTypeAdapter;
 import com.effone.mobile.adapter.TimeZoneAdapter;
+import com.effone.mobile.common.ResvUtils;
 import com.effone.mobile.model.AppointmentDataTime;
 import com.effone.mobile.model.TimeZoneDetails;
 import com.effone.mobile.realmdb.LocationTable;
@@ -52,6 +53,7 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
             appointment_id = ""+0;
 
         mIvBackBtn=(ImageView)findViewById(R.id.iv_back_btn);
+        ResvUtils.enableHomeButton(this);
         mIvBackBtn.setOnClickListener(this);
         mLvServiceType=(ListView)findViewById(R.id.lv_service_type);
         mTvTitle=(TextView)findViewById(R.id.tv_title);

@@ -3,6 +3,7 @@ package com.effone.mobile.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
@@ -49,7 +50,7 @@ public class AppointmentAcknowledgementActivity extends AppCompatActivity implem
         mTvImgBackButton.setVisibility(View.GONE);
         mIvHomeBtn=(ImageView)findViewById(R.id.iv_home_btn);
         mIvHomeBtn.setOnClickListener(this);
-        mIvHomeBtn.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_home));
+        mIvHomeBtn.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_action_home));
         mTvTitle=(TextView)findViewById(R.id.tv_title);
         mTvTitle.setText(R.string.confirmation_details);
         mTvHeading=(TextView)findViewById(R.id.tv_upcoming);

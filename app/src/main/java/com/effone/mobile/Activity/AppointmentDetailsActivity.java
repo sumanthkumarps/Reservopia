@@ -31,6 +31,7 @@ public class AppointmentDetailsActivity extends AppCompatActivity implements Vie
 
         mAppointmentDateTime = (History) getIntent().getSerializableExtra("selectedItem");
         ResvUtils.enableBackButton(this);
+        ResvUtils.enableHomeButton(this);
         getUpComingAppointmentList();
     }
 

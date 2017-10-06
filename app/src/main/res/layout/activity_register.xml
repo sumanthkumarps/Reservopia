@@ -155,8 +155,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
-                android:background="@color/dayName"
+                android:background="@drawable/button_rounded_corner"
                 android:textColor="@android:color/white"
+
                 android:text="@string/signUp" />
         </LinearLayout>
     </ScrollView>
