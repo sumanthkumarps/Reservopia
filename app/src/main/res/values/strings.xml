@@ -28,6 +28,7 @@
     <string name="appointment_confirmation">Appointment Confirmation</string>
     <string name="name">Name</string>
     <string name="service">Service</string>
+    <string name="select_service">Select Service</string>
     <string name="date">Date</string>
     <string name="address_coloumn">Address</string>
     <string name="phone_column">Phone</string>
@@ -49,4 +50,21 @@
     <string name="signUp">Sign Up</string>
     <string name="time_Zone">Select TimeZone : </string>
     <string name="getDetails">Get Details</string>
+
+
+
+    <string name="ConfirmNewPasword">Confirm New Password</string>
+<string name="match_does_not"> does not match</string>
+<string name="passwordmymsg">must be contain min 8 and upto 15 chars.</string>
+    <string name="firstnamemsg">FirstName: must be present</string>
+    <string name="lastnamemsg"> LastName: must be present</string>
+    <string name="DateofBirthmsg">DateofBirth: must be present</string>
+    <string name="Phonemsg">Phone: must be 10 digit</string>
+    <string name="Emailmsg">Email: enter valid email</string>
+    <string name="passwordmsg">Password: must contain min 8 and upto 15 chars</string>
+    <string name="passwordmsg2">ConfirmPassword: must contain min 8 and upto 15 chars</string>
+    <string name="password_select">Enter valid email/password</string>
+    <string name="conformmsg">ConfirmPassword: must be present</string>
+    <string name="headercreateaccount">Please Validate</string>
+    <string name="passworddoednotmatch">Password and Confirm password mismatch</string>
 </resources>

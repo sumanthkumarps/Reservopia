@@ -24,8 +24,14 @@
                 android:id="@+id/cb_account"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Create A Account" />
-
+                android:visibility="gone"
+                android:text="Create a Account" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:id="@+id/lv_password"
+                android:visibility="gone"
+                android:layout_height="wrap_content">
             <EditText
                 android:id="@+id/et_password"
                 android:layout_width="match_parent"
@@ -39,6 +45,7 @@
                 android:layout_height="40dp"
                 android:hint="@string/conf_password"
                 android:singleLine="true"/>
+            </LinearLayout>
 
             <EditText
                 android:id="@+id/et_phone"
