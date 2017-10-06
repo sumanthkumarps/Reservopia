@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:text="@string/select_service_type"
             android:id="@+id/tv_upcoming"
-            android:textSize="22sp"
+            android:textSize="@dimen/font_size"
             android:padding="5dp"
             android:layout_below="@+id/in_headder"
             android:layout_alignParentLeft="true"
@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:text="@string/time_Zone"
         android:id="@+id/tv_tme"
-        android:textSize="22sp"
+        android:textSize="@dimen/font_size"
         android:layout_below="@+id/sp_location"
         android:padding="5dp"
         android:layout_alignParentLeft="true"
@@ -47,10 +47,21 @@
         android:layout_weight="0.1"
         android:id="@+id/sp_timeZone"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/select_service"
+        android:id="@+id/tv_service"
+        android:textSize="@dimen/font_size"
+        android:layout_below="@+id/sp_timeZone"
+        android:padding="5dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_below="@+id/sp_timeZone"
+        android:layout_below="@+id/tv_service"
         android:id="@+id/lv_service_type"
         >
 

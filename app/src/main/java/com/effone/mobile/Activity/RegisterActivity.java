@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,6 +14,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -21,6 +24,7 @@ import android.widget.Toast;
 import com.effone.mobile.R;
 import com.effone.mobile.adapter.TitleAdapter;
 import com.effone.mobile.common.ResvUtils;
+import com.effone.mobile.common.Validation;
 import com.effone.mobile.model.AppointmentBookingModel;
 import com.effone.mobile.model.BookingAppointmentUserDetails;
 import com.effone.mobile.model.Response;
@@ -38,7 +42,7 @@ import retrofit2.Callback;
  * Created by sarith.vasu on 26-09-2017.
  */
 
-public class RegisterActivity extends AppCompatActivity implements View.OnClickListener, View.OnFocusChangeListener, AdapterView.OnItemSelectedListener {
+public class RegisterActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
     private static final String TAG = "";
     private EditText mEtEmail,mEtPhone,mEtFirstName,mEtLastName,mEtDateOfBirth,
             mEtAddress,mEtZip,mEtState,mEtPassword,mEtConfirmPassword,mEtCity;
@@ -52,7 +56,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private Spinner mSpTitle;
    private AppointmentBookingModel appointmentBookingModel;
     private ProgressDialog mCommonProgressDialog;
-
+    private LinearLayout mLinearLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +66,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         appointmentBookingModel = (AppointmentBookingModel) getIntent().getSerializableExtra("appointment_details");
         apiService = ApiClient.getClient().create(ApiInterface.class);
 
-
+            mLinearLayout=(LinearLayout)findViewById(R.id.lv_password);
 
         mTvTitle=(TextView)findViewById(R.id.tv_title);
         mTvTitle.setText("Registration ");
@@ -72,7 +76,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private void declarations() {
         mRealm= Realm.getDefaultInstance();
         mEtEmail=(EditText)findViewById(R.id.et_email);
-        mEtEmail.setOnFocusChangeListener(this);
+      //  mEtEmail.setOnFocusChangeListener(this);
         mCbCreateAccount=(CheckBox)findViewById(R.id.cb_account);
         mCbCreateAccount.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
@@ -80,9 +84,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
 
                 if (isChecked) {
-
+                    mLinearLayout.setVisibility(View.VISIBLE);
                 } else {
-
+                    mLinearLayout.setVisibility(View.GONE);
                 }
             }
         });
@@ -100,6 +104,16 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         mRGGender=(RadioGroup)findViewById(R.id.radioSex);
 
         mBtSubmit.setOnClickListener(this);
+        mEtEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    EditText editText = (EditText) v;
+                    String text = editText.getText().toString();
+                    checkingEmail(text);
+                }
+            }
+        });
     }
 
 
@@ -117,8 +131,69 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         int selectedId = mRGGender.getCheckedRadioButtonId();
         radioSexButton=(RadioButton) findViewById(selectedId);
         mStGender= (String) radioSexButton.getText();
+        int count = 0;
+        String mMsg = "";
+
+        Validation validate = new Validation();
+        if (!validate.isValidFirstName(mStFirstName)) {
+            mMsg = mMsg + "" + getResources().getString(R.string.firstnamemsg) + "\n";
+            count++;
+        }
+        if (!validate.isValidFirstName(mStLastName)) {
+            mMsg = mMsg + "" + getResources().getString(R.string.lastnamemsg) + "\n";
+            count++;
+        }
+        if (mStDateOfBirth.equals("mm/dd/yyyy")) {
+            mMsg = mMsg + "" + getResources().getString(R.string.DateofBirthmsg) + "\n";
+            count++;
+        }
+        if (!validate.isValidPhone(mStPhone)) {
+            mMsg = mMsg + "" + getResources().getString(R.string.Phonemsg) + "\n";
+            count++;
+        }
+        if (!validate.isValidAddress(mStAddress)) {
+            mMsg = mMsg + " " + getResources().getString(R.string.address) + "\n";
+            count++;
+        }
+
+        if (!validate.isValidEmail(mStEmail)) {
+            mMsg = mMsg + "" + getResources().getString(R.string.Emailmsg) + "\n";
+            count++;
+        }
+        if ((mStPassword.length() < 7) || (mStPassword.length() > 16)) {
+            mMsg = mMsg + "" + getResources().getString(R.string.passwordmsg) + "\n";
+            count++;
+        } else if (!validate.isValidPassword(mStPassword)) {
+            mMsg = mMsg + "" + getResources().getString(R.string.password) + "" + getResources().getString(R.string.passwordmymsg) + "\n";
+            count++;
+        }
+        if ((mStConfirmPassword.length() < 7) || (mStConfirmPassword.length() > 16)) {
+            mMsg = mMsg + "" + getResources().getString(R.string.passwordmsg2) + "\n";
+            count++;
+        }else
+        if (!validate.isValidPassword(mStConfirmPassword)) {
+            mMsg = mMsg + "Confirm password" + getResources().getString(R.string.passwordmymsg) + "\n";
+            count++;
+        } else if (!mStPassword.equals(mStConfirmPassword)) {
+            mMsg = mMsg + "" + getResources().getString(R.string.passworddoednotmatch) + "\n";
+            count++;
+        }
+        if (count == 0) {
+            mMsg = "success";
+
+                sendInformation();
+
+        }
+        if (!mMsg.equals("success")) {
+            ResvUtils.createOKAlert(this, getResources().getString(R.string.headercreateaccount), mMsg);
+
+        }
 
 
+
+    }
+
+    private void sendInformation() {
         User user=new User();
         user.setUserID("0");
         user.setTitle(mTitleNames.getValue());
@@ -202,7 +277,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     }
 
-    @Override
+/*    @Override
     public void onFocusChange(View view, boolean hasFocus) {
         if (!hasFocus) {
            if(view.getId() == R.id.et_email){
@@ -212,7 +287,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
             // If view having focus.
         }
-    }
+    }*/
 
     private void checkingEmail(String text) {
         Call<Response> response = apiService.getEmailExists(getString(R.string.token),text );
@@ -222,6 +297,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 try {
                     if (rawResponse.body().getResult().getID() != null) {
                         Toast.makeText(RegisterActivity.this,"UserExit",Toast.LENGTH_SHORT).show();
+                        mCbCreateAccount.setVisibility(View.VISIBLE);
                     }else{
                         Toast.makeText(RegisterActivity.this,"NoUserExit",Toast.LENGTH_SHORT).show();
 
