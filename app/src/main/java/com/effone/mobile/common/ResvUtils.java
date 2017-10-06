@@ -5,13 +5,19 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.effone.mobile.MainActivity;
 import com.effone.mobile.R;
 
 /**
@@ -46,6 +52,17 @@ public class ResvUtils {
         }
         titleText.setGravity(Gravity.CENTER);
         alert.show();
+    }
+    public static void enableHomeButton(final Activity context){
+        context.findViewById(R.id.iv_home_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                context.startActivity(intent);
+            }
+        });
+        ((ImageView)context.findViewById(R.id.iv_home_btn)).setImageDrawable(ContextCompat.getDrawable(context, R.drawable.home_btn));
     }
     public static void enableBackButton(final Activity context){
         context.findViewById(R.id.iv_back_btn).setOnClickListener(new View.OnClickListener() {

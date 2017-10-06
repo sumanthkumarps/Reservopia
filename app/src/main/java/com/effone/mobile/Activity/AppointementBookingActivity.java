@@ -67,6 +67,7 @@ public class AppointementBookingActivity extends AppCompatActivity implements Ad
         myCalendar = Calendar.getInstance();
         mIvBackBtn=(ImageView)findViewById(R.id.iv_back_btn);
         mIvBackBtn.setOnClickListener(this);
+        ResvUtils.enableHomeButton(this);
 
 
         appointment_id= getIntent().getStringExtra("id");

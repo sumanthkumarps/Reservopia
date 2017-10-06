@@ -33,7 +33,6 @@
                 android:paddingTop="10dp"
                 android:layout_height="0dp"
                 android:layout_weight=".25"
-                android:background="@color/logo_bg"
                 android:src="@mipmap/logo" />
             <TextView
                 android:id="@+id/tv_comapany_name"
@@ -41,8 +40,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="0.09"
                 android:gravity="center"
-                android:textColor="@android:color/white"
-                android:background="@color/logo_bg"
+                android:textColor="@android:color/black"
                 android:text="Effone Technologies"
                 android:textSize="@dimen/about" />
             <View

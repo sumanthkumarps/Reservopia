@@ -373,14 +373,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(!AppPreferene.with(this).getEmail().equals(""))
         upcomingAppointmentList();
         else{
-            String[] planets = new String[] { "Create New Account", "Login"};
+            String[] planets = new String[] { "No Appointments"};
             ArrayList<String> planetList = new ArrayList<String>();
             planetList.addAll( Arrays.asList(planets) );
 
             // Create ArrayAdapter using the planet list.
-             ArrayAdapter<String> listAdapter  = new ArrayAdapter<String>(this, R.layout.date_time_slot_grid, planetList);
+             ArrayAdapter<String> listAdapter  = new ArrayAdapter<String>(this, R.layout.empty, planetList);
             mLvAppointmentList.setAdapter( listAdapter );
-            mLvAppointmentList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+           /* mLvAppointmentList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     if(i==0){
@@ -389,7 +389,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     }
                 }
-            });
+            });*/
         }
     }
 

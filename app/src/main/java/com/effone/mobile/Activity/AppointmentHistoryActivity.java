@@ -40,6 +40,7 @@ public class AppointmentHistoryActivity extends AppCompatActivity implements Vie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_appointment_history);
         ResvUtils.enableBackButton(this);
+        ResvUtils.enableHomeButton(this);
         init();
     }
 
