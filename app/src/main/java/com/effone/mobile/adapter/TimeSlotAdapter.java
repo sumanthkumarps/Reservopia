@@ -1,6 +1,7 @@
 package com.effone.mobile.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,13 +26,16 @@ public class TimeSlotAdapter  extends BaseAdapter {
     private Context mContext;
     private ArrayList<TimeSlotStrings> web;
     private String formattedDate;
+    private int selectedPosition = -1;
 
 
     public TimeSlotAdapter(Context c, ArrayList<TimeSlotStrings> web ) {
         mContext = c;
         this.web = web;
     }
-
+    public void setSelectedPosition(int position) {
+        selectedPosition = position;
+    }
     @Override
     public int getCount() {
         // TODO Auto-generated method stub
@@ -68,6 +72,11 @@ public class TimeSlotAdapter  extends BaseAdapter {
         }
             DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm aa", Locale.US);
             DateFormat timeFormat = new SimpleDateFormat("hh:mm aa", Locale.US);
+        if (position == selectedPosition) {
+            convertView.setBackgroundColor(Color.BLUE);
+        } else {
+            convertView.setBackgroundColor(Color.TRANSPARENT);
+        }
 
             try {
                 formattedDate = timeFormat.format(dateFormat.parse(web.get(position).getStartTime()));
