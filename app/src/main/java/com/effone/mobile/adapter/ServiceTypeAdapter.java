@@ -50,21 +50,15 @@ public class ServiceTypeAdapter extends BaseAdapter {
         final ServiceTypeItems holder;
 
         if(vi==null) {
-            vi = mLayoutInflater.inflate(R.layout.service_type_list, null);
+            vi = mLayoutInflater.inflate(R.layout.date_time_slot_grid, null);
             holder = new  ServiceTypeItems();
-            holder.mTvServiceType = (TextView)    vi.findViewById(R.id.tv_serviceType);
-            holder.mTvSerDescription=(TextView)    vi.findViewById(R.id.tv_ser_desc);
-            holder.mIvServiceTypeIcon=(ImageView) vi.findViewById(R.id.iv_appointment);
+            holder.mTvServiceType = (TextView)    vi.findViewById(R.id.ad_tv_date_time);
+
             vi.setTag( holder );
         }else
             holder = (ServiceTypeItems) vi.getTag();
 
         holder.mTvServiceType.setText(mAppointmentDateTime.get(position).getServiceName());
-        holder.mTvSerDescription.setText(mAppointmentDateTime.get(position).getDescription());
-        if(mAppointmentDateTime.size() != 1 || mAppointmentDateTime.size() >1){
-            holder.mIvServiceTypeIcon.setVisibility(View.VISIBLE);
-        }else
-            holder.mIvServiceTypeIcon.setVisibility(View.INVISIBLE);
 
         return vi;
     }

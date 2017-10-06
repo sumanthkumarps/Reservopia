@@ -2,37 +2,34 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@android:color/white"
     android:orientation="vertical"
     android:weightSum="1"
     tools:context="com.effone.mobile.Activity.AppointementBookingActivity">
-    <include layout="@layout/fragment_common_header"
-        android:id="@+id/tool_bar"/>
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/lv_date_time"
         android:weightSum="1"
-        android:orientation="vertical"
-        android:layout_below="@+id/tool_bar"
+        android:orientation="horizontal"
         android:paddingLeft="10dp"
         android:paddingRight="10dp">
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:gravity="left|center"
             android:text="@string/date_time"
-            android:padding="5dp"
             android:textSize="@dimen/font_size"
-            android:layout_weight=".4"/>
+            android:layout_weight=".5"/>
         <EditText
             android:id="@+id/et_date"
-            android:layout_width="match_parent"
-            android:layout_weight=".6"
+            android:layout_width="0dp"
             android:layout_height="40dp"
             android:clickable="true"
+            android:layout_weight=".5"
             android:editable="false"
             android:focusable="false" />
 
@@ -49,15 +46,14 @@
             android:id="@+id/textView9"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-
+            android:padding="5dp"
             android:text="@string/time_slot"
             android:textSize="@dimen/font_size" />
 
         <GridView
             android:id="@+id/gv_timeSlots"
             android:layout_width="match_parent"
-            android:layout_height="318dp"
+            android:layout_height="150dp"
             android:gravity="left"
             android:numColumns="4"
             android:layout_marginLeft="10dp"
@@ -98,17 +94,5 @@
 
     </LinearLayout>-->
 
-    <TextView
-        android:id="@+id/tv_submit"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/dayName"
-        android:gravity="center"
-        android:text="@string/submit"
-        android:textAlignment="center"
-        android:textColor="@android:color/white"
-        android:textSize="22dp"
-        android:layout_margin="5dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

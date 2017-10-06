@@ -5,9 +5,6 @@
     android:orientation="vertical"
    >
 <include layout="@layout/fragment_common_header"/>
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -156,8 +153,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
                 android:background="@color/dayName"
-                android:textColor="@android:color/white"
-                android:text="@string/signUp" />
+                android:text="@string/signUp"
+                android:textColor="@android:color/white" />
         </LinearLayout>
-    </ScrollView>
 </LinearLayout>
