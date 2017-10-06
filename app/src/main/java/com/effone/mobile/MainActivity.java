@@ -103,11 +103,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mNetworkReceiver = new NetworkChangeReceiver();
         networkChangeReceiver =new NetworkChangeReceiver();
         mCalendar= Calendar.getInstance();
+        TimeZone tz = TimeZone.getDefault();
+        Log.e("Time"+tz.getDisplayName(),"");
         declarations();
         registerNetworkBroadcastForNougat();
         mRealm=Realm.getDefaultInstance();
-        TimeZone tz = TimeZone.getDefault();
-        tz.getDisplayName(Locale.getDefault());
+
         if(!AppPreferene.with(this).getPreLoad()){
             getLocationAndServicesAndSave();
             getTitleAndSave();
