@@ -120,6 +120,7 @@
                 android:id="@+id/et_address"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:singleLine="true"
                 android:hint="@string/address" />
 
  <!--           <LinearLayout

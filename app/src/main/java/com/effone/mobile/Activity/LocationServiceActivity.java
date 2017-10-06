@@ -29,6 +29,7 @@ import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmList;
+import io.realm.Sort;
 
 public class LocationServiceActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener, AdapterView.OnItemSelectedListener {
 
@@ -72,7 +73,8 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
     private void getLOcationAndServiceFromRealm() {
         mSpinner.setAdapter(new LocationAdapter(this,mRealm.where(LocationTable.class).findAll()));
         mLocationTable=(LocationTable)mSpinner.getItemAtPosition(0);
-        mTimeZone.setAdapter(new TimeZoneAdapter(this,mRealm.where(TimeZoneDetails.class).findAll()));
+
+        mTimeZone.setAdapter(new TimeZoneAdapter(this,mRealm.where(TimeZoneDetails.class).findAll().sort("StandardName", Sort.ASCENDING)));
         mLocationTable=(LocationTable)mSpinner.getItemAtPosition(0);
         mTimeZoneDetails=(TimeZoneDetails)mTimeZone.getItemAtPosition(0);
         mSpinner.setOnItemSelectedListener(this);

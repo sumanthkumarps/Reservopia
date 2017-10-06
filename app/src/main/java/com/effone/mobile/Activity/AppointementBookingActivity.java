@@ -66,10 +66,6 @@ public class AppointementBookingActivity extends AppCompatActivity implements Ad
        // mAppPreferences=new AppPreferences(this);
         myCalendar = Calendar.getInstance();
         mIvBackBtn=(ImageView)findViewById(R.id.iv_back_btn);
-        mtvRegisterationFormDetails=(TextView)findViewById(R.id.tv_registeration_form_details);
-        mtvRegisterationFormDetails.setVisibility(View.GONE);
-        mLlUserReg=(LinearLayout)findViewById(R.id.ll_user_reg);
-        mLlUserReg.setVisibility(View.GONE);
         mIvBackBtn.setOnClickListener(this);
 
 
@@ -77,7 +73,7 @@ public class AppointementBookingActivity extends AppCompatActivity implements Ad
         locationTable= getIntent().getStringExtra("Location");
         serviceTable=getIntent().getStringExtra("Service");
         timeZoneTable=getIntent().getStringExtra("TimeZone");
-        Toast.makeText(this,"Appointment_id=="+ appointment_id+"LOC=="+locationTable+"Service =="+serviceTable,Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"Appointment_id == "+ appointment_id+"LOC =="+locationTable+"Service =="+serviceTable,Toast.LENGTH_SHORT).show();
         mGvTimeSlots = (GridView) findViewById(R.id.gv_timeSlots);
         mGvTimeSlots.setOnItemClickListener(this);
         declarations();
@@ -107,8 +103,10 @@ public class AppointementBookingActivity extends AppCompatActivity implements Ad
                         adapter = new TimeSlotAdapter(AppointementBookingActivity.this, movies.get(1).getTimeSlotStrings());
                         mGvTimeSlots.setAdapter(adapter);
                     } else {
-                        mGvTimeSlots.setAdapter(null);
                         Toast.makeText(AppointementBookingActivity.this, "No Time SLots", Toast.LENGTH_SHORT).show();
+                        TextView emptyView = (TextView)findViewById(android.R.id.empty);
+                        emptyView.setText("No Time Slots Found");
+                        mGvTimeSlots.setEmptyView(emptyView);
                     }
                 }catch (Exception e) {
                     Log.e(TAG, e.getMessage());
@@ -163,9 +161,8 @@ public class AppointementBookingActivity extends AppCompatActivity implements Ad
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-
-                new DatePickerDialog(AppointementBookingActivity.this, date, myCalendar
-                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                new DatePickerDialog(AppointementBookingActivity.this, date,
+                        myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });

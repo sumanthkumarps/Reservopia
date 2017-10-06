@@ -2,7 +2,7 @@
     <string name="app_name">Reservopia</string>
     <string name="histroy">History</string>
     <string name="upcomingAppointment">Upcoming Appointment</string>
-    <string name="select_service_type">Select Location &amp; Service : </string>
+    <string name="select_service_type">Select Location :</string>
     <string name="about">About</string>
     <string name="booking_app">Book Appointment</string>
     <string name="contact_us">Contact Us</string>
@@ -15,7 +15,7 @@
     <string name="first">First Name :</string>
     <string name="last">Last Name :</string>
     <string name="password">Password :</string>
-    <string name="conf_password">Confirm Password</string>
+    <string name="conf_password">Confirm Password : </string>
     <string name="createAccount">Create Account</string>
     <string name="submit">Book Appointment</string>
     <string name="registeration">User Register : </string>

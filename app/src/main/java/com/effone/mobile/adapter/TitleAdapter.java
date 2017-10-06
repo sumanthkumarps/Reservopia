@@ -1,6 +1,8 @@
 package com.effone.mobile.adapter;
 
 import android.content.Context;
+import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +47,7 @@ public class TitleAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         view = inflter.inflate(R.layout.date_time_slot_grid, null);
         TextView names = (TextView) view.findViewById(R.id.ad_tv_date_time);
-        names.setText(mLocatin.get(i).getValue());
+        names.setText(mLocatin.get(i).getText());
         return view;
     }
 }

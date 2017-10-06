@@ -1,19 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:weightSum="1"
     tools:context="com.effone.mobile.Activity.LocationServiceActivity">
     <include layout="@layout/fragment_common_header"
-        android:id="@+id/in_headder"/>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.50"
-        android:background="@mipmap/logo">
+        android:id="@+id/in_headder"
+        />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -21,15 +16,16 @@
             android:id="@+id/tv_upcoming"
             android:textSize="22sp"
             android:padding="5dp"
-            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/in_headder"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
-    </RelativeLayout>
+
     
     <android.support.v7.widget.AppCompatSpinner
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="40dp"
         android:gravity="center"
+        android:layout_below="@+id/tv_upcoming"
         android:layout_marginBottom="10dp"
         android:layout_weight="0.1"
         android:id="@+id/sp_location"/>
@@ -39,13 +35,14 @@
         android:text="@string/time_Zone"
         android:id="@+id/tv_tme"
         android:textSize="22sp"
+        android:layout_below="@+id/sp_location"
         android:padding="5dp"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
     <android.support.v7.widget.AppCompatSpinner
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/tv_tme"
         android:gravity="center"
         android:layout_marginBottom="10dp"
         android:layout_weight="0.1"
@@ -53,29 +50,33 @@
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.12"
+        android:layout_height="50dp"
+        android:layout_below="@+id/sp_timeZone"
         android:id="@+id/lv_service_type"
         >
 
     </ListView>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:id="@+id/tv_empty"
+            android:layout_below="@+id/sp_timeZone"
             android:layout_weight="0.08"/>
     <TextView
         android:id="@+id/tv_book_appointment"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="5dp"
-        android:layout_marginTop="15dp"
+        android:layout_height="40dp"
         android:layout_gravity="center"
-        android:layout_weight="0.09"
         android:textColor="@android:color/white"
         android:background="@color/dayName"
         android:gravity="center"
         android:text="@string/booking_app"
         android:textAlignment="center"
-        android:textSize="@dimen/font_size" />
+        android:layout_margin="5dp"
+        android:textSize="@dimen/font_size"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
-</LinearLayout>
+</RelativeLayout>
