@@ -20,6 +20,7 @@ import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -30,6 +31,7 @@ import com.effone.mobile.Activity.AppointmentHistoryActivity;
 import com.effone.mobile.Activity.LocationServiceActivity;
 import com.effone.mobile.Activity.MultipleLocationServiceActivity;
 import com.effone.mobile.Activity.NetworkErrorActivity;
+import com.effone.mobile.Activity.RegisterActivity;
 import com.effone.mobile.adapter.AppointmentListAdapter;
 import com.effone.mobile.common.AppPreferene;
 import com.effone.mobile.common.ResvUtils;
@@ -259,7 +261,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mRealm.beginTransaction();
             TitleNames  titleNames=mRealm.createObject(TitleNames.class);
             titleNames.setText(mTitle.get(i).getText());
-            titleNames.setText(mTitle.get(i).getValue());
+            titleNames.setValue(mTitle.get(i).getValue());
             mRealm.insert(titleNames);
             mRealm.commitTransaction();
         }
@@ -370,6 +372,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onStart();
         if(!AppPreferene.with(this).getEmail().equals(""))
         upcomingAppointmentList();
+        else{
+            String[] planets = new String[] { "Create New Account", "Login"};
+            ArrayList<String> planetList = new ArrayList<String>();
+            planetList.addAll( Arrays.asList(planets) );
+
+            // Create ArrayAdapter using the planet list.
+             ArrayAdapter<String> listAdapter  = new ArrayAdapter<String>(this, R.layout.date_time_slot_grid, planetList);
+            mLvAppointmentList.setAdapter( listAdapter );
+            mLvAppointmentList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    if(i==0){
+                        openActivity(MainActivity.this, RegisterActivity.class);
+                    }else if(i == 1){
+
+                    }
+                }
+            });
+        }
     }
 
     private void upcomingAppointmentList() {
@@ -458,10 +479,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.tv_booking_app:
 
                 if(networkChangeReceiver.isOnline(this)) {
-                    if (AppPreferene.with(this).getMulitpleService()) {
-                        openActivity(this, LocationServiceActivity.class);
-                    } else {
-                        openActivity(this, MultipleLocationServiceActivity.class);
+                    if(AppPreferene.with(this).getPreLoad()) {
+                        if (AppPreferene.with(this).getMulitpleService()) {
+                            openActivity(this, LocationServiceActivity.class);
+                        } else {
+                            openActivity(this, MultipleLocationServiceActivity.class);
+                        }
                     }
                 }else{
                     openActivity(this,NetworkErrorActivity.class);
