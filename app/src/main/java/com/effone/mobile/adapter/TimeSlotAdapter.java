@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.effone.mobile.R;
 import com.effone.mobile.model.TimeSlotStrings;
 
+import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -74,13 +75,14 @@ public class TimeSlotAdapter  extends BaseAdapter {
             DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm aa", Locale.US);
             DateFormat timeFormat = new SimpleDateFormat("hh:mm aa", Locale.US);
         if (position == selectedPosition) {
-            convertView.setBackgroundColor(Color.parseColor("#04c7ff"));
-            mTimeSlotsFiel.mTvDateTime.setTextColor(Color.WHITE);
+            convertView.setBackgroundColor(Color.parseColor("#0E68F0"));
+            mTimeSlotsFiel.mTvDateTime.setTextColor(Color.parseColor("#D2FFFF"));
             mTimeSlotsFiel.mTvDateTime.setTypeface(null, Typeface.BOLD);
 
         } else {
             convertView.setBackgroundColor(Color.TRANSPARENT);
             mTimeSlotsFiel.mTvDateTime.setTextColor(Color.BLACK);
+            mTimeSlotsFiel.mTvDateTime.setTypeface(null, Typeface.NORMAL);
         }
 
             try {

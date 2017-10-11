@@ -7,9 +7,11 @@ import android.content.Intent;
 
 import java.util.Calendar;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -124,10 +126,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         mBtSubmit=(Button)findViewById(R.id.bt_submit);
       /*  mRGGender=(RadioGroup)findViewById(R.id.radioSex);*/
         male = (ToggleButton) findViewById(R.id.tb_male);
+        male.setTransformationMethod(null);
         female = (ToggleButton) findViewById(R.id.tb_female);
+        female.setTransformationMethod(null);
         male.setOnCheckedChangeListener(changeChecker);
         female.setOnCheckedChangeListener(changeChecker);
         mBtSubmit.setOnClickListener(this);
+        mBtSubmit.setTransformationMethod(null);
         mEtEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -150,18 +155,24 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     CompoundButton.OnCheckedChangeListener changeChecker = new CompoundButton.OnCheckedChangeListener() {
 
+        @RequiresApi(api = Build.VERSION_CODES.M)
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if (isChecked) {
                 if (buttonView == male) {
                     male.setChecked(true);
                     female.setChecked(false);
-                    mStGender="male";
+                    female.setBackground(getDrawable(R.drawable.selector));
+                    mStGender = "male";
+
                 }
                 if (buttonView == female) {
                     male.setChecked(false);
                     female.setChecked(true);
+                    male.setBackground(getDrawable(R.drawable.selector));
                     mStGender="female";
+
+
                 }
             }
         }

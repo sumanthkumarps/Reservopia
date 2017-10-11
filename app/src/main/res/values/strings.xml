@@ -13,8 +13,8 @@
     <string name="phone">Phone </string>
     <string name="radio_male">Male</string>
     <string name="radio_female">Female</string>
-    <string name="first">First Name </string>
-    <string name="last">Last Name </string>
+    <string name="first">First name </string>
+    <string name="last">Last name </string>
     <string name="password">Password</string>
     <string name="conf_password">Re Password </string>
     <string name="createAccount">Create Account</string>
@@ -25,7 +25,7 @@
     <string name="appointment">appointment</string>
     <string name="city">City</string>
     <string name="zip">Zip</string>
-    <string name="address">Address:</string>
+    <string name="address">Address</string>
     <string name="CA">CA</string>
     <string name="appointment_confirmation">Appointment Confirmation</string>
     <string name="name">Name</string>
@@ -48,9 +48,9 @@
     <string name="noConn">No Conncetion</string>
     <string name="error">Error</string>
     <string name="title">Title</string>
-    <string name="dob">Date Of Birth</string>
+    <string name="dob">Date of birth</string>
     <string name="signUp">Sign Up</string>
-    <string name="time_Zone">Time Zone</string>
+    <string name="time_Zone">Time zone</string>
     <string name="getDetails">Get Details</string>
 
 
@@ -97,5 +97,6 @@
     <string name="confirmation">Confirmation</string>
     <string name="Location">Location</string>
     <string name="confirmation_msg">Thanks you, your appointment is booked.</string>
+    <string name="confirmationno">Confirmation ID</string>
 
 </resources>

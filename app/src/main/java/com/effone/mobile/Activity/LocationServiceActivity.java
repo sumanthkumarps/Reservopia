@@ -84,7 +84,7 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
     private ArrayList<Time> movies;
     private TimeSlotAdapter adapter;
     private String serviceTable;
-
+    private  TextView mTvDateOfSlots;
     private ProgressDialog mCommonProgressDialog;
 
     @Override
@@ -105,6 +105,7 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
         mTvTitle=(TextView)findViewById(R.id.tv_title);
         mTvBookAppoin=(Button) findViewById(R.id.tv_book_appointment);
         mTvBookAppoin.setOnClickListener(this);
+        mTvBookAppoin.setTransformationMethod(null);
         mTvTitle.setText(getString(R.string.service_type));
         mSpinner=(AppCompatSpinner)findViewById(R.id.sp_location);
         mTimeZone=(AppCompatSpinner)findViewById(R.id.sp_timeZone);
@@ -112,7 +113,7 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
        /* mLvServiceType.setOnItemClickListener(this);*/
         mRealm= Realm.getDefaultInstance();
         getLOcationAndServiceFromRealm();
-
+        mTvDateOfSlots=(TextView)findViewById(R.id.date);
         mGvTimeSlots = (GridView) findViewById(R.id.gv_timeSlots);
         mGvTimeSlots.setOnItemClickListener(this);
 
@@ -143,7 +144,7 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
     }
 
 
-    private void settingDataIntoGrid(String Date,String locationTable,String serviceTable, String timezone) {
+    private void settingDataIntoGrid(final String Date, String locationTable, String serviceTable, String timezone) {
         if (mCommonProgressDialog == null) {
             mCommonProgressDialog = ResvUtils.createProgressDialog(this);
             mCommonProgressDialog.show();
@@ -171,14 +172,15 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
                        /* changeButtonTitle(false);*/
 
                     } else {
-                        Toast.makeText(LocationServiceActivity.this, "No Time SLots.", Toast.LENGTH_SHORT).show();
+                      //  Toast.makeText(LocationServiceActivity.this, "No Time SLots.", Toast.LENGTH_SHORT).show();
                       //  changeButtonTitle(true);
                         mGvTimeSlots.setAdapter(null);
                         mGvTimeSlots.setVisibility(View.GONE);
                         mTvEmptyView.setVisibility(View.VISIBLE);
+                        mTvDateOfSlots.setText(Date);
                     }
                 }catch (Exception e) {
-                    Toast.makeText(LocationServiceActivity.this, "No Time SLots", Toast.LENGTH_SHORT).show();
+                  //  Toast.makeText(LocationServiceActivity.this, "No Time SLots", Toast.LENGTH_SHORT).show();
                     mGvTimeSlots.setAdapter(null);
                     mGvTimeSlots.setVisibility(View.GONE);
                     mTvEmptyView.setVisibility(View.VISIBLE);

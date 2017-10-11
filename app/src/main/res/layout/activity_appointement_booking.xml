@@ -32,25 +32,40 @@
         <LinearLayout
             android:id="@+id/tv_empty_view"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:visibility="gone"
+            android:layout_height="200dp"
+
             android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
-            android:background="@drawable/rounded_corner">
+            android:layout_marginTop="5dp"
+            android:background="@drawable/rounded_corner"
+            android:orientation="vertical">
+
             <TextView
 
+                android:text="No time slots available -"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:text="No time slots"
-                android:textColor="@android:color/black"
-                android:gravity="center"
-                />
+                android:layout_height="0dp"
+                android:textSize="@dimen/header"
+                android:gravity="bottom|center"
+                android:layout_weight=".5"
+                android:textColor="@color/hostisMe" />
+
+            <TextView
+
+                android:id="@+id/date"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:textSize="@dimen/header"
+                android:gravity="top|center"
+                android:layout_weight=".5"
+                android:text="date"
+                android:textColor="@color/blue" />
         </LinearLayout>
+
         <GridView
             android:id="@+id/gv_timeSlots"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="200dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_marginTop="5dp"

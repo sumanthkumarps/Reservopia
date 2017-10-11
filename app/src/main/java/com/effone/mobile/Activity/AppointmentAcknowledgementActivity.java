@@ -50,7 +50,7 @@ public class AppointmentAcknowledgementActivity extends AppCompatActivity implem
         mTvImgBackButton.setVisibility(View.GONE);
         mIvHomeBtn=(ImageView)findViewById(R.id.iv_home_btn);
         mIvHomeBtn.setOnClickListener(this);
-        mIvHomeBtn.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_action_home));
+        mIvHomeBtn.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.home_btn));
         mTvTitle=(TextView)findViewById(R.id.tv_title);
         mTvTitle.setText(R.string.confirmation_details);
 

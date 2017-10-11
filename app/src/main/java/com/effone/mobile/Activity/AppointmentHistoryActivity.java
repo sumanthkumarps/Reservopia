@@ -55,14 +55,14 @@ public class AppointmentHistoryActivity extends AppCompatActivity implements Vie
         mIvBackBtn=(ImageView)findViewById(R.id.iv_back_btn);
         mIvBackBtn.setOnClickListener(this);
         mLvAppointmentHistoryList=(ListView)findViewById(R.id.lv_appointment_history);
-       if(AppPreferene.with(this).getEmail().equals("")){
+     /*  if(AppPreferene.with(this).getEmail().equals("")){
            ResvUtils.createOKAlert(this,"History","No History details found", new DialogInterface.OnClickListener() {
                public void onClick(DialogInterface dialog, int id) {
                     finish();
                }
            });
 
-       }else
+       }else*/
         getAppointmentHistoryList();
     }
     private void getAppointmentHistoryList() {
