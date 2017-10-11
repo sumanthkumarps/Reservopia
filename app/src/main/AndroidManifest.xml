@@ -36,6 +36,7 @@
 
         <activity android:name=".Activity.MultipleLocationServiceActivity"/>
         <activity android:name=".Activity.NetworkErrorActivity"></activity>
+        <activity android:name=".Activity.LoginActivity"></activity>
     </application>
 
 </manifest>

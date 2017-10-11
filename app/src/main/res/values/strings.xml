@@ -98,5 +98,10 @@
     <string name="Location">Location</string>
     <string name="confirmation_msg">Thanks you, your appointment is booked.</string>
     <string name="confirmationno">Confirmation ID</string>
+    <string name="login">Login</string>
+    <string name="reset">reset</string>
+    <string name="forgot">forgot password</string>
+    <string name="signup">Sign Up</string>
+    <string name="cancel">Cancel</string>
 
 </resources>

@@ -11,6 +11,11 @@
     <style name="appointmentScreen">
         <item name="android:textSize">18sp</item>
     </style>
+    <style name="loginPage">
+        <item name="android:gravity">center</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:textSize">18sp</item>
 
+    </style>
 
 </resources>

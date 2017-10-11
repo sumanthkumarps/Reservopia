@@ -140,4 +140,9 @@ public class ResvUtils {
         messageText.setGravity(Gravity.CENTER);
         alert.show();
     }
+    public static void createYesOrNoDialog(Context context, String title, DialogInterface.OnClickListener listener){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage(title).setPositiveButton("Yes", listener)
+                .setNegativeButton("No", listener).show();
+    }
 }

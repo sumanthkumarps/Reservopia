@@ -365,10 +365,17 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             mCbCreateAccount.setVisibility(View.VISIBLE);
                         }else{
                                 mCbCreateAccount.setVisibility(View.GONE);
-                               ResvUtils.createOKAlert(RegisterActivity.this, "Trying to sign in? ", "Someone's already using that email.If that’s you, please login.", new DialogInterface.OnClickListener() {
+                               ResvUtils.createYesOrNoDialog(RegisterActivity.this, "An Account with the given email is already registered\nDo you want to login with given email?\n ", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-                             /*       Intent i = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                                    startActivity(i);*/
+                                    switch (id){
+                                        case DialogInterface.BUTTON_POSITIVE:
+                                            startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
+                                            break;
+
+                                        case DialogInterface.BUTTON_NEGATIVE:
+                                            dialog.cancel();
+                                            break;
+                                    }
                                 }
                             });
                         }
