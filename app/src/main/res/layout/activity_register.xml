@@ -444,7 +444,7 @@
                             android:layout_below="@+id/lv_password"
                             android:layout_weight="0.60"
                             android:hint="@string/dob_date"
-                            android:inputType="date"
+                            android:inputType="number"
                             android:singleLine="true" />
                     </LinearLayout>
 

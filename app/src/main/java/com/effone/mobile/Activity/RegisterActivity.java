@@ -3,6 +3,9 @@ package com.effone.mobile.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+
+
+import java.util.Calendar;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -115,7 +118,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         mSpTitle=(Spinner)findViewById(R.id.et_title);
         mSpTitle.setAdapter(new TitleAdapter(this,mRealm.where(TitleNames.class).findAll()));
         mSpTitle.setOnItemSelectedListener(this);
-
+        mEtDateOfBirth.addTextChangedListener(mDateEntryWatcher);
         mEtPassword=(EditText)findViewById(R.id.et_password);
         mEtConfirmPassword=(EditText)findViewById(R.id.et_conf_pass);
         mBtSubmit=(Button)findViewById(R.id.bt_submit);
@@ -387,6 +390,57 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
+    private TextWatcher mDateEntryWatcher = new TextWatcher() {
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            String working = s.toString();
+            boolean isValid = true;
+            if (working.length()==2 && before ==0) {
+                if (Integer.parseInt(working) < 1 || Integer.parseInt(working)>12) {
+                    isValid = false;
+                } else {
+                    working+="/";
+                    mEtDateOfBirth.setText(working);
+                    mEtDateOfBirth.setSelection(working.length());
+                }
+            }
+            else if(working.length()==5 && before ==0){
+                String month=working.substring(3);
+                if ( Integer.parseInt(month)>31) {
+                    isValid = false;
+                } else {
+                    working+="/";
+                    mEtDateOfBirth.setText(working);
+                    mEtDateOfBirth.setSelection(working.length());
+                }
+            }
+            else if (working.length()==10 && before ==0) {
+                String enteredYear = working.substring(6);
+                int currentYear=Calendar.getInstance().get(Calendar.YEAR);
+                if (Integer.parseInt(enteredYear) > currentYear) {
+                    isValid = false;
+                }
+            } else if (working.length()!=10) {
+                isValid = false;
+            }
+
+            if (!isValid) {
+                mEtDateOfBirth.setError("Enter a valid date: mm/dd/yyyy.Eg.04/09/1965");
+            } else {
+                mEtDateOfBirth.setError(null);
+            }
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {}
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+    };
+
 
 
 
