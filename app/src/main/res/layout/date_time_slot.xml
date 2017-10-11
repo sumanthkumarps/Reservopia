@@ -6,8 +6,7 @@
     android:padding="5dp"
     android:textStyle="bold"
     android:gravity="center_vertical"
-    android:drawableTint="@android:color/white"
-    android:drawableRight="@drawable/forward"
-    android:textSize="@dimen/upcoming">
+    android:drawableTint="@color/upcoming_text"
+    android:drawableRight="@drawable/forward">
 
 </TextView>

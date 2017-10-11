@@ -18,14 +18,23 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-
+        <TextView
+            android:id="@+id/tv_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="7dp"
+            android:text="@string/confirmation_msg"
+            android:textAllCaps="false"
+            android:textSize="@dimen/font_size"
+           android:textColor="@color/green" />
 
     <TextView
         android:id="@+id/tv_serviceTypeAdapter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="left|center"
-       android:padding="5dp"
+       android:layout_marginTop="5dp"
         android:text="@string/confirmation_details"
         android:textAllCaps="false"
         android:textSize="@dimen/font_size"
@@ -38,6 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
+        android:padding="5dp"
        >
 
         <TableRow
@@ -47,29 +57,28 @@
             <TextView
                 android:id="@+id/tv_confirmation_no_label"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:gravity="left|center"
-                android:padding="5dp"
                 android:text="@string/date"
-                android:textStyle="bold"
-                android:textSize="@dimen/font_size" />
+                android:textSize="@dimen/font_size"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
                 android:gravity="right"
-                android:text=":" />
+                android:text=":"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_appointment_date"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="left|center"
-                android:textStyle="bold"
-                android:padding="5dp"
-                android:textSize="@dimen/font_size" />
+                android:textSize="@dimen/font_size"
+
+                android:textStyle="bold" />
         </TableRow>
 
 
@@ -81,10 +90,10 @@
             <TextView
                 android:id="@+id/tv_name_label"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 
                 android:gravity="left|center"
-                android:padding="5dp"
+                
                 android:text="@string/time_Zone"
                 android:textSize="@dimen/font_size" />
 
@@ -101,7 +110,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="left|center"
-                android:padding="5dp"
+                
                 android:textSize="@dimen/font_size" />
         </TableRow>
 
@@ -113,10 +122,8 @@
             <TextView
                 android:id="@+id/tv_service_label"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
+                android:layout_height="30dp"
                 android:gravity="left|center"
-                android:padding="5dp"
                 android:text="@string/first"
                 android:textSize="@dimen/font_size" />
 
@@ -133,7 +140,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="left|center"
-                android:padding="5dp"
+                
                 android:textSize="@dimen/font_size" />
         </TableRow>
         <TableRow
@@ -144,10 +151,10 @@
             <TextView
                 android:id="@+id/tv_last_name"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
 
                 android:gravity="left|center"
-                android:padding="5dp"
+                
                 android:text="@string/last"
                 android:textSize="@dimen/font_size" />
 
@@ -164,7 +171,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="left|center"
-                android:padding="5dp"
+                
                 android:textSize="@dimen/font_size" />
         </TableRow>
 
@@ -176,9 +183,9 @@
             <TextView
                 android:id="@+id/tv_email_label"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:gravity="left|center"
-                android:padding="5dp"
+                
                 android:text="@string/email"
                 android:textSize="@dimen/font_size" />
 
@@ -194,7 +201,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="left|center"
-                android:padding="5dp"
+                
                 android:textSize="@dimen/font_size" />
         </TableRow>
 
@@ -206,12 +213,9 @@
             <TextView
                 android:id="@+id/tv_log"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
+                android:layout_height="30dp"
                 android:gravity="left|center"
-                android:padding="5dp"
-                android:text="@string/locName"
-
+                android:text="@string/Location"
                 android:textSize="@dimen/font_size" />
 
             <TextView
@@ -228,7 +232,7 @@
                 android:layout_weight="1"
                 android:gravity="left|center"
 
-                android:padding="5dp"
+                
                 android:textSize="@dimen/font_size" />
         </TableRow>
         <TableRow
@@ -239,10 +243,10 @@
         <TextView
             android:id="@+id/tv_address_label"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
 
             android:gravity="left|center"
-            android:padding="5dp"
+            
             android:text="@string/service"
             android:textSize="@dimen/font_size" />
 
@@ -259,7 +263,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="left|center"
-            android:padding="5dp"
+            
             android:textSize="@dimen/font_size" />
     </TableRow>
         <TableRow
@@ -270,18 +274,18 @@
             <TextView
                 android:id="@+id/tv_status"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
 
                 android:gravity="left|center"
-                android:padding="5dp"
+                
                 android:text="@string/status"
-                android:textStyle="bold"
+            
                 android:textSize="@dimen/font_size" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
+                
                 android:gravity="right"
                 android:text=":" />
 
@@ -291,10 +295,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="left|center"
-                android:padding="5dp"
+                
                 android:text="@string/Booked"
                 android:textSize="@dimen/font_size"
-                android:textStyle="bold" />
+             />
         </TableRow>
 
     </TableLayout>
@@ -304,13 +308,14 @@
         android:layout_height="30dp"
         android:gravity="left|center"
         android:textStyle="bold"
-        android:padding="5dp"
+        
         android:text="@string/location_details"
         android:textSize="@dimen/font_size" />
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="7dp"
         android:layout_height="wrap_content"
+        android:padding="5dp"
         android:background="@drawable/rounded_corner">
         <TableRow
             android:layout_width="match_parent"
@@ -320,10 +325,10 @@
             <TextView
                 android:id="@+id/tv_org"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
 
                 android:gravity="left|center"
-                android:padding="5dp"
+                
                 android:text="@string/orginzatrion"
                 android:textStyle="bold"
                 android:textSize="@dimen/font_size" />
@@ -342,7 +347,7 @@
                 android:layout_weight="1"
                 android:gravity="left|center"
                 android:textStyle="bold"
-                android:padding="5dp"
+                
                 android:textSize="@dimen/font_size" />
         </TableRow>
         <TableRow
@@ -353,9 +358,9 @@
             <TextView
                 android:id="@+id/tv_add"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:gravity="left|center"
-                android:padding="5dp"
+                
                 android:text="@string/address"
                 android:textSize="@dimen/font_size" />
 
@@ -371,7 +376,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="left|center"
-                android:padding="5dp"
+                
                 android:textSize="@dimen/font_size" />
         </TableRow>
         <TableRow
@@ -382,10 +387,10 @@
             <TextView
                 android:id="@+id/tv_phone"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
 
                 android:gravity="left|center"
-                android:padding="5dp"
+                
                 android:text="@string/phone"
                 android:textStyle="bold"
                 android:textSize="@dimen/font_size" />
@@ -404,7 +409,7 @@
                 android:layout_weight="1"
                 android:gravity="left|center"
                 android:textStyle="bold"
-                android:padding="5dp"
+                
                 android:textSize="@dimen/font_size" />
         </TableRow>
     </TableLayout>

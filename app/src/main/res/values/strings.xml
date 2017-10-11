@@ -50,7 +50,7 @@
     <string name="title">Title</string>
     <string name="dob">Date Of Birth</string>
     <string name="signUp">Sign Up</string>
-    <string name="time_Zone">Time Zone  </string>
+    <string name="time_Zone">Time Zone</string>
     <string name="getDetails">Get Details</string>
 
 
@@ -95,5 +95,7 @@
     <string name="locName">LocName</string>
     <string name="Booked">Booked</string>
     <string name="confirmation">Confirmation</string>
+    <string name="Location">Location</string>
+    <string name="confirmation_msg">Thanks you, your appointment is booked.</string>
 
 </resources>

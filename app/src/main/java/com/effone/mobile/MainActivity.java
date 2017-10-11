@@ -17,6 +17,9 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -75,7 +78,7 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener ,AdapterView.OnItemClickListener{
 
-    private TextView mTvBookingAppiontemnt, mTvHistory, mTvContactUs, mTvAboutUsText,mTvDateTime;
+    private TextView mTvBookingAppiontemnt, mTvHistory, mTvContactUs, mTvAboutUsText,mTvDateTime,mTvTime;
     private ImageView mImgIcon;
     private  Calendar mCalendar;
     private ImageView mIvBackBtn;
@@ -364,6 +367,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mTvAboutUsText = (TextView) findViewById(R.id.tv_about_text);
         mImgIcon = (ImageView) findViewById(R.id.img_icon);
         mTvDateTime=(TextView)findViewById(R.id.tv_dateandtime);
+        mTvTime=(TextView)findViewById(R.id.tv_time);
         mTvBookingAppiontemnt.setOnClickListener(this);
         mTvHistory.setOnClickListener(this);
         mTvContactUs.setOnClickListener(this);
@@ -477,16 +481,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE",Locale.US);
         Date d = new Date();
         String dayOfTheWeek = sdf.format(d);
-        if (formattedDate.contains("-")) {
-            // Split it.
-            String[] parts = formattedDate.split("-");
-            String dayName = parts[0]+" "+parts[1]+" "+parts[2]+" \n"+"<font color='#174e9e'>"+dayOfTheWeek+"</font>";
-            mTvDateTime.setText(Html.fromHtml(dayName) );
-        } else {
-            throw new IllegalArgumentException("String " + formattedDate + " does not contain -");
-        }
+            mTvDateTime.setText(formattedDate);
+            mTvTime.setText(dayOfTheWeek);
 
-        Log.e("MainActivity",formattedDate+" "+dayOfTheWeek);
     }
 
 

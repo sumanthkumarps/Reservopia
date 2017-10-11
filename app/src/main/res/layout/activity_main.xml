@@ -23,16 +23,16 @@
             android:layout_height="match_parent"
             android:layout_weight=".49"
             android:orientation="vertical"
+            android:paddingBottom="5dp"
             android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:paddingBottom="5dp">
+            android:paddingRight="5dp">
 
             <ImageView
                 android:id="@+id/img_icon"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="0.23"
                 android:layout_marginTop="3dp"
+                android:layout_weight="0.23"
                 android:src="@drawable/reserovipa_logo" />
 
 
@@ -40,15 +40,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/divider" />
+
             <TextView
                 android:id="@+id/tv_dateandtime"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="0.27"
-                android:text="mm/dd/yyyy \n Monday"
-                android:textColor="@color/black"
-                android:gravity="right|center"
-                android:textSize="@dimen/date_time" />
+                android:layout_weight="0.14"
+                android:gravity="right|bottom"
+                android:text="mm/dd/yyyy"
+                android:textColor="@color/about"
+                android:textStyle="bold"
+                android:textSize="@dimen/sub_text" />
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.09"
+                android:gravity="right|top"
+                android:text=" Monday"
+                android:textColor="@color/date"
+                android:textSize="@dimen/sub_about" />
 
             <TextView
                 android:id="@+id/tv_about_heading"
@@ -56,9 +68,10 @@
                 android:layout_height="0dp"
                 android:layout_weight="0.08"
                 android:gravity="left|center"
-                android:textColor="@color/black"
                 android:text="About"
-                android:textSize="@dimen/heading" />
+                android:textColor="@color/about"
+                android:textSize="@dimen/sub_text"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_about_text"
@@ -93,10 +106,11 @@
                 android:drawableTop="@mipmap/ic_booking_appiontment"
                 android:gravity="center"
                 android:padding="10dp"
-                android:textColor="@color/black"
+                android:textColor="@color/about"
                 android:text="@string/booking_app"
+                android:textStyle="bold"
                 android:textAlignment="center"
-                android:textSize="@dimen/heading" />
+                android:textSize="@dimen/sub_about" />
 
             <View
                 android:layout_width="match_parent"
@@ -113,9 +127,10 @@
                 android:gravity="center"
                 android:padding="10dp"
                 android:text="@string/histroy"
-                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textColor="@color/about"
                 android:textAlignment="center"
-                android:textSize="@dimen/heading" />
+                android:textSize="@dimen/sub_about" />
 
             <View
                 android:layout_width="match_parent"
@@ -132,9 +147,10 @@
                 android:gravity="center"
                 android:padding="10dp"
                 android:text="@string/contact_us"
-                android:textColor="@color/black"
+                android:textColor="@color/about"
+                android:textStyle="bold"
                 android:textAlignment="center"
-                android:textSize="@dimen/heading" />
+                android:textSize="@dimen/sub_about" />
         </LinearLayout>
     </LinearLayout>
 
@@ -155,33 +171,33 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <TextView
                 android:id="@+id/tv_count_appointments"
                 android:layout_width="30dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="@color/upcoming_appointment_count"
+                android:gravity="center"
                 android:padding="5dp"
                 android:paddingBottom="5dp"
-                android:layout_gravity="center"
                 android:paddingTop="10dp"
-                android:background="@color/upcoming_appointment_count"
                 android:text="0"
-                android:gravity="center"
                 android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="@dimen/heading"
+                android:textColor="@color/inside_blue"
+                android:textSize="@dimen/upcoming"
                 android:textStyle="bold" />
             <TextView
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.02"
                 android:padding="5dp"
                 android:paddingBottom="5dp"
                 android:paddingTop="10dp"
-                android:background="@color/dayName"
+                android:background="@color/blue"
                 android:text="@string/upcomingAppointment"
-                android:textColor="#ffffff"
-                android:textSize="@dimen/heading"
+                android:textColor="@color/inside_blue"
+                android:textSize="@dimen/font_size"
                 android:textStyle="bold" />
         </LinearLayout>
 

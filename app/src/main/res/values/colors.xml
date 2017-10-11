@@ -19,4 +19,13 @@
     <color name="hostisMe">#9F9F9F</color>
     <color name="white">#FFFFFF</color>
     <color name="gray">#f2f2f2</color>
+
+    <color name ="green">#9bcd04</color>
+
+    <color name="blue">#0E68F0</color>
+    <color name="inside_blue">#D2FFFF</color>
+
+        <color name="about">#083469</color>
+    <color name="date">#0E68F0</color>
+    <color name="upcoming_text">#666666</color>
 </resources>
