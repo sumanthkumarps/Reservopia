@@ -8,6 +8,6 @@
     android:gravity="center_vertical"
     android:drawableTint="@android:color/white"
     android:drawableRight="@drawable/forward"
-    android:textSize="14sp">
+    android:textSize="@dimen/upcoming">
 
 </TextView>

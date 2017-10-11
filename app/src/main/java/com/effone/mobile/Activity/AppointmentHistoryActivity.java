@@ -1,6 +1,10 @@
 package com.effone.mobile.Activity;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +15,7 @@ import android.widget.TextView;
 
 import com.effone.mobile.R;
 import com.effone.mobile.adapter.AppointmentHistoryAdapter;
+import com.effone.mobile.common.AppPreferene;
 import com.effone.mobile.common.ResvUtils;
 import com.effone.mobile.model.History;
 import com.effone.mobile.model.HistoryAppointment;
@@ -50,6 +55,14 @@ public class AppointmentHistoryActivity extends AppCompatActivity implements Vie
         mIvBackBtn=(ImageView)findViewById(R.id.iv_back_btn);
         mIvBackBtn.setOnClickListener(this);
         mLvAppointmentHistoryList=(ListView)findViewById(R.id.lv_appointment_history);
+       if(AppPreferene.with(this).getEmail().equals("")){
+           ResvUtils.createOKAlert(this,"History","No History details found", new DialogInterface.OnClickListener() {
+               public void onClick(DialogInterface dialog, int id) {
+                    finish();
+               }
+           });
+
+       }else
         getAppointmentHistoryList();
     }
     private void getAppointmentHistoryList() {
@@ -64,7 +77,7 @@ public class AppointmentHistoryActivity extends AppCompatActivity implements Vie
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
 
-        Call<UpCommingAppointmentModel> call = apiService.getUpCommingAppointmentDetails(getString(R.string.token),"application/json",  getString(R.string.org_id), "abdulrahim.sk.dev@gmail.com");
+        Call<UpCommingAppointmentModel> call = apiService.getUpCommingAppointmentDetails(getString(R.string.token),"application/json",  getString(R.string.org_id), AppPreferene.with(this).getEmail());
         call.enqueue(new Callback<UpCommingAppointmentModel>() {
             @Override
             public void onResponse(Call<UpCommingAppointmentModel> call, Response<UpCommingAppointmentModel> response) {

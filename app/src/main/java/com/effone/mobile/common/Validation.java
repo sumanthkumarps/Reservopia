@@ -13,7 +13,8 @@ public class Validation {
     Pattern digit = Pattern.compile("[0-9]");
     Pattern special = Pattern.compile ("[!@#$%&*()_+=|<>?{}\\[\\]~-]");
     Pattern eight = Pattern.compile (".{8,16}");
-
+    private static final String DATE_PATTERN =
+            "(0?[1-9]|1[012]) [/.-] (0?[1-9]|[12][0-9]|3[01]) [/.-] ((19|20)\\d\\d)";
 
     public boolean isValidEmail(String mStrEmail) {
         String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
@@ -75,6 +76,17 @@ public class Validation {
         String mStrName_pattern = "[A-Za-z0-9# /-:]{0,255}";
         Pattern pattern = Pattern.compile(mStrName_pattern);
         Matcher matcher = pattern.matcher(mStrAddress);
+        return matcher.matches();
+    }
+
+
+
+    public boolean isValidDate(final String date){
+
+        String regex = "^(1[0-2]|0[1-9])/(3[01]|[12][0-9]|0[1-9])/[0-9]{4}$";
+
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(date);
         return matcher.matches();
     }
 }

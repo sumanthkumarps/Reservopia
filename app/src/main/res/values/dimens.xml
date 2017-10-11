@@ -3,4 +3,6 @@
     <dimen name="header">22sp</dimen>
     <dimen name="font_size">18sp</dimen>
     <dimen name="heading">10sp</dimen>
+    <dimen name="upcoming">12sp</dimen>
+    <dimen name="sub_text">18sp</dimen>
 </resources>

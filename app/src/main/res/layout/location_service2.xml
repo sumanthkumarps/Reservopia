@@ -4,95 +4,226 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray"
     tools:context="com.effone.mobile.Activity.LocationServiceActivity">
     <include layout="@layout/fragment_common_header"
         android:id="@+id/in_headder"
         />
-
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:id="@+id/relativeLayou"
+        android:layout_below="@+id/in_headder">
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/select_service_type"
-            android:id="@+id/tv_upcoming"
+            android:layout_height="30dp"
+            android:text="@string/options"
             android:textSize="@dimen/font_size"
-            android:padding="5dp"
-            android:layout_below="@+id/in_headder"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:paddingLeft="5dp"
+            android:textStyle="bold"
+            android:id="@+id/text"
+            android:gravity="left|center"
+            android:layout_alignParentTop="true"
+            android:layout_alignRight="@+id/head"
+            android:layout_alignEnd="@+id/head" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/head"
+        android:layout_below="@+id/text"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp"
+        android:padding="5dp"
+        android:background="@drawable/rounded_corner"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+    <TextView
+        android:id="@+id/tv_upcoming"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_above="@+id/tv_tme"
+        android:gravity="left|center"
+        android:text="@string/select_location"
+        android:textSize="@dimen/sub_text"
+        android:layout_alignLeft="@+id/tv_tme"
+        android:layout_alignStart="@+id/tv_tme"
+        android:layout_alignRight="@+id/tv_tme"
+        android:layout_alignEnd="@+id/tv_tme" />
 
-    
+
     <android.support.v7.widget.AppCompatSpinner
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:gravity="center"
-        android:layout_below="@+id/tv_upcoming"
         android:layout_weight="0.1"
-        android:id="@+id/sp_location"/>
+        android:id="@+id/sp_location"
+        android:layout_alignLeft="@+id/sp_timeZone"
+        android:layout_alignStart="@+id/sp_timeZone"
+        android:layout_toRightOf="@+id/tv_tme"
+        android:layout_toEndOf="@+id/tv_tme"
+         />
+
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/time_Zone"
         android:id="@+id/tv_tme"
-        android:textSize="@dimen/font_size"
-        android:layout_below="@+id/sp_location"
-        android:padding="5dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:text="@string/time_Zone"
+        android:textSize="@dimen/sub_text"
+        android:layout_alignBottom="@+id/tv_empty"
+       />
+
+
+
+
     <android.support.v7.widget.AppCompatSpinner
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_below="@+id/tv_tme"
-        android:gravity="center"
-
         android:layout_weight="0.1"
-        android:id="@+id/sp_timeZone"/>
+        android:id="@+id/sp_timeZone"
+        android:layout_below="@+id/sp_location"
+        android:layout_toEndOf="@+id/textView27"
+        android:layout_toRightOf="@+id/textView27" />
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/select_service"
         android:id="@+id/tv_service"
-        android:textSize="@dimen/font_size"
-        android:layout_below="@+id/sp_timeZone"
-        android:padding="5dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:gravity="left|center"
+        android:text="@string/select_service"
+        android:textSize="@dimen/sub_text"
+        android:layout_alignTop="@+id/tv_empty"
+        android:layout_alignLeft="@+id/tv_tme"
+        android:layout_alignStart="@+id/tv_tme" />
 
     <Spinner
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@+id/tv_service"
+        android:layout_height="40dp"
         android:id="@+id/lv_service_type"
-        >
+        android:layout_below="@+id/sp_timeZone"
+        android:layout_alignLeft="@+id/sp_timeZone"
+        android:layout_alignStart="@+id/sp_timeZone"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
 
     </Spinner>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:gravity="left|center"
+        android:text="@string/date_time"
+        android:textSize="@dimen/sub_text"
+        android:layout_below="@+id/tv_service"
+        android:layout_alignLeft="@+id/tv_service"
+        android:layout_alignStart="@+id/tv_service"
+        android:id="@+id/textView24"
+        android:layout_alignRight="@+id/tv_tme"
+        android:layout_alignEnd="@+id/tv_tme" />
+    <EditText
+        android:id="@+id/et_date"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:clickable="true"
+        android:drawableRight="@android:drawable/ic_menu_my_calendar"
+        android:editable="false"
+        android:layout_marginRight="5dp"
+        android:padding="5dp"
+        android:focusable="false"
+        android:background="@drawable/edittext_rounded_corner"
+        android:layout_below="@+id/tv_service"
+        android:layout_alignLeft="@+id/lv_service_type"
+        android:layout_alignStart="@+id/lv_service_type" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/tv_empty"
+        android:layout_below="@+id/sp_timeZone"
+        android:layout_weight="0.08"/>
+
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+
+        android:text=":"
+        android:layout_alignBaseline="@+id/tv_tme"
+        android:layout_alignBottom="@+id/tv_tme"
+        android:layout_toRightOf="@+id/tv_tme"
+        android:layout_toEndOf="@+id/tv_tme"
+        android:layout_marginLeft="38dp"
+        android:layout_marginStart="38dp" />
+
+    <TextView
+        android:id="@+id/textView26"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView24"
+        android:gravity="center"
+        android:text=":"
+        android:layout_below="@+id/tv_empty"
+        android:layout_alignLeft="@+id/textView13"
+        android:layout_alignStart="@+id/textView13" />
+
+    <TextView
+        android:id="@+id/textView27"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/et_date"
+        android:layout_alignLeft="@+id/textView26"
+        android:layout_alignStart="@+id/textView26"
+        android:layout_below="@+id/textView26"
+        android:layout_marginRight="5dp"
+        android:gravity="center"
+        android:text=":" />
+
+        <TextView
+            android:id="@+id/textView29"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/sp_timeZone"
+            android:layout_alignLeft="@+id/textView13"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/textView13"
+            android:layout_toStartOf="@+id/sp_location"
+            android:gravity="center"
+            android:text=":"
+            android:layout_alignRight="@+id/textView13"
+            android:layout_alignEnd="@+id/textView13" />
+    </RelativeLayout>
+
+
+
+    </RelativeLayout>
     <include layout="@layout/activity_appointement_booking"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/lv_service_type"
-        android:layout_above="@+id/tv_book_appointment" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:id="@+id/tv_empty"
-            android:layout_below="@+id/sp_timeZone"
-            android:layout_weight="0.08"/>
-    <TextView
+        android:layout_marginTop="8dp"
+        android:id="@+id/include2"
+        android:layout_below="@+id/relativeLayou"
+        android:layout_alignParentLeft="true"
+        android:layout_above="@+id/tv_book_appointment"
+        android:layout_alignParentStart="true" />
+    <Button
         android:id="@+id/tv_book_appointment"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_gravity="center"
-        android:textColor="@android:color/white"
-        android:background="@color/dayName"
-        android:gravity="center"
+        android:background="@drawable/button_rounded_corner"
         android:text="@string/booking_app"
-        android:textAlignment="center"
-        android:textStyle="bold"
-        android:layout_margin="5dp"
         android:textSize="@dimen/font_size"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="7dp"
+        android:textColor="@color/white"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
-
 </RelativeLayout>

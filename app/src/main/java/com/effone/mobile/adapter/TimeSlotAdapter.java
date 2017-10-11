@@ -2,6 +2,7 @@ package com.effone.mobile.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -73,9 +74,13 @@ public class TimeSlotAdapter  extends BaseAdapter {
             DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm aa", Locale.US);
             DateFormat timeFormat = new SimpleDateFormat("hh:mm aa", Locale.US);
         if (position == selectedPosition) {
-            convertView.setBackgroundColor(Color.BLUE);
+            convertView.setBackgroundColor(Color.parseColor("#04c7ff"));
+            mTimeSlotsFiel.mTvDateTime.setTextColor(Color.WHITE);
+            mTimeSlotsFiel.mTvDateTime.setTypeface(null, Typeface.BOLD);
+
         } else {
             convertView.setBackgroundColor(Color.TRANSPARENT);
+            mTimeSlotsFiel.mTvDateTime.setTextColor(Color.BLACK);
         }
 
             try {

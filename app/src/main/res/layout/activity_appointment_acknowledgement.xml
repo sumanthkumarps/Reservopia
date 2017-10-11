@@ -3,11 +3,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/gray"
     tools:context="com.effone.mobile.Activity.LocationServiceActivity"
     android:weightSum="1">
 
     <include layout="@layout/fragment_common_header"
-        android:layout_weight="0.02" />
+        />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
 
     <TextView
         android:id="@+id/tv_serviceTypeAdapter"
@@ -20,14 +31,13 @@
         android:textSize="@dimen/font_size"
         android:textStyle="bold" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/divider" />
+
 
     <TableLayout
+        android:background="@drawable/rounded_corner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
        >
 
         <TableRow
@@ -40,22 +50,24 @@
                 android:layout_height="wrap_content"
                 android:gravity="left|center"
                 android:padding="5dp"
-                android:text="@string/confirmation_no"
+                android:text="@string/date"
+                android:textStyle="bold"
                 android:textSize="@dimen/font_size" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-               
+                android:textStyle="bold"
                 android:gravity="right"
                 android:text=":" />
 
             <TextView
-                android:id="@+id/tv_confirmation_no_value"
+                android:id="@+id/tv_appointment_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="left|center"
+                android:textStyle="bold"
                 android:padding="5dp"
                 android:textSize="@dimen/font_size" />
         </TableRow>
@@ -73,7 +85,7 @@
                 
                 android:gravity="left|center"
                 android:padding="5dp"
-                android:text="@string/name"
+                android:text="@string/time_Zone"
                 android:textSize="@dimen/font_size" />
 
             <TextView
@@ -84,7 +96,7 @@
                 android:text=":" />
 
             <TextView
-                android:id="@+id/tv_name_value"
+                android:id="@+id/tv_timeZone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -105,7 +117,7 @@
 
                 android:gravity="left|center"
                 android:padding="5dp"
-                android:text="@string/service"
+                android:text="@string/first"
                 android:textSize="@dimen/font_size" />
 
             <TextView
@@ -116,7 +128,38 @@
                 android:text=":" />
 
             <TextView
-                android:id="@+id/tv_service_value"
+                android:id="@+id/tv_first_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left|center"
+                android:padding="5dp"
+                android:textSize="@dimen/font_size" />
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                android:id="@+id/tv_last_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:gravity="left|center"
+                android:padding="5dp"
+                android:text="@string/last"
+                android:textSize="@dimen/font_size" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:gravity="right"
+                android:text=":" />
+
+            <TextView
+                android:id="@+id/tv_last"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -131,12 +174,12 @@
            >
 
             <TextView
-                android:id="@+id/tv_date_label"
+                android:id="@+id/tv_email_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="left|center"
                 android:padding="5dp"
-                android:text="@string/date"
+                android:text="@string/email"
                 android:textSize="@dimen/font_size" />
 
             <TextView
@@ -146,7 +189,7 @@
                 android:text=":" />
 
             <TextView
-                android:id="@+id/tv_date_value"
+                android:id="@+id/tv_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -155,32 +198,175 @@
                 android:textSize="@dimen/font_size" />
         </TableRow>
 
-
-
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             >
 
             <TextView
-                android:id="@+id/tv_phone_label"
+                android:id="@+id/tv_log"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
                 android:gravity="left|center"
                 android:padding="5dp"
-                android:text="@string/phone_column"
+                android:text="@string/locName"
+
                 android:textSize="@dimen/font_size" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-               
+
                 android:gravity="right"
                 android:text=":" />
 
             <TextView
-                android:id="@+id/tv_phone_value"
+                android:id="@+id/tv_locName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left|center"
+
+                android:padding="5dp"
+                android:textSize="@dimen/font_size" />
+        </TableRow>
+        <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <TextView
+            android:id="@+id/tv_address_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:gravity="left|center"
+            android:padding="5dp"
+            android:text="@string/service"
+            android:textSize="@dimen/font_size" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:gravity="right"
+            android:text=":" />
+
+        <TextView
+            android:id="@+id/tv_service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="left|center"
+            android:padding="5dp"
+            android:textSize="@dimen/font_size" />
+    </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                android:id="@+id/tv_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:gravity="left|center"
+                android:padding="5dp"
+                android:text="@string/status"
+                android:textStyle="bold"
+                android:textSize="@dimen/font_size" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:gravity="right"
+                android:text=":" />
+
+            <TextView
+                android:id="@+id/tv_status_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left|center"
+                android:padding="5dp"
+                android:text="@string/Booked"
+                android:textSize="@dimen/font_size"
+                android:textStyle="bold" />
+        </TableRow>
+
+    </TableLayout>
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:gravity="left|center"
+        android:textStyle="bold"
+        android:padding="5dp"
+        android:text="@string/location_details"
+        android:textSize="@dimen/font_size" />
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_corner">
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                android:id="@+id/tv_org"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:gravity="left|center"
+                android:padding="5dp"
+                android:text="@string/orginzatrion"
+                android:textStyle="bold"
+                android:textSize="@dimen/font_size" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:gravity="right"
+                android:text=":" />
+
+            <TextView
+                android:id="@+id/tv_orgName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left|center"
+                android:textStyle="bold"
+                android:padding="5dp"
+                android:textSize="@dimen/font_size" />
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                android:id="@+id/tv_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left|center"
+                android:padding="5dp"
+                android:text="@string/address"
+                android:textSize="@dimen/font_size" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text=":" />
+
+            <TextView
+                android:id="@+id/tv_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -194,31 +380,36 @@
             >
 
             <TextView
-                android:id="@+id/tv_address_label"
+                android:id="@+id/tv_phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
                 android:gravity="left|center"
                 android:padding="5dp"
-                android:text="@string/address_coloumn"
+                android:text="@string/phone"
+                android:textStyle="bold"
                 android:textSize="@dimen/font_size" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
+                android:textStyle="bold"
                 android:gravity="right"
                 android:text=":" />
 
             <TextView
-                android:id="@+id/tv_address_value"
+                android:id="@+id/tv_phone_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="left|center"
+                android:textStyle="bold"
                 android:padding="5dp"
                 android:textSize="@dimen/font_size" />
         </TableRow>
     </TableLayout>
-</LinearLayout>
 
+
+</LinearLayout>
+    </ScrollView>
+</LinearLayout>

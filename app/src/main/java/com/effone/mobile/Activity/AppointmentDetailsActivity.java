@@ -43,14 +43,14 @@ public class AppointmentDetailsActivity extends AppCompatActivity implements Vie
         mTvTitile=(TextView)findViewById(R.id.tv_title);
         mIvBackBtn=(ImageView)findViewById(R.id.iv_back_btn);
         mIvBackBtn.setOnClickListener(this);
-        mTvConfirmationId=(TextView)findViewById(R.id.tv_confimration);
+        mTvAppointmentDateTime  =(TextView)findViewById(R.id.tv_appointment_date);
         mTvEmail=(TextView)findViewById(R.id.tv_email);
         mTvUserName=(TextView)findViewById(R.id.tv_userName);
         mTvLocName=(TextView)findViewById(R.id.tv_locName);
         mTvAppointmentID=(TextView)findViewById(R.id.tv_appointment_id);
         mTvAppointmentID.setVisibility(View.GONE);
         mTvServiceName=(TextView)findViewById(R.id.tv_serviceName);
-        mTvAppointmentDateTime=(TextView)findViewById(R.id.tv_appointment_date);
+        mTvConfirmationId=(TextView)findViewById(R.id.tv_confirmation);
         mTvScheduledTimeZone=(TextView)findViewById(R.id.tv_timeZone);
         mTvAddress=(TextView)findViewById(R.id.tv_address);
         mTvEditAppointment=(TextView)findViewById(R.id.tv_editAppointment);

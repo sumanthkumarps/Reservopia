@@ -47,7 +47,7 @@
                 android:layout_weight=".5"
                 android:layout_height="wrap_content"
                 style="@style/appointmentScreen"
-                android:text="Confirmation #"
+                android:text="Date"
                 android:layout_alignRight="@+id/textView7"
                 android:layout_alignEnd="@+id/textView7"
                 android:layout_alignParentLeft="true"
@@ -62,7 +62,7 @@
                 android:text=":" />
 
             <TextView
-                android:id="@+id/tv_confimration"
+                android:id="@+id/tv_appointment_date"
                 android:layout_width="0dp"
                 android:layout_weight=".5"
                 android:layout_height="wrap_content"
@@ -252,88 +252,8 @@
                 android:text="TextView"
                 />
         </LinearLayout>
-        <LinearLayout
-            android:layout_marginTop="7dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/textView20"
-                style="@style/appointmentScreen"
-                android:layout_width="0dp"
-                android:layout_weight=".5"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/textView7"
-
-                android:text="Appointment Date" />
-            <TextView
-                style="@style/appointmentScreen"
-                android:id="@+id/textView17"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/textView5"
-                android:layout_alignBottom="@+id/textView5"
-                android:layout_alignLeft="@+id/textView16"
-                android:layout_alignStart="@+id/textView16"
-                android:text=":" />
-            <TextView
-                android:id="@+id/tv_appointment_date"
-                android:layout_width="0dp"
-                android:layout_weight=".5"
-                android:layout_height="wrap_content"
-                style="@style/appointmentScreen"
-                android:text="TextView"
-                android:layout_alignBaseline="@+id/textView22"
-                android:layout_alignBottom="@+id/textView22"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignLeft="@+id/tv_serviceName"
-                android:layout_alignStart="@+id/tv_serviceName" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_marginTop="7dp"
-            android:layout_height="wrap_content">
 
 
-            <TextView
-                android:id="@+id/textview20"
-                android:layout_width="0dp"
-                android:layout_weight=".5"
-                android:layout_height="wrap_content"
-                android:text="Address"
-                style="@style/appointmentScreen"
-                android:layout_below="@+id/textView21"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignRight="@+id/textView21"
-                android:layout_alignEnd="@+id/textView21" />
-
-            <TextView
-                android:id="@+id/textView16"
-                style="@style/appointmentScreen"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/textView15"
-                android:layout_alignStart="@+id/textView15"
-                android:layout_alignTop="@+id/textView4"
-                android:text=":" />
-            <TextView
-                android:id="@+id/tv_address"
-                style="@style/appointmentScreen"
-                android:layout_width="0dp"
-                android:layout_weight=".5"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/tv_timeZone"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignStart="@+id/tv_timeZone"
-                android:layout_alignTop="@+id/textView23"
-                android:text="Sumanth is done this Appointment " />
-
-        </LinearLayout>
 
 
         <LinearLayout
@@ -355,8 +275,8 @@
                 android:layout_width="wrap_content"
                 style="@style/appointmentScreen"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/tv_confimration"
-                android:layout_alignBottom="@+id/tv_confimration"
+                android:layout_alignBaseline="@+id/tv_appointment_date"
+                android:layout_alignBottom="@+id/tv_appointment_date"
                 android:layout_centerHorizontal="true"
                 android:text=":" />
             <TextView
@@ -397,8 +317,8 @@
                 android:layout_width="wrap_content"
                 style="@style/appointmentScreen"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/tv_confimration"
-                android:layout_alignBottom="@+id/tv_confimration"
+                android:layout_alignBaseline="@+id/tv_appointment_date"
+                android:layout_alignBottom="@+id/tv_appointment_date"
                 android:layout_centerHorizontal="true"
                 android:text=":" />
             <TextView
@@ -426,6 +346,89 @@
 
 
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="7dp"
+            android:visibility="gone"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/textview20"
+                android:layout_width="0dp"
+                android:layout_weight=".5"
+                android:layout_height="wrap_content"
+                android:text="Address"
+                style="@style/appointmentScreen"
+                android:layout_below="@+id/textView21"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignRight="@+id/textView21"
+                android:layout_alignEnd="@+id/textView21" />
+
+            <TextView
+                android:id="@+id/textView16"
+                style="@style/appointmentScreen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/textView15"
+                android:layout_alignStart="@+id/textView15"
+                android:layout_alignTop="@+id/textView4"
+                android:text=":" />
+            <TextView
+                android:id="@+id/tv_address"
+                style="@style/appointmentScreen"
+                android:layout_width="0dp"
+                android:layout_weight=".5"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/tv_timeZone"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignStart="@+id/tv_timeZone"
+                android:layout_alignTop="@+id/textView23"
+                android:text="Sumanth is done this Appointment " />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="7dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textView20"
+                style="@style/appointmentScreen"
+                android:layout_width="0dp"
+                android:layout_weight=".5"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/textView7"
+
+                android:text="@string/confirmation_no" />
+            <TextView
+                style="@style/appointmentScreen"
+                android:id="@+id/textView17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/textView5"
+                android:layout_alignBottom="@+id/textView5"
+                android:layout_alignLeft="@+id/textView16"
+                android:layout_alignStart="@+id/textView16"
+                android:text=":" />
+            <TextView
+                android:id="@+id/tv_confirmation"
+                android:layout_width="0dp"
+                android:layout_weight=".5"
+                android:layout_height="wrap_content"
+                style="@style/appointmentScreen"
+                android:text="TextView"
+                android:layout_alignBaseline="@+id/textView22"
+                android:layout_alignBottom="@+id/textView22"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignLeft="@+id/tv_serviceName"
+                android:layout_alignStart="@+id/tv_serviceName" />
+        </LinearLayout>
 
 
 

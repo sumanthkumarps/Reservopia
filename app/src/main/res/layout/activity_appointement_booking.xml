@@ -3,63 +3,60 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/white"
+    android:background="@color/gray"
     android:orientation="vertical"
     android:weightSum="1"
     tools:context="com.effone.mobile.Activity.AppointementBookingActivity">
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/lv_date_time"
-        android:weightSum="1"
-        android:orientation="horizontal"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:gravity="left|center"
-            android:text="@string/date_time"
-            android:textSize="@dimen/font_size"
-            android:layout_weight=".5"/>
-        <EditText
-            android:id="@+id/et_date"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:clickable="true"
-            android:layout_weight=".5"
-            android:editable="false"
-            android:focusable="false" />
 
-    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/lv_gridView"
-        android:layout_below="@+id/lv_date_time"
         android:orientation="vertical"
-        >
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <TextView
             android:id="@+id/textView9"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
+            android:gravity="left|center"
+            android:textStyle="bold"
             android:padding="5dp"
             android:text="@string/time_slot"
             android:textSize="@dimen/font_size" />
 
+        <LinearLayout
+            android:id="@+id/tv_empty_view"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:visibility="gone"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/rounded_corner">
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:text="No time slots"
+                android:textColor="@android:color/black"
+                android:gravity="center"
+                />
+        </LinearLayout>
         <GridView
             android:id="@+id/gv_timeSlots"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:gravity="left"
-            android:numColumns="4"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_height="200dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
             android:background="@drawable/rounded_corner"
-            android:stretchMode="columnWidth"></GridView>
+            android:gravity="left"
+            android:numColumns="4"></GridView>
     </LinearLayout>
 
 

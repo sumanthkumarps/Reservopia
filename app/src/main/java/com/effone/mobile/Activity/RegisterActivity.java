@@ -1,14 +1,18 @@
 package com.effone.mobile.Activity;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -17,9 +21,11 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.effone.mobile.R;
 import com.effone.mobile.adapter.TitleAdapter;
@@ -34,7 +40,11 @@ import com.effone.mobile.model.UserAddress;
 import com.effone.mobile.rest.ApiClient;
 import com.effone.mobile.rest.ApiInterface;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import io.realm.Realm;
+import okhttp3.HttpUrl;
 import retrofit2.Call;
 import retrofit2.Callback;
 
@@ -56,20 +66,28 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private Spinner mSpTitle;
    private AppointmentBookingModel appointmentBookingModel;
     private ProgressDialog mCommonProgressDialog;
-    private LinearLayout mLinearLayout;
+    private RelativeLayout mLinearLayout;
+    ToggleButton male;
+    ToggleButton female;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         ResvUtils.enableBackButton(this);
+        ResvUtils.enableHomeButton(this);
 
         appointmentBookingModel = (AppointmentBookingModel) getIntent().getSerializableExtra("appointment_details");
         apiService = ApiClient.getClient().create(ApiInterface.class);
 
-            mLinearLayout=(LinearLayout)findViewById(R.id.lv_password);
+            mLinearLayout=(RelativeLayout)findViewById(R.id.lv_password);
 
         mTvTitle=(TextView)findViewById(R.id.tv_title);
-        mTvTitle.setText("Registration ");
+        mTvTitle.setText(getString(R.string.register));
         declarations();
     }
     private Realm mRealm;
@@ -97,25 +115,54 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         mSpTitle=(Spinner)findViewById(R.id.et_title);
         mSpTitle.setAdapter(new TitleAdapter(this,mRealm.where(TitleNames.class).findAll()));
         mSpTitle.setOnItemSelectedListener(this);
-        mEtAddress=(EditText)findViewById(R.id.et_address);
+
         mEtPassword=(EditText)findViewById(R.id.et_password);
         mEtConfirmPassword=(EditText)findViewById(R.id.et_conf_pass);
         mBtSubmit=(Button)findViewById(R.id.bt_submit);
-        mRGGender=(RadioGroup)findViewById(R.id.radioSex);
-
+      /*  mRGGender=(RadioGroup)findViewById(R.id.radioSex);*/
+        male = (ToggleButton) findViewById(R.id.tb_male);
+        female = (ToggleButton) findViewById(R.id.tb_female);
+        male.setOnCheckedChangeListener(changeChecker);
+        female.setOnCheckedChangeListener(changeChecker);
         mBtSubmit.setOnClickListener(this);
         mEtEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
+
                     EditText editText = (EditText) v;
                     String text = editText.getText().toString();
+                    Validation validation=new Validation();
+                    if(validation.isValidEmail(text))
                     checkingEmail(text);
+                    else
+                        ResvUtils.createOKAlert(RegisterActivity.this, getResources().getString(R.string.headercreateaccount),  getResources().getString(R.string.Emailmsg) );
+                }else{
+                    mCbCreateAccount.setVisibility(View.GONE);
+                    mLinearLayout.setVisibility(View.GONE);
                 }
             }
         });
     }
 
+    CompoundButton.OnCheckedChangeListener changeChecker = new CompoundButton.OnCheckedChangeListener() {
+
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if (isChecked) {
+                if (buttonView == male) {
+                    male.setChecked(true);
+                    female.setChecked(false);
+                    mStGender="male";
+                }
+                if (buttonView == female) {
+                    male.setChecked(false);
+                    female.setChecked(true);
+                    mStGender="female";
+                }
+            }
+        }
+    };
 
     private RadioButton radioSexButton;
     @Override
@@ -124,13 +171,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         mStPhone=mEtPhone.getText().toString().trim();
         mStFirstName=mEtFirstName.getText().toString().trim();
         mStLastName=mEtLastName.getText().toString().trim();
-        mStAddress=mEtAddress.getText().toString().trim();
+
         mStDateOfBirth=mEtDateOfBirth.getText().toString().trim();
-        mStPassword=mEtPassword.getText().toString().trim();
-        mStConfirmPassword=mEtConfirmPassword.getText().toString().trim();
-        int selectedId = mRGGender.getCheckedRadioButtonId();
-        radioSexButton=(RadioButton) findViewById(selectedId);
-        mStGender= (String) radioSexButton.getText();
+
+
+
+      /*  int selectedId = mRGGender.getCheckedRadioButtonId();
+        radioSexButton=(RadioButton) findViewById(selectedId);*/
+
         int count = 0;
         String mMsg = "";
 
@@ -143,7 +191,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             mMsg = mMsg + "" + getResources().getString(R.string.lastnamemsg) + "\n";
             count++;
         }
-        if (mStDateOfBirth.equals("mm/dd/yyyy")) {
+        if (!validate.isValidDate(mStDateOfBirth)) {
             mMsg = mMsg + "" + getResources().getString(R.string.DateofBirthmsg) + "\n";
             count++;
         }
@@ -151,32 +199,33 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             mMsg = mMsg + "" + getResources().getString(R.string.Phonemsg) + "\n";
             count++;
         }
-        if (!validate.isValidAddress(mStAddress)) {
-            mMsg = mMsg + " " + getResources().getString(R.string.address) + "\n";
-            count++;
-        }
 
         if (!validate.isValidEmail(mStEmail)) {
             mMsg = mMsg + "" + getResources().getString(R.string.Emailmsg) + "\n";
             count++;
         }
-        if ((mStPassword.length() < 7) || (mStPassword.length() > 16)) {
-            mMsg = mMsg + "" + getResources().getString(R.string.passwordmsg) + "\n";
-            count++;
-        } else if (!validate.isValidPassword(mStPassword)) {
-            mMsg = mMsg + "" + getResources().getString(R.string.password) + "" + getResources().getString(R.string.passwordmymsg) + "\n";
-            count++;
-        }
-        if ((mStConfirmPassword.length() < 7) || (mStConfirmPassword.length() > 16)) {
-            mMsg = mMsg + "" + getResources().getString(R.string.passwordmsg2) + "\n";
-            count++;
-        }else
-        if (!validate.isValidPassword(mStConfirmPassword)) {
-            mMsg = mMsg + "Confirm password" + getResources().getString(R.string.passwordmymsg) + "\n";
-            count++;
-        } else if (!mStPassword.equals(mStConfirmPassword)) {
-            mMsg = mMsg + "" + getResources().getString(R.string.passworddoednotmatch) + "\n";
-            count++;
+        if(mLinearLayout.getVisibility() == View.VISIBLE) {
+            mStPassword=mEtPassword.getText().toString().trim();
+            mStConfirmPassword=mEtConfirmPassword.getText().toString().trim();
+            if ((mStPassword.length() < 7) || (mStPassword.length() > 16)) {
+                mMsg = mMsg + "" + getResources().getString(R.string.passwordmsg) + "\n";
+                count++;
+            } else if (!validate.isValidPassword(mStPassword)) {
+                mMsg = mMsg + "" + getResources().getString(R.string.password) + "" + getResources().getString(R.string.passwordmymsg) + "\n";
+                count++;
+            }
+            if ((mStConfirmPassword.length() < 7) || (mStConfirmPassword.length() > 16)) {
+                mMsg = mMsg + "" + getResources().getString(R.string.passwordmsg2) + "\n";
+                count++;
+            } else if (!validate.isValidPassword(mStConfirmPassword)) {
+                mMsg = mMsg + "Confirm password" + getResources().getString(R.string.passwordmymsg) + "\n";
+                count++;
+            } else if (!mStPassword.equals(mStConfirmPassword)) {
+                mMsg = mMsg + "" + getResources().getString(R.string.passworddoednotmatch) + "\n";
+                count++;
+            }
+        }else{
+            mStPassword="";
         }
         if (count == 0) {
             mMsg = "success";
@@ -202,6 +251,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         user.setDisplayUserName(null);
         user.setFirstName(mStFirstName);
         user.setLastName(mStLastName);
+        user.setPassword(mStPassword);
         user.setGender(mStGender);
         user.setDateOfBirth(mStDateOfBirth);
         user.setIsTempPassword("0");
@@ -290,14 +340,24 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }*/
 
     private void checkingEmail(String text) {
-        Call<Response> response = apiService.getEmailExists(getString(R.string.token),text );
+        Call<Response> response = apiService.getEmailExists(getString(R.string.token),text,getString(R.string.org_id) );
         response.enqueue(new Callback<Response>() {
             @Override
             public void onResponse(Call<Response> call, retrofit2.Response<Response> rawResponse) {
-                try {
-                    if (rawResponse.body().getResult().getID() != null) {
-                        Toast.makeText(RegisterActivity.this,"UserExit",Toast.LENGTH_SHORT).show();
-                        mCbCreateAccount.setVisibility(View.VISIBLE);
+                try{
+
+                    if (rawResponse.body().getResult().getID() != null)  {
+                        if(rawResponse.body().getResult().getID().equals("0")) {
+                            mCbCreateAccount.setVisibility(View.VISIBLE);
+                        }else{
+                                mCbCreateAccount.setVisibility(View.GONE);
+                               ResvUtils.createOKAlert(RegisterActivity.this, "Trying to sign in? ", "Someone's already using that email.If that’s you, please login.", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                             /*       Intent i = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                                    startActivity(i);*/
+                                }
+                            });
+                        }
                     }else{
                         Toast.makeText(RegisterActivity.this,"NoUserExit",Toast.LENGTH_SHORT).show();
 
@@ -327,4 +387,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
+
+
+
+
+
+
+
+
 }

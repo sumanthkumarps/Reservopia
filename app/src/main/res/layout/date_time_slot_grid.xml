@@ -3,8 +3,8 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/ad_tv_date_time"
+    android:singleLine="true"
     android:padding="5dp"
-    android:textColor="@color/black"
     android:textSize="18sp">
 
 </TextView>

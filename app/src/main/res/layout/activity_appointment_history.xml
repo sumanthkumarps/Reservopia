@@ -11,5 +11,6 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:dividerHeight="1dp"
         android:id="@+id/lv_appointment_history"></ListView>
 </LinearLayout>

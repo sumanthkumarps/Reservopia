@@ -5,32 +5,34 @@
     android:padding="5dp"
     >
     <TableRow>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/confirmation_no"
-        android:textSize="18sp"
-        />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Date"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="5dp"
+            android:textStyle="bold"
             android:text=":" />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_appointment_id"
-        android:textSize="18sp"
-
-        android:textColor="@android:color/black"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_Date_of_selection_details"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            />
     </TableRow>
+
     <TableRow>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Name"
-
+        android:text="User Name"
         android:textSize="18sp"
         />
         <TextView
@@ -44,14 +46,13 @@
         android:layout_height="wrap_content"
         android:id="@+id/tv_nameofperson"
         android:textSize="18sp"
-
-        android:textColor="@android:color/black"/>
+        />
     </TableRow>
     <TableRow>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Type of Service"
+        android:text="Service"
 
         android:textSize="18sp"
        />
@@ -67,31 +68,9 @@
         android:textSize="18sp"
 
         android:id="@+id/tv_type_service_details"
-        android:textColor="@android:color/black"/>
+    />
     </TableRow>
-    <TableRow>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Date"
 
-        android:textSize="20sp"
-       />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text=":" />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_Date_of_selection_details"
-        android:textSize="18sp"
-
-        android:textColor="@android:color/black"
-       />
-    </TableRow>
     <TableRow>
     <TextView
         android:layout_width="match_parent"
@@ -112,6 +91,27 @@
         android:textSize="18sp"
 
         android:id="@+id/tv_lab_address_details"
-        android:textColor="@android:color/black"/>
+       />
+    </TableRow>
+    <TableRow>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/confirmation"
+            android:textSize="18sp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text=":" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_appointment_id"
+            android:textSize="18sp"
+
+          />
     </TableRow>
 </TableLayout>

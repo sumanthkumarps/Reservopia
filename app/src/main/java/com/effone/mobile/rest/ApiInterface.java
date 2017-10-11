@@ -51,7 +51,7 @@ public interface ApiInterface {
     Call<GetTimeZones> getTimeZoneDetails(@Header("Token") String apiKey);
 
     @GET("Register/IsUserEmailExist")
-    Call<Response> getEmailExists(@Header("Token") String apiKey, @Query("email") String email);
+    Call<Response> getEmailExists(@Header("Token") String apiKey, @Query("email") String email,  @Query("orgID")String org_id);
 
     @Headers("Content-type: application/json")
     @POST("Appointment/CreateUserNBookAppointment")

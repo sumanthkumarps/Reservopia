@@ -28,7 +28,7 @@ import retrofit2.Response;
 public class AppointmentAcknowledgementActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG ="" ;
 
-    private TextView mTvConfirmationId,mTvEmail,mTvUserName,mTvLastName,mTvTitle,
+    private TextView mTvConfirmationId,mTvEmail,mTvUserName,mTvLastName,mTvTitle,mTvPhoneNUmber,
             mTvLocName,mTvServiceName,mTvAppointmentDateTime,mTvScheduledTimeZone,mTvAddress,mTvOrgName,mTvEditAppointment,mTvHeading;
     private String confirmationCode;
 
@@ -40,7 +40,7 @@ public class AppointmentAcknowledgementActivity extends AppCompatActivity implem
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_appointment_details);
+        setContentView(R.layout.activity_appointment_acknowledgement);
         confirmationCode=getIntent().getStringExtra(getString(R.string.confirmation_no));
         getUpComingAppointmentList();
     }
@@ -53,20 +53,19 @@ public class AppointmentAcknowledgementActivity extends AppCompatActivity implem
         mIvHomeBtn.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_action_home));
         mTvTitle=(TextView)findViewById(R.id.tv_title);
         mTvTitle.setText(R.string.confirmation_details);
-        mTvHeading=(TextView)findViewById(R.id.tv_upcoming);
-        mTvHeading.setText(R.string.confirmation_details);
-        mTvConfirmationId=(TextView)findViewById(R.id.tv_confimration);
+
+        mTvConfirmationId=(TextView)findViewById(R.id.tv_appointment_date);
         mTvEmail=(TextView)findViewById(R.id.tv_email);
-        mTvUserName=(TextView)findViewById(R.id.tv_userName);
+        mTvUserName=(TextView)findViewById(R.id.tv_first_name);
         mTvLocName=(TextView)findViewById(R.id.tv_locName);
-        mTvLastName=(TextView)findViewById(R.id.tv_appointment_id);
-        mTvServiceName=(TextView)findViewById(R.id.tv_serviceName);
+        mTvLastName=(TextView)findViewById(R.id.tv_last);
+        mTvServiceName=(TextView)findViewById(R.id.tv_service);
         mTvAppointmentDateTime=(TextView)findViewById(R.id.tv_appointment_date);
         mTvScheduledTimeZone=(TextView)findViewById(R.id.tv_timeZone);
         mTvAddress=(TextView)findViewById(R.id.tv_address);
         mTvOrgName=(TextView)findViewById(R.id.tv_orgName);
-        mTvEditAppointment=(TextView)findViewById(R.id.tv_editAppointment);
-        mTvEditAppointment.setVisibility(View.GONE);
+        mTvPhoneNUmber=(TextView)findViewById(R.id.tv_phone_number);
+
         gettingDataFromServer();
     }
 

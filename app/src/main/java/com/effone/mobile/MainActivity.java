@@ -94,6 +94,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static LinearLayout linearLayout;
     private NetworkChangeReceiver networkChangeReceiver;
     private ProgressDialog mCommonProgressDialog;
+    private  TextView mTvCountAppointment;
+
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,6 +155,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mRealm.insert(timeZoneDetails);
             mRealm.commitTransaction();
         }
+        AppPreferene.with(this).setPreLoad(true);
     }
 
     private void getTitleAndSave() {
@@ -180,6 +184,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void unregisterNetworkChanges() {
         try {
             unregisterReceiver(mNetworkReceiver);
+
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }
@@ -345,9 +350,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
     }
-
+    LinearLayout mTvEmptyView;
 
     private void declarations() {
+        mTvEmptyView=(LinearLayout) findViewById(R.id.tv_empty_view);
         mTvBookingAppiontemnt = (TextView) findViewById(R.id.tv_booking_app);
         mTvTitle = (TextView) findViewById(R.id.tv_title);
         mIvBackBtn = (ImageView) findViewById(R.id.iv_back_btn);
@@ -362,6 +368,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mTvHistory.setOnClickListener(this);
         mTvContactUs.setOnClickListener(this);
         mLvAppointmentList=(ListView)findViewById(R.id.lv_upcomingAppointent);
+
         settingData();
         settingAboutUs();
 
@@ -371,17 +378,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onStart() {
         super.onStart();
-        if(!AppPreferene.with(this).getEmail().equals(""))
-        upcomingAppointmentList();
+        mTvCountAppointment=(TextView)findViewById(R.id.tv_count_appointments);
+        if(!AppPreferene.with(this).getEmail().equals("")) {
+            upcomingAppointmentList();
+
+        }
         else{
-            String[] planets = new String[] { "No Appointments"};
+            mTvCountAppointment.setText(""+0);
+            mLvAppointmentList.setAdapter(null);
+            mLvAppointmentList.setVisibility(View.GONE);
+            mTvEmptyView.setVisibility(View.VISIBLE);
+         /*   String[] planets = new String[] { "No Appointments found. Please Book Appointment.."};
             ArrayList<String> planetList = new ArrayList<String>();
             planetList.addAll( Arrays.asList(planets) );
 
             // Create ArrayAdapter using the planet list.
              ArrayAdapter<String> listAdapter  = new ArrayAdapter<String>(this, R.layout.empty, planetList);
             mLvAppointmentList.setAdapter( listAdapter );
-           /* mLvAppointmentList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+           *//* mLvAppointmentList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     if(i==0){
@@ -391,10 +405,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 }
             });*/
+
         }
     }
+    List<History> histories;
 
     private void upcomingAppointmentList() {
+
         if (mCommonProgressDialog == null) {
             mCommonProgressDialog = ResvUtils.createProgressDialog(this);
             mCommonProgressDialog.show();
@@ -412,17 +429,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
           call.enqueue(new Callback<UpCommingAppointmentModel>() {
             @Override
             public void onResponse(Call<UpCommingAppointmentModel> call, Response<UpCommingAppointmentModel> response) {
+                response.raw().request().url();
                 if (mCommonProgressDialog != null)
                     mCommonProgressDialog.cancel();
-              HttpUrl url= response.raw().request().url();
                 try {
-                    Call<UpCommingAppointmentModel> appointmentModelCall=call;
                     Result results = response.body().getResult();
-
-                    List<History> histories = Arrays.asList(results.getUpcoming());
+                    histories = Arrays.asList(results.getUpcoming());
                     mAppointmentListAdapter = new AppointmentListAdapter(MainActivity.this, histories);
                     mLvAppointmentList.setAdapter(mAppointmentListAdapter);
                     mLvAppointmentList.setOnItemClickListener(MainActivity.this);
+                    mTvCountAppointment.setText("" + histories.size());
                 }catch (Exception e){
                     mLvAppointmentList.setEmptyView(findViewById(R.id.tv_history));
                 }
@@ -464,7 +480,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (formattedDate.contains("-")) {
             // Split it.
             String[] parts = formattedDate.split("-");
-            String dayName = parts[0]+" "+parts[1]+" "+parts[2]+" "+"<font color='#174e9e'>"+dayOfTheWeek+"</font>";
+            String dayName = parts[0]+" "+parts[1]+" "+parts[2]+" \n"+"<font color='#174e9e'>"+dayOfTheWeek+"</font>";
             mTvDateTime.setText(Html.fromHtml(dayName) );
         } else {
             throw new IllegalArgumentException("String " + formattedDate + " does not contain -");

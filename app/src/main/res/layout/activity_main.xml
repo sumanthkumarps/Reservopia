@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@color/home_back"
     android:orientation="vertical"
     android:id="@+id/linearLayout"
     android:weightSum="1"
@@ -15,7 +15,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight=".62"
-        android:background="@color/background_home"
         android:orientation="horizontal">
 
         <!--  first section we are handling her-->
@@ -23,26 +22,20 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight=".49"
-            android:layout_marginTop="10dp"
             android:orientation="vertical"
-            android:padding="5dp">
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="5dp">
 
             <ImageView
                 android:id="@+id/img_icon"
                 android:layout_width="match_parent"
-                android:paddingTop="10dp"
                 android:layout_height="0dp"
-                android:layout_weight=".25"
-                android:src="@mipmap/logo" />
-            <TextView
-                android:id="@+id/tv_comapany_name"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.09"
-                android:gravity="center"
-                android:textColor="@android:color/black"
-                android:text="Effone Technologies"
-                android:textSize="@dimen/about" />
+                android:layout_weight="0.23"
+                android:layout_marginTop="3dp"
+                android:src="@drawable/reserovipa_logo" />
+
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -51,7 +44,7 @@
                 android:id="@+id/tv_dateandtime"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="0.17"
+                android:layout_weight="0.27"
                 android:text="mm/dd/yyyy \n Monday"
                 android:textColor="@color/black"
                 android:gravity="right|center"
@@ -71,7 +64,7 @@
                 android:id="@+id/tv_about_text"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight=".38"
+                android:layout_weight="0.44"
                 android:text="@string/aboutUs"
                 android:textSize="@dimen/about" />
         </LinearLayout>
@@ -159,20 +152,38 @@
         android:background="@color/list_back"
         android:weightSum="1"
         >
-
-        <TextView
-            android:id="@+id/textView"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.02"
-            android:padding="5dp"
-            android:paddingBottom="5dp"
-            android:paddingTop="10dp"
-            android:background="@color/dayName"
-            android:text="@string/upcomingAppointment"
-            android:textColor="#ffffff"
-            android:textSize="@dimen/heading"
-            android:textStyle="bold" />
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_count_appointments"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:paddingBottom="5dp"
+                android:layout_gravity="center"
+                android:paddingTop="10dp"
+                android:background="@color/upcoming_appointment_count"
+                android:text="0"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/heading"
+                android:textStyle="bold" />
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.02"
+                android:padding="5dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="10dp"
+                android:background="@color/dayName"
+                android:text="@string/upcomingAppointment"
+                android:textColor="#ffffff"
+                android:textSize="@dimen/heading"
+                android:textStyle="bold" />
+        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
@@ -186,5 +197,22 @@
             android:layout_height="0dp"
             android:background="@android:color/transparent"
             android:layout_weight="0.98"/>
+        <LinearLayout
+            android:id="@+id/tv_empty_view"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:visibility="gone"
+            android:layout_marginLeft="5dp"
+            android:background="@color/list_back"
+            android:layout_marginRight="5dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:text="No appointment found,\n please book a new appointment."
+                android:textSize="@dimen/header"
+                android:textColor="@color/hostisMe"
+                android:gravity="center"
+                />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>
