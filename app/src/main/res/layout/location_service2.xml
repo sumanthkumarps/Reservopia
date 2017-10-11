@@ -9,12 +9,15 @@
     <include layout="@layout/fragment_common_header"
         android:id="@+id/in_headder"
         />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:id="@+id/relativeLayou"
-        android:layout_below="@+id/in_headder">
+        android:layout_below="@+id/in_headder"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="30dp"
@@ -41,29 +44,31 @@
         android:layout_alignParentStart="true">
     <TextView
         android:id="@+id/tv_upcoming"
-        android:layout_width="250dp"
+        android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_above="@+id/tv_tme"
         android:gravity="left|center"
         android:text="@string/select_location"
+        android:layout_marginBottom="5dp"
         android:textSize="@dimen/sub_text"
         android:layout_alignLeft="@+id/tv_tme"
         android:layout_alignStart="@+id/tv_tme"
         android:layout_alignRight="@+id/tv_tme"
-        android:layout_alignEnd="@+id/tv_tme" />
+        android:layout_alignEnd="@+id/tv_tme"
+        android:layout_alignParentTop="true" />
 
 
     <android.support.v7.widget.AppCompatSpinner
         android:layout_width="match_parent"
         android:layout_height="40dp"
+
         android:gravity="center"
         android:layout_weight="0.1"
         android:id="@+id/sp_location"
+        android:background="@drawable/spinner_white_bg"
+        android:layout_alignParentTop="true"
         android:layout_alignLeft="@+id/sp_timeZone"
-        android:layout_alignStart="@+id/sp_timeZone"
-        android:layout_toRightOf="@+id/tv_tme"
-        android:layout_toEndOf="@+id/tv_tme"
-         />
+        android:layout_alignStart="@+id/sp_timeZone" />
 
     <TextView
         android:id="@+id/tv_tme"
@@ -84,9 +89,13 @@
         android:layout_height="40dp"
         android:layout_weight="0.1"
         android:id="@+id/sp_timeZone"
+        android:background="@drawable/spinner_white_bg"
+        android:layout_marginLeft="22dp"
+        android:layout_marginTop="7dp"
         android:layout_below="@+id/sp_location"
-        android:layout_toEndOf="@+id/textView27"
-        android:layout_toRightOf="@+id/textView27" />
+        android:layout_toRightOf="@+id/tv_upcoming"
+        android:layout_toEndOf="@+id/tv_upcoming"
+        android:layout_marginStart="22dp" />
 
     <TextView
         android:id="@+id/tv_service"
@@ -95,14 +104,19 @@
         android:gravity="left|center"
         android:text="@string/select_service"
         android:textSize="@dimen/sub_text"
+        android:layout_marginTop="7dp"
         android:layout_alignTop="@+id/tv_empty"
         android:layout_alignLeft="@+id/tv_tme"
-        android:layout_alignStart="@+id/tv_tme" />
+        android:layout_alignStart="@+id/tv_tme"
+        android:layout_toLeftOf="@+id/sp_timeZone"
+        android:layout_toStartOf="@+id/sp_timeZone" />
 
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:id="@+id/lv_service_type"
+        android:layout_marginTop="7dp"
+        android:background="@drawable/spinner_white_bg"
         android:layout_below="@+id/sp_timeZone"
         android:layout_alignLeft="@+id/sp_timeZone"
         android:layout_alignStart="@+id/sp_timeZone"
@@ -118,12 +132,13 @@
         android:gravity="left|center"
         android:text="@string/date_time"
         android:textSize="@dimen/sub_text"
-        android:layout_below="@+id/tv_service"
         android:layout_alignLeft="@+id/tv_service"
         android:layout_alignStart="@+id/tv_service"
         android:id="@+id/textView24"
-        android:layout_alignRight="@+id/tv_tme"
-        android:layout_alignEnd="@+id/tv_tme" />
+        android:layout_below="@+id/tv_service"
+        android:layout_alignRight="@+id/tv_service"
+        android:layout_alignEnd="@+id/tv_service"
+        android:layout_alignBottom="@+id/et_date" />
     <EditText
         android:id="@+id/et_date"
         android:layout_width="match_parent"
@@ -131,13 +146,17 @@
         android:clickable="true"
         android:drawableRight="@android:drawable/ic_menu_my_calendar"
         android:editable="false"
-        android:layout_marginRight="5dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="3dp"
         android:padding="5dp"
         android:focusable="false"
+        android:textColor="@color/blue"
         android:background="@drawable/edittext_rounded_corner"
         android:layout_below="@+id/tv_service"
         android:layout_alignLeft="@+id/lv_service_type"
-        android:layout_alignStart="@+id/lv_service_type" />
+        android:layout_alignStart="@+id/lv_service_type"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 
     <TextView
@@ -147,7 +166,7 @@
         android:layout_below="@+id/sp_timeZone"
         android:layout_weight="0.08"/>
 
-
+<!--
     <TextView
         android:id="@+id/textView13"
         android:layout_width="wrap_content"
@@ -197,7 +216,7 @@
             android:gravity="center"
             android:text=":"
             android:layout_alignRight="@+id/textView13"
-            android:layout_alignEnd="@+id/textView13" />
+            android:layout_alignEnd="@+id/textView13" />-->
     </RelativeLayout>
 
 
@@ -222,8 +241,9 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="7dp"
-        android:textColor="@color/white"
+        android:textColor="@color/inside_blue"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
 </RelativeLayout>

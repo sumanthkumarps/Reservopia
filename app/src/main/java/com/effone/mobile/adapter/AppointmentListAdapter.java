@@ -63,9 +63,9 @@ public class AppointmentListAdapter extends BaseAdapter {
 
       String[] timedate= mAppointmentDateTime.get(position).getAppointmentDateTime().split(",");
         if (Build.VERSION.SDK_INT >= 24) {
-            holder.mTvDateTime.setText(Html.fromHtml("<font color='#000000'>"+timedate[1]+","+timedate[2]+"</font>"+" : "+"<font color='#000000'>"+timedate[0]+"</font>",100));
+            holder.mTvDateTime.setText(Html.fromHtml("<font color='#666666'>"+timedate[1]+","+timedate[2]+"</font>"+" : "+"<font color='#666666'>"+timedate[0]+"</font>",100));
         } else {
-            holder.mTvDateTime.setText(Html.fromHtml("<font color='#000000'>"+timedate[1]+","+timedate[2]+"</font>"+" : "+"<font color='#000000'>"+timedate[0]+"</font>"));
+            holder.mTvDateTime.setText(Html.fromHtml("<font color='#666666'>"+timedate[1]+","+timedate[2]+"</font>"+" : "+"<font color='#666666'>"+timedate[0]+"</font>"));
         }
         return vi;
     }
