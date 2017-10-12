@@ -364,7 +364,7 @@
                             android:layout_below="@+id/lv_password"
                             android:layout_weight="0.60"
                             android:hint="@string/enter_first"
-                            android:inputType="text"
+                            android:inputType="textPersonName"
                             android:singleLine="true" />
                     </LinearLayout>
 
@@ -407,7 +407,7 @@
                             android:layout_below="@+id/lv_password"
                             android:layout_weight="0.60"
                             android:hint="@string/enter_last"
-                            android:inputType="text"
+                            android:inputType="textPersonName"
                             android:singleLine="true" />
                     </LinearLayout>
 

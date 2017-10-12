@@ -68,7 +68,7 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
     private int countOfServiceType=0;
     private Realm mRealm;
     private LinearLayout mTvEmptyView;
-    private String appointment_id=""+0,service_ID;
+    private String appointment_id=""+0,service_ID,mShTimeZone;
     private ImageView mIvBackBtn;
 
 
@@ -86,6 +86,7 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
     private String serviceTable;
     private  TextView mTvDateOfSlots;
     private ProgressDialog mCommonProgressDialog;
+    private String mSechLocationId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +96,9 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
         myCalendar = Calendar.getInstance();
         appointment_id= getIntent().getStringExtra("id");
         service_ID= getIntent().getStringExtra("service_id");
+        mShTimeZone=getIntent().getStringExtra("timeZone");
+        mSechLocationId=getIntent().getStringExtra("location_id");
+
         if(appointment_id == null)
             appointment_id = ""+0;
 
@@ -125,20 +129,50 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
     LocationTable mLocationTable;
     TimeZoneDetails mTimeZoneDetails;
     private void getLOcationAndServiceFromRealm() {
-        mSpinner.setAdapter(new LocationAdapter(this,mRealm.where(LocationTable.class).findAll()));
-        TimeZone tz = TimeZone.getDefault();
-        TimeZoneDetails defaultTimeZone=mRealm.where(TimeZoneDetails.class).equalTo("StandardName",tz.getDisplayName()).findFirst();
-        RealmResults<TimeZoneDetails> timeZoneDetailses=mRealm.where(TimeZoneDetails.class).findAll().sort("StandardName", Sort.ASCENDING);
-        int position =timeZoneDetailses.indexOf(defaultTimeZone) ;
-        mTimeZone.setAdapter(new TimeZoneAdapter(this,timeZoneDetailses));
-        mTimeZone.setSelection(position);
+
+        if(mSechLocationId==null||mSechLocationId.equals("")){
+            mSpinner.setAdapter(new LocationAdapter(this,mRealm.where(LocationTable.class).findAll()));
+        }else {
+            LocationTable locationTable = mRealm.where(LocationTable.class).equalTo("LocID", Integer.parseInt(mSechLocationId)).findFirst();
+            RealmResults<LocationTable> locationTables=mRealm.where(LocationTable.class).findAll();
+            mSpinner.setAdapter(new LocationAdapter(this, locationTables ));
+            int positio=locationTables.indexOf(locationTable);
+            mSpinner.setSelection(positio);
+        }
+
+        if(mShTimeZone==null||mShTimeZone.equals("")) {
+            TimeZone tz = TimeZone.getDefault();
+            TimeZoneDetails defaultTimeZone = mRealm.where(TimeZoneDetails.class).equalTo("StandardName", tz.getDisplayName()).findFirst();
+            RealmResults<TimeZoneDetails> timeZoneDetailses = mRealm.where(TimeZoneDetails.class).findAll().sort("StandardName", Sort.ASCENDING);
+            int position = timeZoneDetailses.indexOf(defaultTimeZone);
+            mTimeZone.setAdapter(new TimeZoneAdapter(this, timeZoneDetailses));
+            mTimeZone.setSelection(position);
+        }
+        else {
+            TimeZoneDetails defaultTimeZone = mRealm.where(TimeZoneDetails.class).equalTo("StandardName", mShTimeZone).findFirst();
+            RealmResults<TimeZoneDetails> timeZoneDetailses = mRealm.where(TimeZoneDetails.class).findAll().sort("StandardName", Sort.ASCENDING);
+            int position = timeZoneDetailses.indexOf(defaultTimeZone);
+            mTimeZone.setAdapter(new TimeZoneAdapter(this, timeZoneDetailses));
+            mTimeZone.setSelection(position);
+        }
         mSpinner.setOnItemSelectedListener(this);
         mTimeZone.setOnItemSelectedListener(this);
         mLvServiceType.setOnItemSelectedListener(this);
-        RealmList<ServiceTable> serviceTables=new RealmList<ServiceTable>();
-        serviceTables.addAll(mRealm.where(ServiceTable.class).findAll());
-        mLvServiceType.setAdapter(new ServiceTypeAdapter(this,serviceTables));
-        getmServiceTable=(ServiceTable)mLvServiceType.getItemAtPosition(0);
+        if(service_ID==null||service_ID.equals("")) {
+            RealmList<ServiceTable> serviceTables = new RealmList<ServiceTable>();
+            serviceTables.addAll(mRealm.where(ServiceTable.class).findAll());
+            mLvServiceType.setAdapter(new ServiceTypeAdapter(this, serviceTables));
+            getmServiceTable = (ServiceTable) mLvServiceType.getItemAtPosition(0);
+        }
+        else{
+            RealmList<ServiceTable> serviceTables = new RealmList<ServiceTable>();
+            ServiceTable serviceTable=mRealm.where(ServiceTable.class).equalTo("ServiceID", service_ID).findFirst();
+            serviceTables.addAll(mRealm.where(ServiceTable.class).findAll());
+            mLvServiceType.setAdapter(new ServiceTypeAdapter(this, serviceTables));
+            mLvServiceType.setSelection(serviceTables.indexOf(serviceTable));
+            mLvServiceType.setEnabled(false);
+            getmServiceTable = (ServiceTable) mLvServiceType.getItemAtPosition(serviceTables.indexOf(serviceTable));
+        }
         declarations();
 
     }
@@ -220,6 +254,7 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
         mEtDate = (EditText) findViewById(R.id.et_date);
         mTvTitle=(TextView)findViewById(R.id.tv_title);
         mTvTitle.setText(getString(R.string.booking_app));
+
        /* mTvSubmit=(TextView)findViewById(R.id.tv_submit);
         mTvSubmit.setOnClickListener(new View.OnClickListener() {
             @Override

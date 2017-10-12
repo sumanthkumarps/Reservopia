@@ -35,8 +35,8 @@
     <string name="address_coloumn">Address</string>
     <string name="phone_column">Phone</string>
     <string name="confirmation_no">Confirmation #</string>
-    <string name="confirmation_details">Confirmation Details </string>
-    <string name="appointment_history">Appointment History</string>
+    <string name="confirmation_details">Confirmation details </string>
+    <string name="appointment_history">Appointment history</string>
     <string name="service_type">Service Type</string>
     <string name="date_time">Date  </string>
     <string name="time_slot">Pick one time slot :</string>
