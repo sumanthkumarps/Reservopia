@@ -55,16 +55,21 @@ public class AppointmentHistoryActivity extends AppCompatActivity implements Vie
         mIvBackBtn=(ImageView)findViewById(R.id.iv_back_btn);
         mIvBackBtn.setOnClickListener(this);
         mLvAppointmentHistoryList=(ListView)findViewById(R.id.lv_appointment_history);
-     /*  if(AppPreferene.with(this).getEmail().equals("")){
-           ResvUtils.createOKAlert(this,"History","No History details found", new DialogInterface.OnClickListener() {
-               public void onClick(DialogInterface dialog, int id) {
-                    finish();
-               }
-           });
-
-       }else*/
+       if(AppPreferene.with(this).getEmail().equals("")){
+           showingAlertMessage(getString(R.string.histroy_noEmail));
+       }else
         getAppointmentHistoryList();
     }
+
+    private void showingAlertMessage(String string) {
+        ResvUtils.createOKAlert(this,"History",  string, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                finish();
+            }
+        });
+    }
+
+
     private void getAppointmentHistoryList() {
         if (mCommonProgressDialog == null) {
             mCommonProgressDialog = ResvUtils.createProgressDialog(this);
@@ -84,8 +89,10 @@ public class AppointmentHistoryActivity extends AppCompatActivity implements Vie
                 if (mCommonProgressDialog != null)
                     mCommonProgressDialog.cancel();
                 Result results = response.body().getResult();
-                fillListView(Arrays.asList(results.getHistory()));
-
+                if(results.getHistory().length>0)
+                    fillListView(Arrays.asList(results.getHistory()));
+                else
+                    showingAlertMessage(getString(R.string.history_found));
             }
 
             @Override

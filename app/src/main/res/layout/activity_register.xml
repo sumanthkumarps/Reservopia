@@ -247,6 +247,7 @@
                             android:layout_below="@+id/lv_password"
                             android:layout_weight="0.60"
                             android:hint="@string/enter_phone"
+                            android:maxLength="10"
                             android:inputType="number"
                             android:singleLine="true" />
                     </LinearLayout>

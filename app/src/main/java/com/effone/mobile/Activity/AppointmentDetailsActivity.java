@@ -18,7 +18,7 @@ import com.effone.mobile.model.History;
 public class AppointmentDetailsActivity extends AppCompatActivity implements View.OnClickListener {
     private  History mAppointmentDateTime;
     private TextView mTvConfirmationId,mTvEmail,mTvUserName,mTvAppointmentID,
-    mTvLocName,mTvServiceName,mTvAppointmentDateTime,mTvScheduledTimeZone,mTvAddress,mTvTitile,mTvOrgName,mTvEditAppointment;
+    mTvLocName,mTvServiceName,mTvAppointmentDateTime,mTvScheduledTimeZone,mTvAddress,mTvTitile,mTvOrgName,mTvEditAppointment,mTvPhoneNmber;
     private Toolbar toolbar;
 
     private LinearLayout mLiOrgName,li_last_name;
@@ -36,24 +36,27 @@ public class AppointmentDetailsActivity extends AppCompatActivity implements Vie
     }
 
     private void getUpComingAppointmentList() {
-        mLiOrgName=(LinearLayout)findViewById(R.id.li_orgName);
-        mLiOrgName.setVisibility(View.GONE);
-        li_last_name=(LinearLayout)findViewById(R.id.li_last_name);
-        li_last_name.setVisibility(View.GONE);
+
         mTvTitile=(TextView)findViewById(R.id.tv_title);
         mIvBackBtn=(ImageView)findViewById(R.id.iv_back_btn);
         mIvBackBtn.setOnClickListener(this);
+
+
         mTvAppointmentDateTime  =(TextView)findViewById(R.id.tv_appointment_date);
-        mTvEmail=(TextView)findViewById(R.id.tv_email);
-        mTvUserName=(TextView)findViewById(R.id.tv_userName);
-        mTvLocName=(TextView)findViewById(R.id.tv_locName);
-        mTvAppointmentID=(TextView)findViewById(R.id.tv_appointment_id);
-        mTvAppointmentID.setVisibility(View.GONE);
-        mTvServiceName=(TextView)findViewById(R.id.tv_serviceName);
-        mTvConfirmationId=(TextView)findViewById(R.id.tv_confirmation);
         mTvScheduledTimeZone=(TextView)findViewById(R.id.tv_timeZone);
+
+        mTvUserName=(TextView)findViewById(R.id.tv_first_name);
+        mTvEmail=(TextView)findViewById(R.id.tv_email);
+        mTvLocName=(TextView)findViewById(R.id.tv_locName);
+
+        mTvServiceName=(TextView)findViewById(R.id.tv_service);
+
+
+       // mTvConfirmationId=(TextView)findViewById(R.id.tv_confirmation);
+        mTvOrgName=(TextView)findViewById(R.id.tv_orgName);
         mTvAddress=(TextView)findViewById(R.id.tv_address);
         mTvEditAppointment=(TextView)findViewById(R.id.tv_editAppointment);
+        mTvPhoneNmber=(TextView)findViewById(R.id.tv_phone_number);
         mTvEditAppointment.setVisibility(View.VISIBLE);
         mTvEditAppointment.setOnClickListener(this);
         settingValues();
@@ -61,8 +64,8 @@ public class AppointmentDetailsActivity extends AppCompatActivity implements Vie
 
     private void settingValues() {
         mTvTitile.setText(getString(R.string.appointment_details));
-        mTvConfirmationId.setText(mAppointmentDateTime.getConfirmationNo());
-        mTvAppointmentID.setText(mAppointmentDateTime.getAppointmentID());
+       // mTvConfirmationId.setText(mAppointmentDateTime.getConfirmationNo());
+
         mTvLocName.setText(mAppointmentDateTime.getLocName());
         mTvUserName.setText(mAppointmentDateTime.getUserName());
         mTvEmail.setText(mAppointmentDateTime.getEmail());

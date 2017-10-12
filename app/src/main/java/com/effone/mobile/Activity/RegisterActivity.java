@@ -353,7 +353,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
     }*/
 
-    private void checkingEmail(String text) {
+    private void checkingEmail(final String text) {
         Call<Response> response = apiService.getEmailExists(getString(R.string.token),text,getString(R.string.org_id) );
         response.enqueue(new Callback<Response>() {
             @Override
@@ -369,7 +369,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                 public void onClick(DialogInterface dialog, int id) {
                                     switch (id){
                                         case DialogInterface.BUTTON_POSITIVE:
-                                            startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
+                                            startActivity(new Intent(RegisterActivity.this,LoginActivity.class).putExtra("email",text));
                                             break;
 
                                         case DialogInterface.BUTTON_NEGATIVE:

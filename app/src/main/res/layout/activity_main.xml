@@ -185,7 +185,7 @@
                 android:text="0"
                 android:textAlignment="center"
                 android:textColor="@color/inside_blue"
-                android:textSize="@dimen/upcoming"
+                android:textSize="@dimen/font_size"
                 android:textStyle="bold" />
             <TextView
                 android:layout_width="match_parent"

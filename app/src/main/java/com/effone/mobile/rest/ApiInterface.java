@@ -8,6 +8,7 @@ import com.effone.mobile.model.Confirmation;
 import com.effone.mobile.model.DateTime;
 import com.effone.mobile.model.GetTimeZones;
 import com.effone.mobile.model.LocationAndService;
+import com.effone.mobile.model.LoginResult;
 import com.effone.mobile.model.Response;
 import com.effone.mobile.model.Title;
 import com.effone.mobile.model.UpCommingAppointmentModel;
@@ -56,5 +57,8 @@ public interface ApiInterface {
     @Headers("Content-type: application/json")
     @POST("Appointment/CreateUserNBookAppointment")
     Call<Response> createAcountAndAppointemnt(@Header("Token") String apiKey, @Body BookingAppointmentUserDetails bookingAppointmentUserDetails);
+
+    @GET("access/login")
+    Call<LoginResult> getLogin(@Header("Token") String apiKey, @Query("email") String email, @Query("password")String pass);
 
 }

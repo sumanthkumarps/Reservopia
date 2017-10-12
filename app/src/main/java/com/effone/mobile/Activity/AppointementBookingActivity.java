@@ -225,7 +225,7 @@ public class AppointementBookingActivity extends AppCompatActivity implements Ad
                                     }, 5000);
                                 }
                             }else{
-                                Toast.makeText(AppointementBookingActivity.this,"Appointment has been Booked ",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AppointementBookingActivity.this,getString(R.string.allocated),Toast.LENGTH_SHORT).show();
                             }
 
 
