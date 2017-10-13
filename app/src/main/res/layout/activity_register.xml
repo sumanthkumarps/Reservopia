@@ -12,11 +12,12 @@
     <ScrollView
         android:id="@+id/scroller"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/header"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bt_submit"
+        android:fillViewport="true"
         android:layout_alignParentLeft="true"
-
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/header">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -42,17 +43,17 @@
                     android:layout_below="@+id/header"
                     android:layout_marginTop="5dp"
                     android:gravity="left|center"
-                    android:textStyle="bold"
                     android:text="@string/login_information"
-                    android:textSize="@dimen/sub_text" />
+                    android:textSize="@dimen/sub_text"
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:id="@+id/login_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:background="@drawable/rounded_corner"
                     android:orientation="vertical"
-                    android:layout_marginTop="5dp"
                     android:paddingBottom="5dp">
 
                     <LinearLayout
@@ -94,13 +95,14 @@
                             android:id="@+id/et_email"
                             android:layout_width="0dp"
                             android:layout_height="40dp"
-                            android:maxLength="45"
                             android:layout_alignParentTop="true"
                             android:layout_toEndOf="@+id/textView32"
                             android:layout_toRightOf="@+id/textView32"
                             android:layout_weight=".59"
                             android:hint="@string/email1"
+                            android:paddingRight="5dp"
                             android:inputType="textEmailAddress"
+                            android:maxLength="45"
                             android:singleLine="true" />
                     </LinearLayout>
 
@@ -132,8 +134,8 @@
                                 android:layout_alignParentStart="true"
                                 android:layout_alignParentTop="true"
                                 android:layout_weight=".4"
-                                android:padding="5dp"
                                 android:gravity="left|center"
+                                android:padding="5dp"
                                 android:text="@string/password"
                                 android:textSize="@dimen/sub_text" />
 
@@ -153,13 +155,14 @@
                                 android:id="@+id/et_password"
                                 android:layout_width="0dp"
                                 android:layout_height="40dp"
-                                android:maxLength="30"
+                                android:paddingRight="5dp"
                                 android:layout_alignParentTop="true"
                                 android:layout_toEndOf="@+id/textView32"
                                 android:layout_toRightOf="@+id/textView32"
                                 android:layout_weight=".59"
                                 android:hint="@string/paswordlogin"
                                 android:inputType="textEmailAddress"
+                                android:maxLength="30"
                                 android:singleLine="true" />
                         </LinearLayout>
 
@@ -177,8 +180,8 @@
                                 android:layout_alignParentStart="true"
                                 android:layout_alignParentTop="true"
                                 android:layout_weight=".4"
-                                android:padding="5dp"
                                 android:gravity="left|center"
+                                android:padding="5dp"
                                 android:text="@string/conf_password"
                                 android:textSize="@dimen/sub_text" />
 
@@ -198,13 +201,14 @@
                                 android:id="@+id/et_conf_pass"
                                 android:layout_width="0dp"
                                 android:layout_height="40dp"
-                                android:maxLength="30"
                                 android:layout_alignParentTop="true"
+                                android:paddingRight="5dp"
                                 android:layout_toEndOf="@+id/textView32"
                                 android:layout_toRightOf="@+id/textView32"
                                 android:layout_weight=".59"
                                 android:hint="@string/enter_confirm"
                                 android:inputType="textEmailAddress"
+                                android:maxLength="30"
                                 android:singleLine="true" />
                         </LinearLayout>
 
@@ -250,8 +254,9 @@
                             android:layout_below="@+id/lv_password"
                             android:layout_weight="0.60"
                             android:hint="@string/enter_phone"
-                            android:maxLength="10"
+                            android:paddingRight="5dp"
                             android:inputType="number"
+                            android:maxLength="10"
                             android:singleLine="true" />
                     </LinearLayout>
 
@@ -268,9 +273,9 @@
                     android:layout_below="@+id/login_info"
                     android:layout_marginTop="5dp"
                     android:gravity="left|center"
-                    android:textStyle="bold"
                     android:text="@string/personal_information"
-                    android:textSize="@dimen/sub_text" />
+                    android:textSize="@dimen/sub_text"
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:id="@+id/relativeLayout"
@@ -279,11 +284,11 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_below="@+id/textView30"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
                     android:background="@drawable/rounded_corner"
                     android:orientation="vertical"
-                    android:padding="5dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp">
+                    android:padding="5dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -362,14 +367,14 @@
                             android:id="@+id/et_firstname"
                             android:layout_width="0dp"
                             android:layout_height="40dp"
-                            android:maxLength="30"
                             android:layout_alignLeft="@+id/et_email"
                             android:layout_alignStart="@+id/et_email"
                             android:layout_below="@+id/lv_password"
                             android:layout_weight="0.60"
-                            android:hint="@string/enter_first"
                             android:digits="@string/alphabets"
+                            android:hint="@string/enter_first"
                             android:inputType="textCapWords"
+                            android:maxLength="30"
                             android:singleLine="true" />
                     </LinearLayout>
 
@@ -407,14 +412,14 @@
                             android:id="@+id/et_lastName"
                             android:layout_width="0dp"
                             android:layout_height="40dp"
-                            android:maxLength="30"
                             android:layout_alignLeft="@+id/et_email"
                             android:layout_alignStart="@+id/et_email"
                             android:layout_below="@+id/lv_password"
                             android:layout_weight="0.60"
+                            android:digits="@string/alphabets"
                             android:hint="@string/enter_last"
                             android:inputType="textCapWords"
-                            android:digits="@string/alphabets"
+                            android:maxLength="30"
                             android:singleLine="true" />
                     </LinearLayout>
 
@@ -451,15 +456,15 @@
                         <EditText
                             android:id="@+id/et_date_birth"
                             android:layout_width="0dp"
-                            android:drawableRight="@android:drawable/ic_menu_my_calendar"
                             android:layout_height="40dp"
-                            android:maxLength="15"
                             android:layout_alignLeft="@+id/et_email"
                             android:layout_alignStart="@+id/et_email"
                             android:layout_below="@+id/lv_password"
                             android:layout_weight="0.60"
+                            android:drawableRight="@android:drawable/ic_menu_my_calendar"
                             android:hint="@string/dob_date"
                             android:inputType="number"
+                            android:maxLength="15"
                             android:singleLine="true" />
                     </LinearLayout>
 
@@ -488,39 +493,40 @@
                             android:layout_weight=".01"
                             android:gravity="center"
                             android:text=":" />
+
                         <RelativeLayout
                             android:layout_width="0dp"
-                            android:layout_weight=".6"
                             android:layout_height="match_parent"
+                            android:layout_weight=".6"
                             android:orientation="horizontal">
 
                             <ToggleButton
                                 android:id="@+id/tb_female"
-                                android:layout_width="100dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="40dp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignParentTop="true"
+                                android:background="@drawable/selector"
+                                android:textColor="@drawable/toggle_color"
                                 android:textOff="Female"
                                 android:textOn="Female"
-                                android:textColor="@drawable/toggle_color"
-                                android:textSize="@dimen/sub_text"
-                                android:background="@drawable/selector"
-                                android:layout_alignParentTop="true"
-                                android:layout_alignParentRight="true"
-                                android:layout_alignParentEnd="true" />
+                                android:textSize="@dimen/sub_text" />
 
                             <ToggleButton
                                 android:id="@+id/tb_male"
                                 android:layout_width="wrap_content"
                                 android:layout_height="40dp"
+                                android:layout_alignParentTop="true"
+                                android:layout_toLeftOf="@+id/tb_female"
+                                android:layout_toStartOf="@+id/tb_female"
+                                android:background="@drawable/selector"
                                 android:checked="true"
                                 android:text="Gender"
                                 android:textColor="@drawable/toggle_color"
                                 android:textOff="Male"
-                                android:textSize="@dimen/sub_text"
-                                android:background="@drawable/selector"
                                 android:textOn="Male"
-                                android:layout_alignParentTop="true"
-                                android:layout_toLeftOf="@+id/tb_female"
-                                android:layout_toStartOf="@+id/tb_female" />
+                                android:textSize="@dimen/sub_text" />
 
                         </RelativeLayout>
 
@@ -544,6 +550,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginBottom="7dp"
         android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
         android:layout_marginRight="5dp"
         android:layout_weight="1"
         android:background="@drawable/button_rounded_corner"

@@ -46,6 +46,7 @@ import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -179,6 +180,7 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
 
 
     private void settingDataIntoGrid(final String Date, String locationTable, String serviceTable, String timezone) {
+        timeSlotStrings=null;
         if (mCommonProgressDialog == null) {
             mCommonProgressDialog = ResvUtils.createProgressDialog(this);
             mCommonProgressDialog.show();
@@ -277,10 +279,16 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
-                new DatePickerDialog(LocationServiceActivity.this, date,
-                        myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                DatePickerDialog pickerDialog = new DatePickerDialog(LocationServiceActivity.this, date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH));
+                pickerDialog.show();
+                DatePicker datePicker = pickerDialog.getDatePicker();
+                datePicker.setMinDate(System.currentTimeMillis()-1000);
+                datePicker.setMaxDate(System.currentTimeMillis() + (long) (5.256e+9));
+
+
+                pickerDialog.setCancelable(false);
             }
         });
         //settingDataIntoGrid(formattedDate,""+mLocationTable.getLocID(),getmServiceTable.getServiceID(),mTimeZoneDetails.getStandardName());

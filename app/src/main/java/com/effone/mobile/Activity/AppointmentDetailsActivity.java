@@ -72,7 +72,7 @@ public class AppointmentDetailsActivity extends AppCompatActivity implements Vie
         mTvServiceName.setText(mAppointmentDateTime.getServiceName());
         mTvAppointmentDateTime.setText(Html.fromHtml(mAppointmentDateTime.getAppointmentDateTime()));
         mTvScheduledTimeZone.setText(mAppointmentDateTime.getScheduledTimeZone());
-        mTvAddress.setText("NO ADRESS NODE IN API");
+        mTvAddress.setText("");
     }
 
     @Override

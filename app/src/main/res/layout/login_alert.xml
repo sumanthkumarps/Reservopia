@@ -61,7 +61,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_weight=".59"
-            android:hint="@string/email"
+            android:hint="@string/email1"
             android:inputType="textEmailAddress"
             android:singleLine="true"
             android:layout_below="@+id/loginText"
@@ -85,7 +85,7 @@
             android:layout_alignBottom="@+id/tv_Password"
             android:layout_toRightOf="@+id/tv_Password"
             android:layout_weight=".59"
-            android:hint="@string/password"
+            android:hint="@string/paswordlogin"
             android:inputType="textPassword"
             android:singleLine="true" />
 

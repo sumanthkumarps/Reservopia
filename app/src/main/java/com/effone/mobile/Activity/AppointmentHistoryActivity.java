@@ -56,7 +56,7 @@ public class AppointmentHistoryActivity extends AppCompatActivity implements Vie
         mIvBackBtn.setOnClickListener(this);
         mLvAppointmentHistoryList=(ListView)findViewById(R.id.lv_appointment_history);
        if(AppPreferene.with(this).getEmail().equals("")){
-           showingAlertMessage(getString(R.string.histroy_noEmail));
+           showingAlertMessage(getString(R.string.history_found));
        }else
         getAppointmentHistoryList();
     }

@@ -162,9 +162,15 @@ public class AppointementBookingActivity extends AppCompatActivity implements Ad
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                new DatePickerDialog(AppointementBookingActivity.this, date,
-                        myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                DatePickerDialog pickerDialog = new DatePickerDialog(AppointementBookingActivity.this, date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH));
+                pickerDialog.show();
+                DatePicker datePicker = pickerDialog.getDatePicker();
+                datePicker.setMinDate(System.currentTimeMillis()-1000);
+
+
+                pickerDialog.setCancelable(false);
             }
         });
 

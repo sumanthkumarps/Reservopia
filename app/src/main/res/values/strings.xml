@@ -100,13 +100,13 @@
     <string name="confirmationno">Confirmation ID</string>
     <string name="login">Login</string>
     <string name="reset">reset</string>
-    <string name="forgot">forgot password</string>
+    <string name="forgot">Forgot password</string>
     <string name="signup">Sign Up</string>
     <string name="cancel">Cancel</string>
     <string name="edit_appointment">Edit appointment</string>
     <string name="allocated">This time slot already allocated.</string>
     <string name="histroy_noEmail">No email exists</string>
-    <string name="history_found">No History details found</string>
+    <string name="history_found">No history found.</string>
     <string name="something_went_wrong">Something went wrong</string>
     <string name="alphabets">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
 

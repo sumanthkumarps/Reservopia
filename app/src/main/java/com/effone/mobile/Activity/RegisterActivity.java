@@ -44,6 +44,7 @@ import com.effone.mobile.model.User;
 import com.effone.mobile.model.UserAddress;
 import com.effone.mobile.rest.ApiClient;
 import com.effone.mobile.rest.ApiInterface;
+import com.google.gson.Gson;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -203,6 +204,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private RadioButton radioSexButton;
     @Override
     public void onClick(View view) {
+
         mStEmail=mEtEmail.getText().toString().trim();
         mStPhone=mEtPhone.getText().toString().trim();
         mStFirstName=mEtFirstName.getText().toString().trim();
@@ -265,7 +267,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
         if (count == 0) {
             mMsg = "success";
-
+            mBtSubmit.setEnabled(false);
                 sendInformation();
 
         }
@@ -312,6 +314,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         BookingAppointmentUserDetails bookingAppointmentUserDetails=new BookingAppointmentUserDetails();
         bookingAppointmentUserDetails.setAppointment(appointmentBookingModel);
         bookingAppointmentUserDetails.setUser(user);
+        Gson gson=new Gson();
+        String json =gson.toJson(bookingAppointmentUserDetails);
 
         if (mCommonProgressDialog == null) {
             mCommonProgressDialog = ResvUtils.createProgressDialog(this);
@@ -333,6 +337,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 // Toast.makeText(AppointementBookingActivity.this, "done" + rawResponse.body().getResult().getID(), Toast.LENGTH_SHORT).show();
                         //get your response....
                         //Log.e(TAG, "RetroFit2.0 :RetroGetLogin: " + rawResponse.body());
+
                         Intent intent = new Intent(RegisterActivity.this, AppointmentAcknowledgementActivity.class);
                         intent.putExtra(getString(R.string.confirmation_no), rawResponse.body().getResult().getID());
                         startActivity(intent);
@@ -345,11 +350,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                 finish();
                             }
                         }, 5000);
+                        mBtSubmit.setEnabled(true);
                     }
 
 
                 } catch (Exception e) {
                     e.printStackTrace();
+                    mBtSubmit.setEnabled(true);
                 }
             }
 
@@ -436,6 +443,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             String working = s.toString();
             boolean isValid = true;
+            boolean isValidYear=true;
             if (working.length()==2 && before ==0) {
                 if (Integer.parseInt(working) < 1 || Integer.parseInt(working)>12) {
                     isValid = false;
@@ -458,15 +466,20 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             else if (working.length()==10 && before ==0) {
                 String enteredYear = working.substring(6);
                 int currentYear=Calendar.getInstance().get(Calendar.YEAR);
-                if (Integer.parseInt(enteredYear) > currentYear) {
-                    isValid = false;
+                int minYear=currentYear-120;
+                int intEnterYear=Integer.parseInt(enteredYear);
+                if (intEnterYear > currentYear || intEnterYear<minYear) {
+                    isValidYear=false;
                 }
             } else if (working.length()!=10) {
                 isValid = false;
             }
 
-            if (!isValid) {
-                mEtDateOfBirth.setError("Enter a valid date: mm/dd/yyyy.Eg.04/09/1965");
+            if (!isValid||!isValidYear) {
+                if(!isValidYear)
+                    mEtDateOfBirth.setError("Invalid Year");
+                else
+                    mEtDateOfBirth.setError("Invalid Date.Format is mm/dd/yyyy. Eg.04/09/1965");
             } else {
                 mEtDateOfBirth.setError(null);
             }
