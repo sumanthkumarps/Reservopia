@@ -57,13 +57,13 @@
     <string name="ConfirmNewPasword">Confirm New Password</string>
     <string name="match_does_not"> does not match</string>
     <string name="passwordmymsg">must be contain min 8 and upto 15 chars.</string>
-    <string name="firstnamemsg">First Name: must be present</string>
-    <string name="lastnamemsg"> LastN ame: must be present</string>
-    <string name="DateofBirthmsg">Date of Birth: must be present</string>
+    <string name="firstnamemsg">First name: must be present</string>
+    <string name="lastnamemsg"> Last name: must be present</string>
+    <string name="DateofBirthmsg">Date of birth: must be present</string>
     <string name="Phonemsg">Phone: must be 10 digit</string>
     <string name="Emailmsg">Email: enter valid email</string>
     <string name="passwordmsg">Password: must contain min 8 and upto 15 chars</string>
-    <string name="passwordmsg2">Re Password: must contain min 8 and upto 15 chars</string>
+    <string name="passwordmsg2">Re password: must contain min 8 and upto 15 chars</string>
     <string name="password_select">Enter valid email/password</string>
     <string name="conformmsg">ConfirmPassword: must be present</string>
     <string name="headercreateaccount">Please Validate</string>
@@ -90,13 +90,13 @@
     <string name="select_time_slot">Select one time slot</string>
     <string name="options">Select appointment options :</string>
     <string name="status">Status</string>
-    <string name="location_details">Location Details</string>
+    <string name="location_details">Location details</string>
     <string name="orginzatrion">Organization</string>
     <string name="locName">LocName</string>
     <string name="Booked">Booked</string>
     <string name="confirmation">Confirmation</string>
     <string name="Location">Location</string>
-    <string name="confirmation_msg">Thanks you, your appointment is booked.</string>
+    <string name="confirmation_msg">Thank you, your appointment is booked.</string>
     <string name="confirmationno">Confirmation ID</string>
     <string name="login">Login</string>
     <string name="reset">reset</string>
@@ -108,5 +108,6 @@
     <string name="histroy_noEmail">No email exists</string>
     <string name="history_found">No History details found</string>
     <string name="something_went_wrong">Something went wrong</string>
+    <string name="alphabets">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
 
 </resources>

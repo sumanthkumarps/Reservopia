@@ -36,11 +36,11 @@
                 <TextView
                     android:id="@+id/textView28"
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
                     android:layout_alignLeft="@+id/bt_submit"
                     android:layout_alignStart="@+id/bt_submit"
                     android:layout_below="@+id/header"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="5dp"
                     android:gravity="left|center"
                     android:textStyle="bold"
                     android:text="@string/login_information"
@@ -52,7 +52,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/rounded_corner"
                     android:orientation="vertical"
-                    android:paddingTop="5dp"
+                    android:layout_marginTop="5dp"
                     android:paddingBottom="5dp">
 
                     <LinearLayout
@@ -94,6 +94,7 @@
                             android:id="@+id/et_email"
                             android:layout_width="0dp"
                             android:layout_height="40dp"
+                            android:maxLength="45"
                             android:layout_alignParentTop="true"
                             android:layout_toEndOf="@+id/textView32"
                             android:layout_toRightOf="@+id/textView32"
@@ -152,6 +153,7 @@
                                 android:id="@+id/et_password"
                                 android:layout_width="0dp"
                                 android:layout_height="40dp"
+                                android:maxLength="30"
                                 android:layout_alignParentTop="true"
                                 android:layout_toEndOf="@+id/textView32"
                                 android:layout_toRightOf="@+id/textView32"
@@ -196,6 +198,7 @@
                                 android:id="@+id/et_conf_pass"
                                 android:layout_width="0dp"
                                 android:layout_height="40dp"
+                                android:maxLength="30"
                                 android:layout_alignParentTop="true"
                                 android:layout_toEndOf="@+id/textView32"
                                 android:layout_toRightOf="@+id/textView32"
@@ -257,13 +260,13 @@
                 <TextView
                     android:id="@+id/textView30"
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
                     android:layout_alignEnd="@+id/login_info"
                     android:layout_alignLeft="@+id/login_info"
                     android:layout_alignRight="@+id/login_info"
                     android:layout_alignStart="@+id/login_info"
                     android:layout_below="@+id/login_info"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="5dp"
                     android:gravity="left|center"
                     android:textStyle="bold"
                     android:text="@string/personal_information"
@@ -359,12 +362,14 @@
                             android:id="@+id/et_firstname"
                             android:layout_width="0dp"
                             android:layout_height="40dp"
+                            android:maxLength="30"
                             android:layout_alignLeft="@+id/et_email"
                             android:layout_alignStart="@+id/et_email"
                             android:layout_below="@+id/lv_password"
                             android:layout_weight="0.60"
                             android:hint="@string/enter_first"
-                            android:inputType="textPersonName"
+                            android:digits="@string/alphabets"
+                            android:inputType="textCapWords"
                             android:singleLine="true" />
                     </LinearLayout>
 
@@ -402,12 +407,14 @@
                             android:id="@+id/et_lastName"
                             android:layout_width="0dp"
                             android:layout_height="40dp"
+                            android:maxLength="30"
                             android:layout_alignLeft="@+id/et_email"
                             android:layout_alignStart="@+id/et_email"
                             android:layout_below="@+id/lv_password"
                             android:layout_weight="0.60"
                             android:hint="@string/enter_last"
-                            android:inputType="textPersonName"
+                            android:inputType="textCapWords"
+                            android:digits="@string/alphabets"
                             android:singleLine="true" />
                     </LinearLayout>
 
@@ -446,6 +453,7 @@
                             android:layout_width="0dp"
                             android:drawableRight="@android:drawable/ic_menu_my_calendar"
                             android:layout_height="40dp"
+                            android:maxLength="15"
                             android:layout_alignLeft="@+id/et_email"
                             android:layout_alignStart="@+id/et_email"
                             android:layout_below="@+id/lv_password"

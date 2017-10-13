@@ -199,25 +199,25 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
                 try {
                     movies = response.body().getResult();
                     if (movies.size() > 0 && movies.get(0).getTimeSlotStrings().size() != 0) {
-                        adapter = new TimeSlotAdapter(LocationServiceActivity.this, movies.get(1).getTimeSlotStrings());
-                        mGvTimeSlots.setAdapter(adapter);
-                        mTvEmptyView.setVisibility(View.GONE);
-                        mGvTimeSlots.setVisibility(View.VISIBLE);
+                        if(movies.get(1).getTimeSlotStrings().size() != 0) {
+                            adapter = new TimeSlotAdapter(LocationServiceActivity.this, movies.get(1).getTimeSlotStrings());
+                            mGvTimeSlots.setAdapter(adapter);
+                            mTvEmptyView.setVisibility(View.GONE);
+                            mGvTimeSlots.setVisibility(View.VISIBLE);
+                        }else{
+                            emptyListview(Date);
+                        }
                        /* changeButtonTitle(false);*/
 
                     } else {
+                        emptyListview(Date);
                       //  Toast.makeText(LocationServiceActivity.this, "No Time SLots.", Toast.LENGTH_SHORT).show();
                       //  changeButtonTitle(true);
-                        mGvTimeSlots.setAdapter(null);
-                        mGvTimeSlots.setVisibility(View.GONE);
-                        mTvEmptyView.setVisibility(View.VISIBLE);
-                        mTvDateOfSlots.setText(Date);
+
                     }
                 }catch (Exception e) {
                   //  Toast.makeText(LocationServiceActivity.this, "No Time SLots", Toast.LENGTH_SHORT).show();
-                    mGvTimeSlots.setAdapter(null);
-                    mGvTimeSlots.setVisibility(View.GONE);
-                    mTvEmptyView.setVisibility(View.VISIBLE);
+                    emptyListview(Date);
 /*                    changeButtonTitle(true);*/
 
                 }
@@ -231,6 +231,13 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
                 Log.e(TAG, t.toString());
             }
         });
+    }
+
+    private void emptyListview(String date) {
+        mGvTimeSlots.setAdapter(null);
+        mGvTimeSlots.setVisibility(View.GONE);
+        mTvEmptyView.setVisibility(View.VISIBLE);
+        mTvDateOfSlots.setText(date);
     }
 
 

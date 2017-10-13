@@ -160,11 +160,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if (isChecked) {
                 if (buttonView == male) {
+
                     male.setChecked(true);
                     female.setChecked(false);
                     female.setBackground(getDrawable(R.drawable.selector));
                     mStGender = "male";
-
                 }
                 if (buttonView == female) {
                     male.setChecked(false);
@@ -172,11 +172,33 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     male.setBackground(getDrawable(R.drawable.selector));
                     mStGender="female";
 
+                }
+            }else{
+                if (buttonView == male) {
+                    male.setChecked(false);
+                    female.setChecked(true);
+                    male.setBackground(getDrawable(R.drawable.selector));
+                    mStGender="female";
+                }
+                if (buttonView == female) {
+                    male.setChecked(true);
+                    female.setChecked(false);
+                    female.setBackground(getDrawable(R.drawable.selector));
+                    mStGender = "male";
+
 
                 }
             }
         }
     };
+
+    private void twoSelected(String female) {
+
+    }
+
+    private void oneSelected(String male) {
+
+    }
 
     private RadioButton radioSexButton;
     @Override
