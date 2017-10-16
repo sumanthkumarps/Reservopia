@@ -43,6 +43,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -50,6 +51,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
+import java.util.logging.Level;
 
 import io.realm.Realm;
 import io.realm.RealmList;
@@ -270,7 +272,7 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
 
         };
         SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-        String formattedDate = df.format(myCalendar.getTime());
+        final String formattedDate = df.format(myCalendar.getTime());
         mEtDate = (EditText) findViewById(R.id.et_date);
         mTvTitle=(TextView)findViewById(R.id.tv_title);
         mTvTitle.setText(getString(R.string.booking_app));
@@ -301,6 +303,19 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
                         myCalendar.get(Calendar.DAY_OF_MONTH));
                 pickerDialog.show();
                 DatePicker datePicker = pickerDialog.getDatePicker();
+                if(mScheduledDate!=null) {
+                    SimpleDateFormat inputFormat = new SimpleDateFormat("MM/dd/yyyy");
+                    Date updatedDate = null;
+                    try {
+                        updatedDate = inputFormat.parse(formatedDate);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    myCalendar.setTime(updatedDate);
+                    datePicker.updateDate(myCalendar
+                                    .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                            myCalendar.get(Calendar.DAY_OF_MONTH));
+                }
                 datePicker.setMinDate(System.currentTimeMillis()-1000);
                 datePicker.setMaxDate(System.currentTimeMillis() + (long) (5.256e+9));
                 pickerDialog.setCancelable(false);
