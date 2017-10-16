@@ -12,6 +12,7 @@ import com.effone.mobile.model.LoginResult;
 import com.effone.mobile.model.Response;
 import com.effone.mobile.model.Title;
 import com.effone.mobile.model.UpCommingAppointmentModel;
+import com.effone.mobile.model.UserDetails;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -60,5 +61,6 @@ public interface ApiInterface {
 
     @GET("access/login")
     Call<LoginResult> getLogin(@Header("Token") String apiKey, @Query("email") String email, @Query("password")String pass);
-
+    @GET("UserRegister/GetUserDetails")
+    Call<UserDetails> getUserDetails(@Header("Token") String apiKey,@Query("UserID") String user_id, @Query("email") String email);
 }

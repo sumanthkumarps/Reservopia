@@ -34,6 +34,7 @@ import android.widget.ToggleButton;
 
 import com.effone.mobile.R;
 import com.effone.mobile.adapter.TitleAdapter;
+import com.effone.mobile.common.AppPreferene;
 import com.effone.mobile.common.ResvUtils;
 import com.effone.mobile.common.Validation;
 import com.effone.mobile.model.AppointmentBookingModel;
@@ -42,6 +43,8 @@ import com.effone.mobile.model.Response;
 import com.effone.mobile.model.TitleNames;
 import com.effone.mobile.model.User;
 import com.effone.mobile.model.UserAddress;
+import com.effone.mobile.model.UserDetailGet;
+import com.effone.mobile.model.UserDetails;
 import com.effone.mobile.rest.ApiClient;
 import com.effone.mobile.rest.ApiInterface;
 import com.google.gson.Gson;
@@ -75,7 +78,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private RelativeLayout mLinearLayout;
     ToggleButton male;
     ToggleButton female;
-
+    private  boolean loginned;
 
 
     @Override
@@ -88,6 +91,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         ResvUtils.enableHomeButton(this);
 
         appointmentBookingModel = (AppointmentBookingModel) getIntent().getSerializableExtra("appointment_details");
+        loginned=getIntent().getBooleanExtra("login",false);
+
         apiService = ApiClient.getClient().create(ApiInterface.class);
 
             mLinearLayout=(RelativeLayout)findViewById(R.id.lv_password);
@@ -95,6 +100,50 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         mTvTitle=(TextView)findViewById(R.id.tv_title);
         mTvTitle.setText(getString(R.string.register));
         declarations();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+       gettingUserDeatils();
+
+    }
+
+    private void gettingUserDeatils() {
+        if(!AppPreferene.with(this).getUserId().equals(""))
+            gettingDetails(AppPreferene.with(this).getUserId(),AppPreferene.with(this).getEmail());
+    }
+
+    private void gettingDetails(String user_id, String email) {
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
+        Call<UserDetails> call = apiService.getUserDetails(getString(R.string.token),user_id,email);
+
+        call.enqueue(new Callback<UserDetails>() {
+            @Override
+            public void onResponse(Call<UserDetails> call, retrofit2.Response<UserDetails> response) {
+                response.raw().request().url();
+                if(response.body() != null) {
+
+                    UserDetailGet userDetailGet = response.body().getResult();
+                    if (userDetailGet != null) {
+                        mEtEmail.setText(userDetailGet.getEmail());
+                        mEtPhone.setText(userDetailGet.getPhone());
+                        mEtFirstName.setText(userDetailGet.getFirstName());
+                        mEtLastName.setText(userDetailGet.getLastName());
+
+                        mEtDateOfBirth.setText(userDetailGet.getDateOfBirth());
+
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserDetails> call, Throwable t) {
+                ResvUtils.createOKAlert(RegisterActivity.this,getString(R.string.error),getString(R.string.something_went_wrong));
+            }
+        });
+
     }
     private Realm mRealm;
     private void declarations() {
@@ -390,23 +439,26 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 try{
 
                     if (rawResponse.body().getResult().getID() != null)  {
-                        if(rawResponse.body().getResult().getID().equals("0")) {
-                            mCbCreateAccount.setVisibility(View.VISIBLE);
-                        }else{
+                        if(rawResponse.body().getResult().getOperation().equals("1"))
+                        {
+                            if (rawResponse.body().getResult().getID().equals("0")) {
+                                mCbCreateAccount.setVisibility(View.VISIBLE);
+                            } else {
                                 mCbCreateAccount.setVisibility(View.GONE);
-                               ResvUtils.createYesOrNoDialog(RegisterActivity.this, "An Account with the given email is already registered\nDo you want to login with given email?\n ", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    switch (id){
-                                        case DialogInterface.BUTTON_POSITIVE:
-                                            startActivity(new Intent(RegisterActivity.this,LoginActivity.class).putExtra("email",text));
-                                            break;
+                                ResvUtils.createYesOrNoDialog(RegisterActivity.this, "An Account with the given email is already registered\nDo you want to login with given email?\n ", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        switch (id) {
+                                            case DialogInterface.BUTTON_POSITIVE:
+                                                startActivity(new Intent(RegisterActivity.this, LoginActivity.class).putExtra("email", text));
+                                                break;
 
-                                        case DialogInterface.BUTTON_NEGATIVE:
-                                            dialog.cancel();
-                                            break;
+                                            case DialogInterface.BUTTON_NEGATIVE:
+                                                dialog.cancel();
+                                                break;
+                                        }
                                     }
-                                }
-                            });
+                                });
+                            }
                         }
                     }else{
                         Toast.makeText(RegisterActivity.this,"NoUserExit",Toast.LENGTH_SHORT).show();

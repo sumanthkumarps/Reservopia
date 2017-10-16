@@ -24,6 +24,8 @@ import com.effone.mobile.model.LoginResult;
 import com.effone.mobile.model.Response;
 import com.effone.mobile.model.Result;
 import com.effone.mobile.model.UpCommingAppointmentModel;
+import com.effone.mobile.model.UserDetailGet;
+import com.effone.mobile.model.UserDetails;
 import com.effone.mobile.rest.ApiClient;
 import com.effone.mobile.rest.ApiInterface;
 
@@ -86,6 +88,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
         }
     }
+    String user_id;
     private void userLogin(final String email, String pass) {
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
@@ -97,7 +100,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public void onResponse(Call<LoginResult> call, retrofit2.Response<LoginResult> response) {
               if(response.body().getResult()) {
                   AppPreferene.with(LoginActivity.this).setEmail(email);
-                  startActivity(new Intent(LoginActivity.this, LocationServiceActivity.class));
+                  startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
               }
               else{
                   ResvUtils.createOKAlert(LoginActivity.this,"Error",response.body().getMessage());
@@ -111,4 +114,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         });
 
     }
+
+
 }

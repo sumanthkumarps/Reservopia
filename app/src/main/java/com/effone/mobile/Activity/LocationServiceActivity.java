@@ -327,13 +327,13 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
     private void postingData(String locationTable, String serviceTable,String timeZoneTable) {
         if(timeSlotStrings != null) {
             AppointmentBookingModel body = new AppointmentBookingModel();
-            body.setAppointmentID(appointment_id);
+            body.setAppointmentID("0");
             body.setLocID("" + locationTable);
             if(AppPreferene.with(LocationServiceActivity.this).getUserId().equals(""))
                 body.setUserID("0");
             else
                 body.setUserID(AppPreferene.with(LocationServiceActivity.this).getUserId());
-            body.setConfirmationNo("0");
+            body.setConfirmationNo(appointment_id);
             body.setAppointmentTypeRefID("27");
             body.setServiceID("" + serviceTable);
             body.setStartTime("" + timeSlotStrings.getStartTime());
@@ -351,7 +351,10 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
             body.setAssignedTo("null");
             body.setAuditID("5");
 
-            if (!body.getUserID().equals("0")) {
+            Intent intent =new Intent(this,RegisterActivity.class);
+            intent.putExtra("appointment_details",body);
+            startActivity(intent);
+          /*  if (!body.getUserID().equals("0")) {
 
                 ApiInterface apiService =
                         ApiClient.getClient().create(ApiInterface.class);
@@ -379,7 +382,7 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
                                     }, 5000);
                                 }
                             }else{
-                                Toast.makeText(LocationServiceActivity.this,"Appointment has been Booked ",Toast.LENGTH_SHORT).show();
+                                ResvUtils.createErrorAlert(LocationServiceActivity.this, getString(R.string.error), "Appointment has been Booked " );
                             }
 
 
@@ -395,10 +398,8 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
                     }
                 });
             }else {
-                Intent intent =new Intent(this,RegisterActivity.class);
-                intent.putExtra("appointment_details",body);
-                startActivity(intent);
-            }
+
+            }*/
         }else{
 
             ResvUtils.createOKAlert(this, getResources().getString(R.string.headercreateaccount), getString(R.string.select_time_slot));

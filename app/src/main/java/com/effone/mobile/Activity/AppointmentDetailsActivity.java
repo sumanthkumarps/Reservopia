@@ -67,7 +67,7 @@ public class AppointmentDetailsActivity extends AppCompatActivity implements Vie
        // mTvConfirmationId.setText(mAppointmentDateTime.getConfirmationNo());
 
         mTvLocName.setText(mAppointmentDateTime.getLocName());
-        mTvUserName.setText(mAppointmentDateTime.getUserName());
+        mTvUserName.setText(mAppointmentDateTime.getFirstName()+" "+mAppointmentDateTime.getLastName());
         mTvEmail.setText(mAppointmentDateTime.getEmail());
         mTvServiceName.setText(mAppointmentDateTime.getServiceName());
         mTvAppointmentDateTime.setText(Html.fromHtml(mAppointmentDateTime.getAppointmentDateTime()));
@@ -91,7 +91,7 @@ public class AppointmentDetailsActivity extends AppCompatActivity implements Vie
         }else if(view.getId() == R.id.tv_editAppointment){
             Intent intent= new Intent(this,LocationServiceActivity.class);
             intent.putExtra("check",true);
-            intent.putExtra("id",mAppointmentDateTime.getAppointmentID());
+            intent.putExtra("id",mAppointmentDateTime.getConfirmationNo());
             intent.putExtra("service_id",mAppointmentDateTime.getServiceID());
             intent.putExtra("timeZone",mAppointmentDateTime.getScheduledTimeZone());
             intent.putExtra("location_id",mAppointmentDateTime.getLocID());

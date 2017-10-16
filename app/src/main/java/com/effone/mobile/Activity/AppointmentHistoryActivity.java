@@ -113,7 +113,7 @@ public class AppointmentHistoryActivity extends AppCompatActivity implements Vie
         for (int i = 0; i <histories.size(); i++) {
             HistoryAppointment historyAppointment=new HistoryAppointment();
             historyAppointment.setLocation(histories.get(i).getLocName());
-            historyAppointment.setName(histories.get(i).getUserName());
+            historyAppointment.setName(histories.get(i).getFirstName()+" "+ histories.get(i).getLastName());
             historyAppointment.setConfirmationNo(histories.get(i).getConfirmationNo());
             historyAppointment.setDate(histories.get(i).getAppointmentDateTime());
             historyAppointment.setSerivice(histories.get(i).getServiceName());

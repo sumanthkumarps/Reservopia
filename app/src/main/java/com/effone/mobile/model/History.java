@@ -12,7 +12,7 @@ public class History implements Serializable
 
     private String IsLoggedIn;
 
-    private String UserName;
+    private String LastName;
 
     private String SendEmailReminder;
 
@@ -22,7 +22,17 @@ public class History implements Serializable
 
     private String ServiceName;
 
+    private String Address2;
+
     private String ConfirmationNo;
+
+    private String Address1;
+
+    private String IsEndUser;
+
+    private String FirstName;
+
+    private String Zip;
 
     private String StartTime;
 
@@ -32,7 +42,13 @@ public class History implements Serializable
 
     private String IsAssigned;
 
+    private String ScheduledDateTime;
+
+    private String OrgName;
+
     private String AssignedTo;
+
+    private String City;
 
     private String SendTextReminder;
 
@@ -42,7 +58,11 @@ public class History implements Serializable
 
     private String ScheduledTimeZone;
 
+    private String LocTimeZone;
+
     private String IsCancelled;
+
+    private String State;
 
     private String Email;
 
@@ -96,14 +116,14 @@ public class History implements Serializable
         this.IsLoggedIn = IsLoggedIn;
     }
 
-    public String getUserName ()
+    public String getLastName ()
     {
-        return UserName;
+        return LastName;
     }
 
-    public void setUserName (String UserName)
+    public void setLastName (String LastName)
     {
-        this.UserName = UserName;
+        this.LastName = LastName;
     }
 
     public String getSendEmailReminder ()
@@ -146,6 +166,16 @@ public class History implements Serializable
         this.ServiceName = ServiceName;
     }
 
+    public String getAddress2 ()
+{
+    return Address2;
+}
+
+    public void setAddress2 (String Address2)
+    {
+        this.Address2 = Address2;
+    }
+
     public String getConfirmationNo ()
     {
         return ConfirmationNo;
@@ -154,6 +184,46 @@ public class History implements Serializable
     public void setConfirmationNo (String ConfirmationNo)
     {
         this.ConfirmationNo = ConfirmationNo;
+    }
+
+    public String getAddress1 ()
+{
+    return Address1;
+}
+
+    public void setAddress1 (String Address1)
+    {
+        this.Address1 = Address1;
+    }
+
+    public String getIsEndUser ()
+    {
+        return IsEndUser;
+    }
+
+    public void setIsEndUser (String IsEndUser)
+    {
+        this.IsEndUser = IsEndUser;
+    }
+
+    public String getFirstName ()
+    {
+        return FirstName;
+    }
+
+    public void setFirstName (String FirstName)
+    {
+        this.FirstName = FirstName;
+    }
+
+    public String getZip ()
+    {
+        return Zip;
+    }
+
+    public void setZip (String Zip)
+    {
+        this.Zip = Zip;
     }
 
     public String getStartTime ()
@@ -196,6 +266,26 @@ public class History implements Serializable
         this.IsAssigned = IsAssigned;
     }
 
+    public String getScheduledDateTime ()
+{
+    return ScheduledDateTime;
+}
+
+    public void setScheduledDateTime (String ScheduledDateTime)
+    {
+        this.ScheduledDateTime = ScheduledDateTime;
+    }
+
+    public String getOrgName ()
+{
+    return OrgName;
+}
+
+    public void setOrgName (String OrgName)
+    {
+        this.OrgName = OrgName;
+    }
+
     public String getAssignedTo ()
 {
     return AssignedTo;
@@ -204,6 +294,16 @@ public class History implements Serializable
     public void setAssignedTo (String AssignedTo)
     {
         this.AssignedTo = AssignedTo;
+    }
+
+    public String getCity ()
+{
+    return City;
+}
+
+    public void setCity (String City)
+    {
+        this.City = City;
     }
 
     public String getSendTextReminder ()
@@ -246,6 +346,16 @@ public class History implements Serializable
         this.ScheduledTimeZone = ScheduledTimeZone;
     }
 
+    public String getLocTimeZone ()
+{
+    return LocTimeZone;
+}
+
+    public void setLocTimeZone (String LocTimeZone)
+    {
+        this.LocTimeZone = LocTimeZone;
+    }
+
     public String getIsCancelled ()
     {
         return IsCancelled;
@@ -254,6 +364,16 @@ public class History implements Serializable
     public void setIsCancelled (String IsCancelled)
     {
         this.IsCancelled = IsCancelled;
+    }
+
+    public String getState ()
+{
+    return State;
+}
+
+    public void setState (String State)
+    {
+        this.State = State;
     }
 
     public String getEmail ()
@@ -319,6 +439,6 @@ public class History implements Serializable
     @Override
     public String toString()
     {
-        return "ClassPojo [LocName = "+LocName+", AppointmentDateTime = "+AppointmentDateTime+", UserID = "+UserID+", IsLoggedIn = "+IsLoggedIn+", UserName = "+UserName+", SendEmailReminder = "+SendEmailReminder+", AppointmentTypeRefID = "+AppointmentTypeRefID+", AuditID = "+AuditID+", ServiceName = "+ServiceName+", ConfirmationNo = "+ConfirmationNo+", StartTime = "+StartTime+", CancelledBy = "+CancelledBy+", LocID = "+LocID+", IsAssigned = "+IsAssigned+", AssignedTo = "+AssignedTo+", SendTextReminder = "+SendTextReminder+", AppointmentID = "+AppointmentID+", IsCheckedIn = "+IsCheckedIn+", ScheduledTimeZone = "+ScheduledTimeZone+", IsCancelled = "+IsCancelled+", Email = "+Email+", ServiceID = "+ServiceID+", OrgID = "+OrgID+", AdditionalEmail = "+AdditionalEmail+", EndTime = "+EndTime+", CancelTypeRefID = "+CancelTypeRefID+"]";
+        return "ClassPojo [LocName = "+LocName+", AppointmentDateTime = "+AppointmentDateTime+", UserID = "+UserID+", IsLoggedIn = "+IsLoggedIn+", LastName = "+LastName+", SendEmailReminder = "+SendEmailReminder+", AppointmentTypeRefID = "+AppointmentTypeRefID+", AuditID = "+AuditID+", ServiceName = "+ServiceName+", Address2 = "+Address2+", ConfirmationNo = "+ConfirmationNo+", Address1 = "+Address1+", IsEndUser = "+IsEndUser+", FirstName = "+FirstName+", Zip = "+Zip+", StartTime = "+StartTime+", CancelledBy = "+CancelledBy+", LocID = "+LocID+", IsAssigned = "+IsAssigned+", ScheduledDateTime = "+ScheduledDateTime+", OrgName = "+OrgName+", AssignedTo = "+AssignedTo+", City = "+City+", SendTextReminder = "+SendTextReminder+", AppointmentID = "+AppointmentID+", IsCheckedIn = "+IsCheckedIn+", ScheduledTimeZone = "+ScheduledTimeZone+", LocTimeZone = "+LocTimeZone+", IsCancelled = "+IsCancelled+", State = "+State+", Email = "+Email+", ServiceID = "+ServiceID+", OrgID = "+OrgID+", AdditionalEmail = "+AdditionalEmail+", EndTime = "+EndTime+", CancelTypeRefID = "+CancelTypeRefID+"]";
     }
 }
