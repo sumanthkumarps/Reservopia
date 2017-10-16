@@ -20,6 +20,10 @@ import android.widget.TextView;
 import com.effone.mobile.MainActivity;
 import com.effone.mobile.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by sarith.vasu on 26-09-2017.
  */
@@ -144,5 +148,21 @@ public class ResvUtils {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setMessage(title).setPositiveButton("Yes", listener)
                 .setNegativeButton("No", listener).show();
+    }
+    public static String parseDateToddMMyyyy(String dateStr,String inputPattern, String outputPattern) {
+
+        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
+        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
+
+        Date date = null;
+        String str = null;
+
+        try {
+            date = inputFormat.parse(dateStr);
+            str = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return str;
     }
 }

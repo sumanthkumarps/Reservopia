@@ -88,6 +88,11 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
     private  TextView mTvDateOfSlots;
     private ProgressDialog mCommonProgressDialog;
     private String mSechLocationId;
+    private String mScheduledDate;
+    private Calendar mCalendar;
+    String[] timedate;
+
+    String formatedDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +104,12 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
         service_ID= getIntent().getStringExtra("service_id");
         mShTimeZone=getIntent().getStringExtra("timeZone");
         mSechLocationId=getIntent().getStringExtra("location_id");
+        mScheduledDate=getIntent().getStringExtra("date");
+        if(mScheduledDate!=null) {
+            timedate = mScheduledDate.split(",");
+            String splitedDate = timedate[1].replace(".", "").trim() + "" + timedate[2].substring(0, 5);
+            formatedDate = ResvUtils.parseDateToddMMyyyy(splitedDate, "MMM dd yyyy", "MM/dd/yyyy");
+        }
 
         if(appointment_id == null)
             appointment_id = ""+0;
@@ -239,7 +250,7 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
         mGvTimeSlots.setAdapter(null);
         mGvTimeSlots.setVisibility(View.GONE);
         mTvEmptyView.setVisibility(View.VISIBLE);
-        mTvDateOfSlots.setText(date);
+        mTvDateOfSlots.setText(ResvUtils.parseDateToddMMyyyy(date,"MM/dd/yyyy","dd-MMM-yyyy EEEE"));
     }
 
 
@@ -272,7 +283,13 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
            //     openActivity(LocationServiceActivity.this, AppointmentAcknowledgementActivity.class);
             }
         });*/
-        mEtDate.setText(formattedDate);
+       if(mScheduledDate!=null){
+           mEtDate.setText(formatedDate);
+       }
+       else{
+           mEtDate.setText(formattedDate);
+       }
+
 
         mEtDate.setOnClickListener(new View.OnClickListener() {
 
@@ -286,8 +303,6 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
                 DatePicker datePicker = pickerDialog.getDatePicker();
                 datePicker.setMinDate(System.currentTimeMillis()-1000);
                 datePicker.setMaxDate(System.currentTimeMillis() + (long) (5.256e+9));
-
-
                 pickerDialog.setCancelable(false);
             }
         });

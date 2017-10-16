@@ -55,7 +55,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String email=getIntent().getStringExtra("email");
         if(!email.equals("")) {
             mEtEmail.setText(email);
-            mEtEmail.setEnabled(false);
         }
         mEtPassword=(EditText)findViewById(R.id.et_password);
         mTvCancelNew=(TextView)findViewById(R.id.tv_cancel_new);
