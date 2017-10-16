@@ -131,8 +131,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         mEtPhone.setText(userDetailGet.getPhone());
                         mEtFirstName.setText(userDetailGet.getFirstName());
                         mEtLastName.setText(userDetailGet.getLastName());
-
-                        mEtDateOfBirth.setText(userDetailGet.getDateOfBirth());
+                        mEtDateOfBirth.setText(ResvUtils.parseDateToddMMyyyy(userDetailGet.getDateOfBirth().split("T")[0],"yyyy-MM-dd","MM/dd/yyyy"));
 
                     }
                 }
