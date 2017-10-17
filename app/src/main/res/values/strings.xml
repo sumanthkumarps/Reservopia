@@ -39,7 +39,7 @@
     <string name="appointment_history">Appointment history</string>
     <string name="service_type">Service Type</string>
     <string name="date_time">Date  </string>
-    <string name="time_slot">Pick one time slot :</string>
+    <string name="time_slot">Pick a time slot :</string>
     <string name="appointment_details">Appointment Details</string>
 
 
@@ -67,6 +67,7 @@
     <string name="password_select">Enter valid email/password</string>
     <string name="conformmsg">ConfirmPassword: must be present</string>
     <string name="headercreateaccount">Please Validate</string>
+    <string name="user_validation">User Registration</string>
     <string name="passworddoednotmatch">Password and Re password mismatch</string>
     <string name="firstname">enter first name</string>
     <string name="lastname">enter last name</string>

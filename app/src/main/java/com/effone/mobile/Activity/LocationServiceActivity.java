@@ -252,7 +252,7 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
         mGvTimeSlots.setAdapter(null);
         mGvTimeSlots.setVisibility(View.GONE);
         mTvEmptyView.setVisibility(View.VISIBLE);
-        mTvDateOfSlots.setText(ResvUtils.parseDateToddMMyyyy(date,"MM/dd/yyyy","dd-MMM-yyyy EEEE"));
+        mTvDateOfSlots.setText(ResvUtils.parseDateToddMMyyyy(date,"MM/dd/yyyy","MMM dd,yyyy"));
     }
 
 

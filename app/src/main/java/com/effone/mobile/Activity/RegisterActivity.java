@@ -320,7 +320,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         }
         if (!mMsg.equals("success")) {
-            ResvUtils.createOKAlert(this, getResources().getString(R.string.headercreateaccount), mMsg);
+            ResvUtils.createOKAlert(this, getResources().getString(R.string.user_validation), mMsg);
 
         }
 
@@ -438,7 +438,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 try{
 
                     if (rawResponse.body().getResult().getID() != null)  {
-                        if(rawResponse.body().getResult().getOperation().equals("1"))
+                        if(rawResponse.body().getResult().getOperation().equals("0"))
                         {
                             if (rawResponse.body().getResult().getID().equals("0")) {
                                 mCbCreateAccount.setVisibility(View.VISIBLE);
