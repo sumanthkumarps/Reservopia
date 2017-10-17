@@ -102,7 +102,7 @@
     <string name="login">Login</string>
     <string name="reset">reset</string>
     <string name="forgot">Forgot password</string>
-    <string name="signup">Sign Up</string>
+    <string name="signup">Sign up</string>
     <string name="cancel">Cancel</string>
     <string name="edit_appointment">Edit appointment</string>
     <string name="allocated">This time slot already allocated.</string>

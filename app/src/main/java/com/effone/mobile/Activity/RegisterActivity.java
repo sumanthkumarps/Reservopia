@@ -462,7 +462,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                 mCbCreateAccount.setVisibility(View.VISIBLE);
 
                             } else {
-                                if (rawResponse.body().getResult().getOperation().equals("0")) {
+                                if (rawResponse.body().getResult().getOperation().equals("1")) {
                                     mCbCreateAccount.setVisibility(View.GONE);
                                     ResvUtils.createYesOrNoDialog(RegisterActivity.this, "An Account with the given email is already registered\nDo you want to login with given email?\n ", new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
