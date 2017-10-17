@@ -61,6 +61,7 @@ public interface ApiInterface {
 
     @GET("access/login")
     Call<LoginResult> getLogin(@Header("Token") String apiKey, @Query("email") String email, @Query("password")String pass);
+
     @GET("UserRegister/GetUserDetails")
-    Call<UserDetails> getUserDetails(@Header("Token") String apiKey,@Query("UserID") String user_id, @Query("email") String email);
+    Call<UserDetails> getUserDetails(@Header("Token") String apiKey,  @Query("UserID") String user_id, @Query("email") String email);
 }

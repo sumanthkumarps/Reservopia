@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.effone.mobile.R;
+import com.effone.mobile.common.AppPreferene;
 import com.effone.mobile.common.ResvUtils;
 import com.effone.mobile.model.History;
 
@@ -72,7 +73,9 @@ public class AppointmentDetailsActivity extends AppCompatActivity implements Vie
         mTvServiceName.setText(mAppointmentDateTime.getServiceName());
         mTvAppointmentDateTime.setText(Html.fromHtml(mAppointmentDateTime.getAppointmentDateTime()));
         mTvScheduledTimeZone.setText(mAppointmentDateTime.getScheduledTimeZone());
-        mTvAddress.setText("");
+        mTvAddress.setText(AppPreferene.with(this).getAddress());
+        mTvOrgName.setText(AppPreferene.with(this).getOrgination());
+
     }
 
     @Override

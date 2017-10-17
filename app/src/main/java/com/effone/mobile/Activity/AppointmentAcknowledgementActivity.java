@@ -99,6 +99,9 @@ public class AppointmentAcknowledgementActivity extends AppCompatActivity implem
                     mTvServiceName.setText(confirmationDetails.getServiceName());
                     mTvAppointmentDateTime.setText(Html.fromHtml(confirmationDetails.getScheduledDateTime()));
                     mTvScheduledTimeZone.setText(confirmationDetails.getScheduledTimeZone());
+                    AppPreferene.with(AppointmentAcknowledgementActivity.this).setAddress(confirmationDetails.getAddress1() + " " + confirmationDetails.getCity() + " " + confirmationDetails.getState()
+                            + " " + confirmationDetails.getZip());
+                    AppPreferene.with(AppointmentAcknowledgementActivity.this).setOrgination(confirmationDetails.getOrgName());
                     mTvAddress.setText(confirmationDetails.getAddress1() + " " + confirmationDetails.getCity() + " " + confirmationDetails.getState()
                             + " " + confirmationDetails.getZip());
                     mTvOrgName.setText(confirmationDetails.getOrgName());

@@ -3,6 +3,7 @@ package com.effone.mobile;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 
 import java.util.Arrays;
@@ -32,6 +33,7 @@ import android.widget.TextView;
 import com.effone.mobile.Activity.AppointmentDetailsActivity;
 import com.effone.mobile.Activity.AppointmentHistoryActivity;
 import com.effone.mobile.Activity.LocationServiceActivity;
+import com.effone.mobile.Activity.LoginActivity;
 import com.effone.mobile.Activity.MultipleLocationServiceActivity;
 import com.effone.mobile.Activity.NetworkErrorActivity;
 import com.effone.mobile.Activity.RegisterActivity;
@@ -98,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private NetworkChangeReceiver networkChangeReceiver;
     private ProgressDialog mCommonProgressDialog;
     private  TextView mTvCountAppointment;
-
+    private  ImageView mIvLogout;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -106,6 +108,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         linearLayout=(LinearLayout)findViewById(R.id.linearLayout);
+        mIvLogout=(ImageView)findViewById(R.id.iv_home_btn);
+        changingLogoutImages();
+        mIvLogout.setOnClickListener(this);
         mNetworkReceiver = new NetworkChangeReceiver();
         networkChangeReceiver =new NetworkChangeReceiver();
         mCalendar= Calendar.getInstance();
@@ -383,6 +388,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onStart() {
         super.onStart();
         mTvCountAppointment=(TextView)findViewById(R.id.tv_count_appointments);
+        checkingUpcomingAppointment();
+    }
+
+    private void checkingUpcomingAppointment() {
         if(!AppPreferene.with(this).getEmail().equals("")) {
             upcomingAppointmentList();
 
@@ -392,26 +401,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mLvAppointmentList.setAdapter(null);
             mLvAppointmentList.setVisibility(View.GONE);
             mTvEmptyView.setVisibility(View.VISIBLE);
-         /*   String[] planets = new String[] { "No Appointments found. Please Book Appointment.."};
-            ArrayList<String> planetList = new ArrayList<String>();
-            planetList.addAll( Arrays.asList(planets) );
-
-            // Create ArrayAdapter using the planet list.
-             ArrayAdapter<String> listAdapter  = new ArrayAdapter<String>(this, R.layout.empty, planetList);
-            mLvAppointmentList.setAdapter( listAdapter );
-           *//* mLvAppointmentList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    if(i==0){
-                        openActivity(MainActivity.this, RegisterActivity.class);
-                    }else if(i == 1){
-
-                    }
-                }
-            });*/
-
         }
     }
+
     List<History> histories;
 
     private void upcomingAppointmentList() {
@@ -512,8 +504,46 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     openActivity(this,NetworkErrorActivity.class);
                 }
                 break;
+            case R.id.iv_home_btn:
+                if(AppPreferene.with(this).getUserId().equals("")){
+                    openActivity(this, LoginActivity.class);
+                }else {
+                    ResvUtils.createYesOrNoDialog(this, "Are you sure you want to logout ? ", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            switch (id) {
+                                case DialogInterface.BUTTON_POSITIVE:
+                                    removeDataFromPreference();
+                                    changingLogoutImages();
+                                    break;
+
+                                case DialogInterface.BUTTON_NEGATIVE:
+                                    dialog.cancel();
+
+                                    break;
+                            }
+                        }
+                    });
+                }
+
+                break;
         }
 
+    }
+
+    private void changingLogoutImages() {
+        if(AppPreferene.with(this).getUserId().equals("")){
+            mIvLogout.setImageDrawable(getResources().getDrawable(R.drawable.ic_login));
+        }else {
+            mIvLogout.setImageDrawable(getResources().getDrawable(R.drawable.ic_logout));
+        }
+    }
+
+    private void removeDataFromPreference() {
+        AppPreferene.with(this).setEmail("");
+        AppPreferene.with(this).setUserId("");
+        AppPreferene.with(this).setOrgination("");
+        AppPreferene.with(this).setAddress("");
+        checkingUpcomingAppointment();
     }
 
     public List<AppointmentDataTime> jsonObject(String response) {

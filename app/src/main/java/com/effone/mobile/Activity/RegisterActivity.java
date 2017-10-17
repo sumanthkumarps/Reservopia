@@ -105,13 +105,31 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onResume() {
         super.onResume();
-       gettingUserDeatils();
 
+        gettingUserDeatils();
+        if(!mEtEmail.getText().toString().trim().equals(""))
+        checkingEmail(mEtEmail.getText().toString().trim());
     }
 
     private void gettingUserDeatils() {
-        if(!AppPreferene.with(this).getUserId().equals(""))
-            gettingDetails(AppPreferene.with(this).getUserId(),AppPreferene.with(this).getEmail());
+        if(!AppPreferene.with(this).getUserId().equals("")) {
+            ResvUtils.createYesOrNoDialog(RegisterActivity.this, "Your details found. would like to populate your info automatically  ", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    switch (id) {
+                        case DialogInterface.BUTTON_POSITIVE:
+                            gettingDetails(AppPreferene.with(RegisterActivity.this).getUserId(), AppPreferene.with(RegisterActivity.this).getEmail());
+                            break;
+
+                        case DialogInterface.BUTTON_NEGATIVE:
+                            dialog.cancel();
+                            mEtEmail.setText(AppPreferene.with(RegisterActivity.this).getEmail());
+                            mEtEmail.setFocusable(false);
+                            break;
+                    }
+                }
+            });
+
+        }
     }
 
     private void gettingDetails(String user_id, String email) {
@@ -132,6 +150,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         mEtFirstName.setText(userDetailGet.getFirstName());
                         mEtLastName.setText(userDetailGet.getLastName());
                         mEtDateOfBirth.setText(ResvUtils.parseDateToddMMyyyy(userDetailGet.getDateOfBirth().split("T")[0],"yyyy-MM-dd","MM/dd/yyyy"));
+                        mStPassword=userDetailGet.getPassword();
 
                     }
                 }
@@ -241,13 +260,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
     };
 
-    private void twoSelected(String female) {
-
-    }
-
-    private void oneSelected(String male) {
-
-    }
 
     private RadioButton radioSexButton;
     @Override
@@ -311,7 +323,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 count++;
             }
         }else{
-            mStPassword="";
+            if(mStPassword != null || mStPassword != ""){
+
+            }else
+                mStPassword="";
         }
         if (count == 0) {
             mMsg = "success";
@@ -330,7 +345,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     private void sendInformation() {
         User user=new User();
-        user.setUserID("0");
+        if(AppPreferene.with(this).getUserId().equals("")){
+            user.setUserID("0");
+        }else
+        user.setUserID(AppPreferene.with(this).getUserId());
         user.setTitle(mTitleNames.getValue());
         user.setEmail(mStEmail);
         user.setPhone(mStPhone);
@@ -438,27 +456,33 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 try{
 
                     if (rawResponse.body().getResult().getID() != null)  {
-                        if(rawResponse.body().getResult().getOperation().equals("0"))
-                        {
-                            if (rawResponse.body().getResult().getID().equals("0")) {
-                                mCbCreateAccount.setVisibility(View.VISIBLE);
-                            } else {
-                                mCbCreateAccount.setVisibility(View.GONE);
-                                ResvUtils.createYesOrNoDialog(RegisterActivity.this, "An Account with the given email is already registered\nDo you want to login with given email?\n ", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        switch (id) {
-                                            case DialogInterface.BUTTON_POSITIVE:
-                                                startActivity(new Intent(RegisterActivity.this, LoginActivity.class).putExtra("email", text));
-                                                break;
 
-                                            case DialogInterface.BUTTON_NEGATIVE:
-                                                dialog.cancel();
-                                                break;
+                            if (rawResponse.body().getResult().getID().equals("0")) {
+
+                                mCbCreateAccount.setVisibility(View.VISIBLE);
+
+                            } else {
+                                if (rawResponse.body().getResult().getOperation().equals("0")) {
+                                    mCbCreateAccount.setVisibility(View.GONE);
+                                    ResvUtils.createYesOrNoDialog(RegisterActivity.this, "An Account with the given email is already registered\nDo you want to login with given email?\n ", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            switch (id) {
+                                                case DialogInterface.BUTTON_POSITIVE:
+                                                    startActivity(new Intent(RegisterActivity.this, LoginActivity.class).putExtra("email", text));
+                                                    break;
+
+                                                case DialogInterface.BUTTON_NEGATIVE:
+                                                    dialog.cancel();
+                                                    break;
+                                            }
                                         }
-                                    }
-                                });
+                                    });
+                                }else{
+                                    mCbCreateAccount.setVisibility(View.VISIBLE);
                             }
+
                         }
+
                     }else{
                         Toast.makeText(RegisterActivity.this,"NoUserExit",Toast.LENGTH_SHORT).show();
 

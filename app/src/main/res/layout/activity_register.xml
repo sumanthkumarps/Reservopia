@@ -550,6 +550,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginBottom="7dp"
         android:layout_marginLeft="5dp"
+        android:textSize="@dimen/font_size"
         android:layout_marginTop="5dp"
         android:layout_marginRight="5dp"
         android:layout_weight="1"

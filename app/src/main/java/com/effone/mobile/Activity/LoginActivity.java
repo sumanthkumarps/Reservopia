@@ -55,8 +55,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         mEtEmail=(EditText)findViewById(R.id.et_email);
         String email=getIntent().getStringExtra("email");
-        if(!email.equals("")) {
-            mEtEmail.setText(email);
+        if(email!=null) {
+            if (!email.equals("")) {
+                mEtEmail.setText(email);
+            }
         }
         mEtPassword=(EditText)findViewById(R.id.et_password);
         mTvCancelNew=(TextView)findViewById(R.id.tv_cancel_new);
@@ -98,13 +100,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         call.enqueue(new Callback<LoginResult>() {
             @Override
             public void onResponse(Call<LoginResult> call, retrofit2.Response<LoginResult> response) {
-              if(response.body().getResult()) {
-                  AppPreferene.with(LoginActivity.this).setEmail(email);
-                  startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
-              }
-              else{
-                  ResvUtils.createOKAlert(LoginActivity.this,"Error",response.body().getMessage());
-              }
+                response.raw().request().url();
+                if (response.body() != null) {
+                    if (response.body().getResult()) {
+                        AppPreferene.with(LoginActivity.this).setEmail(email);
+                        startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+                    } else {
+                        ResvUtils.createOKAlert(LoginActivity.this, "Error", response.body().getMessage());
+                    }
+                }
             }
 
             @Override

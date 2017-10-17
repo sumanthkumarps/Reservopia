@@ -13,6 +13,8 @@ public class AppPreferene {
     private static final String SERVICE_COUNT = "count" ;
     private static final String USER_ID = "user_id";
     private static final String EMAIL_ID = "email_id" ;
+    private static final String ADDRESS = "address" ;
+    private static final String ORGINATION = "orgination" ;
     private static AppPreferene instance;
     private final SharedPreferences sharedPreferences;
 
@@ -77,6 +79,30 @@ public class AppPreferene {
         return sharedPreferences.getString(EMAIL_ID, "");
     }
 
+
+    public void setAddress(String   addtrss) {
+
+        sharedPreferences
+                .edit()
+                .putString(ADDRESS, addtrss)
+                .apply();
+    }
+
+    public String getAddress(){
+        return sharedPreferences.getString(ADDRESS, "");
+    }
+
+    public void setOrgination(String   orgination) {
+
+        sharedPreferences
+                .edit()
+                .putString(ORGINATION, orgination)
+                .apply();
+    }
+
+    public String getOrgination(){
+        return sharedPreferences.getString(ORGINATION, "");
+    }
 
 
 }
