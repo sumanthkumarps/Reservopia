@@ -109,7 +109,7 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
         mScheduledDate=getIntent().getStringExtra("date");
         if(mScheduledDate!=null) {
             timedate = mScheduledDate.split(",");
-            String splitedDate = timedate[1].replace(".", "").trim() + "" + timedate[2].substring(0, 5);
+            String splitedDate = timedate[1].replace(".", "").trim() +  timedate[2].substring(0, 5);
             formatedDate = ResvUtils.parseDateToddMMyyyy(splitedDate, "MMM dd yyyy", "MM/dd/yyyy");
         }
 

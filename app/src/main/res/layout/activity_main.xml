@@ -6,10 +6,11 @@
     android:background="@color/home_back"
     android:orientation="vertical"
     android:id="@+id/linearLayout"
+    android:clickable="true"
     android:weightSum="1"
     tools:context="com.effone.mobile.MainActivity">
 
-    <include layout="@layout/fragment_common_header" />
+    <include layout="@layout/header_for_home_page" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -174,7 +175,7 @@
 
             <TextView
                 android:id="@+id/tv_count_appointments"
-                android:layout_width="30dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:background="@color/upcoming_appointment_count"

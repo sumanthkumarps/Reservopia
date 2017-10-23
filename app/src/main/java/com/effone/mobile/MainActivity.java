@@ -30,6 +30,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.effone.mobile.Activity.AppointmentAcknowledgementActivity;
 import com.effone.mobile.Activity.AppointmentDetailsActivity;
 import com.effone.mobile.Activity.AppointmentHistoryActivity;
 import com.effone.mobile.Activity.LocationServiceActivity;
@@ -100,7 +101,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private NetworkChangeReceiver networkChangeReceiver;
     private ProgressDialog mCommonProgressDialog;
     private  TextView mTvCountAppointment;
-    private  ImageView mIvLogout;
+    private  TextView mIvLogout;
+
+
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -108,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         linearLayout=(LinearLayout)findViewById(R.id.linearLayout);
-        mIvLogout=(ImageView)findViewById(R.id.iv_home_btn);
+        mIvLogout=(TextView)findViewById(R.id.iv_home_btn);
         changingLogoutImages();
         mIvLogout.setOnClickListener(this);
         mNetworkReceiver = new NetworkChangeReceiver();
@@ -506,7 +509,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.iv_home_btn:
                 if(AppPreferene.with(this).getUserId().equals("")){
-                    openActivity(this, LoginActivity.class);
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    intent.putExtra(getString(R.string.isFromHomeScreen),true);
+                    startActivity(intent);
                 }else {
                     ResvUtils.createYesOrNoDialog(this, "Are you sure you want to logout ? ", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
@@ -532,9 +537,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void changingLogoutImages() {
         if(AppPreferene.with(this).getUserId().equals("")){
-            mIvLogout.setImageDrawable(getResources().getDrawable(R.drawable.ic_login));
+            mIvLogout.setText(getString(R.string.login));
         }else {
-            mIvLogout.setImageDrawable(getResources().getDrawable(R.drawable.ic_logout));
+            mIvLogout.setText(getString(R.string.logout));
         }
     }
 

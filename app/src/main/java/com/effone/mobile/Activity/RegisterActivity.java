@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 
 
+import java.io.IOException;
 import java.util.Calendar;
 import android.net.Uri;
 import android.os.Build;
@@ -32,6 +33,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.effone.mobile.MainActivity;
 import com.effone.mobile.R;
 import com.effone.mobile.adapter.TitleAdapter;
 import com.effone.mobile.common.AppPreferene;
@@ -48,6 +50,7 @@ import com.effone.mobile.model.UserDetails;
 import com.effone.mobile.rest.ApiClient;
 import com.effone.mobile.rest.ApiInterface;
 import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -78,6 +81,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private RelativeLayout mLinearLayout;
     ToggleButton male;
     ToggleButton female;
+    boolean isFromHomeScreen;
     private  boolean loginned;
 
 
@@ -92,6 +96,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         appointmentBookingModel = (AppointmentBookingModel) getIntent().getSerializableExtra("appointment_details");
         loginned=getIntent().getBooleanExtra("login",false);
+        isFromHomeScreen=getIntent().getBooleanExtra(getString(R.string.fromLogin),false);
 
         apiService = ApiClient.getClient().create(ApiInterface.class);
 
@@ -113,22 +118,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     private void gettingUserDeatils() {
         if(!AppPreferene.with(this).getUserId().equals("")) {
-            ResvUtils.createYesOrNoDialog(RegisterActivity.this, "Your details found. would like to populate your info automatically  ", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    switch (id) {
-                        case DialogInterface.BUTTON_POSITIVE:
-                            gettingDetails(AppPreferene.with(RegisterActivity.this).getUserId(), AppPreferene.with(RegisterActivity.this).getEmail());
-                            break;
-
-                        case DialogInterface.BUTTON_NEGATIVE:
-                            dialog.cancel();
-                            mEtEmail.setText(AppPreferene.with(RegisterActivity.this).getEmail());
-                            mEtEmail.setFocusable(false);
-                            break;
-                    }
-                }
-            });
-
+            gettingDetails(AppPreferene.with(RegisterActivity.this).getUserId(), AppPreferene.with(RegisterActivity.this).getEmail());
+            mBtSubmit.setText(getString(R.string.booking_app));
+        }
+        else{
+            mBtSubmit.setText(getString(R.string.signUp));
         }
     }
 
@@ -176,8 +170,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
                 if (isChecked) {
                     mLinearLayout.setVisibility(View.VISIBLE);
+                    mEtPassword.requestFocus();
+
                 } else {
                     mLinearLayout.setVisibility(View.GONE);
+                    mEtPhone.requestFocus();
                 }
             }
         });
@@ -204,18 +201,20 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         mEtEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-
-                    EditText editText = (EditText) v;
-                    String text = editText.getText().toString();
-                    Validation validation=new Validation();
-                    if(validation.isValidEmail(text))
-                    checkingEmail(text);
-                    else
-                        ResvUtils.createOKAlert(RegisterActivity.this, getResources().getString(R.string.headercreateaccount),  getResources().getString(R.string.Emailmsg) );
-                }else{
-                    mCbCreateAccount.setVisibility(View.GONE);
-                    mLinearLayout.setVisibility(View.GONE);
+                EditText editText = (EditText) v;
+                String text = editText.getText().toString();
+                if(AppPreferene.with(RegisterActivity.this).getUserId().equals("")||!text.equals(AppPreferene.with(RegisterActivity.this).getEmail())) {
+                    if (!hasFocus) {
+                        Validation validation = new Validation();
+                        if (validation.isValidEmail(text))
+                            checkingEmail(text);
+                        else
+                            ResvUtils.createOKAlert(RegisterActivity.this, getResources().getString(R.string.headercreateaccount), getResources().getString(R.string.Emailmsg));
+                    } else {
+                        mCbCreateAccount.setVisibility(View.GONE);
+                        mCbCreateAccount.setChecked(false);
+                        mLinearLayout.setVisibility(View.GONE);
+                    }
                 }
             }
         });
@@ -331,6 +330,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         if (count == 0) {
             mMsg = "success";
             mBtSubmit.setEnabled(false);
+            if(isFromHomeScreen)
+                registerUser();
+                else
                 sendInformation();
 
         }
@@ -341,6 +343,107 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
 
 
+    }
+
+    private void registerUser() {
+        final User user=new User();
+        user.setTitle(mTitleNames.getValue());
+        user.setEmail(mStEmail);
+        user.setPhone(mStPhone);
+        user.setDisplayUserName(null);
+        user.setFirstName(mStFirstName);
+        user.setLastName(mStLastName);
+        user.setPassword(mStPassword);
+        user.setGender(mStGender);
+        user.setDateOfBirth(mStDateOfBirth);
+        user.setIsTempPassword("0");
+        user.setPreferredLocID(null);
+        user.setPrimaryLocID(null);
+        user.setIsActive("1");
+        user.setAuditID("0");
+        user.setIsTempPassword("0");
+        user.setOrgID("1");
+        user.setIsEndUser("1");
+        UserAddress userAddress=new UserAddress();
+        userAddress.setAddressLine1("");
+        userAddress.setAddressLine2("");
+        userAddress.setAddressLine3("");
+        userAddress.setCity("");
+        userAddress.setCountry("");
+        userAddress.setState("");
+        userAddress.setZip("");
+        user.setAddress(userAddress);
+
+
+
+        Gson gson=new Gson();
+        String json =gson.toJson(user);
+
+        if (mCommonProgressDialog == null) {
+            mCommonProgressDialog = ResvUtils.createProgressDialog(this);
+            mCommonProgressDialog.show();
+            mCommonProgressDialog.setMessage("Please wait...");
+            mCommonProgressDialog.setCancelable(false);
+        } else {
+            mCommonProgressDialog.show();
+        }
+        Call<Response> response = apiService.createAcount(getString(R.string.token), user);
+        response.enqueue(new Callback<Response>() {
+            @Override
+            public void onResponse(Call<com.effone.mobile.model.Response> call, retrofit2.Response<Response> rawResponse) {
+                if (mCommonProgressDialog != null)
+                    mCommonProgressDialog.cancel();
+                if (mCommonProgressDialog != null)
+                    mCommonProgressDialog.cancel();
+                if (!rawResponse.isSuccessful() ) {
+                    UserDetails registerResponse=null;
+                    Log.d(TAG, "onResponse - Status : " + rawResponse.code());
+                    Gson gson = new Gson();
+                    TypeAdapter<UserDetails> adapter = gson.getAdapter(UserDetails.class);
+                    try {
+                        if (rawResponse.errorBody() != null)
+                            registerResponse =
+                                    adapter.fromJson(rawResponse.errorBody().string());
+                        ResvUtils.createOKAlert(RegisterActivity.this, "Error", registerResponse.getMessage());
+                    } catch (IOException e) {
+
+                    }
+                }else {
+
+                    try {
+
+                        if (rawResponse.body().getResult() != null && rawResponse.body().getResult().getID() != null) {
+                            AppPreferene.with(RegisterActivity.this).setUserId(user.getUserID());
+                            AppPreferene.with(RegisterActivity.this).setEmail(user.getEmail());
+                            Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            ResvUtils.createErrorAlert(RegisterActivity.this, getString(R.string.error), "" + rawResponse.message());
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    finish();
+                                }
+                            }, 5000);
+                            mBtSubmit.setEnabled(true);
+                        }
+
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        mBtSubmit.setEnabled(true);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<com.effone.mobile.model.Response> call, Throwable throwable) {
+                if (mCommonProgressDialog != null)
+                    mCommonProgressDialog.cancel();
+                Log.e(TAG, "RetroFit2.0 :RetroGetLogin: " + throwable.toString());
+            }
+        });
     }
 
     private void sendInformation() {
@@ -397,32 +500,55 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             public void onResponse(Call<com.effone.mobile.model.Response> call, retrofit2.Response<Response> rawResponse) {
                 if (mCommonProgressDialog != null)
                     mCommonProgressDialog.cancel();
-                try {
-
-                    if (rawResponse.body().getResult().getID() != null) {
-// Toast.makeText(AppointementBookingActivity.this, "done" + rawResponse.body().getResult().getID(), Toast.LENGTH_SHORT).show();
-                        //get your response....
-                        //Log.e(TAG, "RetroFit2.0 :RetroGetLogin: " + rawResponse.body());
-
-                        Intent intent = new Intent(RegisterActivity.this, AppointmentAcknowledgementActivity.class);
-                        intent.putExtra(getString(R.string.confirmation_no), rawResponse.body().getResult().getID());
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        ResvUtils.createErrorAlert(RegisterActivity.this, getString(R.string.error), "" + rawResponse.message());
-                        new Handler().postDelayed(new Runnable() {
+                if (!rawResponse.isSuccessful() ) {
+                    UserDetails registerResponse=null;
+                    Log.d(TAG, "onResponse - Status : " + rawResponse.code());
+                    Gson gson = new Gson();
+                    TypeAdapter<UserDetails> adapter = gson.getAdapter(UserDetails.class);
+                    try {
+                        if (rawResponse.errorBody() != null)
+                            registerResponse =
+                                    adapter.fromJson(rawResponse.errorBody().string());
+                        ResvUtils.createOKAlert(RegisterActivity.this, "Error", registerResponse.getMessage(), new DialogInterface.OnClickListener() {
                             @Override
-                            public void run() {
+                            public void onClick(DialogInterface dialogInterface, int i) {
                                 finish();
                             }
-                        }, 5000);
+                        });
+
+                    } catch (IOException e) {
+
+                    }
+                }
+                else {
+                    try {
+
+                        if (rawResponse.body().getResult() != null && rawResponse.body().getResult().getID() != null) {
+// Toast.makeText(AppointementBookingActivity.this, "done" + rawResponse.body().getResult().getID(), Toast.LENGTH_SHORT).show();
+                            //get your response....
+                            //Log.e(TAG, "RetroFit2.0 :RetroGetLogin: " + rawResponse.body());
+
+                            Intent intent = new Intent(RegisterActivity.this, AppointmentAcknowledgementActivity.class);
+                            intent.putExtra(getString(R.string.confirmation_no), rawResponse.body().getResult().getID());
+                            intent.putExtra(getString(R.string.password), !mEtPassword.getText().toString().equals(""));
+                            startActivity(intent);
+                            finish();
+                        } else if (rawResponse.body().getMessage() != null) {
+                            ResvUtils.createErrorAlert(RegisterActivity.this, getString(R.string.error), "" + rawResponse.body().getMessage());
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    finish();
+                                }
+                            }, 5000);
+                            mBtSubmit.setEnabled(true);
+                        }
+
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
                         mBtSubmit.setEnabled(true);
                     }
-
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    mBtSubmit.setEnabled(true);
                 }
             }
 
@@ -469,6 +595,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                             switch (id) {
                                                 case DialogInterface.BUTTON_POSITIVE:
                                                     startActivity(new Intent(RegisterActivity.this, LoginActivity.class).putExtra("email", text));
+                                                    finish();
                                                     break;
 
                                                 case DialogInterface.BUTTON_NEGATIVE:

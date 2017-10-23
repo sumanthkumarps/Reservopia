@@ -35,6 +35,7 @@ public class AppointmentAcknowledgementActivity extends AppCompatActivity implem
     private ImageView mTvImgBackButton;
     private ImageView mIvHomeBtn;
     private ProgressDialog mCommonProgressDialog;
+    private boolean isRegisteredUser;
 
 
     @Override
@@ -42,6 +43,8 @@ public class AppointmentAcknowledgementActivity extends AppCompatActivity implem
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_appointment_acknowledgement);
         confirmationCode=getIntent().getStringExtra(getString(R.string.confirmation_no));
+        isRegisteredUser=getIntent().getBooleanExtra(getString(R.string.password),false);
+
         getUpComingAppointmentList();
     }
 
@@ -89,8 +92,10 @@ public class AppointmentAcknowledgementActivity extends AppCompatActivity implem
                     mCommonProgressDialog.cancel();
                 if(response.body()!=null) {
                     ConfirmationDetails confirmationDetails = response.body().getResult();
-                    AppPreferene.with(AppointmentAcknowledgementActivity.this).setUserId(confirmationDetails.getUserID());
-                    AppPreferene.with(AppointmentAcknowledgementActivity.this).setEmail(confirmationDetails.getEmail());
+                    if(isRegisteredUser) {
+                        AppPreferene.with(AppointmentAcknowledgementActivity.this).setUserId(confirmationDetails.getUserID());
+                        AppPreferene.with(AppointmentAcknowledgementActivity.this).setEmail(confirmationDetails.getEmail());
+                    }
                     mTvConfirmationId.setText(confirmationDetails.getConfirmationNo());
                     mTvLastName.setText(confirmationDetails.getLastName());
                     mTvLocName.setText(confirmationDetails.getLocName());

@@ -1,13 +1,13 @@
 package com.effone.mobile.model;
 
 /**
- * Created by sumanth.peddinti on 10/16/2017.
+ * Created by sarith.vasu on 19-10-2017.
  */
 
-public class UserDetails {
+public class ForgotPasswordResponse {
     private String StatusCode;
 
-    private UserDetailGet Result;
+    private String Result;
 
     private String Message;
 
@@ -21,27 +21,29 @@ public class UserDetails {
         this.StatusCode = StatusCode;
     }
 
-    public UserDetailGet getResult ()
+    public String getResult ()
     {
         return Result;
     }
 
-    public void setResult (UserDetailGet Result)
+    public void setResult (String Result)
     {
         this.Result = Result;
     }
 
-    public String getMessage() {
+    public String getMessage ()
+    {
         return Message;
     }
 
-    public void setMessage(String message) {
-        Message = message;
+    public void setMessage (String Message)
+    {
+        this.Message = Message;
     }
 
     @Override
     public String toString()
     {
-        return "ClassPojo [StatusCode = "+StatusCode+", Result = "+Result+"]";
+        return "ClassPojo [StatusCode = "+StatusCode+", Result = "+Result+", Message = "+Message+"]";
     }
 }

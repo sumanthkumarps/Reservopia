@@ -35,7 +35,7 @@
     <string name="address_coloumn">Address</string>
     <string name="phone_column">Phone</string>
     <string name="confirmation_no">Confirmation #</string>
-    <string name="confirmation_details">Confirmation details </string>
+    <string name="confirmation_details">Confirmation Details </string>
     <string name="appointment_history">Appointment history</string>
     <string name="service_type">Service Type</string>
     <string name="date_time">Date  </string>
@@ -62,6 +62,7 @@
     <string name="DateofBirthmsg">Date of birth: must be present</string>
     <string name="Phonemsg">Phone: must be 10 digit</string>
     <string name="Emailmsg">Email: enter valid email</string>
+    <string name="login_validation">enter valid email and password</string>
     <string name="passwordmsg">Password: must contain min 8 and upto 15 chars</string>
     <string name="passwordmsg2">Re password: must contain min 8 and upto 15 chars</string>
     <string name="password_select">Enter valid email/password</string>
@@ -100,15 +101,20 @@
     <string name="confirmation_msg">Thank you, your appointment is booked.</string>
     <string name="confirmationno">Confirmation ID</string>
     <string name="login">Login</string>
+    <string name="login_samll">login</string>
+    <string name="logout">Logout</string>
     <string name="reset">reset</string>
-    <string name="forgot">Forgot password</string>
+    <string name="forgot"><u>Forgot password?</u></string>
     <string name="signup">Sign up</string>
     <string name="cancel">Cancel</string>
-    <string name="edit_appointment">Edit appointment</string>
+    <string name="edit_appointment">Edit Appointment</string>
     <string name="allocated">This time slot already allocated.</string>
     <string name="histroy_noEmail">No email exists</string>
     <string name="history_found">No history found.</string>
     <string name="something_went_wrong">Something went wrong</string>
     <string name="alphabets">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+    <string name="reset_pass">Reset Password</string>
+    <string name="fromLogin">fromlogin</string>
+    <string name="isFromHomeScreen">isFromHomeScreen</string>
 
 </resources>

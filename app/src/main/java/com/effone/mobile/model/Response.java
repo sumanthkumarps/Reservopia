@@ -9,6 +9,10 @@ public class Response {
 
     private ResponseResult Result;
 
+    private String Message;
+
+
+
     public String getStatusCode ()
     {
         return StatusCode;
@@ -27,6 +31,14 @@ public class Response {
     public void setResult (ResponseResult Result)
     {
         this.Result = Result;
+    }
+
+    public String getMessage() {
+        return Message;
+    }
+
+    public void setMessage(String message) {
+        Message = message;
     }
 
     @Override

@@ -6,12 +6,15 @@ import com.effone.mobile.model.AppointmentBookingModel;
 import com.effone.mobile.model.BookingAppointmentUserDetails;
 import com.effone.mobile.model.Confirmation;
 import com.effone.mobile.model.DateTime;
+import com.effone.mobile.model.ForgotPasswordResponse;
 import com.effone.mobile.model.GetTimeZones;
 import com.effone.mobile.model.LocationAndService;
 import com.effone.mobile.model.LoginResult;
 import com.effone.mobile.model.Response;
 import com.effone.mobile.model.Title;
 import com.effone.mobile.model.UpCommingAppointmentModel;
+import com.effone.mobile.model.User;
+import com.effone.mobile.model.UserDetailGet;
 import com.effone.mobile.model.UserDetails;
 
 import retrofit2.Call;
@@ -60,8 +63,15 @@ public interface ApiInterface {
     Call<Response> createAcountAndAppointemnt(@Header("Token") String apiKey, @Body BookingAppointmentUserDetails bookingAppointmentUserDetails);
 
     @GET("access/login")
-    Call<LoginResult> getLogin(@Header("Token") String apiKey, @Query("email") String email, @Query("password")String pass);
+    Call<UserDetails> getLogin(@Header("Token") String apiKey, @Query("email") String email, @Query("password")String pass);
 
     @GET("UserRegister/GetUserDetails")
     Call<UserDetails> getUserDetails(@Header("Token") String apiKey,  @Query("UserID") String user_id, @Query("email") String email);
+
+    @GET("Register/ForgotPassword")
+    Call<ForgotPasswordResponse> getForgotPassword(@Header("Token") String apiKey, @Query("orgID") String org_id, @Query("email")String email,@Query("isEndUser")String isEndUser);
+
+    @Headers("Content-type: application/json")
+    @POST("Register/ManageUser")
+    Call<Response> createAcount(@Header("Token") String apiKey, @Body User UserDetails);
 }

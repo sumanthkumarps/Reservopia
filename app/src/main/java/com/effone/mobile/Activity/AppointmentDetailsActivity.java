@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,7 +20,8 @@ import com.effone.mobile.model.History;
 public class AppointmentDetailsActivity extends AppCompatActivity implements View.OnClickListener {
     private  History mAppointmentDateTime;
     private TextView mTvConfirmationId,mTvEmail,mTvUserName,mTvAppointmentID,
-    mTvLocName,mTvServiceName,mTvAppointmentDateTime,mTvScheduledTimeZone,mTvAddress,mTvTitile,mTvOrgName,mTvEditAppointment,mTvPhoneNmber;
+    mTvLocName,mTvServiceName,mTvAppointmentDateTime,mTvScheduledTimeZone,mTvAddress,mTvTitile,mTvOrgName,mTvPhoneNmber;
+    private Button mTvEditAppointment;
     private Toolbar toolbar;
 
     private LinearLayout mLiOrgName,li_last_name;
@@ -56,7 +58,8 @@ public class AppointmentDetailsActivity extends AppCompatActivity implements Vie
        // mTvConfirmationId=(TextView)findViewById(R.id.tv_confirmation);
         mTvOrgName=(TextView)findViewById(R.id.tv_orgName);
         mTvAddress=(TextView)findViewById(R.id.tv_address);
-        mTvEditAppointment=(TextView)findViewById(R.id.tv_editAppointment);
+        mTvEditAppointment=(Button)findViewById(R.id.tv_editAppointment);
+        mTvEditAppointment.setTransformationMethod(null);
         mTvPhoneNmber=(TextView)findViewById(R.id.tv_phone_number);
         mTvEditAppointment.setVisibility(View.VISIBLE);
         mTvEditAppointment.setOnClickListener(this);
