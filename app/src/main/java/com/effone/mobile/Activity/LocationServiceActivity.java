@@ -243,6 +243,7 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
                 // Log error here since request failed
                 if (mCommonProgressDialog != null)
                     mCommonProgressDialog.cancel();
+                emptyListview(Date);
                 Log.e(TAG, t.toString());
             }
         });
@@ -252,7 +253,7 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
         mGvTimeSlots.setAdapter(null);
         mGvTimeSlots.setVisibility(View.GONE);
         mTvEmptyView.setVisibility(View.VISIBLE);
-        mTvDateOfSlots.setText(ResvUtils.parseDateToddMMyyyy(date,"MM/dd/yyyy","MMM dd,yyyy"));
+        mTvDateOfSlots.setText(ResvUtils.parseDateToddMMyyyy(date,"MM/dd/yyyy","MMM dd, yyyy"));
     }
 
 

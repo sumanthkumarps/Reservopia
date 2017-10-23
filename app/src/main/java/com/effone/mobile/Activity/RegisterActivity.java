@@ -441,7 +441,16 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             public void onFailure(Call<com.effone.mobile.model.Response> call, Throwable throwable) {
                 if (mCommonProgressDialog != null)
                     mCommonProgressDialog.cancel();
-                Log.e(TAG, "RetroFit2.0 :RetroGetLogin: " + throwable.toString());
+                Log.e(TAG, "RetroFit2.0 :RetroGetLogin: " + throwable.getMessage());
+                ResvUtils.createErrorAlert(RegisterActivity.this, getString(R.string.error),  throwable.getMessage() );
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        finish();
+                    }
+                }, 5000);
+                mBtSubmit.setEnabled(true);
+
             }
         });
     }
@@ -556,6 +565,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             public void onFailure(Call<com.effone.mobile.model.Response> call, Throwable throwable) {
                 if (mCommonProgressDialog != null)
                     mCommonProgressDialog.cancel();
+                ResvUtils.createErrorAlert(RegisterActivity.this, getString(R.string.error),  throwable.getMessage() );
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        finish();
+                    }
+                }, 5000);
                 Log.e(TAG, "RetroFit2.0 :RetroGetLogin: " + throwable.toString());
             }
         });

@@ -127,6 +127,8 @@ public class AppointmentAcknowledgementActivity extends AppCompatActivity implem
             public void onFailure(Call<Confirmation> call, Throwable t) {
                 if (mCommonProgressDialog != null)
                     mCommonProgressDialog.cancel();
+                String message = t.getMessage();
+                ResvUtils.createErrorAlert(AppointmentAcknowledgementActivity.this,getString(R.string.error),""+message);
                 Log.e(TAG, t.toString());
             }
         });

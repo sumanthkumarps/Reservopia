@@ -42,7 +42,7 @@
 
             <TextView
 
-                android:text="No time slots available -"
+                android:text="No Time Slots available on"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:textSize="@dimen/header"
