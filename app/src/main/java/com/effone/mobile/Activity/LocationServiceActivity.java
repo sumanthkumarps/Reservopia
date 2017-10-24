@@ -403,7 +403,7 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
             }*/
         }else{
 
-            ResvUtils.createOKAlert(this, getResources().getString(R.string.headercreateaccount), getString(R.string.select_time_slot));
+            ResvUtils.createOKAlert(this, getResources().getString(R.string.time_slot_validation), getString(R.string.select_time_slot));
 
         }
     }
@@ -436,7 +436,13 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
         }
         adapter.notifyDataSetChanged();*/
     }
-
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (!ResvUtils.Operations.isOnline(this)) {
+            ResvUtils.Operations.showNoNetworkActivity(this);
+        }
+    }
     @Override
     public void onClick(View view) {
         if(view.getId() == R.id.iv_back_btn){

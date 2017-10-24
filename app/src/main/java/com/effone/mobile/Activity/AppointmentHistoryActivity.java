@@ -48,6 +48,13 @@ public class AppointmentHistoryActivity extends AppCompatActivity implements Vie
         ResvUtils.enableHomeButton(this);
         init();
     }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (!ResvUtils.Operations.isOnline(this)) {
+            ResvUtils.Operations.showNoNetworkActivity(this);
+        }
+    }
 
     private void init() {
         mTvTitle=(TextView)findViewById(R.id.tv_title);

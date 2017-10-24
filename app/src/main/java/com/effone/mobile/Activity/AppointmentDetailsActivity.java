@@ -65,6 +65,13 @@ public class AppointmentDetailsActivity extends AppCompatActivity implements Vie
         mTvEditAppointment.setOnClickListener(this);
         settingValues();
     }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (!ResvUtils.Operations.isOnline(this)) {
+            ResvUtils.Operations.showNoNetworkActivity(this);
+        }
+    }
 
     private void settingValues() {
         mTvTitile.setText(getString(R.string.appointment_details));

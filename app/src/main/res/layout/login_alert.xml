@@ -164,7 +164,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight=".49"
                         android:background="@android:color/darker_gray"
-                        android:text="@string/signup"
+                        android:text="@string/signUp"
                         android:textAlignment="center"
                         android:textColor="@android:color/white" />
 

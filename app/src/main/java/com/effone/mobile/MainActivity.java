@@ -96,9 +96,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ArrayList<TimeZoneDetails> mTimeZoneDetails;
     private Realm mRealm;
     private ArrayList<LocationsXServices> mLocationXService;
-    private BroadcastReceiver mNetworkReceiver;
+    //private BroadcastReceiver mNetworkReceiver;
     private static LinearLayout linearLayout;
-    private NetworkChangeReceiver networkChangeReceiver;
+   // private NetworkChangeReceiver networkChangeReceiver;
     private ProgressDialog mCommonProgressDialog;
     private  TextView mTvCountAppointment;
     private  TextView mIvLogout;
@@ -114,13 +114,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mIvLogout=(TextView)findViewById(R.id.iv_home_btn);
         changingLogoutImages();
         mIvLogout.setOnClickListener(this);
-        mNetworkReceiver = new NetworkChangeReceiver();
-        networkChangeReceiver =new NetworkChangeReceiver();
+       // mNetworkReceiver = new NetworkChangeReceiver();
+       // networkChangeReceiver =new NetworkChangeReceiver();
         mCalendar= Calendar.getInstance();
         TimeZone tz = TimeZone.getDefault();
         Log.e("Time"+tz.getDisplayName(),"");
         declarations();
-        registerNetworkBroadcastForNougat();
+       //registerNetworkBroadcastForNougat();
         mRealm=Realm.getDefaultInstance();
 
         if(!AppPreferene.with(this).getPreLoad()){
@@ -192,18 +192,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    protected void unregisterNetworkChanges() {
+  /*  protected void unregisterNetworkChanges() {
         try {
             unregisterReceiver(mNetworkReceiver);
 
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }
-    }
+    }*/
     @Override
     public void onDestroy() {
         super.onDestroy();
-        unregisterNetworkChanges();
+        //unregisterNetworkChanges();
     }
     public static void dialog(boolean value){
 
@@ -226,14 +226,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void registerNetworkBroadcastForNougat() {
+    /*private void registerNetworkBroadcastForNougat() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             registerReceiver(mNetworkReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             registerReceiver(mNetworkReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
         }
-    }
+    }*/
     private void getLocationAndServicesAndSave() {
 
         ApiInterface apiService =
@@ -390,8 +390,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onStart() {
         super.onStart();
+        if (!ResvUtils.Operations.isOnline(this)) {
+            ResvUtils.Operations.showNoNetworkActivity(this);
+        }
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         mTvCountAppointment=(TextView)findViewById(R.id.tv_count_appointments);
         checkingUpcomingAppointment();
+        changingLogoutImages();
     }
 
     private void checkingUpcomingAppointment() {
@@ -435,6 +445,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Result results = response.body().getResult();
                     histories = Arrays.asList(results.getUpcoming());
                     mAppointmentListAdapter = new AppointmentListAdapter(MainActivity.this, histories);
+                    mTvEmptyView.setVisibility(View.GONE);
+                    mLvAppointmentList.setVisibility(View.VISIBLE);
                     mLvAppointmentList.setAdapter(mAppointmentListAdapter);
                     mLvAppointmentList.setOnItemClickListener(MainActivity.this);
                     mTvCountAppointment.setText("" + histories.size());
@@ -482,12 +494,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
+
     @Override
     public void onClick(View view) {
         switch(view.getId()){
             case R.id.tv_booking_app:
 
-                if(networkChangeReceiver.isOnline(this)) {
+                if(ResvUtils.Operations.isOnline(this)) {
                     if(AppPreferene.with(this).getPreLoad()) {
                         if (AppPreferene.with(this).getMulitpleService()) {
                             openActivity(this, LocationServiceActivity.class);
@@ -496,15 +509,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         }
                     }
                 }else{
-                    openActivity(this,NetworkErrorActivity.class);
+
+                        ResvUtils.Operations.showNoNetworkActivity(this);
+
                 }
 
                 break;
             case R.id.tv_history:
-                if(networkChangeReceiver.isOnline(this)) {
+                if(ResvUtils.Operations.isOnline(this)) {
                 openActivity(this, AppointmentHistoryActivity.class);
                 }else{
-                    openActivity(this,NetworkErrorActivity.class);
+                    ResvUtils.Operations.showNoNetworkActivity(this);
                 }
                 break;
             case R.id.iv_home_btn:
@@ -513,7 +528,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     intent.putExtra(getString(R.string.isFromHomeScreen),true);
                     startActivity(intent);
                 }else {
-                    ResvUtils.createYesOrNoDialog(this, "Are you sure you want to logout ? ", new DialogInterface.OnClickListener() {
+                    ResvUtils.createYesOrNoDialog(this, "Are you sure you want to logout? ", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             switch (id) {
                                 case DialogInterface.BUTTON_POSITIVE:

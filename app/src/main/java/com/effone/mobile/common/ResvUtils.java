@@ -8,6 +8,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
@@ -17,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.effone.mobile.Activity.NoNetworkActivity;
 import com.effone.mobile.MainActivity;
 import com.effone.mobile.R;
 
@@ -77,7 +80,7 @@ public class ResvUtils {
         });
     }
     public static ProgressDialog createProgressDialog(Context mContext) {
-        ProgressDialog dialog = new ProgressDialog(mContext);
+        ProgressDialog dialog = new ProgressDialog(mContext,R.style.AppCompatAlertDialogStyle);
         try {
             dialog.show();
         } catch (WindowManager.BadTokenException e) {
@@ -165,4 +168,29 @@ public class ResvUtils {
         }
         return str;
     }
+    public static final class Operations {
+        private Operations() throws InstantiationException {
+            throw new InstantiationException("This class is not for instantiation");
+        }
+        /**
+         * Checks to see if the device is online before carrying out any operations.
+         *
+         * @return
+         */
+        public static boolean isOnline(Context context) {
+            ConnectivityManager cm =
+                    (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo netInfo = cm.getActiveNetworkInfo();
+            if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+                return true;
+            }
+            return false;
+        }
+        public static void showNoNetworkActivity(Activity context){
+            Intent intent = new Intent(context, NoNetworkActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            ((Activity)context).startActivity(intent);
+        }
+    }
+
 }

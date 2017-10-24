@@ -47,6 +47,13 @@ public class AppointmentAcknowledgementActivity extends AppCompatActivity implem
 
         getUpComingAppointmentList();
     }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (!ResvUtils.Operations.isOnline(this)) {
+            ResvUtils.Operations.showNoNetworkActivity(this);
+        }
+    }
 
     private void getUpComingAppointmentList() {
         mTvImgBackButton=(ImageView) findViewById(R.id.iv_back_btn);

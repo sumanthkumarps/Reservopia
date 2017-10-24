@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:gravity="left|center"
        android:layout_marginTop="5dp"
-        android:text="@string/confirmation_details"
+        android:text="@string/confirmation_details_small"
         android:textAllCaps="false"
         android:textSize="@dimen/font_size"
         android:textStyle="bold" />

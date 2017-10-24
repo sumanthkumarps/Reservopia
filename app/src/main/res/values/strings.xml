@@ -35,7 +35,8 @@
     <string name="address_coloumn">Address</string>
     <string name="phone_column">Phone</string>
     <string name="confirmation_no">Confirmation #</string>
-    <string name="confirmation_details">Confirmation Details </string>
+    <string name="confirmation_details">Confirmation Details</string>
+    <string name="confirmation_details_small">Confirmation details :</string>
     <string name="appointment_history">Appointment history</string>
     <string name="service_type">Service Type</string>
     <string name="date_time">Date  </string>
@@ -55,21 +56,22 @@
 
 
     <string name="ConfirmNewPasword">Confirm New Password</string>
-    <string name="match_does_not"> does not match</string>
+    <string name="match_does_not"> does not match.</string>
     <string name="passwordmymsg">must be contain min 8 and upto 15 chars.</string>
-    <string name="firstnamemsg">First name: must be present</string>
-    <string name="lastnamemsg"> Last name: must be present</string>
-    <string name="DateofBirthmsg">Date of birth: must be present</string>
+    <string name="firstnamemsg">First name: must be present.</string>
+    <string name="lastnamemsg"> Last name: must be present.</string>
+    <string name="DateofBirthmsg">Date of birth: must be presen.t</string>
     <string name="Phonemsg">Phone: must be 10 digit</string>
-    <string name="Emailmsg">Email: enter valid email</string>
-    <string name="login_validation">enter valid email and password</string>
-    <string name="passwordmsg">Password: must contain min 8 and upto 15 chars</string>
-    <string name="passwordmsg2">Re password: must contain min 8 and upto 15 chars</string>
-    <string name="password_select">Enter valid email/password</string>
-    <string name="conformmsg">ConfirmPassword: must be present</string>
+    <string name="Emailmsg">Email: enter valid email.</string>
+    <string name="login_validation">Enter valid email and password.</string>
+    <string name="passwordmsg">Password: must contain min 8 and upto 15 chars.</string>
+    <string name="passwordmsg2">Re password: must contain min 8 and upto 15 chars.</string>
+    <string name="password_select">Enter valid email/password.</string>
+    <string name="conformmsg">ConfirmPassword: must be present.</string>
     <string name="headercreateaccount">Please Validate</string>
+    <string name="time_slot_validation">Time Slot</string>
     <string name="user_validation">User Registration</string>
-    <string name="passworddoednotmatch">Password and Re password mismatch</string>
+    <string name="passworddoednotmatch">Password and re-password mismatch.</string>
     <string name="firstname">enter first name</string>
     <string name="lastname">enter last name</string>
     <string name="dateofbirth">mm/dd/yyyy</string>
@@ -89,10 +91,13 @@
 
     <string name="login_information">Login information : </string>
     <string name="personal_information">Personal details :</string>
-    <string name="select_time_slot">Select one time slot</string>
+    <string name="select_time_slot">Select one time slot.</string>
     <string name="options">Select appointment options :</string>
+    <string name="no_internet_message">No internet connection!</string>
+    <string name="no_internet_connection_and_try_again">Please check your Internet connection and try again.</string>
+    <string name="try_again">Try again</string>
     <string name="status">Status</string>
-    <string name="location_details">Location details</string>
+    <string name="location_details">Location details :</string>
     <string name="orginzatrion">Organization</string>
     <string name="locName">LocName</string>
     <string name="Booked">Booked</string>

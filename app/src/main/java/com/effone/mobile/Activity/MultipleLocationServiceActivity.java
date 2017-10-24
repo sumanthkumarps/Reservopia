@@ -40,7 +40,13 @@ public class MultipleLocationServiceActivity extends AppCompatActivity implement
 
 
 }
-
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (!ResvUtils.Operations.isOnline(this)) {
+            ResvUtils.Operations.showNoNetworkActivity(this);
+        }
+    }
     @Override
     public void onClick(View view) {
 

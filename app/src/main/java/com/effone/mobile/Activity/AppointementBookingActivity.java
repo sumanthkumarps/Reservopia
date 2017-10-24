@@ -125,6 +125,13 @@ public class AppointementBookingActivity extends AppCompatActivity implements Ad
         });
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (!ResvUtils.Operations.isOnline(this)) {
+            ResvUtils.Operations.showNoNetworkActivity(this);
+        }
+    }
 
     private void declarations() {
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {

@@ -95,13 +95,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.tv_login:
-
-                Validation validation=new Validation();
-                if(validation.isValidEmail(mEtEmail.getText().toString())&&validation.isValidPassword(mEtPassword.getText().toString()))
-                    userLogin(mEtEmail.getText().toString().trim(),mEtPassword.getText().toString().trim());
-                else
-                    ResvUtils.createOKAlert(this, getResources().getString(R.string.headercreateaccount),  getResources().getString(R.string.login_validation) );
-
+                if(ResvUtils.Operations.isOnline(this)) {
+                    Validation validation = new Validation();
+                    if (validation.isValidEmail(mEtEmail.getText().toString()) && validation.isValidPassword(mEtPassword.getText().toString()))
+                        userLogin(mEtEmail.getText().toString().trim(), mEtPassword.getText().toString().trim());
+                    else
+                        ResvUtils.createOKAlert(this, getResources().getString(R.string.headercreateaccount), getResources().getString(R.string.login_validation));
+                }
+                else{
+                    ResvUtils.Operations.showNoNetworkActivity(this);
+                }
 
                 break;
             case R.id.tv_sign_up:
@@ -114,7 +117,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 finish();
                 break;
             case R.id.forgotPassword:
-                forgotPasswordApi(mEtEmail.getText().toString().trim());
+                if(ResvUtils.Operations.isOnline(this)) {
+                    forgotPasswordApi(mEtEmail.getText().toString().trim());
+                }
+                else{
+                    ResvUtils.Operations.showNoNetworkActivity(this);
+                }
                 break;
             default:
                 break;
@@ -180,6 +188,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
 
     }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (!ResvUtils.Operations.isOnline(this)) {
+            ResvUtils.Operations.showNoNetworkActivity(this);
+        }
+    }
 
     String user_id;
     private void userLogin(final String email, String pass) {
@@ -208,10 +223,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         mEtEmail.setText(userDetailGet.getEmail());
                         AppPreferene.with(LoginActivity.this).setEmail(email);
                         AppPreferene.with(LoginActivity.this).setUserId(userDetailGet.getUserID());
-                        if(isFormHomeScreen)
+                        if(isFormHomeScreen) {
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                        else
+                        }
+                        else {
                             startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+                        }
                         finish();
                     }
                     else if(response.body().getMessage()!=null){
@@ -243,6 +260,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             @Override
             public void onFailure(Call<UserDetails> call, Throwable t) {
+                if (mCommonProgressDialog != null)
+                    mCommonProgressDialog.cancel();
                 ResvUtils.createOKAlert(LoginActivity.this,getString(R.string.error),getString(R.string.something_went_wrong));
             }
         });

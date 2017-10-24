@@ -112,8 +112,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         super.onResume();
 
         gettingUserDeatils();
-        if(!mEtEmail.getText().toString().trim().equals(""))
-        checkingEmail(mEtEmail.getText().toString().trim());
+       /* if(!mEtEmail.getText().toString().trim().equals(""))
+        checkingEmail(mEtEmail.getText().toString().trim());*/
     }
 
     private void gettingUserDeatils() {
@@ -156,6 +156,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             }
         });
 
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (!ResvUtils.Operations.isOnline(this)) {
+            ResvUtils.Operations.showNoNetworkActivity(this);
+        }
     }
     private Realm mRealm;
     private void declarations() {
@@ -278,7 +285,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         int count = 0;
         String mMsg = "";
-
+        if(AppPreferene.with(RegisterActivity.this).getUserId().equals("")||!mStEmail.equals(AppPreferene.with(RegisterActivity.this).getEmail()))
+        checkingEmail(mStEmail);
         Validation validate = new Validation();
         if (!validate.isValidFirstName(mStFirstName)) {
             mMsg = mMsg + "" + getResources().getString(R.string.firstnamemsg) + "\n";
@@ -606,7 +614,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             } else {
                                 if (rawResponse.body().getResult().getOperation().equals("1")) {
                                     mCbCreateAccount.setVisibility(View.GONE);
-                                    ResvUtils.createYesOrNoDialog(RegisterActivity.this, "An Account with the given email is already registered\nDo you want to login with given email?\n ", new DialogInterface.OnClickListener() {
+                                    ResvUtils.createYesOrNoDialog(RegisterActivity.this, "Email id exists.\nDo you want to login?\n ", new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
                                             switch (id) {
                                                 case DialogInterface.BUTTON_POSITIVE:
