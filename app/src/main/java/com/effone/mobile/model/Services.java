@@ -19,6 +19,8 @@ public class Services {
 
     private String IsDeleted;
 
+
+
     private String IsIntrinsic;
 
     private String[] WorkHours;

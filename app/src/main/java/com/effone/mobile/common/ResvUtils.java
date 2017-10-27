@@ -59,25 +59,7 @@ public class ResvUtils {
         alert.show();
     }
 
-    public static final class Operations {
-        private Operations() throws InstantiationException {
-            throw new InstantiationException("This class is not for instantiation");
-        }
-        /**
-         * Checks to see if the device is online before carrying out any operations.
-         *
-         * @return
-         */
-        public static boolean isOnline(Context context) {
-            ConnectivityManager cm =
-                    (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo netInfo = cm.getActiveNetworkInfo();
-            if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-                return true;
-            }
-            return false;
-        }
-    }
+
     public static void createErrorAlert(Context context, String title, String msg){
         AlertDialog.Builder builder = new AlertDialog.Builder(context,AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
         if(!title.equals("")) {

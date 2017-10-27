@@ -55,6 +55,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private ProgressDialog mCommonProgressDialog;
     private TextView mForgotPassword;
     private boolean isFormHomeScreen;
+    private TextView mResetPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,11 +82,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mTvCancelNew=(TextView)findViewById(R.id.tv_sign_up);
         mTvLogin=(TextView)findViewById(R.id.tv_login);
         mCancelBtn=(ImageButton)findViewById( R.id.btnCancel) ;
+        mResetPassword=(TextView)findViewById(R.id.tv_reset_password);
         mForgotPassword=(TextView)findViewById(R.id.forgotPassword);
         mForgotPassword.setOnClickListener(this);
         mCancelBtn.setOnClickListener(this);
         mTvLogin.setOnClickListener(this);
         mTvCancelNew.setOnClickListener(this);
+        mResetPassword.setOnClickListener(this);
         apiService = ApiClient.getClient().create(ApiInterface.class);
 
 
@@ -111,83 +114,28 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Intent intent= new Intent(LoginActivity.this, RegisterActivity.class);
                 intent.putExtra(getString(R.string.fromLogin),true);
                 startActivity(intent);
-
+                finish();
                 break;
             case R.id.btnCancel:
                 finish();
                 break;
             case R.id.forgotPassword:
-                if(ResvUtils.Operations.isOnline(this)) {
-                    forgotPasswordApi(mEtEmail.getText().toString().trim());
-                }
-                else{
-                    ResvUtils.Operations.showNoNetworkActivity(this);
-                }
+                Intent intent2= new Intent(LoginActivity.this, ResetNForgotActivity.class);
+                intent2.putExtra(getString(R.string.reset),false);
+                startActivity(intent2);
+                finish();
+                break;
+            case R.id.tv_reset_password:
+                Intent intent1= new Intent(LoginActivity.this, ResetNForgotActivity.class);
+                intent1.putExtra(getString(R.string.reset),true);
+                startActivity(intent1);
+                finish();
                 break;
             default:
                 break;
         }
     }
 
-    private void forgotPasswordApi(String email) {
-        Validation validation=new Validation();
-        if(validation.isValidEmail(mEtEmail.getText().toString())) {
-            if (mCommonProgressDialog == null) {
-                mCommonProgressDialog = ResvUtils.createProgressDialog(this);
-                mCommonProgressDialog.show();
-                mCommonProgressDialog.setMessage("Please wait...");
-                mCommonProgressDialog.setCancelable(false);
-            } else {
-                mCommonProgressDialog.show();
-            }
-            ApiInterface apiService =
-                    ApiClient.getClient().create(ApiInterface.class);
-
-            Call<ForgotPasswordResponse> call = apiService.getForgotPassword(getString(R.string.token),getString(R.string.org_id), email,"True");
-
-            call.enqueue(new Callback<ForgotPasswordResponse>() {
-                @Override
-                public void onResponse(Call<ForgotPasswordResponse> call, retrofit2.Response<ForgotPasswordResponse> response) {
-                    response.raw().request().url();
-                    if (mCommonProgressDialog != null)
-                        mCommonProgressDialog.cancel();
-                    if (response.body() != null) {
-                     if (response.body().getMessage() != null) {
-                            ResvUtils.createOKAlert(LoginActivity.this, "Message", response.body().getMessage());
-                        } else {
-                            ResvUtils.createOKAlert(LoginActivity.this, "Error", "Something went wrong");
-                        }
-                    } else {
-                        if (mCommonProgressDialog != null)
-                            mCommonProgressDialog.cancel();
-                        if (!response.isSuccessful()) {
-                            UserDetails registerResponse = null;
-                            Log.d(TAG, "onResponse - Status : " + response.code());
-                            Gson gson = new Gson();
-                            TypeAdapter<UserDetails> adapter = gson.getAdapter(UserDetails.class);
-                            try {
-                                if (response.errorBody() != null)
-                                    registerResponse =
-                                            adapter.fromJson(response.errorBody().string());
-                                ResvUtils.createOKAlert(LoginActivity.this, "Error", registerResponse.getMessage());
-                            } catch (IOException e) {
-
-                            }
-                        }
-                    }
-                }
-
-
-                @Override
-                public void onFailure(Call<ForgotPasswordResponse> call, Throwable t) {
-                    ResvUtils.createOKAlert(LoginActivity.this, getString(R.string.error), getString(R.string.something_went_wrong));
-                }
-            });
-        }else{
-            ResvUtils.createOKAlert(this, getResources().getString(R.string.headercreateaccount),  getResources().getString(R.string.Emailmsg) );
-        }
-
-    }
     @Override
     protected void onStart() {
         super.onStart();
