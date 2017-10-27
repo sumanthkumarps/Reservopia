@@ -126,6 +126,33 @@
 
     </Spinner>
 
+        <TextView
+            android:id="@+id/tv_provider"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:gravity="left|center"
+            android:text="@string/select_provider"
+            android:textSize="@dimen/sub_text"
+            android:layout_marginTop="7dp"
+            android:layout_below="@+id/tv_service"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignRight="@+id/textView24"
+            android:layout_alignEnd="@+id/textView24" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:id="@+id/sp_provider"
+            android:layout_marginTop="7dp"
+            android:background="@drawable/spinner_white_bg"
+            android:layout_below="@+id/lv_service_type"
+            android:layout_alignLeft="@+id/lv_service_type"
+            android:layout_alignStart="@+id/lv_service_type"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true">
+
+        </Spinner>
 
     <TextView
         android:layout_width="wrap_content"
@@ -136,7 +163,7 @@
         android:layout_alignLeft="@+id/tv_service"
         android:layout_alignStart="@+id/tv_service"
         android:id="@+id/textView24"
-        android:layout_below="@+id/tv_service"
+        android:layout_below="@+id/tv_provider"
         android:layout_alignRight="@+id/tv_service"
         android:layout_alignEnd="@+id/tv_service"
         android:layout_alignBottom="@+id/et_date" />
@@ -153,7 +180,7 @@
         android:focusable="false"
         android:textColor="@color/blue"
         android:background="@drawable/edittext_rounded_corner"
-        android:layout_below="@+id/tv_service"
+        android:layout_below="@+id/sp_provider"
         android:layout_alignLeft="@+id/lv_service_type"
         android:layout_alignStart="@+id/lv_service_type"
         android:layout_alignParentRight="true"

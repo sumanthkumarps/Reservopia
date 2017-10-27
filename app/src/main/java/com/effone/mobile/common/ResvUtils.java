@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
+import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.view.View;
@@ -32,6 +33,51 @@ import java.util.Date;
  */
 
 public class ResvUtils {
+    public static void createNetErrorDialog(final Context context) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage(R.string.internet_connection)
+                .setTitle(R.string.titleMsg)
+                .setCancelable(false)
+                .setPositiveButton(R.string.settings,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                                Intent i = new Intent(Settings.ACTION_WIRELESS_SETTINGS);
+                                context.startActivity(i);
+                            }
+                        }
+                )
+                .setNegativeButton(R.string.button,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        }
+                );
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    public static final class Operations {
+        private Operations() throws InstantiationException {
+            throw new InstantiationException("This class is not for instantiation");
+        }
+        /**
+         * Checks to see if the device is online before carrying out any operations.
+         *
+         * @return
+         */
+        public static boolean isOnline(Context context) {
+            ConnectivityManager cm =
+                    (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo netInfo = cm.getActiveNetworkInfo();
+            if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+                return true;
+            }
+            return false;
+        }
+    }
     public static void createErrorAlert(Context context, String title, String msg){
         AlertDialog.Builder builder = new AlertDialog.Builder(context,AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
         if(!title.equals("")) {

@@ -205,26 +205,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onDestroy();
         //unregisterNetworkChanges();
     }
-    public static void dialog(boolean value){
 
-        if(value) {
-          final  Snackbar snackbar = Snackbar
-                    .make(linearLayout, "No Internet Connection", Snackbar.LENGTH_LONG);
-            snackbar.setAction("RETRY", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            snackbar.dismiss();
-                        }
-                    });
-            snackbar.setActionTextColor(Color.RED);
-            snackbar.setDuration(Snackbar.LENGTH_INDEFINITE);
-            View snackbarView = snackbar.getView();
-            snackbarView.setBackgroundColor(Color.DKGRAY);
-            TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
-            textView.setTextColor(Color.YELLOW);
-            snackbar.show();
-        }
-    }
 
     /*private void registerNetworkBroadcastForNougat() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {

@@ -63,8 +63,8 @@ import retrofit2.Response;
 
 public class LocationServiceActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener, AdapterView.OnItemSelectedListener {
 
-    private Spinner mLvServiceType;
-    private TextView mTvTitle;
+    private Spinner mLvServiceType,mSpProviderType;
+    private TextView mTvTitle,mTvProvider;
     private Button mTvBookAppoin;
     private ServiceTypeAdapter mServiceTypeAdapter;
     private AppCompatSpinner mSpinner,mTimeZone;
@@ -120,6 +120,8 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
         mTvEmptyView=(LinearLayout) findViewById(R.id.tv_empty_view);
         mIvBackBtn.setOnClickListener(this);
         mLvServiceType=(Spinner)findViewById(R.id.lv_service_type);
+        mSpProviderType=(Spinner)findViewById(R.id.sp_provider);
+        mTvProvider=(TextView)findViewById(R.id.tv_provider);
         mTvTitle=(TextView)findViewById(R.id.tv_title);
         mTvBookAppoin=(Button) findViewById(R.id.tv_book_appointment);
         mTvBookAppoin.setOnClickListener(this);
@@ -134,9 +136,6 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
         mTvDateOfSlots=(TextView)findViewById(R.id.date);
         mGvTimeSlots = (GridView) findViewById(R.id.gv_timeSlots);
         mGvTimeSlots.setOnItemClickListener(this);
-
-
-
     }
     ServiceTable mServiceTable;
     ServiceTable getmServiceTable;
@@ -187,8 +186,22 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
             mLvServiceType.setEnabled(false);
             getmServiceTable = (ServiceTable) mLvServiceType.getItemAtPosition(serviceTables.indexOf(serviceTable));
         }
+
+        getingDataForProvider(0);
         declarations();
 
+    }
+
+    private void getingDataForProvider(int providerCount) {
+
+        if(providerCount== 0){
+            mTvProvider.setVisibility(View.GONE);
+            mSpProviderType.setVisibility(View.GONE);
+        }else{
+            mTvProvider.setVisibility(View.VISIBLE);
+            mSpProviderType.setVisibility(View.VISIBLE);
+
+        }
     }
 
 
