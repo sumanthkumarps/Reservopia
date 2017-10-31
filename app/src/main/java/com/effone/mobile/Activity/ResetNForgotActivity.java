@@ -58,7 +58,7 @@ public class ResetNForgotActivity extends AppCompatActivity implements View.OnCl
         setContentView(R.layout.activity_reset_nforgot);
         this.setFinishOnTouchOutside(false);
         isFromReset = getIntent().getBooleanExtra(getString(R.string.reset), false);
-///        ResvUtils.enableBackButton(this);
+        ResvUtils.enableBackButton(this);
 
          apiService =
                 ApiClient.getClient().create(ApiInterface.class);
@@ -125,8 +125,11 @@ public class ResetNForgotActivity extends AppCompatActivity implements View.OnCl
                     } else if(mEtPassword.equals(mEtConfirmPassword)){
                         changePassword(mEtEmailForReset.getText().toString().trim(),mEtPassword.getText().toString().trim());
                     }
-                    else
+                    else if(!mEtPassword.getText().toString().equals(mEtConfirmPassword.getText().toString()))
                         ResvUtils.createOKAlert(this, getResources().getString(R.string.headercreateaccount), getResources().getString(R.string.passworddoednotmatch));
+                    else{
+
+                    }
                 } else {
                     ResvUtils.Operations.showNoNetworkActivity(this);
                 }

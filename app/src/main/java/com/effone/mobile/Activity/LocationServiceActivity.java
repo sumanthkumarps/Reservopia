@@ -35,6 +35,7 @@ import com.effone.mobile.model.TimeSlotStrings;
 import com.effone.mobile.model.TimeZoneDetails;
 import com.effone.mobile.realmdb.LocationTable;
 import com.effone.mobile.realmdb.ProviderTables;
+import com.effone.mobile.realmdb.ProvidersTable;
 import com.effone.mobile.realmdb.ServiceProvidedTable;
 import com.effone.mobile.realmdb.ServiceTable;
 import com.effone.mobile.rest.ApiClient;
@@ -86,6 +87,7 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
     private ArrayList<Time> movies;
     private TimeSlotAdapter adapter;
     private String serviceTable;
+
     private  TextView mTvDateOfSlots;
     private ProgressDialog mCommonProgressDialog;
     private String mSechLocationId;
@@ -235,7 +237,7 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
                     movies = response.body().getResult();
                     if (movies.size() > 0 && movies.get(0).getTimeSlotStrings().size() != 0) {
                         if(movies.get(1).getTimeSlotStrings().size() != 0) {
-                            adapter = new TimeSlotAdapter(LocationServiceActivity.this, movies.get(1).getTimeSlotStrings());
+                            adapter = new TimeSlotAdapter(LocationServiceActivity.this, movies.get(0).getTimeSlotStrings());
                             mGvTimeSlots.setAdapter(adapter);
                             mTvEmptyView.setVisibility(View.GONE);
                             mGvTimeSlots.setVisibility(View.VISIBLE);
@@ -524,10 +526,12 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
        /*     changeButtonTitle(true);*/
         }else if(spinner.getId() == R.id.lv_service_type){
             getmServiceTable=(ServiceTable)mLvServiceType.getSelectedItem();
+            setProviderList(getmServiceTable.getServiceID());
         /*    changeButtonTitle(true);*/
         }else if(spinner.getId() == R.id.sp_provider){
             mProviderTable = (ProviderTable) mSpProviderType.getSelectedItem();
         /*    changeButtonTitle(true);*/
+
         }
 
 
@@ -535,6 +539,16 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
             settingDataIntoGrid(mEtDate.getText().toString().trim(),""+mLocationTable.getLocID(),getmServiceTable.getServiceID(),mTimeZoneDetails.getStandardName(),mProviderTable.getUserID());
         }
 
+    }
+
+    private void setProviderList(String serviceID) {
+        RealmList<ProviderTable> providerTable=new RealmList<>();
+        ServiceTable serviceById = mRealm.where(ServiceTable.class).equalTo("ServiceID", serviceID).findFirst();
+        RealmList<ProvidersTable> providersByServiceId=serviceById.getProviders();
+        for (ProvidersTable serviceProvided:providersByServiceId) {
+            providerTable.add( mRealm.where(ProviderTable.class).equalTo("UserID", serviceProvided.getUserID()).findFirst());
+        }
+        mSpProviderType.setAdapter(new ProviderTypeAdapter(this,providerTable));
     }
 
     private Boolean  isBtnTitleChanged;

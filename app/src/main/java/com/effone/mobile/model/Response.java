@@ -11,6 +11,16 @@ public class Response {
 
     private String Message;
 
+    public String getUserType() {
+        return UserType;
+    }
+
+    public void setUserType(String userType) {
+        UserType = userType;
+    }
+
+    private String UserType;
+
 
 
     public String getStatusCode ()

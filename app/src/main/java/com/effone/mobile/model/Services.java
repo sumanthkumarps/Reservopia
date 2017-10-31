@@ -1,13 +1,17 @@
 package com.effone.mobile.model;
 
+import com.effone.mobile.realmdb.ProvidersTable;
+
 import java.util.ArrayList;
+
+import io.realm.RealmList;
 
 /**
  * Created by sarith.vasu on 20-09-2017.
  */
 
 public class Services {
-    private ArrayList<Providers> Providers;
+    private RealmList<ProvidersTable> ProvidersAsigned;
 
     private String Description;
 
@@ -29,14 +33,14 @@ public class Services {
 
     private String AuditID;
 
-    public ArrayList<Providers>  getProviders ()
+    public RealmList<ProvidersTable> getProviders ()
     {
-        return Providers;
+        return ProvidersAsigned;
     }
 
-    public void setProviders (ArrayList<Providers>  Providers)
+    public void setProviders (RealmList<ProvidersTable>  Providers)
     {
-        this.Providers = Providers;
+        this.ProvidersAsigned = Providers;
     }
 
     public String getDescription ()
@@ -142,6 +146,6 @@ public class Services {
     @Override
     public String toString()
     {
-        return "ClassPojo [Providers = "+Providers+", Description = "+Description+", ServiceName = "+ServiceName+", IsActive = "+IsActive+", OrgID = "+OrgID+", ServiceID = "+ServiceID+", Duration = "+Duration+", IsDeleted = "+IsDeleted+", IsIntrinsic = "+IsIntrinsic+", IsUnUsed = "+IsUnUsed+", AuditID = "+AuditID+"]";
+        return "ClassPojo [Providers = "+ProvidersAsigned+", Description = "+Description+", ServiceName = "+ServiceName+", IsActive = "+IsActive+", OrgID = "+OrgID+", ServiceID = "+ServiceID+", Duration = "+Duration+", IsDeleted = "+IsDeleted+", IsIntrinsic = "+IsIntrinsic+", IsUnUsed = "+IsUnUsed+", AuditID = "+AuditID+"]";
     }
 }

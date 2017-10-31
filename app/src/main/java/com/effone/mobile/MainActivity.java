@@ -58,6 +58,7 @@ import com.effone.mobile.model.TitleNames;
 import com.effone.mobile.model.UpCommingAppointmentModel;
 import com.effone.mobile.realmdb.LocXServiceTable;
 import com.effone.mobile.realmdb.LocationTable;
+import com.effone.mobile.realmdb.ProvidersTable;
 import com.effone.mobile.realmdb.ServiceProvidedTable;
 import com.effone.mobile.realmdb.ServiceTable;
 import com.effone.mobile.receivers.NetworkChangeReceiver;
@@ -254,7 +255,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             insertProviderDataIntoDatabase();
             //insertLocXServDataIntoDatabase();
         }catch (Exception e){
-
+            Log.e("",""+e);
         }
     }
 
@@ -306,16 +307,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void insertServiceDataIntoDatabase() {
-        for (int i = 0; i < mService.size(); i++) {
-            mRealm.beginTransaction();
-            ServiceTable services=new ServiceTable();
-            services.setServiceID(mService.get(i).getServiceID());
-            services.setServiceName(mService.get(i).getServiceName());
-            services.setDescription(mService.get(i).getDescription());
-            services.setDuration(mService.get(i).getDuration());
-            services.setIsActive(mService.get(i).getIsActive());
-            mRealm.insert(services);
-            mRealm.commitTransaction();
+        try {
+            for (int i = 0; i < mService.size(); i++) {
+                mRealm.beginTransaction();
+                ServiceTable services = new ServiceTable();
+                services.setServiceID(mService.get(i).getServiceID());
+                services.setServiceName(mService.get(i).getServiceName());
+                services.setDescription(mService.get(i).getDescription());
+                services.setDuration(mService.get(i).getDuration());
+                services.setIsActive(mService.get(i).getIsActive());
+                services.setProviders(new RealmList<com.effone.mobile.realmdb.ProvidersTable>(mService.get(i).getProviders().toArray(new com.effone.mobile.realmdb.ProvidersTable[mService.get(i).getProviders().size()])));
+                mRealm.insert(services);
+                mRealm.commitTransaction();
+            }
+        }catch(Exception e){
+            Log.e("",""+e);
         }
     }
     private void insertLocationDataIntoDatabase() {
@@ -413,11 +419,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
         else{
-            mTvCountAppointment.setText(""+0);
-            mLvAppointmentList.setAdapter(null);
-            mLvAppointmentList.setVisibility(View.GONE);
-            mTvEmptyView.setVisibility(View.VISIBLE);
+         removingCompleteData();
         }
+    }
+
+    private void removingCompleteData() {
+        mTvCountAppointment.setText(""+0);
+        mLvAppointmentList.setAdapter(null);
+        mLvAppointmentList.setVisibility(View.GONE);
+        mTvEmptyView.setVisibility(View.VISIBLE);
     }
 
     List<History> histories;
@@ -447,11 +457,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 try {
                     Result results = response.body().getResult();
                     histories = Arrays.asList(results.getUpcoming());
-                    mAppointmentListAdapter = new AppointmentListAdapter(MainActivity.this, histories);
-                    mTvEmptyView.setVisibility(View.GONE);
-                    mLvAppointmentList.setVisibility(View.VISIBLE);
-                    mLvAppointmentList.setAdapter(mAppointmentListAdapter);
-                    mLvAppointmentList.setOnItemClickListener(MainActivity.this);
+                    if(histories.size()>0) {
+                        mAppointmentListAdapter = new AppointmentListAdapter(MainActivity.this, histories);
+                        mTvEmptyView.setVisibility(View.GONE);
+                        mLvAppointmentList.setVisibility(View.VISIBLE);
+                        mLvAppointmentList.setAdapter(mAppointmentListAdapter);
+                        mLvAppointmentList.setOnItemClickListener(MainActivity.this);
+                    }else
+                        removingCompleteData();
                     mTvCountAppointment.setText("" + histories.size());
                 }catch (Exception e){
                     mLvAppointmentList.setEmptyView(findViewById(R.id.tv_history));
