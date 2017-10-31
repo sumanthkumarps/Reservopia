@@ -130,7 +130,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     private void settingValuesForEdit() {
         mCbCreateAccount.setVisibility(View.GONE);
-        mBtSubmit.setText(getString(R.string.edit_appointment));
+        mTvTitle.setText(getString(R.string.edit_appointment));
+        mBtSubmit.setText(getString(R.string.booking_app));
         mEtEmail.setText(AppPreferene.with(this).getEmail().trim());
         mEtEmail.setEnabled(false);
 
