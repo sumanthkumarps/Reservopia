@@ -24,6 +24,7 @@ import com.effone.mobile.Activity.NoNetworkActivity;
 import com.effone.mobile.MainActivity;
 import com.effone.mobile.R;
 
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -214,6 +215,7 @@ public class ResvUtils {
             }
             return false;
         }
+
         public static void showNoNetworkActivity(Activity context){
             Intent intent = new Intent(context, NoNetworkActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
