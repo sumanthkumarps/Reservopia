@@ -10,6 +10,10 @@ public class ResponseResult {
 
     private String ID;
 
+    private String UserType;
+
+
+
     public String getOperation ()
     {
         return Operation;
@@ -28,6 +32,13 @@ public class ResponseResult {
     public void setID (String ID)
     {
         this.ID = ID;
+    }
+    public String getUserType() {
+        return UserType;
+    }
+
+    public void setUserType(String userType) {
+        UserType = userType;
     }
 
     @Override
