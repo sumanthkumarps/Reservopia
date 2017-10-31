@@ -1,10 +1,14 @@
 package com.effone.mobile.model;
 
+import java.util.ArrayList;
+
 /**
  * Created by sarith.vasu on 20-09-2017.
  */
 
 public class Services {
+    private ArrayList<Providers> Providers;
+
     private String Description;
 
     private String ServiceName;
@@ -19,15 +23,21 @@ public class Services {
 
     private String IsDeleted;
 
-
-
     private String IsIntrinsic;
-
-    private String[] WorkHours;
 
     private String IsUnUsed;
 
     private String AuditID;
+
+    public ArrayList<Providers>  getProviders ()
+    {
+        return Providers;
+    }
+
+    public void setProviders (ArrayList<Providers>  Providers)
+    {
+        this.Providers = Providers;
+    }
 
     public String getDescription ()
     {
@@ -109,16 +119,6 @@ public class Services {
         this.IsIntrinsic = IsIntrinsic;
     }
 
-    public String[] getWorkHours ()
-    {
-        return WorkHours;
-    }
-
-    public void setWorkHours (String[] WorkHours)
-    {
-        this.WorkHours = WorkHours;
-    }
-
     public String getIsUnUsed ()
     {
         return IsUnUsed;
@@ -142,6 +142,6 @@ public class Services {
     @Override
     public String toString()
     {
-        return "ClassPojo [Description = "+Description+", ServiceName = "+ServiceName+", IsActive = "+IsActive+", OrgID = "+OrgID+", ServiceID = "+ServiceID+", Duration = "+Duration+", IsDeleted = "+IsDeleted+", IsIntrinsic = "+IsIntrinsic+", WorkHours = "+WorkHours+", IsUnUsed = "+IsUnUsed+", AuditID = "+AuditID+"]";
+        return "ClassPojo [Providers = "+Providers+", Description = "+Description+", ServiceName = "+ServiceName+", IsActive = "+IsActive+", OrgID = "+OrgID+", ServiceID = "+ServiceID+", Duration = "+Duration+", IsDeleted = "+IsDeleted+", IsIntrinsic = "+IsIntrinsic+", IsUnUsed = "+IsUnUsed+", AuditID = "+AuditID+"]";
     }
 }

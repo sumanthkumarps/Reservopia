@@ -1,7 +1,9 @@
 package com.effone.mobile.realmdb;
 
 import java.io.Serializable;
+import java.security.Provider;
 
+import io.realm.RealmList;
 import io.realm.RealmObject;
 
 /**
@@ -68,4 +70,11 @@ public class ServiceTable extends RealmObject implements Serializable {
     public int getAuditID() { return this.AuditID; }
 
     public void setAuditID(int AuditID) { this.AuditID = AuditID; }
+
+
+    private RealmList<ProvidersTable> Providers;
+
+    public RealmList<ProvidersTable> getProviders() { return this.Providers; }
+
+    public void setProviders(RealmList<ProvidersTable> Providers) { this.Providers = Providers; }
 }

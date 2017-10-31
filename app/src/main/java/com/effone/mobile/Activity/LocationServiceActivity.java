@@ -3,7 +3,6 @@ package com.effone.mobile.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatSpinner;
@@ -16,13 +15,12 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.effone.mobile.R;
 import com.effone.mobile.adapter.LocationAdapter;
+import com.effone.mobile.adapter.ProviderTypeAdapter;
 import com.effone.mobile.adapter.ServiceTypeAdapter;
 import com.effone.mobile.adapter.TimeSlotAdapter;
 import com.effone.mobile.adapter.TimeZoneAdapter;
@@ -31,10 +29,12 @@ import com.effone.mobile.common.ResvUtils;
 import com.effone.mobile.model.AppointmentBookingModel;
 import com.effone.mobile.model.AppointmentDataTime;
 import com.effone.mobile.model.DateTime;
+import com.effone.mobile.model.ProviderTable;
 import com.effone.mobile.model.Time;
 import com.effone.mobile.model.TimeSlotStrings;
 import com.effone.mobile.model.TimeZoneDetails;
 import com.effone.mobile.realmdb.LocationTable;
+import com.effone.mobile.realmdb.ProviderTables;
 import com.effone.mobile.realmdb.ServiceProvidedTable;
 import com.effone.mobile.realmdb.ServiceTable;
 import com.effone.mobile.rest.ApiClient;
@@ -51,7 +51,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
-import java.util.logging.Level;
 
 import io.realm.Realm;
 import io.realm.RealmList;
@@ -187,9 +186,17 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
             getmServiceTable = (ServiceTable) mLvServiceType.getItemAtPosition(serviceTables.indexOf(serviceTable));
         }
 
-        getingDataForProvider(0);
+        showingDataInProviders();
+        getingDataForProvider(mRealm.where(ProviderTable.class).findAll().size());
         declarations();
 
+    }
+    ProviderTable mProviderTable;
+    private void showingDataInProviders() {
+        RealmList<ProviderTable> providerTable = new RealmList<ProviderTable>();
+        providerTable.addAll(mRealm.where(ProviderTable.class).findAll());
+        mSpProviderType.setAdapter(new ProviderTypeAdapter(this, providerTable));
+       mProviderTable = (ProviderTable) mSpProviderType.getItemAtPosition(0);
     }
 
     private void getingDataForProvider(int providerCount) {
@@ -205,7 +212,7 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
     }
 
 
-    private void settingDataIntoGrid(final String Date, String locationTable, String serviceTable, String timezone) {
+    private void settingDataIntoGrid(final String Date, String locationTable, String serviceTable, String timezone, int userID) {
         timeSlotStrings=null;
         if (mCommonProgressDialog == null) {
             mCommonProgressDialog = ResvUtils.createProgressDialog(this);
@@ -218,7 +225,7 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
 
-        Call<DateTime> call = apiService.getDateTimeSlots(getString(R.string.token),locationTable,serviceTable,Date,timezone);
+        Call<DateTime> call = apiService.getDateTimeSlots(getString(R.string.token),locationTable,serviceTable,Date,timezone,userID);
         call.enqueue(new Callback<DateTime>() {
             @Override
             public void onResponse(Call<DateTime> call, Response<DateTime> response) {
@@ -338,32 +345,36 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
         //settingDataIntoGrid(formattedDate,""+mLocationTable.getLocID(),getmServiceTable.getServiceID(),mTimeZoneDetails.getStandardName());
     }
 
-    private void postingData(String locationTable, String serviceTable,String timeZoneTable) {
+    private void postingData(String locationTable, String serviceTable, String timeZoneTable, int providerTable) {
         if(timeSlotStrings != null) {
             AppointmentBookingModel body = new AppointmentBookingModel();
-            body.setAppointmentID("0");
+            body.setAppointmentID(0);
             body.setLocID("" + locationTable);
+            body.setProviderID(""+providerTable);
             if(AppPreferene.with(LocationServiceActivity.this).getUserId().equals(""))
                 body.setUserID("0");
-            else
+            else {
                 body.setUserID(AppPreferene.with(LocationServiceActivity.this).getUserId());
-            body.setConfirmationNo(appointment_id);
-            body.setAppointmentTypeRefID("27");
+            }
+            body.setConfirmationNo(Integer.parseInt(appointment_id));
+            body.setAppointmentTypeRefID(27);
+
             body.setServiceID("" + serviceTable);
             body.setStartTime("" + timeSlotStrings.getStartTime());
             body.setEndTime("" + timeSlotStrings.getEndTime());
             body.setScheduledTimeZone("" + timeZoneTable);
-            body.setSendEmailReminder("0");
-            body.setSendTextReminder("0");
+            body.setSendEmailReminder(0);
+            body.setSendTextReminder(0);
             body.setAdditionalEmail("");
-            body.setIsLoggedIn("0");
-            body.setIsCheckedIn("0");
-            body.setIsCancelled("0");
-            body.setCancelTypeRefID("null");
-            body.setCancelledBy("null");
-            body.setIsAssigned("0");
-            body.setAssignedTo("null");
-            body.setAuditID("5");
+            body.setIsLoggedIn(0);
+            body.setIsCheckedIn(0);
+            body.setIsCancelled(0);
+            body.setCancelTypeRefID("");
+            body.setCancelledBy("");
+            body.setIsAssigned(0);
+            body.setAssignedTo("");
+            body.setAuditID(""+3);
+            body.setOrgID(""+getString(R.string.org_id));
 
             Intent intent =new Intent(this,RegisterActivity.class);
             intent.putExtra("appointment_details",body);
@@ -426,7 +437,7 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
         String myFormat = "MM/dd/yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         mEtDate.setText(sdf.format(myCalendar.getTime()));
-        settingDataIntoGrid(mEtDate.getText().toString(),""+mLocationTable.getLocID(),getmServiceTable.getServiceID(),mTimeZoneDetails.getStandardName());
+        settingDataIntoGrid(mEtDate.getText().toString(),""+mLocationTable.getLocID(),getmServiceTable.getServiceID(),mTimeZoneDetails.getStandardName(), mProviderTable.getUserID());
     }
     TimeSlotStrings timeSlotStrings;
     TextView GridViewItems,BackSelectedItem;
@@ -469,7 +480,7 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
             }else{
                 Log.e("LocaitonService","post");*/
 
-            postingData("" + mLocationTable.getLocID(), getmServiceTable.getServiceID(), mTimeZoneDetails.getStandardName());
+            postingData("" + mLocationTable.getLocID(), getmServiceTable.getServiceID(), mTimeZoneDetails.getStandardName(),mProviderTable.getUserID());
 
 
 
@@ -514,9 +525,14 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
         }else if(spinner.getId() == R.id.lv_service_type){
             getmServiceTable=(ServiceTable)mLvServiceType.getSelectedItem();
         /*    changeButtonTitle(true);*/
+        }else if(spinner.getId() == R.id.sp_provider){
+            mProviderTable = (ProviderTable) mSpProviderType.getSelectedItem();
+        /*    changeButtonTitle(true);*/
         }
-        if(mLocationTable!= null && getmServiceTable != null && mTimeZoneDetails != null ){
-            settingDataIntoGrid(mEtDate.getText().toString().trim(),""+mLocationTable.getLocID(),getmServiceTable.getServiceID(),mTimeZoneDetails.getStandardName());
+
+
+        if(mLocationTable!= null && getmServiceTable != null && mTimeZoneDetails != null && mProviderTable != null ){
+            settingDataIntoGrid(mEtDate.getText().toString().trim(),""+mLocationTable.getLocID(),getmServiceTable.getServiceID(),mTimeZoneDetails.getStandardName(),mProviderTable.getUserID());
         }
 
     }

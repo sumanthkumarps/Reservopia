@@ -7,273 +7,171 @@ import java.io.Serializable;
  */
 
 public class AppointmentBookingModel implements Serializable {
-    private String CancelledBy;
+    private int AppointmentID;
 
-    private String IsAssigned;
+    public int getAppointmentID() { return this.AppointmentID; }
+
+    public void setAppointmentID(int AppointmentID) { this.AppointmentID = AppointmentID; }
 
     private String LocID;
 
-    private String IsLoggedIn;
+    public String getLocID() { return this.LocID; }
+
+    public void setLocID(String LocID) { this.LocID = LocID; }
+
+    private String ProviderID;
+
+    public String getProviderID() { return this.ProviderID; }
+
+    public void setProviderID(String ProviderID) { this.ProviderID = ProviderID; }
 
     private String UserID;
 
-    private String AssignedTo;
+    public String getUserID() { return this.UserID; }
 
-    private String AppointmentID;
+    public void setUserID(String UserID) { this.UserID = UserID; }
 
-    private String SendTextReminder;
+    private String Title;
 
-    private String AuditID;
+    public String getTitle() { return this.Title; }
 
-    private String IsCheckedIn;
+    public void setTitle(String Title) { this.Title = Title; }
 
-    private String AppointmentTypeRefID;
+    private String FirstName;
 
-    private String SendEmailReminder;
+    public String getFirstName() { return this.FirstName; }
 
-    private String ScheduledTimeZone;
+    public void setFirstName(String FirstName) { this.FirstName = FirstName; }
 
-    private String IsCancelled;
+    private String LastName;
 
-    private String OrgID;
+    public String getLastName() { return this.LastName; }
 
-    private String ConfirmationNo;
+    public void setLastName(String LastName) { this.LastName = LastName; }
+
+    private String Phone;
+
+    public String getPhone() { return this.Phone; }
+
+    public void setPhone(String Phone) { this.Phone = Phone; }
+
+    private String Gender;
+
+    public String getGender() { return this.Gender; }
+
+    public void setGender(String Gender) { this.Gender = Gender; }
+
+    private String DateOfBirth;
+
+    public String getDateOfBirth() { return this.DateOfBirth; }
+
+    public void setDateOfBirth(String DateOfBirth) { this.DateOfBirth = DateOfBirth; }
+
+    private int ConfirmationNo;
+
+    public int getConfirmationNo() { return this.ConfirmationNo; }
+
+    public void setConfirmationNo(int ConfirmationNo) { this.ConfirmationNo = ConfirmationNo; }
+
+    private int AppointmentTypeRefID;
+
+    public int getAppointmentTypeRefID() { return this.AppointmentTypeRefID; }
+
+    public void setAppointmentTypeRefID(int AppointmentTypeRefID) { this.AppointmentTypeRefID = AppointmentTypeRefID; }
 
     private String ServiceID;
 
-    private String IsEndUser;
+    public String getServiceID() { return this.ServiceID; }
 
-    private String CancelTypeRefID;
-
-    private String EndTime;
-
-    private String AdditionalEmail;
+    public void setServiceID(String ServiceID) { this.ServiceID = ServiceID; }
 
     private String StartTime;
 
-    public String getCancelledBy ()
-    {
-        return CancelledBy;
-    }
+    public String getStartTime() { return this.StartTime; }
 
-    public void setCancelledBy (String CancelledBy)
-    {
-        this.CancelledBy = CancelledBy;
-    }
+    public void setStartTime(String StartTime) { this.StartTime = StartTime; }
 
-    public String getIsAssigned ()
-    {
-        return IsAssigned;
-    }
+    private String EndTime;
 
-    public void setIsAssigned (String IsAssigned)
-    {
-        this.IsAssigned = IsAssigned;
-    }
+    public String getEndTime() { return this.EndTime; }
 
-    public String getLocID ()
-    {
-        return LocID;
-    }
+    public void setEndTime(String EndTime) { this.EndTime = EndTime; }
 
-    public void setLocID (String LocID)
-    {
-        this.LocID = LocID;
-    }
+    private String ScheduledTimeZone;
 
-    public String getIsLoggedIn ()
-    {
-        return IsLoggedIn;
-    }
+    public String getScheduledTimeZone() { return this.ScheduledTimeZone; }
 
-    public void setIsLoggedIn (String IsLoggedIn)
-    {
-        this.IsLoggedIn = IsLoggedIn;
-    }
+    public void setScheduledTimeZone(String ScheduledTimeZone) { this.ScheduledTimeZone = ScheduledTimeZone; }
 
-    public String getUserID ()
-    {
-        return UserID;
-    }
+    private int SendEmailReminder;
 
-    public void setUserID (String UserID)
-    {
-        this.UserID = UserID;
-    }
+    public int getSendEmailReminder() { return this.SendEmailReminder; }
 
-    public String getAssignedTo ()
-    {
-        return AssignedTo;
-    }
+    public void setSendEmailReminder(int SendEmailReminder) { this.SendEmailReminder = SendEmailReminder; }
 
-    public void setAssignedTo (String AssignedTo)
-    {
-        this.AssignedTo = AssignedTo;
-    }
+    private int SendTextReminder;
 
-    public String getAppointmentID ()
-    {
-        return AppointmentID;
-    }
+    public int getSendTextReminder() { return this.SendTextReminder; }
 
-    public void setAppointmentID (String AppointmentID)
-    {
-        this.AppointmentID = AppointmentID;
-    }
+    public void setSendTextReminder(int SendTextReminder) { this.SendTextReminder = SendTextReminder; }
 
-    public String getSendTextReminder ()
-    {
-        return SendTextReminder;
-    }
+    private String AdditionalEmail;
 
-    public void setSendTextReminder (String SendTextReminder)
-    {
-        this.SendTextReminder = SendTextReminder;
-    }
+    public String getAdditionalEmail() { return this.AdditionalEmail; }
 
-    public String getAuditID ()
-    {
-        return AuditID;
-    }
+    public void setAdditionalEmail(String AdditionalEmail) { this.AdditionalEmail = AdditionalEmail; }
 
-    public void setAuditID (String AuditID)
-    {
-        this.AuditID = AuditID;
-    }
+    private int IsLoggedIn;
 
-    public String getIsCheckedIn ()
-    {
-        return IsCheckedIn;
-    }
+    public int getIsLoggedIn() { return this.IsLoggedIn; }
 
-    public void setIsCheckedIn (String IsCheckedIn)
-    {
-        this.IsCheckedIn = IsCheckedIn;
-    }
+    public void setIsLoggedIn(int IsLoggedIn) { this.IsLoggedIn = IsLoggedIn; }
 
-    public String getAppointmentTypeRefID ()
-    {
-        return AppointmentTypeRefID;
-    }
+    private int IsCheckedIn;
 
-    public void setAppointmentTypeRefID (String AppointmentTypeRefID)
-    {
-        this.AppointmentTypeRefID = AppointmentTypeRefID;
-    }
+    public int getIsCheckedIn() { return this.IsCheckedIn; }
 
-    public String getSendEmailReminder ()
-    {
-        return SendEmailReminder;
-    }
+    public void setIsCheckedIn(int IsCheckedIn) { this.IsCheckedIn = IsCheckedIn; }
 
-    public void setSendEmailReminder (String SendEmailReminder)
-    {
-        this.SendEmailReminder = SendEmailReminder;
-    }
+    private int IsCancelled;
 
-    public String getScheduledTimeZone ()
-    {
-        return ScheduledTimeZone;
-    }
+    public int getIsCancelled() { return this.IsCancelled; }
 
-    public void setScheduledTimeZone (String ScheduledTimeZone)
-    {
-        this.ScheduledTimeZone = ScheduledTimeZone;
-    }
+    public void setIsCancelled(int IsCancelled) { this.IsCancelled = IsCancelled; }
 
-    public String getIsCancelled ()
-    {
-        return IsCancelled;
-    }
+    private String CancelTypeRefID;
 
-    public void setIsCancelled (String IsCancelled)
-    {
-        this.IsCancelled = IsCancelled;
-    }
+    public String getCancelTypeRefID() { return this.CancelTypeRefID; }
 
-    public String getOrgID ()
-    {
-        return OrgID;
-    }
+    public void setCancelTypeRefID(String CancelTypeRefID) { this.CancelTypeRefID = CancelTypeRefID; }
 
-    public void setOrgID (String OrgID)
-    {
-        this.OrgID = OrgID;
-    }
+    private String CancelledBy;
 
-    public String getConfirmationNo ()
-    {
-        return ConfirmationNo;
-    }
+    public String getCancelledBy() { return this.CancelledBy; }
 
-    public void setConfirmationNo (String ConfirmationNo)
-    {
-        this.ConfirmationNo = ConfirmationNo;
-    }
+    public void setCancelledBy(String CancelledBy) { this.CancelledBy = CancelledBy; }
 
-    public String getServiceID ()
-    {
-        return ServiceID;
-    }
+    private int IsAssigned;
 
-    public void setServiceID (String ServiceID)
-    {
-        this.ServiceID = ServiceID;
-    }
+    public int getIsAssigned() { return this.IsAssigned; }
 
-    public String getIsEndUser ()
-    {
-        return IsEndUser;
-    }
+    public void setIsAssigned(int IsAssigned) { this.IsAssigned = IsAssigned; }
 
-    public void setIsEndUser (String IsEndUser)
-    {
-        this.IsEndUser = IsEndUser;
-    }
+    private String AssignedTo;
 
-    public String getCancelTypeRefID ()
-    {
-        return CancelTypeRefID;
-    }
+    public String getAssignedTo() { return this.AssignedTo; }
 
-    public void setCancelTypeRefID (String CancelTypeRefID)
-    {
-        this.CancelTypeRefID = CancelTypeRefID;
-    }
+    public void setAssignedTo(String AssignedTo) { this.AssignedTo = AssignedTo; }
 
-    public String getEndTime ()
-    {
-        return EndTime;
-    }
+    private String AuditID;
 
-    public void setEndTime (String EndTime)
-    {
-        this.EndTime = EndTime;
-    }
+    public String getAuditID() { return this.AuditID; }
 
-    public String getAdditionalEmail ()
-    {
-        return AdditionalEmail;
-    }
+    public void setAuditID(String AuditID) { this.AuditID = AuditID; }
 
-    public void setAdditionalEmail (String AdditionalEmail)
-    {
-        this.AdditionalEmail = AdditionalEmail;
-    }
+    private String OrgID;
 
-    public String getStartTime ()
-    {
-        return StartTime;
-    }
+    public String getOrgID() { return this.OrgID; }
 
-    public void setStartTime (String StartTime)
-    {
-        this.StartTime = StartTime;
-    }
-
-    @Override
-    public String toString()
-    {
-        return "ClassPojo [CancelledBy = "+CancelledBy+", IsAssigned = "+IsAssigned+", LocID = "+LocID+", IsLoggedIn = "+IsLoggedIn+", UserID = "+UserID+", AssignedTo = "+AssignedTo+", AppointmentID = "+AppointmentID+", SendTextReminder = "+SendTextReminder+", AuditID = "+AuditID+", IsCheckedIn = "+IsCheckedIn+", AppointmentTypeRefID = "+AppointmentTypeRefID+", SendEmailReminder = "+SendEmailReminder+", ScheduledTimeZone = "+ScheduledTimeZone+", IsCancelled = "+IsCancelled+", OrgID = "+OrgID+", ConfirmationNo = "+ConfirmationNo+", ServiceID = "+ServiceID+", IsEndUser = "+IsEndUser+", CancelTypeRefID = "+CancelTypeRefID+", EndTime = "+EndTime+", AdditionalEmail = "+AdditionalEmail+", StartTime = "+StartTime+"]";
-    }
+    public void setOrgID(String OrgID) { this.OrgID = OrgID; }
 }

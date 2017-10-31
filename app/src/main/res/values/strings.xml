@@ -20,7 +20,7 @@
     <string name="last">Last name </string>
     <string name="password">Password</string>
     <string name="conf_password">Re Password</string>
-    <string name="email_password">Provisional password</string>
+    <string name="email_password">Old password</string>
     <string name="createAccount">Create Account</string>
     <string name="submit">Book Appointment</string>
     <string name="submit_btn">Submit</string>

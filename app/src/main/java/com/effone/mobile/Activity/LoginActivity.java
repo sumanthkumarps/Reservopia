@@ -30,6 +30,7 @@ import com.effone.mobile.model.Result;
 import com.effone.mobile.model.UpCommingAppointmentModel;
 import com.effone.mobile.model.UserDetailGet;
 import com.effone.mobile.model.UserDetails;
+import com.effone.mobile.realmdb.UserTable;
 import com.effone.mobile.rest.ApiClient;
 import com.effone.mobile.rest.ApiInterface;
 import com.google.gson.Gson;
@@ -38,6 +39,7 @@ import com.google.gson.TypeAdapter;
 import java.io.IOException;
 import java.util.Arrays;
 
+import io.realm.Realm;
 import retrofit2.Call;
 import retrofit2.Callback;
 
@@ -56,10 +58,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private TextView mForgotPassword;
     private boolean isFormHomeScreen;
     private TextView mResetPassword;
-
+    private Realm mRealm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mRealm=Realm.getDefaultInstance();
         /*requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setBackgroundDrawable(
                 new ColorDrawable(android.graphics.Color.TRANSPARENT));*/
@@ -171,12 +174,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         mEtEmail.setText(userDetailGet.getEmail());
                         AppPreferene.with(LoginActivity.this).setEmail(email);
                         AppPreferene.with(LoginActivity.this).setUserId(userDetailGet.getUserID());
+                        //insertingUserDeatilsIntoDataBase(userDetailGet.getUserID(),email);
                         if(isFormHomeScreen) {
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         }
                         else {
                             startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
                         }
+
                         finish();
                     }
                     else if(response.body().getMessage()!=null){
@@ -213,6 +218,45 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 ResvUtils.createOKAlert(LoginActivity.this,getString(R.string.error),getString(R.string.something_went_wrong));
             }
         });
+
+    }
+
+    private void insertingUserDeatilsIntoDataBase(String userID,String email) {
+
+            ApiInterface apiService =
+                    ApiClient.getClient().create(ApiInterface.class);
+            Call<UserDetails> call = apiService.getUserDetails(getString(R.string.token),userID,email);
+
+            call.enqueue(new Callback<UserDetails>() {
+                @Override
+                public void onResponse(Call<UserDetails> call, retrofit2.Response<UserDetails> response) {
+                    response.raw().request().url();
+                    if(response.body() != null) {
+
+                        UserDetailGet userDetailGet = response.body().getResult();
+                        if (userDetailGet != null) {
+                            mRealm.beginTransaction();
+                            UserTable userTable=new UserTable();
+                            userTable.setFirstName(userDetailGet.getFirstName());
+                            userTable.setPhone(userDetailGet.getPhone());
+                            userTable.setLastName(userDetailGet.getLastName());
+                            userTable.setDateOfBirth(ResvUtils.parseDateToddMMyyyy(userDetailGet.getDateOfBirth().split("T")[0],"yyyy-MM-dd","MM/dd/yyyy"));
+                            userTable.setGender(userDetailGet.getGender());
+                            userTable.setTitle(userDetailGet.getTitle());
+                            mRealm.insert(userTable);
+                            mRealm.commitTransaction();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<UserDetails> call, Throwable t) {
+                    ResvUtils.createOKAlert(LoginActivity.this,getString(R.string.error),getString(R.string.something_went_wrong));
+                }
+            });
+
+
+
 
     }
 

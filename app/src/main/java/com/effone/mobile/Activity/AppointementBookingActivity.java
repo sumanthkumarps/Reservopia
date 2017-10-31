@@ -92,7 +92,7 @@ public class AppointementBookingActivity extends AppCompatActivity implements Ad
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
 
-        Call<DateTime> call = apiService.getDateTimeSlots(getString(R.string.token),locationTable,serviceTable,Date,"India Standard Time");
+        Call<DateTime> call = apiService.getDateTimeSlots(getString(R.string.token),locationTable,serviceTable,Date,"India Standard Time",1);
         call.enqueue(new Callback<DateTime>() {
             @Override
             public void onResponse(Call<DateTime> call, Response<DateTime> response) {
@@ -186,27 +186,27 @@ public class AppointementBookingActivity extends AppCompatActivity implements Ad
     private void postingData() {
         if(timeSlotStrings != null) {
             AppointmentBookingModel body = new AppointmentBookingModel();
-            body.setAppointmentID(appointment_id);
+            body.setAppointmentID(0);
             body.setLocID("" + locationTable);
             if(AppPreferene.with(AppointementBookingActivity.this).getUserId().equals(""))
             body.setUserID("0");
             else
              body.setUserID(AppPreferene.with(AppointementBookingActivity.this).getUserId());
-            body.setConfirmationNo("0");
-            body.setAppointmentTypeRefID("27");
+            body.setConfirmationNo(0);
+            body.setAppointmentTypeRefID(27);
             body.setServiceID("" + serviceTable);
             body.setStartTime("" + timeSlotStrings.getStartTime());
             body.setEndTime("" + timeSlotStrings.getEndTime());
             body.setScheduledTimeZone("" + timeZoneTable);
-            body.setSendEmailReminder("0");
-            body.setSendTextReminder("0");
+            body.setSendEmailReminder(0);
+            body.setSendTextReminder(0);
             body.setAdditionalEmail("");
-            body.setIsLoggedIn("0");
-            body.setIsCheckedIn("0");
-            body.setIsCancelled("0");
+            body.setIsLoggedIn(0);
+            body.setIsCheckedIn(0);
+            body.setIsCancelled(0);
             body.setCancelTypeRefID("null");
             body.setCancelledBy("null");
-            body.setIsAssigned("0");
+            body.setIsAssigned(0);
             body.setAssignedTo("null");
             body.setAuditID("5");
 

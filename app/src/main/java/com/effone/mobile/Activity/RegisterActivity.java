@@ -71,7 +71,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private RadioGroup mRGGender;
     private Button mBtSubmit;
     private String mStEmail,mStPhone,mStFirstName,mStLastName,mStDateOfBirth,
-            mSttitle,mStGender,mStAddress,mStZip,mStState,mStPassword,mStConfirmPassword,mStCity;
+            mSttitle,mStGender="male",mStAddress,mStZip,mStState,mStPassword,mStConfirmPassword,mStCity;
     TextView mTvTitle;
     ApiInterface apiService;
     private CheckBox mCbCreateAccount;
@@ -146,6 +146,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         mEtDateOfBirth.setText(ResvUtils.parseDateToddMMyyyy(userDetailGet.getDateOfBirth().split("T")[0],"yyyy-MM-dd","MM/dd/yyyy"));
                         mStPassword=userDetailGet.getPassword();
 
+              /*          appointmentBookingModel.setFirstName(userDetailGet.getFirstName());
+                        appointmentBookingModel.setLastName(userDetailGet.getLastName());
+                        appointmentBookingModel.setTitle(userDetailGet.getTitle());
+                        appointmentBookingModel.setGender(userDetailGet.getGender());
+                        appointmentBookingModel.setDateOfBirth(userDetailGet.getGender());*/
+
                     }
                 }
             }
@@ -192,6 +198,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         mSpTitle=(Spinner)findViewById(R.id.et_title);
         mSpTitle.setAdapter(new TitleAdapter(this,mRealm.where(TitleNames.class).findAll()));
         mSpTitle.setOnItemSelectedListener(this);
+      TitleNames  mTitleName=(TitleNames)mSpTitle.getItemAtPosition(0);
+        mSttitle=mTitleName.getValue();
         mEtDateOfBirth.addTextChangedListener(mDateEntryWatcher);
         mEtPassword=(EditText)findViewById(R.id.et_password);
         mEtConfirmPassword=(EditText)findViewById(R.id.et_conf_pass);
@@ -275,7 +283,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         mStPhone=mEtPhone.getText().toString().trim();
         mStFirstName=mEtFirstName.getText().toString().trim();
         mStLastName=mEtLastName.getText().toString().trim();
-
         mStDateOfBirth=mEtDateOfBirth.getText().toString().trim();
 
 
@@ -312,14 +319,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         if(mLinearLayout.getVisibility() == View.VISIBLE) {
             mStPassword=mEtPassword.getText().toString().trim();
             mStConfirmPassword=mEtConfirmPassword.getText().toString().trim();
-            if ((mStPassword.length() < 7) || (mStPassword.length() > 16)) {
+            if ((mStPassword.length() < 5) || (mStPassword.length() > 16)) {
                 mMsg = mMsg + "" + getResources().getString(R.string.passwordmsg) + "\n";
                 count++;
             } else if (!validate.isValidPassword(mStPassword)) {
                 mMsg = mMsg + "" + getResources().getString(R.string.password) + "" + getResources().getString(R.string.passwordmymsg) + "\n";
                 count++;
             }
-            if ((mStConfirmPassword.length() < 7) || (mStConfirmPassword.length() > 16)) {
+            if ((mStConfirmPassword.length() < 5) || (mStConfirmPassword.length() > 16)) {
                 mMsg = mMsg + "" + getResources().getString(R.string.passwordmsg2) + "\n";
                 count++;
             } else if (!validate.isValidPassword(mStConfirmPassword)) {
@@ -333,7 +340,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             if(mStPassword != null || mStPassword != ""){
 
             }else
-                mStPassword="";
+                mStPassword=" ";
         }
         if (count == 0) {
             mMsg = "success";
@@ -364,14 +371,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         user.setPassword(mStPassword);
         user.setGender(mStGender);
         user.setDateOfBirth(mStDateOfBirth);
-        user.setIsTempPassword("0");
+        user.setIsTempPassword(0);
         user.setPreferredLocID(null);
         user.setPrimaryLocID(null);
-        user.setIsActive("1");
-        user.setAuditID("0");
-        user.setIsTempPassword("0");
-        user.setOrgID("1");
-        user.setIsEndUser("1");
+        user.setIsActive(1);
+        user.setAuditID(0);
+        user.setIsTempPassword(0);
+        user.setOrgID(1);
+        user.setIsEndUser(1);
         UserAddress userAddress=new UserAddress();
         userAddress.setAddressLine1("");
         userAddress.setAddressLine2("");
@@ -381,8 +388,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         userAddress.setState("");
         userAddress.setZip("");
         user.setAddress(userAddress);
-
-
+        user.setIsEndUser(1);
+        user.setDisplayUserName("");
+        user.setPreferredLocID("");
+        user.setPrimaryLocID("");
 
         Gson gson=new Gson();
         String json =gson.toJson(user);
@@ -464,43 +473,62 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void sendInformation() {
-        User user=new User();
+        if(appointmentBookingModel.getLastName() == null){
+                        appointmentBookingModel.setFirstName(mStFirstName);
+                        appointmentBookingModel.setLastName(mStLastName);
+                    if(mSttitle == null)
+                        appointmentBookingModel.setTitle("1");
+            else
+                appointmentBookingModel.setTitle(mSttitle);
+                        appointmentBookingModel.setGender(mStGender);
+                        appointmentBookingModel.setPhone(mStPhone);
+                        appointmentBookingModel.setDateOfBirth(mStDateOfBirth);
+        }
+        User users=new User();
+       UserAddress userAddre=new UserAddress();
+        userAddre.setAddressLine1("");
+        userAddre.setAddressLine2("");
+        userAddre.setAddressLine3("");
+        userAddre.setCity("");
+        userAddre.setCountry("");
+        userAddre.setState("");
+        userAddre.setZip("");
+        users.setAddress(userAddre);
         if(AppPreferene.with(this).getUserId().equals("")){
-            user.setUserID("0");
+            users.setUserID("0");
         }else
-        user.setUserID(AppPreferene.with(this).getUserId());
-        user.setTitle(mTitleNames.getValue());
-        user.setEmail(mStEmail);
-        user.setPhone(mStPhone);
-        user.setDisplayUserName(null);
-        user.setFirstName(mStFirstName);
-        user.setLastName(mStLastName);
-        user.setPassword(mStPassword);
-        user.setGender(mStGender);
-        user.setDateOfBirth(mStDateOfBirth);
-        user.setIsTempPassword("0");
-        user.setPreferredLocID(null);
-        user.setPrimaryLocID(null);
-        user.setIsActive("1");
-        user.setAuditID("0");
-        user.setIsTempPassword("0");
-        user.setOrgID("1");
-        user.setIsEndUser("1");
-        UserAddress userAddress=new UserAddress();
-        userAddress.setAddressLine1("");
-        userAddress.setAddressLine2("");
-        userAddress.setAddressLine3("");
-        userAddress.setCity("");
-        userAddress.setCountry("");
-        userAddress.setState("");
-        userAddress.setZip("");
-        user.setAddress(userAddress);
+            users.setUserID(AppPreferene.with(this).getUserId());
+        users.setTitle(mTitleNames.getValue());
+        users.setEmail(mStEmail);
+        users.setPhone(mStPhone);
+        users.setDisplayUserName(null);
+        users.setFirstName(mStFirstName);
+        users.setLastName(mStLastName);
+        if(mStPassword == null){
+            users.setPassword("");
+        }else
+        users.setPassword(mStPassword);
+        users.setGender(mStGender);
+        users.setDateOfBirth(mStDateOfBirth);
+        users.setIsTempPassword(0);
+        users.setPreferredLocID(null);
+        users.setPrimaryLocID(null);
+        users.setIsActive(1);
+        users.setAuditID(0);
+        users.setIsTempPassword(0);
+        users.setOrgID(Integer.parseInt(getString(R.string.org_id)));
+        users.setIsEndUser(1);
+        users.setDisplayUserName("");
+        users.setPreferredLocID("");
+        users.setPrimaryLocID("");
 
 
+        Gson gson=new Gson();
+        String jsons =gson.toJson(users);
         BookingAppointmentUserDetails bookingAppointmentUserDetails=new BookingAppointmentUserDetails();
         bookingAppointmentUserDetails.setAppointment(appointmentBookingModel);
-        bookingAppointmentUserDetails.setUser(user);
-        Gson gson=new Gson();
+        bookingAppointmentUserDetails.setUser(users);
+
         String json =gson.toJson(bookingAppointmentUserDetails);
 
         if (mCommonProgressDialog == null) {

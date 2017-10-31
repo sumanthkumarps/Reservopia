@@ -12,7 +12,7 @@ public class Validation {
     Pattern letter = Pattern.compile("[a-zA-z]");
     Pattern digit = Pattern.compile("[0-9]");
     Pattern special = Pattern.compile ("[!@#$%&*()_+=|<>?{}\\[\\]~-]");
-    Pattern eight = Pattern.compile (".{8,16}");
+    Pattern eight = Pattern.compile (".{5,16}");
     private static final String DATE_PATTERN =
             "(0?[1-9]|1[012]) [/.-] (0?[1-9]|[12][0-9]|3[01]) [/.-] ((19|20)\\d\\d)";
 

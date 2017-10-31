@@ -4,6 +4,7 @@ package com.effone.mobile.rest;
 
 import com.effone.mobile.model.AppointmentBookingModel;
 import com.effone.mobile.model.BookingAppointmentUserDetails;
+import com.effone.mobile.model.ChangePassword;
 import com.effone.mobile.model.Confirmation;
 import com.effone.mobile.model.DateTime;
 import com.effone.mobile.model.ForgotPasswordResponse;
@@ -43,7 +44,7 @@ public interface ApiInterface {
 
     @GET("Appointment/GetAppointmentSlots")
     Call<DateTime> getDateTimeSlots(@Header("Token") String apiKey, @Query("locId") String locId,
-                                    @Query("serviceId") String serviceId, @Query("startTime") String date, @Query("localTimeZone") String timeZone);
+                                    @Query("serviceId") String serviceId, @Query("startTime") String date, @Query("localTimeZone") String timeZone, @Query("providerId") int providerId);
 
 
     @GET("Appointment/GetAppointmentInfoByConformationNo")
@@ -74,4 +75,12 @@ public interface ApiInterface {
     @Headers("Content-type: application/json")
     @POST("Register/ManageUser")
     Call<Response> createAcount(@Header("Token") String apiKey, @Body User UserDetails);
+
+
+
+    @GET("Register/ChangeUserPassword")
+    Call<ChangePassword> getChangedPassword(@Header("Token") String apiKey, @Query("email") String email, @Query("password")String pass, @Query("isTempPassword") Boolean isTempPassword);
+
+
+
 }

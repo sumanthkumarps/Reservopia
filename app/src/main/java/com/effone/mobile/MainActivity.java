@@ -48,6 +48,8 @@ import com.effone.mobile.model.LocationAndService;
 import com.effone.mobile.model.LocationAndServiceResult;
 import com.effone.mobile.model.Locations;
 import com.effone.mobile.model.LocationsXServices;
+import com.effone.mobile.model.ProviderTable;
+import com.effone.mobile.model.Providers;
 import com.effone.mobile.model.Result;
 import com.effone.mobile.model.Services;
 import com.effone.mobile.model.TimeZoneDetails;
@@ -93,6 +95,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ArrayList<Locations> mLocation;
     private ArrayList<Services> mService;
     private ArrayList<TitleNames> mTitle;
+    private ArrayList<ProviderTable> mProvider;
     private ArrayList<TimeZoneDetails> mTimeZoneDetails;
     private Realm mRealm;
     private ArrayList<LocationsXServices> mLocationXService;
@@ -229,7 +232,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 LocationAndServiceResult locationAndService = response.body().getResult();
                 mLocation = locationAndService.getLocations();
                 mService = locationAndService.getServices();
-                mLocationXService = locationAndService.getLocationsXServices();
+                mProvider=locationAndService.getProviders();
+          //      mLocationXService = locationAndService.getLocationsXServices();
                 saveToRealm();
             }
 
@@ -247,9 +251,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         try {
             insertLocationDataIntoDatabase();
             insertServiceDataIntoDatabase();
-            insertLocXServDataIntoDatabase();
+            insertProviderDataIntoDatabase();
+            //insertLocXServDataIntoDatabase();
         }catch (Exception e){
 
+        }
+    }
+
+    private void insertProviderDataIntoDatabase() {
+
+        for (int i = 0; i < mProvider.size(); i++) {
+            mRealm.beginTransaction();
+            ProviderTable providers=new ProviderTable();
+            providers.setUserID(mProvider.get(i).getUserID());
+            providers.setUserName(mProvider.get(i).getUserName());
+            providers.setDateOfBirth(mProvider.get(i).getDateOfBirth());
+            providers.setFirstName(mProvider.get(i).getFirstName());
+            providers.setLastName(mProvider.get(i).getLastName());
+            providers.setEmail(mProvider.get(i).getEmail());
+            providers.setGender(mProvider.get(i).getGender());
+            mRealm.insert(providers);
+            mRealm.commitTransaction();
         }
     }
 
@@ -483,11 +505,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 if(ResvUtils.Operations.isOnline(this)) {
                     if(AppPreferene.with(this).getPreLoad()) {
-                        if (AppPreferene.with(this).getMulitpleService()) {
-                            openActivity(this, LocationServiceActivity.class);
-                        } else {
+                        openActivity(this, LocationServiceActivity.class);
+                      /*  if (AppPreferene.with(this).getMulitpleService()) {
+
+                        } *//*else {
                             openActivity(this, MultipleLocationServiceActivity.class);
-                        }
+                        }*/
                     }
                 }else{
 

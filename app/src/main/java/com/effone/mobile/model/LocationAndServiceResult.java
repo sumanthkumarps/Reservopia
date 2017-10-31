@@ -13,6 +13,18 @@ public class LocationAndServiceResult {
 
     private ArrayList<LocationsXServices> LocationsXServices;
 
+   private  ArrayList<ProviderTable>  Providers;
+
+    public ArrayList<ProviderTable> getProviders ()
+    {
+        return Providers;
+    }
+
+    public void setProviders ( ArrayList<ProviderTable>  Providers)
+    {
+        this.Providers = Providers;
+    }
+
     public ArrayList<Services> getServices ()
     {
         return Services;

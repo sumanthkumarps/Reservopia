@@ -5,225 +5,111 @@ package com.effone.mobile.model;
  */
 
 public class User {
-    private String DisplayUserName;
-
-    private String Phone;
-
-    private String Password;
-
     private String UserID;
 
-    private String LastName;
+    public String getUserID() { return this.UserID; }
+
+    public void setUserID(String UserID) { this.UserID = UserID; }
 
     private String Title;
 
-    private String AuditID;
+    public String getTitle() { return this.Title; }
 
-    private String DateOfBirth;
-
-    private String IsTempPassword;
-
-    private String Email;
-
-    private String OrgID;
-
-    private String IsActive;
-
-    private UserAddress Address;
-
-    private String Gender;
-
-    private String IsEndUser;
+    public void setTitle(String Title) { this.Title = Title; }
 
     private String FirstName;
 
+    public String getFirstName() { return this.FirstName; }
+
+    public void setFirstName(String FirstName) { this.FirstName = FirstName; }
+
+    private String LastName;
+
+    public String getLastName() { return this.LastName; }
+
+    public void setLastName(String LastName) { this.LastName = LastName; }
+
+    private String Gender;
+
+    public String getGender() { return this.Gender; }
+
+    public void setGender(String Gender) { this.Gender = Gender; }
+
+    private String DisplayUserName;
+
+    public String getDisplayUserName() { return this.DisplayUserName; }
+
+    public void setDisplayUserName(String DisplayUserName) { this.DisplayUserName = DisplayUserName; }
+
+    private String DateOfBirth;
+
+    public String getDateOfBirth() { return this.DateOfBirth; }
+
+    public void setDateOfBirth(String DateOfBirth) { this.DateOfBirth = DateOfBirth; }
+
+    private String Phone;
+
+    public String getPhone() { return this.Phone; }
+
+    public void setPhone(String Phone) { this.Phone = Phone; }
+
+    private String Email;
+
+    public String getEmail() { return this.Email; }
+
+    public void setEmail(String Email) { this.Email = Email; }
+
+    private String Password;
+
+    public String getPassword() { return this.Password; }
+
+    public void setPassword(String Password) { this.Password = Password; }
+
+    private int IsTempPassword;
+
+    public int getIsTempPassword() { return this.IsTempPassword; }
+
+    public void setIsTempPassword(int IsTempPassword) { this.IsTempPassword = IsTempPassword; }
+
     private String PreferredLocID;
+
+    public String getPreferredLocID() { return this.PreferredLocID; }
+
+    public void setPreferredLocID(String PreferredLocID) { this.PreferredLocID = PreferredLocID; }
 
     private String PrimaryLocID;
 
-    public String getDisplayUserName ()
-    {
-        return DisplayUserName;
-    }
+    public String getPrimaryLocID() { return this.PrimaryLocID; }
 
-    public void setDisplayUserName (String DisplayUserName)
-    {
-        this.DisplayUserName = DisplayUserName;
-    }
+    public void setPrimaryLocID(String PrimaryLocID) { this.PrimaryLocID = PrimaryLocID; }
 
-    public String getPhone ()
-    {
-        return Phone;
-    }
+    private int IsActive;
 
-    public void setPhone (String Phone)
-    {
-        this.Phone = Phone;
-    }
+    public int getIsActive() { return this.IsActive; }
 
-    public String getPassword ()
-    {
-        return Password;
-    }
+    public void setIsActive(int IsActive) { this.IsActive = IsActive; }
 
-    public void setPassword (String Password)
-    {
-        this.Password = Password;
-    }
+    private int AuditID;
 
-    public String getUserID ()
-    {
-        return UserID;
-    }
+    public int getAuditID() { return this.AuditID; }
 
-    public void setUserID (String UserID)
-    {
-        this.UserID = UserID;
-    }
+    public void setAuditID(int AuditID) { this.AuditID = AuditID; }
 
-    public String getLastName ()
-    {
-        return LastName;
-    }
+    private UserAddress Address;
 
-    public void setLastName (String LastName)
-    {
-        this.LastName = LastName;
-    }
+    public UserAddress getAddress() { return this.Address; }
 
-    public String getTitle ()
-    {
-        return Title;
-    }
+    public void setAddress(UserAddress Address) { this.Address = Address; }
 
-    public void setTitle (String Title)
-    {
-        this.Title = Title;
-    }
+    private int OrgID;
 
-    public String getAuditID ()
-    {
-        return AuditID;
-    }
+    public int getOrgID() { return this.OrgID; }
 
-    public void setAuditID (String AuditID)
-    {
-        this.AuditID = AuditID;
-    }
+    public void setOrgID(int OrgID) { this.OrgID = OrgID; }
 
-    public String getDateOfBirth ()
-    {
-        return DateOfBirth;
-    }
+    private int IsEndUser;
 
-    public void setDateOfBirth (String DateOfBirth)
-    {
-        this.DateOfBirth = DateOfBirth;
-    }
+    public int getIsEndUser() { return this.IsEndUser; }
 
-    public String getIsTempPassword ()
-    {
-        return IsTempPassword;
-    }
-
-    public void setIsTempPassword (String IsTempPassword)
-    {
-        this.IsTempPassword = IsTempPassword;
-    }
-
-    public String getEmail ()
-    {
-        return Email;
-    }
-
-    public void setEmail (String Email)
-    {
-        this.Email = Email;
-    }
-
-    public String getOrgID ()
-    {
-        return OrgID;
-    }
-
-    public void setOrgID (String OrgID)
-    {
-        this.OrgID = OrgID;
-    }
-
-    public String getIsActive ()
-    {
-        return IsActive;
-    }
-
-    public void setIsActive (String IsActive)
-    {
-        this.IsActive = IsActive;
-    }
-
-    public UserAddress getAddress ()
-    {
-        return Address;
-    }
-
-    public void setAddress (UserAddress Address)
-    {
-        this.Address = Address;
-    }
-
-    public String getGender ()
-    {
-        return Gender;
-    }
-
-    public void setGender (String Gender)
-    {
-        this.Gender = Gender;
-    }
-
-    public String getIsEndUser ()
-    {
-        return IsEndUser;
-    }
-
-    public void setIsEndUser (String IsEndUser)
-    {
-        this.IsEndUser = IsEndUser;
-    }
-
-    public String getFirstName ()
-    {
-        return FirstName;
-    }
-
-    public void setFirstName (String FirstName)
-    {
-        this.FirstName = FirstName;
-    }
-
-    public String getPreferredLocID ()
-    {
-        return PreferredLocID;
-    }
-
-    public void setPreferredLocID (String PreferredLocID)
-    {
-        this.PreferredLocID = PreferredLocID;
-    }
-
-    public String getPrimaryLocID ()
-    {
-        return PrimaryLocID;
-    }
-
-    public void setPrimaryLocID (String PrimaryLocID)
-    {
-        this.PrimaryLocID = PrimaryLocID;
-    }
-
-    @Override
-    public String toString()
-    {
-        return "ClassPojo [DisplayUserName = "+DisplayUserName+", Phone = "+Phone+", Password = "+Password+", UserID = "+UserID+", LastName = "+LastName+", Title = "+Title+", AuditID = "+AuditID+", DateOfBirth = "+DateOfBirth+", IsTempPassword = "+IsTempPassword+", Email = "+Email+", OrgID = "+OrgID+", IsActive = "+IsActive+", Address = "+Address+", Gender = "+Gender+", IsEndUser = "+IsEndUser+", FirstName = "+FirstName+", PreferredLocID = "+PreferredLocID+", PrimaryLocID = "+PrimaryLocID+"]";
-    }
+    public void setIsEndUser(int IsEndUser) { this.IsEndUser = IsEndUser; }
 }
