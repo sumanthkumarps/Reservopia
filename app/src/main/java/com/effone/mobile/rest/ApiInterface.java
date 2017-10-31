@@ -78,8 +78,8 @@ public interface ApiInterface {
 
 
 
-    @GET("Register/ChangeUserPassword")
-    Call<ChangePassword> getChangedPassword(@Header("Token") String apiKey, @Query("email") String email, @Query("password")String pass, @Query("isTempPassword") Boolean isTempPassword);
+    @GET("Register/ResetUserPassword")
+    Call<ChangePassword> getChangedPassword(@Header("Token") String apiKey, @Query("email") String email, @Query("oldPassword")String oldPass, @Query("newPassword") String password);
 
 
 

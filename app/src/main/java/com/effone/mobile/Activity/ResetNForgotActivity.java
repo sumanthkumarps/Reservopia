@@ -21,6 +21,7 @@ import com.effone.mobile.common.Validation;
 import com.effone.mobile.model.ChangePassword;
 import com.effone.mobile.model.ForgotPasswordResponse;
 import com.effone.mobile.model.UserDetails;
+import com.effone.mobile.realmdb.ServiceTable;
 import com.effone.mobile.rest.ApiClient;
 import com.effone.mobile.rest.ApiInterface;
 import com.google.gson.Gson;
@@ -84,7 +85,7 @@ public class ResetNForgotActivity extends AppCompatActivity implements View.OnCl
             mLinearLayoutResetPass.setVisibility(View.VISIBLE);
             mTvResetPassword.setVisibility(View.VISIBLE);
             mLinearLayoutEmailReset.setVisibility(View.VISIBLE);
-            mLinearLayoutProvisional.setVisibility(View.GONE);
+            mLinearLayoutProvisional.setVisibility(View.VISIBLE);
             mTvTitle.setText(getString(R.string.reset_pass));
         } else {
             mLinearLayoutFromMail.setVisibility(View.VISIBLE);
@@ -117,19 +118,17 @@ public class ResetNForgotActivity extends AppCompatActivity implements View.OnCl
             case R.id.bt_submit:
                 if (ResvUtils.Operations.isOnline(this)) {
                     Validation validation = new Validation();
-                    if (!validation.isValidEmail(mEtEmailForReset.getText().toString())) {
+                    if (!validation.isValidEmail(mEtEmailForReset.getText().toString().trim())) {
                         ResvUtils.createOKAlert(this, getResources().getString(R.string.headercreateaccount), getResources().getString(R.string.Emailmsg));
                     }else
-                    if (!validation.isValidPassword(mEtPassword.getText().toString())) {
+                    if (!validation.isValidPassword(mEtPassword.getText().toString().trim())) {
                         ResvUtils.createOKAlert(this, getResources().getString(R.string.headercreateaccount), getResources().getString(R.string.passwordmsg));
-                    } else if(mEtPassword.equals(mEtConfirmPassword)){
-                        changePassword(mEtEmailForReset.getText().toString().trim(),mEtPassword.getText().toString().trim());
+                    } else if(mEtPassword.getText().toString().trim().equals(mEtConfirmPassword.getText().toString().trim())){
+                        changePassword(mEtEmailForReset.getText().toString().trim(),mEtMailedPassword.getText().toString().trim(),mEtPassword.getText().toString().trim());
                     }
-                    else if(!mEtPassword.getText().toString().equals(mEtConfirmPassword.getText().toString()))
+                    else
                         ResvUtils.createOKAlert(this, getResources().getString(R.string.headercreateaccount), getResources().getString(R.string.passworddoednotmatch));
-                    else{
 
-                    }
                 } else {
                     ResvUtils.Operations.showNoNetworkActivity(this);
                 }
@@ -138,7 +137,7 @@ public class ResetNForgotActivity extends AppCompatActivity implements View.OnCl
         }
     }
 
-    private void changePassword(String email, String password) {
+    private void changePassword(String email,String oldpassword, String password) {
         if (mCommonProgressDialog == null) {
             mCommonProgressDialog = ResvUtils.createProgressDialog(this);
             mCommonProgressDialog.show();
@@ -149,7 +148,7 @@ public class ResetNForgotActivity extends AppCompatActivity implements View.OnCl
         }
 
 
-        Call<ChangePassword> call = apiService.getChangedPassword(getString(R.string.token), email,password,Boolean.TRUE);
+        Call<ChangePassword> call = apiService.getChangedPassword(getString(R.string.token), email,oldpassword,password);
 
 
         call.enqueue(new Callback<ChangePassword>() {

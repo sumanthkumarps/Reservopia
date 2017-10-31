@@ -50,6 +50,8 @@ import com.effone.mobile.model.UserDetails;
 import com.effone.mobile.rest.ApiClient;
 import com.effone.mobile.rest.ApiInterface;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonNull;
 import com.google.gson.TypeAdapter;
 
 import java.util.regex.Matcher;
@@ -82,8 +84,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private RelativeLayout mLinearLayout;
     ToggleButton male;
     ToggleButton female;
+    private String mUserId="0";
     boolean isFromHomeScreen;
     private  boolean loginned;
+    private  boolean isEditAppointment;
 
 
     @Override
@@ -96,6 +100,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         ResvUtils.enableHomeButton(this);
 
         appointmentBookingModel = (AppointmentBookingModel) getIntent().getSerializableExtra("appointment_details");
+        isEditAppointment=getIntent().getBooleanExtra("editAppointment",false);
         loginned=getIntent().getBooleanExtra("login",false);
         isFromHomeScreen=getIntent().getBooleanExtra(getString(R.string.fromLogin),false);
 
@@ -106,15 +111,47 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         mTvTitle=(TextView)findViewById(R.id.tv_title);
         mTvTitle.setText(getString(R.string.register));
         declarations();
+
+
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        if(isEditAppointment)
+            settingValuesForEdit();
 
-        gettingUserDeatils();
+        else
+            gettingUserDeatils();
        /* if(!mEtEmail.getText().toString().trim().equals(""))
         checkingEmail(mEtEmail.getText().toString().trim());*/
+    }
+
+    private void settingValuesForEdit() {
+        mCbCreateAccount.setVisibility(View.GONE);
+        mBtSubmit.setText(getString(R.string.edit_appointment));
+        mEtEmail.setText(AppPreferene.with(this).getEmail().trim());
+        mEtEmail.setEnabled(false);
+
+        try {
+        mEtPhone.setText(appointmentBookingModel.getPhone());
+        mEtFirstName.setText(appointmentBookingModel.getFirstName());
+        mEtLastName.setText(appointmentBookingModel.getLastName());
+
+            mEtDateOfBirth.setText(appointmentBookingModel.getDateOfBirth().split(" ")[0]);
+
+        RealmResults<TitleNames> titleNames = mRealm.where(TitleNames.class).findAll();
+        TitleNames titleName = mRealm.where(TitleNames.class).equalTo("Value", appointmentBookingModel.getTitle()).findFirst();
+        mSpTitle.setSelection(titleNames.indexOf(titleName));
+        if (appointmentBookingModel.getGender().equals("male"))
+            male.setChecked(true);
+        else
+            female.setChecked(true);
+        }catch (Exception e){
+            Log.e("Sumanth",e.getMessage());
+        }
+
     }
 
     private void gettingUserDeatils() {
@@ -358,8 +395,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             if(isFromHomeScreen)
                 registerUser();
                 else
+
                     if(AppPreferene.with(this).getUserId().equals(""))
-                sendInformation();
+                    sendInformation();
             else {
                         addingUserDetailsToAppointmentBody();
                         bookingAppointmentWithOutUserDetails();
@@ -376,7 +414,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void bookingAppointmentWithOutUserDetails() {
-Gson gson =new Gson();
+        Gson gson =new Gson();
         String msi=gson.toJson(appointmentBookingModel);
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
@@ -522,7 +560,7 @@ Gson gson =new Gson();
         userAddre.setZip("");
         users.setAddress(userAddre);
         if(AppPreferene.with(this).getUserId().equals("")){
-            users.setUserID("0");
+            users.setUserID(mUserId);
         }else
             users.setUserID(AppPreferene.with(this).getUserId());
         users.setTitle(mTitleNames.getValue());
@@ -532,7 +570,7 @@ Gson gson =new Gson();
         users.setFirstName(mStFirstName);
         users.setLastName(mStLastName);
         if(mStPassword == null){
-            users.setPassword("");
+            users.setPassword(null);
         }else
         users.setPassword(mStPassword);
         users.setGender(mStGender);
@@ -550,9 +588,12 @@ Gson gson =new Gson();
         users.setPrimaryLocID("");
 
 
-        Gson gson=new Gson();
+        Gson gson=new GsonBuilder()
+                .serializeNulls()
+                .create();
         String jsons =gson.toJson(users);
         BookingAppointmentUserDetails bookingAppointmentUserDetails=new BookingAppointmentUserDetails();
+        appointmentBookingModel.setUserID(users.getUserID());
         bookingAppointmentUserDetails.setAppointment(appointmentBookingModel);
         bookingAppointmentUserDetails.setUser(users);
 
@@ -650,7 +691,6 @@ Gson gson =new Gson();
     }
 
     private void addingUserDetailsToAppointmentBody() {
-        if(appointmentBookingModel.getLastName() == null){
             appointmentBookingModel.setFirstName(mStFirstName);
             appointmentBookingModel.setLastName(mStLastName);
             if(mSttitle == null)
@@ -660,7 +700,6 @@ Gson gson =new Gson();
             appointmentBookingModel.setGender(mStGender);
             appointmentBookingModel.setPhone(mStPhone);
             appointmentBookingModel.setDateOfBirth(mStDateOfBirth);
-        }
     }
 
 /*    @Override
@@ -689,7 +728,7 @@ Gson gson =new Gson();
                                 mCbCreateAccount.setVisibility(View.VISIBLE);
 
                             } else {
-                                if (rawResponse.body().getResult().getOperation().equals("1")) {
+                                if (rawResponse.body().getResult().getOperation().equals("1")&&rawResponse.body().getResult().getUserType().equals("3")) {
                                     mCbCreateAccount.setVisibility(View.GONE);
                                     ResvUtils.createYesOrNoDialog(RegisterActivity.this, "Email id exists.\nDo you want to login?\n ", new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
@@ -705,8 +744,10 @@ Gson gson =new Gson();
                                             }
                                         }
                                     });
-                                }else{
+                                }
+                                else{
                                     mCbCreateAccount.setVisibility(View.VISIBLE);
+                                    mUserId=rawResponse.body().getResult().getID();
                             }
 
                         }

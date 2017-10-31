@@ -29,6 +29,7 @@ import com.effone.mobile.common.ResvUtils;
 import com.effone.mobile.model.AppointmentBookingModel;
 import com.effone.mobile.model.AppointmentDataTime;
 import com.effone.mobile.model.DateTime;
+import com.effone.mobile.model.History;
 import com.effone.mobile.model.ProviderTable;
 import com.effone.mobile.model.Time;
 import com.effone.mobile.model.TimeSlotStrings;
@@ -96,6 +97,7 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
     String[] timedate;
 
     String formatedDate;
+    private History mAppointmentDateTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +110,8 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
         mShTimeZone=getIntent().getStringExtra("timeZone");
         mSechLocationId=getIntent().getStringExtra("location_id");
         mScheduledDate=getIntent().getStringExtra("date");
+
+        mAppointmentDateTime = (History) getIntent().getSerializableExtra("selectedItem");
         if(mScheduledDate!=null) {
             timedate = mScheduledDate.split(",");
             String splitedDate = timedate[1].replace(".", "").trim() +  timedate[2].substring(0, 5);
@@ -227,16 +231,17 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
 
-        Call<DateTime> call = apiService.getDateTimeSlots(getString(R.string.token),locationTable,serviceTable,Date,timezone,userID);
+        Call<DateTime> call = apiService.getDateTimeSlots(getString(R.string.token),locationTable,serviceTable,Date,timezone, 0);
         call.enqueue(new Callback<DateTime>() {
             @Override
             public void onResponse(Call<DateTime> call, Response<DateTime> response) {
                 if (mCommonProgressDialog != null)
                     mCommonProgressDialog.cancel();
                 try {
+                    response.raw().request().url();
                     movies = response.body().getResult();
                     if (movies.size() > 0 && movies.get(0).getTimeSlotStrings().size() != 0) {
-                        if(movies.get(1).getTimeSlotStrings().size() != 0) {
+                        if(movies.get(0).getTimeSlotStrings().size() != 0) {
                             adapter = new TimeSlotAdapter(LocationServiceActivity.this, movies.get(0).getTimeSlotStrings());
                             mGvTimeSlots.setAdapter(adapter);
                             mTvEmptyView.setVisibility(View.GONE);
@@ -346,10 +351,22 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
         });
         //settingDataIntoGrid(formattedDate,""+mLocationTable.getLocID(),getmServiceTable.getServiceID(),mTimeZoneDetails.getStandardName());
     }
-
+        private  Boolean editAppointment=false;
     private void postingData(String locationTable, String serviceTable, String timeZoneTable, int providerTable) {
         if(timeSlotStrings != null) {
             AppointmentBookingModel body = new AppointmentBookingModel();
+
+            if(mAppointmentDateTime!= null){
+                body.setFirstName(mAppointmentDateTime.getFirstName());
+                body.setLastName(mAppointmentDateTime.getLastName());
+                body.setDateOfBirth(mAppointmentDateTime.getDateOfBirth());
+                body.setGender(mAppointmentDateTime.getGender());
+                body.setPhone(mAppointmentDateTime.getPhone());
+                body.setTitle(mAppointmentDateTime.getTitle());
+                editAppointment=true;
+
+            }
+
             body.setAppointmentID(0);
             body.setLocID("" + locationTable);
             body.setProviderID(""+providerTable);
@@ -365,6 +382,7 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
             body.setStartTime("" + timeSlotStrings.getStartTime());
             body.setEndTime("" + timeSlotStrings.getEndTime());
             body.setScheduledTimeZone("" + timeZoneTable);
+
             body.setSendEmailReminder(0);
             body.setSendTextReminder(0);
             body.setAdditionalEmail("");
@@ -380,6 +398,7 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
 
             Intent intent =new Intent(this,RegisterActivity.class);
             intent.putExtra("appointment_details",body);
+            intent.putExtra("editAppointment",editAppointment);
             startActivity(intent);
           /*  if (!body.getUserID().equals("0")) {
 
