@@ -64,14 +64,14 @@
     <string name="ConfirmNewPasword">Confirm New Password</string>
     <string name="match_does_not"> does not match.</string>
     <string name="passwordmymsg">must be contain min 8 and upto 15 chars.</string>
-    <string name="firstnamemsg">First name: must be present.</string>
-    <string name="lastnamemsg"> Last name: must be present.</string>
+    <string name="firstnamemsg">First name is required.</string>
+    <string name="lastnamemsg"> Last name is required.</string>
     <string name="DateofBirthmsg">Date of birth: must be present.</string>
-    <string name="Phonemsg">Phone: must be 10 digit</string>
+    <string name="Phonemsg">Phone: must be 10 digit number.</string>
     <string name="Emailmsg">Email: enter valid email.</string>
     <string name="login_validation">Enter valid email and password.</string>
-    <string name="passwordmsg">Password: must contain min 8 and upto 15 chars.</string>
-    <string name="passwordmsg2">Re password: must contain min 8 and upto 15 chars.</string>
+    <string name="passwordmsg">Must contain min 6 chars and max 15 chars.</string>
+    <string name="passwordmsg2">Must contain min 6 chars and max 15 chars.</string>
     <string name="password_select">Enter valid email/password.</string>
     <string name="conformmsg">ConfirmPassword: must be present.</string>
     <string name="headercreateaccount">Please Validate</string>
@@ -89,7 +89,7 @@
 
     <string name="enter_confirm">enter re-password</string>
     <string name="enter_mailed_confirm">enter old password</string>
-    <string name="enter_phone">enter phone number</string>
+    <string name="enter_phone">enter phone no</string>
     <string name="enter_last">enter last name</string>
     <string name="enter_first">enter first name</string>
     <string name="dob_date">mm/dd/yyyy</string>
@@ -139,4 +139,6 @@
     <string name="enter_new_password">enter new password</string>
     <string name="enter_reset_code">enter reset code</string>
 
+    <string name="emailMsg1">Invalid email</string>
+    <string name="dobMsg">Please match the date format. Ex:  mm/dd/yyyy  (04/09/2002) </string>
 </resources>

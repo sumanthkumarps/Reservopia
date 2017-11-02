@@ -9,9 +9,11 @@ import io.realm.RealmObject;
 public class ProvidersTable  extends RealmObject {
     private int ProviderXServiceID;
 
-    public int getProviderXServiceID() { return this.ProviderXServiceID; }
+    private int AuditID;
 
-    public void setProviderXServiceID(int ProviderXServiceID) { this.ProviderXServiceID = ProviderXServiceID; }
+    private int OrgID;
+
+    private int ServiceID;
 
     private int UserID;
 
@@ -19,21 +21,22 @@ public class ProvidersTable  extends RealmObject {
 
     public void setUserID(int UserID) { this.UserID = UserID; }
 
-    private int ServiceID;
 
     public int getServiceID() { return this.ServiceID; }
 
     public void setServiceID(int ServiceID) { this.ServiceID = ServiceID; }
 
-    private int AuditID;
+
 
     public int getAuditID() { return this.AuditID; }
 
     public void setAuditID(int AuditID) { this.AuditID = AuditID; }
 
-    private int OrgID;
 
     public int getOrgID() { return this.OrgID; }
 
     public void setOrgID(int OrgID) { this.OrgID = OrgID; }
+    public int getProviderXServiceID() { return this.ProviderXServiceID; }
+
+    public void setProviderXServiceID(int ProviderXServiceID) { this.ProviderXServiceID = ProviderXServiceID; }
 }

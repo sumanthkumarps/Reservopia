@@ -13,10 +13,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -51,7 +54,6 @@ import com.effone.mobile.rest.ApiClient;
 import com.effone.mobile.rest.ApiInterface;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonNull;
 import com.google.gson.TypeAdapter;
 
 import java.util.regex.Matcher;
@@ -88,7 +90,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     boolean isFromHomeScreen;
     private  boolean loginned;
     private  boolean isEditAppointment;
-
+    private  TextInputLayout mTvFirstName,mTvLastName,mTvDob,mTvEmail,mTvPhone,mTvPassword,mTvConfirmPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,11 +105,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         isEditAppointment=getIntent().getBooleanExtra("editAppointment",false);
         loginned=getIntent().getBooleanExtra("login",false);
         isFromHomeScreen=getIntent().getBooleanExtra(getString(R.string.fromLogin),false);
-
+        mTvFirstName=(TextInputLayout)findViewById(R.id.tv_error_name);
+        mTvLastName=(TextInputLayout)findViewById(R.id.tv_error_lastname);
+        mTvDob=(TextInputLayout)findViewById(R.id.tv_error_date);
+        mTvEmail=(TextInputLayout)findViewById(R.id.tv_error_email);
+        mTvPhone=(TextInputLayout)findViewById(R.id.tv_error_phone);
+        mTvPassword=(TextInputLayout)findViewById(R.id.tv_error_password);
+        mTvConfirmPassword=(TextInputLayout)findViewById(R.id.tv_error_conform);
         apiService = ApiClient.getClient().create(ApiInterface.class);
-
-            mLinearLayout=(RelativeLayout)findViewById(R.id.lv_password);
-
+        mLinearLayout=(RelativeLayout)findViewById(R.id.lv_password);
         mTvTitle=(TextView)findViewById(R.id.tv_title);
         mTvTitle.setText(getString(R.string.register));
         declarations();
@@ -124,6 +130,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         else
             gettingUserDeatils();
+        gettingUserDeatils();
+         if(mEtEmail.getText().toString().trim().equals(""))
+          mCbCreateAccount.setVisibility(View.GONE);
        /* if(!mEtEmail.getText().toString().trim().equals(""))
         checkingEmail(mEtEmail.getText().toString().trim());*/
     }
@@ -241,7 +250,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         });
         mEtPhone=(EditText)findViewById(R.id.et_phone);
         mEtFirstName=(EditText)findViewById(R.id.et_firstname);
-        mEtLastName=(EditText)findViewById(R.id.et_lastName);
+        mEtLastName=(EditText)findViewById(R.id.et_lastname);
         mEtDateOfBirth=(EditText)findViewById(R.id.et_date_birth);
         mSpTitle=(Spinner)findViewById(R.id.et_title);
         mSpTitle.setAdapter(new TitleAdapter(this,mRealm.where(TitleNames.class).findAll()));
@@ -261,6 +270,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         female.setOnCheckedChangeListener(changeChecker);
         mBtSubmit.setOnClickListener(this);
         mBtSubmit.setTransformationMethod(null);
+        touchOnEdit(mEtPassword);
+        touchOnEdit(mEtConfirmPassword);
         mEtEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -269,10 +280,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 if(AppPreferene.with(RegisterActivity.this).getUserId().equals("")||!text.equals(AppPreferene.with(RegisterActivity.this).getEmail())) {
                     if (!hasFocus) {
                         Validation validation = new Validation();
-                        if (validation.isValidEmail(text))
+                        if (validation.isValidEmail(text)) {
                             checkingEmail(text);
+                            mTvEmail.setErrorEnabled(false);
+                        }
                         else
-                            ResvUtils.createOKAlert(RegisterActivity.this, getResources().getString(R.string.headercreateaccount), getResources().getString(R.string.Emailmsg));
+                          mTvEmail.setError(getString(R.string.Emailmsg));
                     } else {
                         mCbCreateAccount.setVisibility(View.GONE);
                         mCbCreateAccount.setChecked(false);
@@ -281,6 +294,82 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 }
             }
         });
+        final Validation validate = new Validation();
+        mEtFirstName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                EditText editText = (EditText) v;
+                String text = editText.getText().toString();
+                if(!validate.isValidFirstName(text))
+                    mTvFirstName.setError(getString(R.string.firstnamemsg));
+                else
+                    mTvFirstName.setErrorEnabled(false);
+
+            }
+        });
+
+        mEtLastName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                EditText editText = (EditText) v;
+                String text = editText.getText().toString();
+                if(!validate.isValidFirstName(text)){
+                    mTvLastName.setError(getString(R.string.lastnamemsg));
+                }else {
+                    mTvLastName.setErrorEnabled(false);
+                }
+            }
+        });
+
+        mEtDateOfBirth.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                EditText editText = (EditText) v;
+                String text = editText.getText().toString();
+                if(!validate.isValidDate(text)){
+                    mTvDob.setError(getString(R.string.dobMsg));
+                }else {
+                    mTvDob.setErrorEnabled(false);
+                }
+            }
+        });
+        mEtPhone.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                EditText editText = (EditText) v;
+                String text = editText.getText().toString();
+                if(!validate.isValidPhone(text)){
+                    mTvPhone.setError(getString(R.string.Phonemsg));
+                }else {
+                    mTvPhone.setErrorEnabled(false);
+                }
+            }
+        });
+        mEtPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                EditText editText = (EditText) v;
+                String text = editText.getText().toString();
+                if(!validate.isValidPassword(text)){
+                    mTvPassword.setError(getString(R.string.passwordmsg));
+                }else {
+                    mTvPassword.setErrorEnabled(false);
+                }
+            }
+        });
+        mEtConfirmPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                EditText editText = (EditText) v;
+                String text = editText.getText().toString();
+                if(!validate.isValidPassword(text)){
+                    mTvConfirmPassword.setError(getString(R.string.conformmsg));
+                }else {
+                    mTvConfirmPassword.setErrorEnabled(false);
+                }
+            }
+        });
+
     }
 
     CompoundButton.OnCheckedChangeListener changeChecker = new CompoundButton.OnCheckedChangeListener() {
@@ -321,8 +410,37 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             }
         }
     };
+    private boolean isShow;
+        public void touchOnEdit(final EditText passwordField){
+            passwordField.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    final int DRAWABLE_LEFT = 0;
+                    final int DRAWABLE_TOP = 1;
+                    final int DRAWABLE_RIGHT = 2;
+                    final int DRAWABLE_BOTTOM = 3;
 
-
+                    if(event.getAction() == MotionEvent.ACTION_UP) {
+                        if(event.getX() >= (mEtPassword.getWidth() - mEtPassword
+                                .getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                            if(!isShow) {
+                                passwordField.setTransformationMethod(null);
+                                isShow=true;
+                                passwordField.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.ic_visibility_off_black_24dp, 0);
+                            }
+                            else{
+                                passwordField.setTransformationMethod(new PasswordTransformationMethod());
+                                passwordField.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.ic_visibility_black_24dp, 0);
+                                isShow=false;
+                            }
+                            mEtPassword.setSelection(mEtPassword.getText().length());
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+            });
+        }
     private RadioButton radioSexButton;
     @Override
     public void onClick(View view) {
@@ -340,8 +458,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         int count = 0;
         String mMsg = "";
-        if(AppPreferene.with(RegisterActivity.this).getUserId().equals("")||!mStEmail.equals(AppPreferene.with(RegisterActivity.this).getEmail()))
-        checkingEmail(mStEmail);
+     /*   if(AppPreferene.with(RegisterActivity.this).getUserId().equals("")||!mStEmail.equals(AppPreferene.with(RegisterActivity.this).getEmail()))
+        checkingEmail(mStEmail);*/
         Validation validate = new Validation();
         if (!validate.isValidFirstName(mStFirstName)) {
             mMsg = mMsg + "" + getResources().getString(R.string.firstnamemsg) + "\n";
@@ -396,13 +514,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             if(isFromHomeScreen)
                 registerUser();
                 else
-
                     if(AppPreferene.with(this).getUserId().equals(""))
                     sendInformation();
             else {
                         addingUserDetailsToAppointmentBody();
-                        bookingAppointmentWithOutUserDetails();
-                    }
+                        bookingAppointmentWithOutUserDetails();}
 
         }
         if (!mMsg.equals("success")) {
@@ -727,11 +843,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             if (rawResponse.body().getResult().getID().equals("0")) {
 
                                 mCbCreateAccount.setVisibility(View.VISIBLE);
-
+                                ResvUtils.createOKAlert(RegisterActivity.this,"","Email doesn’t exist. \n Please create a new account. ");
                             } else {
                                 if (rawResponse.body().getResult().getOperation().equals("1")&&rawResponse.body().getResult().getUserType().equals("3")) {
                                     mCbCreateAccount.setVisibility(View.GONE);
-                                    ResvUtils.createYesOrNoDialog(RegisterActivity.this, "Email id exists.\nDo you want to login?\n ", new DialogInterface.OnClickListener() {
+                                    ResvUtils.createYesOrNoDialog(RegisterActivity.this, "Email already  exists.\nDo you want to login?\n ", new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
                                             switch (id) {
                                                 case DialogInterface.BUTTON_POSITIVE:
@@ -747,6 +863,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                     });
                                 }
                                 else{
+                                    ResvUtils.createOKAlert(RegisterActivity.this,"","Email already exists. \n Please create a new account. ");
                                     mCbCreateAccount.setVisibility(View.VISIBLE);
                                     mUserId=rawResponse.body().getResult().getID();
                             }
@@ -823,7 +940,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 if(!isValidYear)
                     mEtDateOfBirth.setError("Invalid Year");
                 else
-                    mEtDateOfBirth.setError("Invalid Date.Format is mm/dd/yyyy. Eg.04/09/1965");
+                    mEtDateOfBirth.setError(getString(R.string.dobMsg));
             } else {
                 mEtDateOfBirth.setError(null);
             }
