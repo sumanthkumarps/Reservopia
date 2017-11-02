@@ -303,7 +303,14 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
         final String formattedDate = df.format(myCalendar.getTime());
         mEtDate = (EditText) findViewById(R.id.et_date);
         mTvTitle=(TextView)findViewById(R.id.tv_title);
-        mTvTitle.setText(getString(R.string.booking_app));
+        boolean isFromedit=getIntent().getBooleanExtra("check",false);
+        if(isFromedit){
+            mTvTitle.setText(getString(R.string.edit_appointment));
+        }
+        else {
+            mTvTitle.setText(getString(R.string.booking_app));
+        }
+
 
        /* mTvSubmit=(TextView)findViewById(R.id.tv_submit);
         mTvSubmit.setOnClickListener(new View.OnClickListener() {

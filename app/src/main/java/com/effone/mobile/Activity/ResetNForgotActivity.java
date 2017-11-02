@@ -11,6 +11,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,16 +42,17 @@ public class ResetNForgotActivity extends AppCompatActivity implements View.OnCl
     private EditText mEtMailedPassword;
     private Button mBtSubmit;
     private boolean isFromReset;
-    private LinearLayout mLinearLayoutFromMail;
+    private RelativeLayout mLinearLayoutFromMail ;
     private TextView mTvTitle;
     private ProgressDialog mCommonProgressDialog;
     private String TAG;
-    private LinearLayout mLinearLayoutResetPass;
+    private RelativeLayout mLinearLayoutResetPass;
     private TextView mTvResetPassword;
     private LinearLayout mLinearLayoutEmailReset;
     private LinearLayout mLinearLayoutProvisional;
     private EditText mEtEmailForReset;
     private Button mBtEmailSubmit;
+    private TextView mTvFromEmail;
     private TextView mTvforgotPassMsg;
     private       ApiInterface apiService;
     @Override
@@ -68,12 +70,14 @@ public class ResetNForgotActivity extends AppCompatActivity implements View.OnCl
 
     private void declaration() {
         mEtEmail = (EditText) findViewById(R.id.et_email);
+        mTvFromEmail=(TextView)findViewById(R.id.tv_from_email);
+
         mEtEmailForReset = (EditText) findViewById(R.id.et_reset_email);
         mEtPassword = (EditText) findViewById(R.id.et_password);
         mEtConfirmPassword = (EditText) findViewById(R.id.et_conf_pass);
-        mLinearLayoutFromMail = (LinearLayout) findViewById(R.id.login_info);
+        mLinearLayoutFromMail = (RelativeLayout) findViewById(R.id.login_info);
         mLinearLayoutProvisional = (LinearLayout) findViewById(R.id.lay_mailed_password);
-        mLinearLayoutResetPass = (LinearLayout) findViewById(R.id.lay_reset_password);
+        mLinearLayoutResetPass = (RelativeLayout) findViewById(R.id.lay_reset_password);
         mEtMailedPassword = (EditText) findViewById(R.id.et_from_email_pass);
         mTvResetPassword = (TextView) findViewById(R.id.tv_reset_password);
         mTvforgotPassMsg = (TextView) findViewById(R.id.tv_forgot_msg);
@@ -94,6 +98,8 @@ public class ResetNForgotActivity extends AppCompatActivity implements View.OnCl
             mLinearLayoutEmailReset.setVisibility(View.GONE);
             mLinearLayoutProvisional.setVisibility(View.VISIBLE);
             mTvTitle.setText(getString(R.string.forgot_title));
+            mTvFromEmail.setText(getString(R.string.reset_code));
+            mEtMailedPassword.setHint(getString(R.string.enter_reset_code));
 
         }
         mBtSubmit = (Button) findViewById(R.id.bt_submit);
@@ -213,7 +219,7 @@ public class ResetNForgotActivity extends AppCompatActivity implements View.OnCl
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     mTvforgotPassMsg.setVisibility(View.VISIBLE);
                                     mTvforgotPassMsg.setText(response.body().getMessage());
-                                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
                                     params.setMargins(0, 10, 0, 0);
                                     mTvforgotPassMsg.setLayoutParams(params);
                                     mLinearLayoutFromMail.setVisibility(View.GONE);

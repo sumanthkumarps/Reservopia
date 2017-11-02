@@ -101,7 +101,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:layout_weight="1"
+                            android:longClickable="false"
                             android:hint="@string/paswordlogin"
+                            android:drawableRight="@drawable/ic_visibility_black_24dp"
                             android:inputType="textPassword"
                             android:singleLine="true" />
                     </TableRow>

@@ -130,7 +130,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     private void settingValuesForEdit() {
         mCbCreateAccount.setVisibility(View.GONE);
-        mTvTitle.setText(getString(R.string.edit_appointment));
+        mTvTitle.setText(getString(R.string.edit_personal_info));
         mBtSubmit.setText(getString(R.string.booking_app));
         mEtEmail.setText(AppPreferene.with(this).getEmail().trim());
         mEtEmail.setEnabled(false);
@@ -754,8 +754,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         }
 
                     }else{
-                        Toast.makeText(RegisterActivity.this,"NoUserExit",Toast.LENGTH_SHORT).show();
-
+                        ResvUtils.createErrorAlert(RegisterActivity.this,getString(R.string.error),"No User Exist");
                     }
 
 

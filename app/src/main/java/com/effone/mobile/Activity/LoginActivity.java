@@ -8,7 +8,9 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
@@ -58,6 +60,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private TextView mForgotPassword;
     private boolean isFormHomeScreen;
     private TextView mResetPassword;
+    private boolean isShow;
     private Realm mRealm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +75,35 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String email=getIntent().getStringExtra("email");
         isFormHomeScreen=getIntent().getBooleanExtra(getString(R.string.isFromHomeScreen),false);
         mEtPassword=(EditText)findViewById(R.id.et_password);
+
+        mEtPassword.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                final int DRAWABLE_LEFT = 0;
+                final int DRAWABLE_TOP = 1;
+                final int DRAWABLE_RIGHT = 2;
+                final int DRAWABLE_BOTTOM = 3;
+
+                if(event.getAction() == MotionEvent.ACTION_UP) {
+                    if(event.getX() >= (mEtPassword.getWidth() - mEtPassword
+                            .getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        if(!isShow) {
+                            mEtPassword.setTransformationMethod(null);
+                            isShow=true;
+                            mEtPassword.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.ic_visibility_off_black_24dp, 0);
+                        }
+                        else{
+                            mEtPassword.setTransformationMethod(new PasswordTransformationMethod());
+                            mEtPassword.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.ic_visibility_black_24dp, 0);
+                            isShow=false;
+                        }
+                        mEtPassword.setSelection(mEtPassword.getText().length());
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
         if(email!=null) {
             if (!email.equals("")) {
                 mEtEmail.setText(email);

@@ -74,7 +74,7 @@ public class AppointementBookingActivity extends AppCompatActivity implements Ad
         locationTable= getIntent().getStringExtra("Location");
         serviceTable=getIntent().getStringExtra("Service");
         timeZoneTable=getIntent().getStringExtra("TimeZone");
-        Toast.makeText(this,"Appointment_id == "+ appointment_id+"LOC =="+locationTable+"Service =="+serviceTable,Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,"Appointment_id == "+ appointment_id+"LOC =="+locationTable+"Service =="+serviceTable,Toast.LENGTH_SHORT).show();
         mGvTimeSlots = (GridView) findViewById(R.id.gv_timeSlots);
         mGvTimeSlots.setOnItemClickListener(this);
         declarations();
@@ -104,7 +104,7 @@ public class AppointementBookingActivity extends AppCompatActivity implements Ad
                         adapter = new TimeSlotAdapter(AppointementBookingActivity.this, movies.get(1).getTimeSlotStrings());
                         mGvTimeSlots.setAdapter(adapter);
                     } else {
-                        Toast.makeText(AppointementBookingActivity.this, "No Time SLots", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(AppointementBookingActivity.this, "No Time SLots", Toast.LENGTH_SHORT).show();
                         TextView emptyView = (TextView)findViewById(android.R.id.empty);
                         emptyView.setText("No Time Slots Found");
                         mGvTimeSlots.setEmptyView(emptyView);
@@ -238,7 +238,7 @@ public class AppointementBookingActivity extends AppCompatActivity implements Ad
                                     }, 5000);
                                 }
                             }else{
-                                Toast.makeText(AppointementBookingActivity.this,getString(R.string.allocated),Toast.LENGTH_SHORT).show();
+                                ResvUtils.createErrorAlert(AppointementBookingActivity.this, getString(R.string.error), "" + getString(R.string.allocated));
                             }
 
 

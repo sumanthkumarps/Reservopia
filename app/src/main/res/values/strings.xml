@@ -16,6 +16,7 @@
     <string name="phone">Phone </string>
     <string name="radio_male">Male</string>
     <string name="radio_female">Female</string>
+    <string name="names">Name</string>
     <string name="first">First name </string>
     <string name="last">Last name </string>
     <string name="password">Password</string>
@@ -42,7 +43,7 @@
     <string name="confirmation_no">Confirmation #</string>
     <string name="confirmation_details">Confirmation Details</string>
     <string name="confirmation_details_small">Confirmation details :</string>
-    <string name="appointment_history">Appointment history</string>
+    <string name="appointment_history">Appointment History</string>
     <string name="service_type">Service Type</string>
     <string name="date_time">Date  </string>
     <string name="time_slot">Pick a time slot :</string>
@@ -65,7 +66,7 @@
     <string name="passwordmymsg">must be contain min 8 and upto 15 chars.</string>
     <string name="firstnamemsg">First name: must be present.</string>
     <string name="lastnamemsg"> Last name: must be present.</string>
-    <string name="DateofBirthmsg">Date of birth: must be presen.t</string>
+    <string name="DateofBirthmsg">Date of birth: must be present.</string>
     <string name="Phonemsg">Phone: must be 10 digit</string>
     <string name="Emailmsg">Email: enter valid email.</string>
     <string name="login_validation">Enter valid email and password.</string>
@@ -85,8 +86,9 @@
 
     <string name="email1">enter email</string>
     <string name="paswordlogin">enter password</string>
+
     <string name="enter_confirm">enter re-password</string>
-    <string name="enter_mailed_confirm">enter mailed-password</string>
+    <string name="enter_mailed_confirm">enter old password</string>
     <string name="enter_phone">enter phone number</string>
     <string name="enter_last">enter last name</string>
     <string name="enter_first">enter first name</string>
@@ -124,10 +126,17 @@
     <string name="something_went_wrong">Something went wrong</string>
     <string name="alphabets">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
     <string name="reset_pass">Reset Password</string>
+    <string name="forgot_password_small">Forgot password:</string>
+    <string name="reset_pass_samll">Reset password</string>
     <string name="forgot_title">Forgot Password</string>
     <string name="fromLogin">fromlogin</string>
 
     <string name="isFromHomeScreen">isFromHomeScreen</string>
     <string name="select_provider">Provider</string>
+    <string name="edit_personal_info">Edit Personal Info</string>
+    <string name="reset_code">Reset Code</string>
+    <string name="new_password">New password</string>
+    <string name="enter_new_password">enter new password</string>
+    <string name="enter_reset_code">enter reset code</string>
 
 </resources>
