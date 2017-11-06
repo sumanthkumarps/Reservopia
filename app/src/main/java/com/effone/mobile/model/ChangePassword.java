@@ -7,7 +7,7 @@ package com.effone.mobile.model;
 public class  ChangePassword {
     private String StatusCode;
 
-    private String Result;
+    private boolean Result;
 
     private String Message;
 
@@ -21,12 +21,12 @@ public class  ChangePassword {
         this.StatusCode = StatusCode;
     }
 
-    public String getResult ()
+    public boolean getResult ()
     {
         return Result;
     }
 
-    public void setResult (String Result)
+    public void setResult (boolean Result)
     {
         this.Result = Result;
     }

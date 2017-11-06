@@ -285,7 +285,7 @@ public class ResetNForgotActivity extends AppCompatActivity implements View.OnCl
                                 if (responses.errorBody() != null)
                                     registerResponse =
                                             adapter.fromJson(responses.errorBody().string());
-                                if(registerResponse.getResult().equals("false")){
+                                if(!registerResponse.getResult()){
                                     ResvUtils.createOKAlert(ResetNForgotActivity.this, "Error", registerResponse.getMessage());
                                 }else {
                                     ResvUtils.createOKAlert(ResetNForgotActivity.this, "", "Your password has been changed successfully.", new DialogInterface.OnClickListener() {
