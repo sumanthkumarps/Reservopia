@@ -2,10 +2,13 @@ package com.effone.mobile.Activity;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -16,11 +19,14 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.effone.mobile.MainActivity;
 import com.effone.mobile.R;
+import com.effone.mobile.common.AppPreferene;
 import com.effone.mobile.common.ResvUtils;
 import com.effone.mobile.common.Validation;
 import com.effone.mobile.model.ChangePassword;
 import com.effone.mobile.model.ForgotPasswordResponse;
+import com.effone.mobile.model.UserDetailGet;
 import com.effone.mobile.model.UserDetails;
 import com.effone.mobile.realmdb.ServiceTable;
 import com.effone.mobile.rest.ApiClient;
@@ -79,6 +85,66 @@ public class ResetNForgotActivity extends AppCompatActivity implements View.OnCl
         mLinearLayoutProvisional = (LinearLayout) findViewById(R.id.lay_mailed_password);
         mLinearLayoutResetPass = (RelativeLayout) findViewById(R.id.lay_reset_password);
         mEtMailedPassword = (EditText) findViewById(R.id.et_from_email_pass);
+      /*  drawerRightEye(mEtConfirmPassword);
+        drawerRightEye(mEtMailedPassword);
+        drawerRightEye(mEtPassword);*/
+
+        mEtMailedPassword.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                final int DRAWABLE_LEFT = 0;
+                final int DRAWABLE_TOP = 1;
+                final int DRAWABLE_RIGHT = 2;
+                final int DRAWABLE_BOTTOM = 3;
+
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    if (event.getX() >= (mEtMailedPassword.getWidth() - mEtMailedPassword
+                            .getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        if (!isShow) {
+                            mEtMailedPassword.setTransformationMethod(null);
+                            isShow = true;
+                            mEtMailedPassword.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_visibility_off_black_24dp, 0);
+                        } else {
+                            mEtMailedPassword.setTransformationMethod(new PasswordTransformationMethod());
+                            mEtMailedPassword.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_visibility_black_24dp, 0);
+                            isShow = false;
+                        }
+                        mEtMailedPassword.setSelection(mEtMailedPassword.getText().length());
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+        mEtPassword.setOnTouchListener(new View.OnTouchListener() {
+                                           @Override
+                                           public boolean onTouch(View v, MotionEvent event) {
+                                               final int DRAWABLE_LEFT = 0;
+                                               final int DRAWABLE_TOP = 1;
+                                               final int DRAWABLE_RIGHT = 2;
+                                               final int DRAWABLE_BOTTOM = 3;
+
+                                               if (event.getAction() == MotionEvent.ACTION_UP) {
+                                                   if (event.getX() >= (mEtPassword.getWidth() - mEtPassword
+                                                           .getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                                                       if (!isShow) {
+                                                           mEtPassword.setTransformationMethod(null);
+                                                           isShow = true;
+                                                           mEtPassword.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_visibility_off_black_24dp, 0);
+                                                       } else {
+                                                           mEtPassword.setTransformationMethod(new PasswordTransformationMethod());
+                                                           mEtPassword.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_visibility_black_24dp, 0);
+                                                           isShow = false;
+                                                       }
+                                                       mEtPassword.setSelection(mEtPassword.getText().length());
+                                                       return true;
+                                                   }
+                                               }
+                                               return false;
+                                           }
+                                       });
+
+        methodPassword();
         mTvResetPassword = (TextView) findViewById(R.id.tv_reset_password);
         mTvforgotPassMsg = (TextView) findViewById(R.id.tv_forgot_msg);
         mLinearLayoutEmailReset = (LinearLayout) findViewById(R.id.lay_emai);
@@ -110,6 +176,36 @@ public class ResetNForgotActivity extends AppCompatActivity implements View.OnCl
         mBtSubmit.setTransformationMethod(null);
     }
 
+    private void methodPassword() {
+        mEtConfirmPassword.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                final int DRAWABLE_LEFT = 0;
+                final int DRAWABLE_TOP = 1;
+                final int DRAWABLE_RIGHT = 2;
+                final int DRAWABLE_BOTTOM = 3;
+
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    if (event.getX() >= (mEtConfirmPassword.getWidth() - mEtConfirmPassword
+                            .getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        if (!isShow) {
+                            mEtConfirmPassword.setTransformationMethod(null);
+                            isShow = true;
+                            mEtConfirmPassword.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_visibility_off_black_24dp, 0);
+                        } else {
+                            mEtConfirmPassword.setTransformationMethod(new PasswordTransformationMethod());
+                            mEtConfirmPassword.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_visibility_black_24dp, 0);
+                            isShow = false;
+                        }
+                        mEtConfirmPassword.setSelection(mEtConfirmPassword.getText().length());
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -124,13 +220,18 @@ public class ResetNForgotActivity extends AppCompatActivity implements View.OnCl
             case R.id.bt_submit:
                 if (ResvUtils.Operations.isOnline(this)) {
                     Validation validation = new Validation();
+                    if(mEtMailedPassword.getText().toString().equals("")||mEtEmailForReset.getText().toString().equals("")||mEtPassword.getText().toString().equals("")||mEtConfirmPassword.getText().toString().equals("")){
+                        ResvUtils.createOKAlert(this, getResources().getString(R.string.headercreateaccount), getResources().getString(R.string.all_field));
+                    }else
                     if (!validation.isValidEmail(mEtEmailForReset.getText().toString().trim())) {
-                        ResvUtils.createOKAlert(this, getResources().getString(R.string.headercreateaccount), getResources().getString(R.string.Emailmsg));
+                        ResvUtils.createOKAlert(this, getResources().getString(R.string.headercreateaccount), getResources().getString(R.string.email_error_msg));
                     }else
                     if (!validation.isValidPassword(mEtPassword.getText().toString().trim())) {
                         ResvUtils.createOKAlert(this, getResources().getString(R.string.headercreateaccount), getResources().getString(R.string.passwordmsg));
                     } else if(mEtPassword.getText().toString().trim().equals(mEtConfirmPassword.getText().toString().trim())){
-                        changePassword(mEtEmailForReset.getText().toString().trim(),mEtMailedPassword.getText().toString().trim(),mEtPassword.getText().toString().trim());
+                       // changePassword(mEtEmailForReset.getText().toString().trim(),mEtMailedPassword.getText().toString().trim(),mEtPassword.getText().toString().trim());
+                        passowrdChanged(mEtEmailForReset.getText().toString().trim(),mEtMailedPassword.getText().toString().trim(),mEtPassword.getText().toString().trim());
+
                     }
                     else
                         ResvUtils.createOKAlert(this, getResources().getString(R.string.headercreateaccount), getResources().getString(R.string.passworddoednotmatch));
@@ -143,6 +244,113 @@ public class ResetNForgotActivity extends AppCompatActivity implements View.OnCl
         }
     }
 
+    private void passowrdChanged(String trim, String trim1, String trim2) {
+            if (mCommonProgressDialog == null) {
+                mCommonProgressDialog = ResvUtils.createProgressDialog(this);
+                mCommonProgressDialog.show();
+                mCommonProgressDialog.setMessage("Please wait...");
+                mCommonProgressDialog.setCancelable(false);
+            } else {
+                mCommonProgressDialog.show();
+            }
+            ApiInterface apiService =
+                    ApiClient.getClient().create(ApiInterface.class);
+
+            Call<ChangePassword> call = apiService.getChangedPassword(getString(R.string.token),trim,trim1,trim2);
+
+            call.enqueue(new Callback<ChangePassword>() {
+                @Override
+                public void onResponse(Call<ChangePassword> call, retrofit2.Response<ChangePassword> responses) {
+                    responses.raw().request().url();
+                    if (mCommonProgressDialog != null)
+                        mCommonProgressDialog.cancel();
+                    if (responses.body() != null) {
+                        ChangePassword userDetailGet = responses.body();
+                        if(userDetailGet!= null){
+                            ResvUtils.createOKAlert(ResetNForgotActivity.this, "Message",responses.body().getMessage());
+                        }
+                        else if(responses.body().getMessage()!=null){
+                            ResvUtils.createOKAlert(ResetNForgotActivity.this, "Message",responses.body().getMessage());
+                        }
+
+                    }else  {
+                        if (mCommonProgressDialog != null)
+                            mCommonProgressDialog.cancel();
+                        if (!responses.isSuccessful() ) {
+                            ChangePassword registerResponse=null;
+                            Log.d(TAG, "onResponse - Status : " + responses.code());
+                            Gson gson = new Gson();
+                            TypeAdapter<ChangePassword> adapter = gson.getAdapter(ChangePassword.class);
+                            try {
+                                if (responses.errorBody() != null)
+                                    registerResponse =
+                                            adapter.fromJson(responses.errorBody().string());
+                                if(registerResponse.getResult().equals("false")){
+                                    ResvUtils.createOKAlert(ResetNForgotActivity.this, "Error", registerResponse.getMessage());
+                                }else {
+                                    ResvUtils.createOKAlert(ResetNForgotActivity.this, "", "Your password has been changed successfully.", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            Intent intent=new Intent(ResetNForgotActivity.this,MainActivity.class);
+                                            startActivity(intent);
+                                        }
+                                    });
+                                }
+                            } catch (IOException e) {
+
+                            }
+                        }
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<ChangePassword> call, Throwable t) {
+                    if (mCommonProgressDialog != null)
+                        mCommonProgressDialog.cancel();
+                    ResvUtils.createOKAlert(ResetNForgotActivity.this,getString(R.string.error),getString(R.string.something_went_wrong));
+                }
+            });
+
+
+
+    }
+    boolean isShow;
+    public void drawerRightEye(final EditText editText){
+        editText.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                final int DRAWABLE_LEFT = 0;
+                final int DRAWABLE_TOP = 1;
+                final int DRAWABLE_RIGHT = 2;
+                final int DRAWABLE_BOTTOM = 3;
+
+                if(event.getAction() == MotionEvent.ACTION_UP) {
+                    if(event.getX() >= (editText.getWidth() - editText
+                            .getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+
+                        if(!isShow) {
+                            editText.setTransformationMethod(null);
+                            isShow=true;
+                            editText.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.ic_visibility_off_black_24dp, 0);
+                        }
+                        else{
+                            editText.setTransformationMethod(new PasswordTransformationMethod());
+                            editText.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.ic_visibility_black_24dp, 0);
+                            isShow=false;
+                        }
+                        editText.setSelection(editText.getText().length());
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+    }
+
+
+
+
     private void changePassword(String email,String oldpassword, String password) {
         if (mCommonProgressDialog == null) {
             mCommonProgressDialog = ResvUtils.createProgressDialog(this);
@@ -154,7 +362,7 @@ public class ResetNForgotActivity extends AppCompatActivity implements View.OnCl
         }
 
 
-        Call<ChangePassword> call = apiService.getChangedPassword(getString(R.string.token), email,oldpassword,password);
+        Call<ChangePassword> call = apiService.getChangedPassword(getString(R.string.token),email,oldpassword,password);
 
 
         call.enqueue(new Callback<ChangePassword>() {
@@ -163,21 +371,23 @@ public class ResetNForgotActivity extends AppCompatActivity implements View.OnCl
             public void onResponse(Call<ChangePassword> call, Response<ChangePassword> response) {
                 if (mCommonProgressDialog != null)
                     mCommonProgressDialog.cancel();
+                response.raw().request().url();
+
                 if (response.body() != null) {
                     if (response.body().getMessage() != null) {
-                        if (response.body().getResult()) {
-
-                            ResvUtils.createOKAlert(ResetNForgotActivity.this, "", response.body().getMessage(), new DialogInterface.OnClickListener() {
+                            ResvUtils.createOKAlert(ResetNForgotActivity.this, "", "Your password has been changed successfully.", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                    finish();
+
                                 }
                             });
-                        }
+
 
                     }
 
 
+                }else{
+                    ResvUtils.createErrorAlert(ResetNForgotActivity.this,"Error","Something went wrong");
                 }
 
             }
@@ -207,6 +417,7 @@ public class ResetNForgotActivity extends AppCompatActivity implements View.OnCl
 
             Call<ForgotPasswordResponse> call = apiService.getForgotPassword(getString(R.string.token), getString(R.string.org_id), email, "True");
 
+            mEtEmailForReset.setText(email);
             call.enqueue(new Callback<ForgotPasswordResponse>() {
                 @Override
                 public void onResponse(Call<ForgotPasswordResponse> call, final retrofit2.Response<ForgotPasswordResponse> response) {
@@ -214,15 +425,16 @@ public class ResetNForgotActivity extends AppCompatActivity implements View.OnCl
                         mCommonProgressDialog.cancel();
                     if (response.body() != null) {
                         if (response.body().getMessage() != null) {
-                            ResvUtils.createOKAlert(ResetNForgotActivity.this, "Message", response.body().getMessage(), new DialogInterface.OnClickListener() {
+                            ResvUtils.createOKAlert(ResetNForgotActivity.this, "Message", getString(R.string.resetPassword_msg), new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                    mTvforgotPassMsg.setVisibility(View.VISIBLE);
-                                    mTvforgotPassMsg.setText(response.body().getMessage());
+                                  mTvforgotPassMsg.setVisibility(View.VISIBLE);
+                                    mTvforgotPassMsg.setText(getString(R.string.resetPassword_msg));
                                     RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
                                     params.setMargins(0, 10, 0, 0);
                                     mTvforgotPassMsg.setLayoutParams(params);
                                     mLinearLayoutFromMail.setVisibility(View.GONE);
+
                                     mLinearLayoutResetPass.setVisibility(View.VISIBLE);
                                     mTvResetPassword.setVisibility(View.VISIBLE);
                                     mLinearLayoutEmailReset.setVisibility(View.GONE);
@@ -259,7 +471,7 @@ public class ResetNForgotActivity extends AppCompatActivity implements View.OnCl
                 }
             });
         } else {
-            ResvUtils.createOKAlert(this, getResources().getString(R.string.headercreateaccount), getResources().getString(R.string.Emailmsg));
+            ResvUtils.createOKAlert(this, getResources().getString(R.string.headercreateaccount), getResources().getString(R.string.email_error_msg));
         }
 
     }

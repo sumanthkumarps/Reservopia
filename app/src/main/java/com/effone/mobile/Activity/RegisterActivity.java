@@ -23,6 +23,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -91,6 +92,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private  boolean loginned;
     private  boolean isEditAppointment;
     private  TextInputLayout mTvFirstName,mTvLastName,mTvDob,mTvEmail,mTvPhone,mTvPassword,mTvConfirmPassword;
+    private TitleAdapter tileAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,10 +129,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         super.onResume();
         if(isEditAppointment)
             settingValuesForEdit();
-
         else
             gettingUserDeatils();
-        gettingUserDeatils();
          if(mEtEmail.getText().toString().trim().equals(""))
           mCbCreateAccount.setVisibility(View.GONE);
        /* if(!mEtEmail.getText().toString().trim().equals(""))
@@ -153,7 +153,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         RealmResults<TitleNames> titleNames = mRealm.where(TitleNames.class).findAll();
         TitleNames titleName = mRealm.where(TitleNames.class).equalTo("Value", appointmentBookingModel.getTitle()).findFirst();
-        mSpTitle.setSelection(titleNames.indexOf(titleName));
+
+        /*mSpTitle.setSelection(spinnerPosition);*/
+            selectSpinnerValue(mSpTitle,titleName.getText());
         if (appointmentBookingModel.getGender().equals("male"))
             male.setChecked(true);
         else
@@ -162,6 +164,18 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             Log.e("Sumanth",e.getMessage());
         }
 
+    }
+
+    private void selectSpinnerValue(Spinner spinner, String myString)
+    {
+        int index = 0;
+        for(int i = 0; i < spinner.getCount(); i++){
+            String  titleNames=spinner.getItemAtPosition(i).toString();
+            if(titleNames.equals(myString)){
+                spinner.setSelection(i);
+                break;
+            }
+        }
     }
 
     private void gettingUserDeatils() {
@@ -196,7 +210,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         mStPassword = userDetailGet.getPassword();
                         RealmResults<TitleNames> titleNames = mRealm.where(TitleNames.class).findAll();
                         TitleNames titleName = mRealm.where(TitleNames.class).equalTo("Value", userDetailGet.getTitle()).findFirst();
-                        mSpTitle.setSelection(titleNames.indexOf(titleName));
+                       /* ArrayAdapter myAdap = (ArrayAdapter) mSpTitle.getAdapter();
+                        int spinnerPosition = myAdap.getPosition(titleName.getText());
+                        mSpTitle.setSelection(spinnerPosition);*/
                         if (userDetailGet.getGender().equals("male"))
                             male.setChecked(true);
                         else
@@ -253,7 +269,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         mEtLastName=(EditText)findViewById(R.id.et_lastname);
         mEtDateOfBirth=(EditText)findViewById(R.id.et_date_birth);
         mSpTitle=(Spinner)findViewById(R.id.et_title);
-        mSpTitle.setAdapter(new TitleAdapter(this,mRealm.where(TitleNames.class).findAll()));
+        tileAdapter=new TitleAdapter(this,mRealm.where(TitleNames.class).findAll());
+        mSpTitle.setAdapter(tileAdapter);
         mSpTitle.setOnItemSelectedListener(this);
       TitleNames  mTitleName=(TitleNames)mSpTitle.getItemAtPosition(0);
         mSttitle=mTitleName.getValue();
@@ -271,7 +288,36 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         mBtSubmit.setOnClickListener(this);
         mBtSubmit.setTransformationMethod(null);
         touchOnEdit(mEtPassword);
-        touchOnEdit(mEtConfirmPassword);
+
+
+        mEtConfirmPassword.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                final int DRAWABLE_LEFT = 0;
+                final int DRAWABLE_TOP = 1;
+                final int DRAWABLE_RIGHT = 2;
+                final int DRAWABLE_BOTTOM = 3;
+
+                if(event.getAction() == MotionEvent.ACTION_UP) {
+                    if(event.getX() >= (mEtConfirmPassword.getWidth() - mEtConfirmPassword
+                            .getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        if(!isShow) {
+                            mEtConfirmPassword.setTransformationMethod(null);
+                            isShow=true;
+                            mEtConfirmPassword.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.ic_visibility_off_black_24dp, 0);
+                        }
+                        else{
+                            mEtConfirmPassword.setTransformationMethod(new PasswordTransformationMethod());
+                            mEtConfirmPassword.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.ic_visibility_black_24dp, 0);
+                            isShow=false;
+                        }
+                        mEtConfirmPassword.setSelection(mEtConfirmPassword.getText().length());
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
         mEtEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -285,7 +331,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             mTvEmail.setErrorEnabled(false);
                         }
                         else
-                          mTvEmail.setError(getString(R.string.Emailmsg));
+                          mTvEmail.setError(getString(R.string.email_error_msg));
+
                     } else {
                         mCbCreateAccount.setVisibility(View.GONE);
                         mCbCreateAccount.setChecked(false);
@@ -301,7 +348,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 EditText editText = (EditText) v;
                 String text = editText.getText().toString();
                 if(!validate.isValidFirstName(text))
-                    mTvFirstName.setError(getString(R.string.firstnamemsg));
+                    mTvFirstName.setError(getString(R.string.first_error_msg));
                 else
                     mTvFirstName.setErrorEnabled(false);
 
@@ -314,7 +361,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 EditText editText = (EditText) v;
                 String text = editText.getText().toString();
                 if(!validate.isValidFirstName(text)){
-                    mTvLastName.setError(getString(R.string.lastnamemsg));
+                    mTvLastName.setError(getString(R.string.last_error_msg));
                 }else {
                     mTvLastName.setErrorEnabled(false);
                 }
@@ -339,7 +386,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 EditText editText = (EditText) v;
                 String text = editText.getText().toString();
                 if(!validate.isValidPhone(text)){
-                    mTvPhone.setError(getString(R.string.Phonemsg));
+                    mTvPhone.setError(getString(R.string.phone_error_msg));
                 }else {
                     mTvPhone.setErrorEnabled(false);
                 }
@@ -363,7 +410,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 EditText editText = (EditText) v;
                 String text = editText.getText().toString();
                 if(!validate.isValidPassword(text)){
-                    mTvConfirmPassword.setError(getString(R.string.conformmsg));
+                    mTvConfirmPassword.setError(getString(R.string.password_error_msg));
                 }else {
                     mTvConfirmPassword.setErrorEnabled(false);
                 }
@@ -421,7 +468,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     final int DRAWABLE_BOTTOM = 3;
 
                     if(event.getAction() == MotionEvent.ACTION_UP) {
-                        if(event.getX() >= (mEtPassword.getWidth() - mEtPassword
+                        if(event.getX() >= (passwordField.getWidth() - passwordField
                                 .getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
                             if(!isShow) {
                                 passwordField.setTransformationMethod(null);
@@ -433,7 +480,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                 passwordField.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.ic_visibility_black_24dp, 0);
                                 isShow=false;
                             }
-                            mEtPassword.setSelection(mEtPassword.getText().length());
+                            passwordField.setSelection(passwordField.getText().length());
                             return true;
                         }
                     }
@@ -482,24 +529,25 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             mMsg = mMsg + "" + getResources().getString(R.string.Emailmsg) + "\n";
             count++;
         }
+
         if(mLinearLayout.getVisibility() == View.VISIBLE) {
             mStPassword=mEtPassword.getText().toString().trim();
             mStConfirmPassword=mEtConfirmPassword.getText().toString().trim();
             if ((mStPassword.length() < 5) || (mStPassword.length() > 16)) {
-                mMsg = mMsg + "" + getResources().getString(R.string.passwordmsg) + "\n";
+                mMsg = mMsg + "" + getResources().getString(R.string.password_error_msg) + "\n";
                 count++;
             } else if (!validate.isValidPassword(mStPassword)) {
-                mMsg = mMsg + "" + getResources().getString(R.string.password) + "" + getResources().getString(R.string.passwordmymsg) + "\n";
+                mMsg = mMsg + "" +  getResources().getString(R.string.password_error_msg) + "\n";
                 count++;
             }
             if ((mStConfirmPassword.length() < 5) || (mStConfirmPassword.length() > 16)) {
-                mMsg = mMsg + "" + getResources().getString(R.string.passwordmsg2) + "\n";
+                mMsg = mMsg + "" + getResources().getString(R.string.password_error_msg) + "\n";
                 count++;
             } else if (!validate.isValidPassword(mStConfirmPassword)) {
-                mMsg = mMsg + "Confirm password" + getResources().getString(R.string.passwordmymsg) + "\n";
+                mMsg = mMsg + getResources().getString(R.string.password_error_msg) + "\n";
                 count++;
             } else if (!mStPassword.equals(mStConfirmPassword)) {
-                mMsg = mMsg + "" + getResources().getString(R.string.passworddoednotmatch) + "\n";
+                mMsg = mMsg + "" + getResources().getString(R.string.didnotmatch_error_msg) + "\n";
                 count++;
             }
         }else{
@@ -892,6 +940,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         mTitleNames = (TitleNames) mSpTitle.getSelectedItem();
+        mSttitle=mTitleNames.getValue();
     }
 
     @Override

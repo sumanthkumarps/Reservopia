@@ -88,6 +88,7 @@
                             android:layout_alignStart="@+id/tv_semi2"
                             android:layout_toLeftOf="@+id/tv_semi2"
                             android:layout_weight=".01"
+                            android:layout_marginRight="2dp"
                             android:gravity="center"
                             android:text=":" />
 
@@ -104,6 +105,7 @@
                                 android:id="@+id/et_email"
                                 android:layout_width="match_parent"
                                 android:layout_height="50dp"
+                                android:textSize="@dimen/font_size"
                                 android:layout_marginBottom="-5dp"
                                 android:hint="@string/email1"
                                 android:inputType="textEmailAddress"
@@ -172,7 +174,7 @@
                                     android:layout_height="50dp"
                                     android:layout_marginBottom="-5dp"
                                     android:hint="@string/paswordlogin"
-                                    android:textSize="15sp"
+                                    android:textSize="@dimen/font_size"
                                     android:longClickable="false"
                                     android:drawableRight="@drawable/ic_visibility_black_24dp"
                                     android:inputType="textPassword"
@@ -229,7 +231,7 @@
                                     android:layout_marginBottom="-5dp"
                                     android:longClickable="false"
                                     android:hint="@string/enter_confirm"
-                                    android:textSize="15sp"
+                                    android:textSize="@dimen/font_size"
                                     android:inputType="textPassword"
                                     android:drawableRight="@drawable/ic_visibility_black_24dp"
                                     android:maxLength="15" />
@@ -285,6 +287,7 @@
                                 android:layout_height="50dp"
                                 android:layout_marginBottom="-5dp"
                                 android:hint="@string/enter_phone"
+                                android:textSize="@dimen/font_size"
                                 android:inputType="number"
                                 android:maxLength="10" />
                         </android.support.design.widget.TextInputLayout>
@@ -411,7 +414,8 @@
                                 android:layout_height="50dp"
                                 android:layout_marginBottom="-5dp"
                                 android:hint="@string/firstname"
-                                android:inputType="textEmailAddress"
+                                android:inputType="textCapWords"
+                                android:textSize="@dimen/font_size"
                                 android:maxLength="25" />
                         </android.support.design.widget.TextInputLayout>
 
@@ -464,7 +468,8 @@
                                 android:layout_height="50dp"
                                 android:layout_marginBottom="-5dp"
                                 android:hint="@string/lastname"
-                                android:inputType="textEmailAddress"
+                                android:textSize="@dimen/font_size"
+                                android:inputType="textCapSentences"
                                 android:maxLength="25" />
                         </android.support.design.widget.TextInputLayout>
 
@@ -519,6 +524,7 @@
                                 android:drawableRight="@android:drawable/ic_menu_my_calendar"
                                 android:hint="@string/dob_date"
                                 android:inputType="number"
+                                android:textSize="@dimen/font_size"
                                 android:maxLength="15" />
                         </android.support.design.widget.TextInputLayout>
 

@@ -34,6 +34,6 @@ public class TitleNames  extends RealmObject {
     @Override
     public String toString()
     {
-        return "ClassPojo [Text = "+Text+", Value = "+Value+"]";
+        return Text;
     }
 }
