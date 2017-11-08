@@ -130,7 +130,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:gravity="left|center"
-                android:text="@string/first"
+                android:text="@string/name"
                 android:textSize="@dimen/font_size" />
 
             <TextView
@@ -152,6 +152,7 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             >
 
             <TextView
@@ -307,7 +308,39 @@
                 android:textSize="@dimen/font_size"
              />
         </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
+            <TextView
+                android:id="@+id/tv_confirmation_no"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:gravity="left|center"
+                android:text="@string/confirmation_no"
+
+                android:textSize="@dimen/font_size"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text=":"
+
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_confirmation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+
+                android:gravity="left|center"
+                android:textSize="@dimen/font_size"
+
+                android:textStyle="bold" />
+        </TableRow>
     </TableLayout>
     <TextView
         android:id="@+id/textView9"

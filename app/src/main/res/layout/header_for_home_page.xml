@@ -4,7 +4,7 @@
     android:layout_height="60dp"
     android:clickable="true"
     >
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:theme="@style/AppTheme"
@@ -18,7 +18,8 @@
             android:src="@drawable/back"
             android:layout_margin="5dp"
             android:tint="@android:color/white"
-            android:layout_gravity="center_vertical" />
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -29,7 +30,7 @@
             android:textAlignment="center"
             android:textColor="@color/inside_blue"
             android:textSize="21sp"
-            android:layout_gravity="center" />
+            android:layout_centerInParent="true" />
         <TextView
             android:id="@+id/iv_home_btn"
             android:layout_width="wrap_content"
@@ -37,8 +38,10 @@
             android:layout_gravity="center_vertical"
             android:textColor="@color/inside_blue"
             android:textStyle="bold"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_marginRight="10dp"/>
-    </LinearLayout>
+    </RelativeLayout>
 
 </FrameLayout>
 

@@ -55,7 +55,7 @@ public class AppointmentDetailsActivity extends AppCompatActivity implements Vie
         mTvServiceName=(TextView)findViewById(R.id.tv_service);
 
 
-       // mTvConfirmationId=(TextView)findViewById(R.id.tv_confirmation);
+       mTvConfirmationId=(TextView)findViewById(R.id.tv_confirmation);
         mTvOrgName=(TextView)findViewById(R.id.tv_orgName);
         mTvAddress=(TextView)findViewById(R.id.tv_address);
         mTvEditAppointment=(Button)findViewById(R.id.tv_editAppointment);
@@ -75,7 +75,7 @@ public class AppointmentDetailsActivity extends AppCompatActivity implements Vie
 
     private void settingValues() {
         mTvTitile.setText(getString(R.string.appointment_details));
-       // mTvConfirmationId.setText(mAppointmentDateTime.getConfirmationNo());
+        mTvConfirmationId.setText(mAppointmentDateTime.getConfirmationNo());
 
         mTvLocName.setText(mAppointmentDateTime.getLocName());
         mTvUserName.setText(mAppointmentDateTime.getFirstName()+" "+mAppointmentDateTime.getLastName());

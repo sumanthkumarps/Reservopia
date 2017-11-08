@@ -267,7 +267,12 @@ public class ResetNForgotActivity extends AppCompatActivity implements View.OnCl
                     if (responses.body() != null) {
                         ChangePassword userDetailGet = responses.body();
                         if(userDetailGet!= null){
-                            ResvUtils.createOKAlert(ResetNForgotActivity.this, "Message",responses.body().getMessage());
+                            ResvUtils.createOKAlert(ResetNForgotActivity.this, "Message", responses.body().getMessage(), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    startActivity(new Intent(ResetNForgotActivity.this, MainActivity.class));
+                                }
+                            });
                         }
                         else if(responses.body().getMessage()!=null){
                             ResvUtils.createOKAlert(ResetNForgotActivity.this, "Message",responses.body().getMessage());

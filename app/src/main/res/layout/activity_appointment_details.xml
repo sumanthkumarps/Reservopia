@@ -15,6 +15,7 @@
         android:id="@+id/scroller"
         android:layout_below="@+id/header"
         android:layout_height="match_parent">
+
         <LinearLayout
             android:padding="5dp"
             android:layout_width="match_parent"
@@ -54,12 +55,14 @@
                 android:padding="5dp"
                 >
 
+
+
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:id="@+id/tv_confirmation_no_label"
+                        android:id="@+id/tv_date_label"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:gravity="left|center"
@@ -245,7 +248,39 @@
 
                         android:textSize="@dimen/font_size" />
                 </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
+                    <TextView
+                        android:id="@+id/tv_confirmation_no_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:gravity="left|center"
+                        android:text="@string/confirmation_no"
+
+                        android:textSize="@dimen/font_size"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:text=":"
+
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_confirmation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+
+                        android:gravity="left|center"
+                        android:textSize="@dimen/font_size"
+
+                        android:textStyle="bold" />
+                </TableRow>
 
             </TableLayout>
             <TextView

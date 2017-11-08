@@ -19,9 +19,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.SpannableString;
+import android.text.method.PasswordTransformationMethod;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -39,6 +41,7 @@ import com.effone.mobile.Activity.LoginActivity;
 import com.effone.mobile.Activity.MultipleLocationServiceActivity;
 import com.effone.mobile.Activity.NetworkErrorActivity;
 import com.effone.mobile.Activity.RegisterActivity;
+import com.effone.mobile.Activity.SearchAppointmentActivity;
 import com.effone.mobile.adapter.AppointmentListAdapter;
 import com.effone.mobile.common.AppPreferene;
 import com.effone.mobile.common.ResvUtils;
@@ -107,7 +110,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ProgressDialog mCommonProgressDialog;
     private  TextView mTvCountAppointment;
     private  TextView mIvLogout;
-
+    private TextView mTvSearch;
+    private ImageView mIvSearch;
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -375,6 +379,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void declarations() {
         mTvEmptyView=(LinearLayout) findViewById(R.id.tv_empty_view);
+        mTvSearch=(TextView)findViewById(R.id.tv_search_and_title);
+        mIvSearch=(ImageView)findViewById(R.id.iv_search);
         mTvBookingAppiontemnt = (TextView) findViewById(R.id.tv_booking_app);
         mTvTitle = (TextView) findViewById(R.id.tv_title);
         mIvBackBtn = (ImageView) findViewById(R.id.iv_back_btn);
@@ -389,7 +395,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mTvBookingAppiontemnt.setOnClickListener(this);
         mTvHistory.setOnClickListener(this);
         mTvContactUs.setOnClickListener(this);
+        mIvSearch.setOnClickListener(this);
         mLvAppointmentList=(ListView)findViewById(R.id.lv_upcomingAppointent);
+
 
         settingData();
         settingAboutUs();
@@ -516,6 +524,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         switch(view.getId()){
+            case R.id.iv_search:
+                openActivity(this, SearchAppointmentActivity.class);
+                break;
             case R.id.tv_booking_app:
 
                 if(ResvUtils.Operations.isOnline(this)) {

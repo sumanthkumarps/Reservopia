@@ -6,7 +6,7 @@
     <string name="about">About</string>
     <string name="booking_app">Book Appointment</string>
     <string name="contact_us">Contact Us</string>
-    <string name="aboutUs">User can book online appointment by choosing location, Service, time slot and date as per their convenience and availability. It’s completely free and doesn’t require any set up.</string>
+    <string name="aboutUs">User can book online appointment by choosing location, service, time slot and date as per their convenience and availability. It’s completely free and doesn’t require any set up.</string>
     <string name="scheduling">ScheduleAppointment</string>
     <string name="email">Email              </string>
     <string name="internet_connection">"You need a network connection to use this application. Please turn on mobile network or Wi-Fi in Settings.</string>
@@ -41,6 +41,7 @@
     <string name="address_coloumn">Address</string>
     <string name="phone_column">Phone</string>
     <string name="confirmation_no">Confirmation #</string>
+    <string name="enter_confirmation_number">enter confirmation No.</string>
     <string name="confirmation_details">Confirmation Details</string>
     <string name="confirmation_details_small">Confirmation details :</string>
     <string name="appointment_history">Appointment History</string>
@@ -57,6 +58,7 @@
     <string name="title">Title</string>
     <string name="dob">Date Of Birth</string>
     <string name="signUp">Sign Up</string>
+    <string name="sign_up_and_book_appoint">Sign Up ......</string>
     <string name="time_Zone">Time zone</string>
     <string name="getDetails">Get Details</string>
 
@@ -70,8 +72,8 @@
     <string name="Phonemsg">Phone no must be 10 digits number.</string>
     <string name="Emailmsg">Email: enter valid email.</string>
     <string name="login_validation">Enter valid email and password.</string>
-    <string name="passwordmsg">Must contain min 6 chars and max 15 chars.</string>
-    <string name="passwordmsg2">Must contain min 6 chars and max 15 chars.</string>
+    <string name="passwordmsg">Must contain  6 to 15 chars.</string>
+    <string name="passwordmsg2">Re password must match with password.</string>
     <string name="password_select">Enter valid email/password.</string>
     <string name="conformmsg">ConfirmPassword: must be present.</string>
     <string name="headercreateaccount">Please Validate</string>
@@ -127,6 +129,7 @@
     <string name="alphabets">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
     <string name="reset_pass">Reset Password</string>
     <string name="forgot_password_small">Forgot password :</string>
+    <string name="find_your_appointment">Find your appointment :</string>
     <string name="reset_pass_samll">Reset password :</string>
     <string name="forgot_title">Forgot Password</string>
     <string name="fromLogin">fromlogin</string>
@@ -143,14 +146,19 @@
     <string name="dobMsg">Please match the date format. Ex:  mm/dd/yyyy  (04/09/2002) </string>
 
 
-
     <string name="all_field">All fields are required.</string>
     <string name="email_error_msg">Email is required.</string>
     <string name="phone_error_msg">Must be 10 digits number.</string>
-    <string name="password_error_msg">Must contain min 8 chars and max 15 chars..</string>
-    <string name="didnotmatch_error_msg">Doesn’t match with password.</string>
+    <string name="password_error_msg">Must contain  8 to 15 chars.</string>
+    <string name="re_password_mssg">Must match with password.</string>
+
+    <string name="didnotmatch_error_msg">Doesn’t match the password.</string>
     <string name="first_error_msg">First name is required.</string>
     <string name="last_error_msg">Last name is required.</string>
-    <string name="resetPassword_msg"> We have sent a temporary code to your email id. Use this code to reset your password.</string>
+    <string name="resetPassword_msg"> We have sent a temporary code to your email id. Use that code to reset your password.</string>
+    <string name="account_create_msg">Account created successfully.</string>
+    <string name="or">or</string>
+    <string name="search">Search</string>
+    <string name="search_result">Search result</string>
 
 </resources>

@@ -218,7 +218,7 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
     }
 
 
-    private void settingDataIntoGrid(final String Date, String locationTable, String serviceTable, String timezone, int userID) {
+    private void settingDataIntoGrid(final String Date, String locationTable, String serviceTable, String timezone, int providerId) {
         timeSlotStrings=null;
         if (mCommonProgressDialog == null) {
             mCommonProgressDialog = ResvUtils.createProgressDialog(this);
@@ -231,7 +231,7 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
 
-        Call<DateTime> call = apiService.getDateTimeSlots(getString(R.string.token),locationTable,serviceTable,Date,timezone, 0);
+        Call<DateTime> call = apiService.getDateTimeSlots(getString(R.string.token),getString(R.string.org_id),locationTable,serviceTable,Date,timezone, 0);
         call.enqueue(new Callback<DateTime>() {
             @Override
             public void onResponse(Call<DateTime> call, Response<DateTime> response) {
@@ -239,6 +239,7 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
                     mCommonProgressDialog.cancel();
                 try {
                     response.raw().request().url();
+                    String url=response.raw().request().url().toString();
                     movies = response.body().getResult();
                     if (movies.size() > 0 && movies.get(0).getTimeSlotStrings().size() != 0) {
                         if(movies.get(0).getTimeSlotStrings().size() != 0) {

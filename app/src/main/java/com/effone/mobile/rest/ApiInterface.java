@@ -43,7 +43,7 @@ public interface ApiInterface {
 
 
     @GET("Appointment/GetAppointmentSlots")
-    Call<DateTime> getDateTimeSlots(@Header("Token") String apiKey, @Query("locId") String locId,
+    Call<DateTime> getDateTimeSlots(@Header("Token") String apiKey, @Query("orgId") String orgId, @Query("locId") String locId,
                                     @Query("serviceId") String serviceId, @Query("startTime") String date, @Query("localTimeZone") String timeZone, @Query("providerId") int providerId);
 
 
@@ -80,6 +80,11 @@ public interface ApiInterface {
 
     @GET("Register/ResetUserPassword")
     Call<ChangePassword> getChangedPassword(@Header("Token") String apiKey, @Query("email") String email, @Query("oldPassword")String oldPass, @Query("newPassword") String password);
+
+
+    /*need to be implement and change params*/
+    @GET("Register/SearchAppointment")
+    Call<ChangePassword> getSearchAppointment(@Header("Token") String apiKey, @Query("email") String email, @Query("oldPassword")String oldPass, @Query("newPassword") String password);
 
 
 

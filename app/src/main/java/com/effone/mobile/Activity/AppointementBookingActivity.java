@@ -92,7 +92,7 @@ public class AppointementBookingActivity extends AppCompatActivity implements Ad
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
 
-        Call<DateTime> call = apiService.getDateTimeSlots(getString(R.string.token),locationTable,serviceTable,Date,"India Standard Time",1);
+        Call<DateTime> call = apiService.getDateTimeSlots(getString(R.string.token),getString(R.string.org_id),locationTable,serviceTable,Date,"India Standard Time",1);
         call.enqueue(new Callback<DateTime>() {
             @Override
             public void onResponse(Call<DateTime> call, Response<DateTime> response) {

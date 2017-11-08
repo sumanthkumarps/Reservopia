@@ -119,7 +119,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/line1"
-                        android:text="Create a Account" />
+                        android:text="Create a password" />
 
                     <RelativeLayout
                         android:id="@+id/lv_password"

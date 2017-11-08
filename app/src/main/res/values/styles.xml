@@ -27,11 +27,8 @@
     </style>
 
     <style name="error_appearance" parent="@android:style/TextAppearance">
-        <item name="android:textColorHint">@color/hostisMe</item>
-        <item name="colorPrimary">@color/blue</item>
-        <item name="colorPrimaryDark">@color/blue</item>
-        <item name="colorAccent">@color/blue</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/red</item>
+        <item name="android:textSize">10sp</item>
     </style>
 
 </resources>

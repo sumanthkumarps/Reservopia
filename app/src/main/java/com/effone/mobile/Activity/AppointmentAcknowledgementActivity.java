@@ -36,6 +36,7 @@ public class AppointmentAcknowledgementActivity extends AppCompatActivity implem
     private ImageView mIvHomeBtn;
     private ProgressDialog mCommonProgressDialog;
     private boolean isRegisteredUser;
+    private TextView mTvConfirmationNo;
 
 
     @Override
@@ -65,6 +66,7 @@ public class AppointmentAcknowledgementActivity extends AppCompatActivity implem
         mTvTitle.setText(R.string.confirmation_details);
 
         mTvConfirmationId=(TextView)findViewById(R.id.tv_appointment_date);
+        mTvConfirmationNo = (TextView) findViewById(R.id.tv_confirmation);
         mTvEmail=(TextView)findViewById(R.id.tv_email);
         mTvUserName=(TextView)findViewById(R.id.tv_first_name);
         mTvLocName=(TextView)findViewById(R.id.tv_locName);
@@ -104,9 +106,10 @@ public class AppointmentAcknowledgementActivity extends AppCompatActivity implem
                         AppPreferene.with(AppointmentAcknowledgementActivity.this).setEmail(confirmationDetails.getEmail());
                     }
                     mTvConfirmationId.setText(confirmationDetails.getConfirmationNo());
+                    mTvConfirmationNo.setText(confirmationDetails.getConfirmationNo());
                     mTvLastName.setText(confirmationDetails.getLastName());
                     mTvLocName.setText(confirmationDetails.getLocName());
-                    mTvUserName.setText(confirmationDetails.getFirstName());
+                    mTvUserName.setText(confirmationDetails.getFirstName()+" "+confirmationDetails.getLastName());
                     mTvEmail.setText(confirmationDetails.getEmail());
                     mTvServiceName.setText(confirmationDetails.getServiceName());
                     mTvAppointmentDateTime.setText(Html.fromHtml(confirmationDetails.getScheduledDateTime()));
@@ -135,7 +138,7 @@ public class AppointmentAcknowledgementActivity extends AppCompatActivity implem
                 if (mCommonProgressDialog != null)
                     mCommonProgressDialog.cancel();
                 String message = t.getMessage();
-                ResvUtils.createErrorAlert(AppointmentAcknowledgementActivity.this,getString(R.string.error),""+message);
+              //  ResvUtils.createErrorAlert(AppointmentAcknowledgementActivity.this,getString(R.string.error),""+message);
                 Log.e(TAG, t.toString());
             }
         });

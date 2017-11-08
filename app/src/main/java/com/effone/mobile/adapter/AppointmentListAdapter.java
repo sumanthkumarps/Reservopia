@@ -62,11 +62,22 @@ public class AppointmentListAdapter extends BaseAdapter {
             holder = (AppointmentListItems) vi.getTag();
 
       String[] timedate= mAppointmentDateTime.get(position).getAppointmentDateTime().split(",");
-        if (Build.VERSION.SDK_INT >= 24) {
-            holder.mTvDateTime.setText(Html.fromHtml("<font color='#666666'>"+timedate[1]+","+timedate[2]+"</font>"+" : "+"<font color='#666666'>"+timedate[0]+"</font>",100));
+      /*  if (Build.VERSION.SDK_INT >= 24) {
+            if(timedate.length>3){
+                holder.mTvDateTime.setText(Html.fromHtml("<font color='#666666'>" + timedate[1] + "," + timedate[2] + "</font>" + " : " + "<font color='#666666'>" + timedate[0] + "</font>", 100));
+            }
+            else {
+                holder.mTvDateTime.setText(Html.fromHtml("<font color='#666666'>" + timedate[1] + "," + timedate[2] + "</font>" + " : " + "<font color='#666666'>" + timedate[0] + "</font>", 100));
+            }
         } else {
-            holder.mTvDateTime.setText(Html.fromHtml("<font color='#666666'>"+timedate[1]+","+timedate[2]+"</font>"+" : "+"<font color='#666666'>"+timedate[0]+"</font>"));
-        }
+            if(timedate.length>3){
+
+            }
+            else {
+                holder.mTvDateTime.setText(Html.fromHtml("<font color='#666666'>" + timedate[1] + "," + timedate[2] + "</font>" + " : " + "<font color='#666666'>" + timedate[0] + "</font>"));
+            }
+        }*/
+        holder.mTvDateTime.setText(Html.fromHtml("<font color='#666666'>"+mAppointmentDateTime.get(position).getAppointmentDateTime()+"</font>"));
         return vi;
     }
 
