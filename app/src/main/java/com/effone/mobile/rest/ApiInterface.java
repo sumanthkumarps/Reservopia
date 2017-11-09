@@ -78,13 +78,13 @@ public interface ApiInterface {
 
 
 
-    @GET("Register/ResetUserPassword")
-    Call<ChangePassword> getChangedPassword(@Header("Token") String apiKey, @Query("email") String email, @Query("oldPassword")String oldPass, @Query("newPassword") String password);
+    @GET("Register/SearchAppointment")
+    Call<UpCommingAppointmentModel> getSearchAppointment(@Header("Token") String apiKey, @Query("orgID") String orgID, @Query("lastName")String lastName, @Query("dateOfBirth") String dateOfBirth, @Query("confirmationNo") String confirmationNo);
 
 
     /*need to be implement and change params*/
-    @GET("Register/SearchAppointment")
-    Call<ChangePassword> getSearchAppointment(@Header("Token") String apiKey, @Query("email") String email, @Query("oldPassword")String oldPass, @Query("newPassword") String password);
+    @GET("Register/ResetUserPassword")
+    Call<ChangePassword> getChangedPassword(@Header("Token") String apiKey, @Query("email") String email, @Query("oldPassword")String oldPass, @Query("newPassword") String password);
 
 
 
