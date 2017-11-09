@@ -160,5 +160,7 @@
     <string name="or">or</string>
     <string name="search">Search</string>
     <string name="search_result">Search result</string>
+    <string name="profile">Profile</string>
+    <string name="edit_profile">Edit Profile</string>
 
 </resources>

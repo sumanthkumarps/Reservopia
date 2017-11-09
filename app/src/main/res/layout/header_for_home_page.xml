@@ -11,15 +11,21 @@
         android:id="@+id/linearLayout"
         android:background="@color/blue"
         android:layout_gravity="top">
-        <ImageView
+        <TextView
             android:id="@+id/iv_back_btn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/back"
-            android:layout_margin="5dp"
-            android:tint="@android:color/white"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/inside_blue"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:text="@string/profile"
+            android:textSize="15dp"
+            android:layout_marginLeft="10dp"
+            android:layout_alignBaseline="@+id/tv_title"
+            android:layout_alignBottom="@+id/tv_title"
             android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"/>
+            android:layout_alignParentStart="true" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -34,10 +40,13 @@
         <TextView
             android:id="@+id/iv_home_btn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:textColor="@color/inside_blue"
+            android:gravity="center"
             android:textStyle="bold"
+            android:textSize="15dp"
+            android:text="@string/login"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"/>

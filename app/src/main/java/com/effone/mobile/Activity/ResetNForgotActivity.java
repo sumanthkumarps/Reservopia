@@ -157,6 +157,8 @@ public class ResetNForgotActivity extends AppCompatActivity implements View.OnCl
             mLinearLayoutEmailReset.setVisibility(View.VISIBLE);
             mLinearLayoutProvisional.setVisibility(View.VISIBLE);
             mTvTitle.setText(getString(R.string.reset_pass));
+            mEtEmailForReset.setText(AppPreferene.with(this).getEmail());
+            mEtEmailForReset.setEnabled(false);
         } else {
             mLinearLayoutFromMail.setVisibility(View.VISIBLE);
             mLinearLayoutResetPass.setVisibility(View.GONE);

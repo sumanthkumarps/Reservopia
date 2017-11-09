@@ -1,7 +1,6 @@
 package com.effone.mobile;
 
 import android.app.ProgressDialog;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,38 +8,31 @@ import android.content.Intent;
 import java.util.Arrays;
 import java.util.Calendar;
 
-import android.content.IntentFilter;
-import android.graphics.Color;
-import android.net.ConnectivityManager;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Html;
-import android.text.SpannableString;
-import android.text.method.PasswordTransformationMethod;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.RelativeSizeSpan;
+import android.support.v7.view.ContextThemeWrapper;
+import android.support.v7.widget.PopupMenu;
 import android.util.Log;
-import android.view.MotionEvent;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.effone.mobile.Activity.AppointmentAcknowledgementActivity;
 import com.effone.mobile.Activity.AppointmentDetailsActivity;
 import com.effone.mobile.Activity.AppointmentHistoryActivity;
 import com.effone.mobile.Activity.LocationServiceActivity;
 import com.effone.mobile.Activity.LoginActivity;
-import com.effone.mobile.Activity.MultipleLocationServiceActivity;
-import com.effone.mobile.Activity.NetworkErrorActivity;
 import com.effone.mobile.Activity.RegisterActivity;
+import com.effone.mobile.Activity.ResetNForgotActivity;
 import com.effone.mobile.Activity.SearchAppointmentActivity;
 import com.effone.mobile.adapter.AppointmentListAdapter;
 import com.effone.mobile.common.AppPreferene;
@@ -53,7 +45,6 @@ import com.effone.mobile.model.LocationAndServiceResult;
 import com.effone.mobile.model.Locations;
 import com.effone.mobile.model.LocationsXServices;
 import com.effone.mobile.model.ProviderTable;
-import com.effone.mobile.model.Providers;
 import com.effone.mobile.model.Result;
 import com.effone.mobile.model.Services;
 import com.effone.mobile.model.TimeZoneDetails;
@@ -62,10 +53,8 @@ import com.effone.mobile.model.TitleNames;
 import com.effone.mobile.model.UpCommingAppointmentModel;
 import com.effone.mobile.realmdb.LocXServiceTable;
 import com.effone.mobile.realmdb.LocationTable;
-import com.effone.mobile.realmdb.ProvidersTable;
 import com.effone.mobile.realmdb.ServiceProvidedTable;
 import com.effone.mobile.realmdb.ServiceTable;
-import com.effone.mobile.receivers.NetworkChangeReceiver;
 import com.effone.mobile.rest.ApiClient;
 import com.effone.mobile.rest.ApiInterface;
 import com.google.gson.Gson;
@@ -81,17 +70,16 @@ import java.util.TimeZone;
 
 import io.realm.Realm;
 import io.realm.RealmList;
-import okhttp3.HttpUrl;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener ,AdapterView.OnItemClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener ,AdapterView.OnItemClickListener, PopupMenu.OnMenuItemClickListener {
 
     private TextView mTvBookingAppiontemnt, mTvHistory, mTvContactUs, mTvAboutUsText,mTvDateTime,mTvTime;
     private ImageView mImgIcon;
     private  Calendar mCalendar;
-    private ImageView mIvBackBtn;
+    private TextView mIvBackBtn;
     private TextView mTvTitle;
     private ListView mLvAppointmentList;
 
@@ -121,6 +109,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         linearLayout=(LinearLayout)findViewById(R.id.linearLayout);
         mIvLogout=(TextView)findViewById(R.id.iv_home_btn);
+        mIvBackBtn = (TextView) findViewById(R.id.iv_back_btn);
+        mIvBackBtn.setOnClickListener(this);
         changingLogoutImages();
         mIvLogout.setOnClickListener(this);
        // mNetworkReceiver = new NetworkChangeReceiver();
@@ -383,8 +373,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mIvSearch=(ImageView)findViewById(R.id.iv_search);
         mTvBookingAppiontemnt = (TextView) findViewById(R.id.tv_booking_app);
         mTvTitle = (TextView) findViewById(R.id.tv_title);
-        mIvBackBtn = (ImageView) findViewById(R.id.iv_back_btn);
-        mIvBackBtn.setVisibility(View.GONE);
+
         mTvTitle.setText(getString(R.string.app_name));
         mTvContactUs = (TextView) findViewById(R.id.tv_contact_us);
         mTvHistory = (TextView) findViewById(R.id.tv_history);
@@ -524,6 +513,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         switch(view.getId()){
+            case R.id.iv_back_btn:
+                showMenu(view);
+                break;
             case R.id.iv_search:
                 openActivity(this, SearchAppointmentActivity.class);
                 break;
@@ -580,11 +572,48 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+
+    public void showMenu(View v) {
+       // Context wrapper = new ContextThemeWrapper(MainActivity.this, R.style.popupMenuStyle);
+        PopupMenu popup = new PopupMenu(this, v);
+
+        // This activity implements OnMenuItemClickListener
+        popup.setOnMenuItemClickListener(this);
+        popup.inflate(R.menu.context_menu);
+        popup.show();
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.nav_profile:
+                if(!AppPreferene.with(this).getEmail().equals("")) {
+                    Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+                    intent.putExtra(getString(R.string.fromLogin),false);
+                    intent.putExtra(getString(R.string.edit_profile),true);
+                    startActivity(intent);
+                }
+
+                return true;
+            case R.id.nav_reset_Password:
+                if(!AppPreferene.with(this).getEmail().equals("")) {
+                    Intent intent1 = new Intent(MainActivity.this, ResetNForgotActivity.class);
+                    intent1.putExtra(getString(R.string.reset), true);
+                    startActivity(intent1);
+                }
+                return true;
+            default:
+                return false;
+        }
+    }
+
     private void changingLogoutImages() {
         if(AppPreferene.with(this).getUserId().equals("")){
             mIvLogout.setText(getString(R.string.login));
+            mIvBackBtn.setVisibility(View.GONE);
         }else {
             mIvLogout.setText(getString(R.string.logout));
+            mIvBackBtn.setVisibility(View.VISIBLE);
         }
     }
 
@@ -607,5 +636,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void openActivity(Context context,Class<?> calledActivity){
         Intent intent = new Intent(context,calledActivity);
         startActivity(intent);
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
     }
 }

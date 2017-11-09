@@ -148,6 +148,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.tv_sign_up:
                 Intent intent= new Intent(LoginActivity.this, RegisterActivity.class);
                 intent.putExtra(getString(R.string.fromLogin),true);
+                intent.putExtra(getString(R.string.edit_profile),false);
                 startActivity(intent);
                 finish();
                 break;

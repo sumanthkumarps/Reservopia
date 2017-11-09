@@ -80,7 +80,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     ToggleButton male;
     ToggleButton female;
     private String mUserId = "0";
-    boolean isFromHomeScreen;
+    boolean isFromHomeScreen,isEditProfile;
     private boolean loginned;
     private boolean isEditAppointment;
     private TextInputLayout mTvFirstName, mTvLastName, mTvDob, mTvEmail, mTvPhone, mTvPassword, mTvConfirmPassword;
@@ -99,7 +99,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         isEditAppointment = getIntent().getBooleanExtra("editAppointment", false);
         loginned = getIntent().getBooleanExtra("login", false);
         isFromHomeScreen = getIntent().getBooleanExtra(getString(R.string.fromLogin), false);
-
+        isEditProfile=getIntent().getBooleanExtra(getString(R.string.edit_profile),false);
         mTvFirstName = (TextInputLayout) findViewById(R.id.tv_error_name);
         mTvLastName = (TextInputLayout) findViewById(R.id.tv_error_lastname);
         mTvDob = (TextInputLayout) findViewById(R.id.tv_error_date);
@@ -182,6 +182,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private void gettingUserDeatils() {
         if (!AppPreferene.with(this).getUserId().equals("")) {
             gettingDetails(AppPreferene.with(RegisterActivity.this).getUserId(), AppPreferene.with(RegisterActivity.this).getEmail());
+            if(!isFromHomeScreen){
+                mBtSubmit.setText(getString(R.string.signUp));
+            }else
             mBtSubmit.setText(getString(R.string.booking_app));
         } else {
             if (appointmentBookingModel != null)
@@ -571,7 +574,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             mBtSubmit.setEnabled(false);
             if (isFromHomeScreen)
                 registerUser();
-            else if (AppPreferene.with(this).getUserId().equals(""))
+            else if(isEditProfile)
+                registerUser();
+                else
+            if (AppPreferene.with(this).getUserId().equals(""))
                 sendInformation();
             else {
                 addingUserDetailsToAppointmentBody();

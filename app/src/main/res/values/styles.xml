@@ -30,5 +30,12 @@
         <item name="android:textColor">@color/red</item>
         <item name="android:textSize">10sp</item>
     </style>
+    <style name="popupMenuStyle" >
+        <item name="android:textColor">@color/about</item>
+        <item name="android:itemBackground">@color/home_back</item>
 
+        <item name="android:background">@color/hostisMe</item>
+
+        <item name="android:dividerHeight">2dp</item>
+    </style>
 </resources>

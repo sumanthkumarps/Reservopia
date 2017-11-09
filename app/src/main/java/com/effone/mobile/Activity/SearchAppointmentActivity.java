@@ -1,5 +1,6 @@
 package com.effone.mobile.Activity;
 
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -46,6 +47,11 @@ public class SearchAppointmentActivity extends AppCompatActivity implements View
         mTvCountAppointment=(TextView)findViewById(R.id.tv_count_appointments);
         mTvTitle.setText(getString(R.string.search));
         mLvAppointmentList=(ListView)findViewById(R.id.lv_upcomingAppointent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
     @Override
