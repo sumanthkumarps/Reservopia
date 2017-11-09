@@ -1,6 +1,8 @@
 package com.effone.mobile.Activity;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -8,6 +10,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,14 +18,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.effone.mobile.MainActivity;
 import com.effone.mobile.R;
 import com.effone.mobile.adapter.AppointmentListAdapter;
 import com.effone.mobile.common.AppPreferene;
 import com.effone.mobile.common.ResvUtils;
+import com.effone.mobile.common.Validation;
 import com.effone.mobile.model.History;
 import com.effone.mobile.model.Result;
+import com.effone.mobile.model.SearchAppointment;
 import com.effone.mobile.model.UpCommingAppointmentModel;
 import com.effone.mobile.rest.ApiClient;
 import com.effone.mobile.rest.ApiInterface;
@@ -72,10 +78,12 @@ public class SearchAppointmentActivity extends AppCompatActivity implements View
         mBtSubmit=(Button)findViewById(R.id.bt_submit);
         mTvEmptyView=(LinearLayout) findViewById(R.id.tv_empty_view);
         mBtSubmit.setOnClickListener(this);
+        mBtSubmit.setTransformationMethod(null);
         mTvTitle = (TextView) findViewById(R.id.tv_title);
         mTvCountAppointment=(TextView)findViewById(R.id.tv_count_appointments);
         mTvTitle.setText(getString(R.string.search));
         mLvAppointmentList=(ListView)findViewById(R.id.lv_upcomingAppointent);
+        mLvAppointmentList.setOnItemClickListener(this);
     }
 
     @Override
@@ -87,9 +95,37 @@ public class SearchAppointmentActivity extends AppCompatActivity implements View
     }
 
     private void SearchApiCall() {
+        Validation validation =new Validation();
         String strLastName=mEtLastName.getText().toString();
         String strDob=mEtDob.getText().toString();
         String strConfirmationNo=mEtConfirmNo.getText().toString();
+        InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+        if (imm.isActive()){
+            imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0); // hide
+        }
+        if(!validation.isValidFirstName(strLastName)){
+            mEtLastName.setError(getString(R.string.last_error_msg));
+        }else{
+            int count=0;
+            if(strConfirmationNo.equals("")) {
+                strConfirmationNo = "0";
+                count=0;
+            }
+            if(!strDob.equals("")||!strConfirmationNo.equals("0")) {
+                searchingData(strLastName,strDob,strConfirmationNo);
+                mEtDob.setError(null);
+            }else{
+                mEtDob.setError(getString(R.string.dobMsg));
+
+            }
+
+        }
+
+
+    }
+
+    private void searchingData(String strLastName, String strDob, String strConfirmationNo) {
+
         if (mCommonProgressDialog == null) {
             mCommonProgressDialog = ResvUtils.createProgressDialog(this);
             mCommonProgressDialog.show();
@@ -102,18 +138,19 @@ public class SearchAppointmentActivity extends AppCompatActivity implements View
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
 
-        Call<UpCommingAppointmentModel> call = apiService.getSearchAppointment(getString(R.string.token), getString(R.string.org_id), strLastName,strDob,strConfirmationNo);
+        Call<SearchAppointment> call = apiService.getSearchAppointment(getString(R.string.token), getString(R.string.org_id), strLastName,strDob,strConfirmationNo);
 
-        call.enqueue(new Callback<UpCommingAppointmentModel>() {
+        call.enqueue(new Callback<SearchAppointment>() {
             @Override
-            public void onResponse(Call<UpCommingAppointmentModel> call, Response<UpCommingAppointmentModel> response) {
+            public void onResponse(Call<SearchAppointment> call, Response<SearchAppointment> response) {
                 response.raw().request().url();
                 if (mCommonProgressDialog != null)
                     mCommonProgressDialog.cancel();
                 try {
-                    Result results = response.body().getResult();
-                    histories = Arrays.asList(results.getUpcoming());
+
+                    histories = response.body().getResult();
                     if(histories.size()>0) {
+                        mLlSearch.setVisibility(View.VISIBLE);
                         mAppointmentListAdapter = new AppointmentListAdapter(SearchAppointmentActivity.this, histories);
                         mTvEmptyView.setVisibility(View.GONE);
                         mLvAppointmentList.setVisibility(View.VISIBLE);
@@ -128,7 +165,7 @@ public class SearchAppointmentActivity extends AppCompatActivity implements View
             }
 
             @Override
-            public void onFailure(Call<UpCommingAppointmentModel> call, Throwable t) {
+            public void onFailure(Call<SearchAppointment> call, Throwable t) {
                 // Log error here since request failed
                 Log.e(TAG, t.toString());
                 if (mCommonProgressDialog != null)
@@ -137,7 +174,6 @@ public class SearchAppointmentActivity extends AppCompatActivity implements View
 
             }
         });
-
 
     }
 
@@ -206,6 +242,10 @@ public class SearchAppointmentActivity extends AppCompatActivity implements View
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        History appointmentDataTime=(History) mLvAppointmentList.getItemAtPosition(i);
+        Intent intent=new Intent(this,AppointmentDetailsActivity.class);
+        intent.putExtra("selectedItem",appointmentDataTime);
+        startActivity(intent);
 
     }
 }

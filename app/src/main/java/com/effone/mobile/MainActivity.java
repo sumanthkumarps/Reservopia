@@ -1,5 +1,6 @@
 package com.effone.mobile;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -20,6 +21,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -371,6 +373,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mTvEmptyView=(LinearLayout) findViewById(R.id.tv_empty_view);
         mTvSearch=(TextView)findViewById(R.id.tv_search_and_title);
         mIvSearch=(ImageView)findViewById(R.id.iv_search);
+        if(AppPreferene.with(this).getUserId().equals(""))
+            mIvSearch.setVisibility(View.VISIBLE);
+        else
+            mIvSearch.setVisibility(View.GONE);
+
         mTvBookingAppiontemnt = (TextView) findViewById(R.id.tv_booking_app);
         mTvTitle = (TextView) findViewById(R.id.tv_title);
 
@@ -406,8 +413,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onResume() {
         super.onResume();
+
         mTvCountAppointment=(TextView)findViewById(R.id.tv_count_appointments);
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+        InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+        if (imm.isActive()){
+            imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0); // hide
+        }
         checkingUpcomingAppointment();
         changingLogoutImages();
     }
@@ -615,6 +627,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mIvLogout.setText(getString(R.string.logout));
             mIvBackBtn.setVisibility(View.VISIBLE);
         }
+        mIvSearch=(ImageView)findViewById(R.id.iv_search);
+        if(AppPreferene.with(this).getUserId().equals(""))
+            mIvSearch.setVisibility(View.VISIBLE);
+        else
+            mIvSearch.setVisibility(View.GONE);
     }
 
     private void removeDataFromPreference() {

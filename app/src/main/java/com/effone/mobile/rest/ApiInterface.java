@@ -9,9 +9,11 @@ import com.effone.mobile.model.Confirmation;
 import com.effone.mobile.model.DateTime;
 import com.effone.mobile.model.ForgotPasswordResponse;
 import com.effone.mobile.model.GetTimeZones;
+import com.effone.mobile.model.History;
 import com.effone.mobile.model.LocationAndService;
 import com.effone.mobile.model.LoginResult;
 import com.effone.mobile.model.Response;
+import com.effone.mobile.model.SearchAppointment;
 import com.effone.mobile.model.Title;
 import com.effone.mobile.model.UpCommingAppointmentModel;
 import com.effone.mobile.model.User;
@@ -78,8 +80,8 @@ public interface ApiInterface {
 
 
 
-    @GET("Register/SearchAppointment")
-    Call<UpCommingAppointmentModel> getSearchAppointment(@Header("Token") String apiKey, @Query("orgID") String orgID, @Query("lastName")String lastName, @Query("dateOfBirth") String dateOfBirth, @Query("confirmationNo") String confirmationNo);
+    @GET("Appointment/SearchAppointment")
+    Call<SearchAppointment> getSearchAppointment(@Header("Token") String apiKey, @Query("orgID") String orgID, @Query("lastName")String lastName, @Query("dateOfBirth") String dateOfBirth, @Query("confirmationNo") String confirmationNo);
 
 
     /*need to be implement and change params*/
