@@ -295,7 +295,7 @@ public class ResetNForgotActivity extends AppCompatActivity implements View.OnCl
                                     registerResponse =
                                             adapter.fromJson(responses.errorBody().string());
                                 if(!registerResponse.getResult()){
-                                    ResvUtils.createOKAlert(ResetNForgotActivity.this, "Error", registerResponse.getMessage());
+                                    ResvUtils.createOKAlert(ResetNForgotActivity.this, "Error", "Invalid old password");
                                 }else {
                                     ResvUtils.createOKAlert(ResetNForgotActivity.this, "", "Your password has been changed successfully.", new DialogInterface.OnClickListener() {
                                         @Override
@@ -325,90 +325,9 @@ public class ResetNForgotActivity extends AppCompatActivity implements View.OnCl
 
     }
     boolean isShow;
-    public void drawerRightEye(final EditText editText){
-        editText.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                final int DRAWABLE_LEFT = 0;
-                final int DRAWABLE_TOP = 1;
-                final int DRAWABLE_RIGHT = 2;
-                final int DRAWABLE_BOTTOM = 3;
-
-                if(event.getAction() == MotionEvent.ACTION_UP) {
-                    if(event.getX() >= (editText.getWidth() - editText
-                            .getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-
-                        if(!isShow) {
-                            editText.setTransformationMethod(null);
-                            isShow=true;
-                            editText.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.ic_visibility_off_black_24dp, 0);
-                        }
-                        else{
-                            editText.setTransformationMethod(new PasswordTransformationMethod());
-                            editText.setCompoundDrawablesWithIntrinsicBounds(0, 0,  R.drawable.ic_visibility_black_24dp, 0);
-                            isShow=false;
-                        }
-                        editText.setSelection(editText.getText().length());
-                        return true;
-                    }
-                }
-                return false;
-            }
-        });
-    }
 
 
 
-
-    private void changePassword(String email,String oldpassword, String password) {
-        if (mCommonProgressDialog == null) {
-            mCommonProgressDialog = ResvUtils.createProgressDialog(this);
-            mCommonProgressDialog.show();
-            mCommonProgressDialog.setMessage("Please wait...");
-            mCommonProgressDialog.setCancelable(false);
-        } else {
-            mCommonProgressDialog.show();
-        }
-
-
-        Call<ChangePassword> call = apiService.getChangedPassword(getString(R.string.token),email,oldpassword,password);
-
-
-        call.enqueue(new Callback<ChangePassword>() {
-
-            @Override
-            public void onResponse(Call<ChangePassword> call, Response<ChangePassword> response) {
-                if (mCommonProgressDialog != null)
-                    mCommonProgressDialog.cancel();
-                response.raw().request().url();
-
-                if (response.body() != null) {
-                    if (response.body().getMessage() != null) {
-                            ResvUtils.createOKAlert(ResetNForgotActivity.this, "", "Your password has been changed successfully.", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-
-                                }
-                            });
-
-
-                    }
-
-
-                }else{
-                    ResvUtils.createErrorAlert(ResetNForgotActivity.this,"Error","Something went wrong");
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<ChangePassword> call, Throwable t) {
-                if (mCommonProgressDialog != null)
-                    mCommonProgressDialog.cancel();
-            }
-
-      });
-    }
 
 
     private void forgotPasswordApi(String email) {

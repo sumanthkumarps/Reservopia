@@ -97,7 +97,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             app:errorTextAppearance="@style/error_appearance"
-                            android:layout_marginBottom="-3dp"
+
                             android:layout_weight="0.60"
                             app:hintEnabled="false">
 
@@ -106,7 +106,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="50dp"
                                 android:textSize="@dimen/font_size"
-                                android:layout_marginBottom="-5dp"
+                                android:layout_marginTop="-5dp"
+                                android:layout_marginBottom="-3dp"
                                 android:hint="@string/email1"
                                 android:inputType="textEmailAddress"
                                 android:maxLength="35" />
