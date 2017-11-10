@@ -639,6 +639,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         user.setAuditID(0);
         user.setIsTempPassword(0);
         user.setOrgID(1);
+        if(isEditProfile)
+           user.setUserID(AppPreferene.with(this).getEmail());
+        else
+            user.setUserID("0");
+
         user.setIsEndUser(1);
         UserAddress userAddress = new UserAddress();
         userAddress.setAddressLine1("");

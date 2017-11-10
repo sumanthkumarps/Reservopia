@@ -149,7 +149,7 @@
     <string name="all_field">All fields are required.</string>
     <string name="email_error_msg">Email is required.</string>
     <string name="phone_error_msg">Must be 10 digits number.</string>
-    <string name="password_error_msg">Must contain  8 to 15 chars.</string>
+    <string name="password_error_msg">Must contain  6 to 15 chars.</string>
     <string name="re_password_mssg">Must match with password.</string>
 
     <string name="didnotmatch_error_msg">Doesn’t match the password.</string>
