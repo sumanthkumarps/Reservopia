@@ -227,9 +227,11 @@ public class ResetNForgotActivity extends AppCompatActivity implements View.OnCl
                     }else
                     if (!validation.isValidEmail(mEtEmailForReset.getText().toString().trim())) {
                         ResvUtils.createOKAlert(this, getResources().getString(R.string.headercreateaccount), getResources().getString(R.string.email_error_msg));
+                    }else if(!validation.isValidPassword(mEtMailedPassword.getText().toString().trim())){
+                        ResvUtils.createOKAlert(this, getResources().getString(R.string.headercreateaccount),"Old Password : "+ getResources().getString(R.string.passwordmsg));
                     }else
                     if (!validation.isValidPassword(mEtPassword.getText().toString().trim())) {
-                        ResvUtils.createOKAlert(this, getResources().getString(R.string.headercreateaccount), getResources().getString(R.string.passwordmsg));
+                        ResvUtils.createOKAlert(this, getResources().getString(R.string.headercreateaccount),"New Password : "+ getResources().getString(R.string.passwordmsg));
                     } else if(mEtPassword.getText().toString().trim().equals(mEtConfirmPassword.getText().toString().trim())){
                        // changePassword(mEtEmailForReset.getText().toString().trim(),mEtMailedPassword.getText().toString().trim(),mEtPassword.getText().toString().trim());
                         passowrdChanged(mEtEmailForReset.getText().toString().trim(),mEtMailedPassword.getText().toString().trim(),mEtPassword.getText().toString().trim());

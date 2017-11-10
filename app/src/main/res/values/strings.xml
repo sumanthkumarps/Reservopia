@@ -79,7 +79,7 @@
     <string name="headercreateaccount">Please Validate</string>
     <string name="time_slot_validation">Time Slot</string>
     <string name="user_validation">User Registration</string>
-    <string name="passworddoednotmatch">Password and re-password mismatch.</string>
+    <string name="passworddoednotmatch">Password and Re-Password mismatch.</string>
     <string name="firstname">enter first name</string>
     <string name="lastname">enter last name</string>
     <string name="dateofbirth">mm/dd/yyyy</string>
