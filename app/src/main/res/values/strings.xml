@@ -162,5 +162,6 @@
     <string name="search_result">Search result</string>
     <string name="profile">Profile</string>
     <string name="edit_profile">Edit Profile</string>
+    <string name="email_error_msg_valid">Enter valid email.</string>
 
 </resources>

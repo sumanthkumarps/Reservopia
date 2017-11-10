@@ -536,8 +536,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             mTvPhone.setError(getString(R.string.phone_error_msg));
             count++;
         }
-
-        if (!validate.isValidEmail(mStEmail)) {
+        if(mStEmail.length()!=0) {
+            if (!validate.isValidEmail(mStEmail)) {
+                mTvEmail.setError(getString(R.string.email_error_msg_valid));
+                count++;
+            }
+        }else{
             mTvEmail.setError(getString(R.string.email_error_msg));
             count++;
         }

@@ -385,19 +385,15 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
             }
             body.setConfirmationNo(Integer.parseInt(appointment_id));
             body.setAppointmentTypeRefID(27);
-
             body.setServiceID("" + serviceTable);
             body.setStartTime("" + timeSlotStrings.getStartTime());
             body.setEndTime("" + timeSlotStrings.getEndTime());
             body.setScheduledTimeZone("" + timeZoneTable);
-
             body.setSendEmailReminder(0);
             body.setSendTextReminder(0);
             body.setAdditionalEmail("");
             body.setIsLoggedIn(0);
             body.setIsCheckedIn(0);
-
-
             body.setIsCancelled(0);
             body.setCancelTypeRefID("");
             body.setCancelledBy("");
@@ -405,13 +401,11 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
             body.setAssignedTo("");
             body.setAuditID(""+3);
             body.setOrgID(""+getString(R.string.org_id));
-
             Intent intent =new Intent(this,RegisterActivity.class);
             intent.putExtra("appointment_details",body);
             intent.putExtra("editAppointment",editAppointment);
             startActivity(intent);
           /*  if (!body.getUserID().equals("0")) {
-
                 ApiInterface apiService =
                         ApiClient.getClient().create(ApiInterface.class);
                 Call<com.effone.mobile.model.Response> response = apiService.createAppointment(getString(R.string.token), body);
@@ -457,7 +451,6 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
 
             }*/
         }else{
-
             ResvUtils.createOKAlert(this, getResources().getString(R.string.time_slot_validation), getString(R.string.select_time_slot));
 
         }
