@@ -825,6 +825,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         if (mCommonProgressDialog != null)
             mCommonProgressDialog.cancel();
         if (!rawResponse.isSuccessful()) {
+
             UserDetails registerResponse = null;
             Log.d(TAG, "onResponse - Status : " + rawResponse.code());
             Gson gson = new Gson();

@@ -2,6 +2,7 @@ package com.effone.mobile.Activity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -147,22 +148,35 @@ public class SearchAppointmentActivity extends AppCompatActivity implements View
                 if (mCommonProgressDialog != null)
                     mCommonProgressDialog.cancel();
                 try {
+                    if (!response.isSuccessful()) {
+                        ResvUtils.createOKAlert(SearchAppointmentActivity.this, "Error", "No Appointment Found.");
+                    } else {
+                        histories = response.body().getResult();
 
-                    histories = response.body().getResult();
-                    if(histories.size()>0) {
-                        mLlSearch.setVisibility(View.VISIBLE);
-                        mAppointmentListAdapter = new AppointmentListAdapter(SearchAppointmentActivity.this, histories);
-                        mTvEmptyView.setVisibility(View.GONE);
-                        mLvAppointmentList.setVisibility(View.VISIBLE);
-                        mLvAppointmentList.setAdapter(mAppointmentListAdapter);
-                        mLvAppointmentList.setOnItemClickListener(SearchAppointmentActivity.this);
-                    }else
-                        removingCompleteData();
-                    mTvCountAppointment.setText("" + histories.size());
-                }catch (Exception e){
-                    mLvAppointmentList.setEmptyView(findViewById(R.id.tv_history));
+                        if (histories.size() > 0) {
+                            mLlSearch.setVisibility(View.VISIBLE);
+                            mAppointmentListAdapter = new AppointmentListAdapter(SearchAppointmentActivity.this, histories);
+                            mTvEmptyView.setVisibility(View.GONE);
+                            mLvAppointmentList.setVisibility(View.VISIBLE);
+                            mLvAppointmentList.setAdapter(mAppointmentListAdapter);
+                            mLvAppointmentList.setOnItemClickListener(SearchAppointmentActivity.this);
+                        } else {
+                            mLlSearch.setVisibility(View.GONE);
+                            removingCompleteData();
+                            ResvUtils.createOKAlert(SearchAppointmentActivity.this, "Error", "No Search Found.", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    finish();
+                                }
+                            });
+                        }
+
+                        mTvCountAppointment.setText("" + histories.size());
+                    }
+                }catch(Exception e){
+                        mLvAppointmentList.setEmptyView(findViewById(R.id.tv_history));
+                    }
                 }
-            }
 
             @Override
             public void onFailure(Call<SearchAppointment> call, Throwable t) {
@@ -170,6 +184,12 @@ public class SearchAppointmentActivity extends AppCompatActivity implements View
                 Log.e(TAG, t.toString());
                 if (mCommonProgressDialog != null)
                     mCommonProgressDialog.cancel();
+                ResvUtils.createOKAlert(SearchAppointmentActivity.this, "Error", "No Search Found.", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        finish();
+                    }
+                });
                 mLvAppointmentList.setEmptyView(findViewById(R.id.tv_history));
 
             }
