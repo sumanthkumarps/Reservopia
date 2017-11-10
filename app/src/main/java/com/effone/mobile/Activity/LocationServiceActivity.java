@@ -396,6 +396,8 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
             body.setAdditionalEmail("");
             body.setIsLoggedIn(0);
             body.setIsCheckedIn(0);
+
+
             body.setIsCancelled(0);
             body.setCancelTypeRefID("");
             body.setCancelledBy("");
