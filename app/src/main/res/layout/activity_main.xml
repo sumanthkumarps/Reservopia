@@ -238,6 +238,8 @@
                 android:textColor="@color/hostisMe"
                 android:textSize="@dimen/header" />
         </LinearLayout>
+        <include layout="@layout/searchdetails"
+          />
     </LinearLayout>
 
     <View
@@ -245,5 +247,6 @@
         android:layout_height="0dp"
         android:layout_weight=".003"
         android:background="@color/divider" />
+
 
 </LinearLayout>

@@ -95,7 +95,6 @@
                 android:id="@+id/tv_name_label"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-
                 android:gravity="left|center"
                 android:layout_marginRight="20dp"
                 android:text="@string/time_Zone"
@@ -111,12 +110,10 @@
 
             <TextView
                 android:id="@+id/tv_timeZone"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-
                 android:gravity="left|center"
-
                 android:textSize="@dimen/font_size" />
         </TableRow>
 

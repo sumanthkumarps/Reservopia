@@ -1,5 +1,6 @@
 package com.effone.mobile;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,17 +11,23 @@ import java.util.Calendar;
 
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.PopupMenu;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -37,6 +44,7 @@ import com.effone.mobile.Activity.SearchAppointmentActivity;
 import com.effone.mobile.adapter.AppointmentListAdapter;
 import com.effone.mobile.common.AppPreferene;
 import com.effone.mobile.common.ResvUtils;
+import com.effone.mobile.common.Validation;
 import com.effone.mobile.model.AppointmentDataTime;
 import com.effone.mobile.model.GetTimeZones;
 import com.effone.mobile.model.History;
@@ -46,6 +54,7 @@ import com.effone.mobile.model.Locations;
 import com.effone.mobile.model.LocationsXServices;
 import com.effone.mobile.model.ProviderTable;
 import com.effone.mobile.model.Result;
+import com.effone.mobile.model.SearchAppointment;
 import com.effone.mobile.model.Services;
 import com.effone.mobile.model.TimeZoneDetails;
 import com.effone.mobile.model.Title;
@@ -100,6 +109,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private  TextView mIvLogout;
     private TextView mTvSearch;
     private ImageView mIvSearch;
+
+    private  LinearLayout mLLSearchBox;
+
+
+    private EditText mEtLastName;
+    private EditText mEtDob;
+    private EditText mEtConfirmNo;
+    private Button mBtSubmit;
+    private LinearLayout mLlSearch;
+
+    private TextInputLayout mTvLastName,mTvDateOfBirth,mTvConfirmation;
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -375,7 +395,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mIvSearch.setVisibility(View.VISIBLE);
         else
             mIvSearch.setVisibility(View.GONE);
-
+        mLLSearchBox=(LinearLayout)findViewById(R.id.search_in);
         mTvBookingAppiontemnt = (TextView) findViewById(R.id.tv_booking_app);
         mTvTitle = (TextView) findViewById(R.id.tv_title);
 
@@ -396,9 +416,105 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         settingData();
         settingAboutUs();
 
+        mLLSearchBox.setVisibility(View.GONE);
 
+        searchBoxFields();
     }
 
+    private void searchBoxFields() {
+        declare();
+    }
+    private TextWatcher mDateEntryWatcher = new TextWatcher() {
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            String working = s.toString();
+            boolean isValid = true;
+            boolean isValidYear = true;
+            if (working.length() == 2 && before == 0) {
+                if (Integer.parseInt(working) < 1 || Integer.parseInt(working) > 12) {
+                    isValid = false;
+                } else {
+                    working += "/";
+                    mEtDob.setText(working);
+                    mEtDob.setSelection(working.length());
+                }
+            } else if (working.length() == 5 && before == 0) {
+                String month = working.substring(3);
+                if (Integer.parseInt(month) > 31) {
+                    isValid = false;
+                } else {
+                    working += "/";
+                    mEtDob.setText(working);
+                    mEtDob.setSelection(working.length());
+                }
+            } else if (working.length() == 10 && before == 0) {
+                String enteredYear = working.substring(6);
+                int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+                int minYear = currentYear - 120;
+                int intEnterYear = Integer.parseInt(enteredYear);
+                if (intEnterYear > currentYear || intEnterYear < minYear) {
+                    isValidYear = false;
+                }
+            } else if (working.length() != 10) {
+                isValid = false;
+            }
+
+            if (!isValid || !isValidYear) {
+                if (!isValidYear)
+                    mEtDob.setError("Invalid Year");
+                else
+                    mEtDob.setError(getString(R.string.dobMsg));
+            } else {
+                mEtDob.setError(null);
+            }
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+    };
+
+    private void declare() {
+        mEtLastName=(EditText)findViewById(R.id.et_last_name);
+        mEtDob=(EditText)findViewById(R.id.et_date_birth);
+        mTvSearch=(TextView)findViewById(R.id.tv_search_and_title);
+        mEtDob.addTextChangedListener(mDateEntryWatcher);
+        mEtConfirmNo=(EditText)findViewById(R.id.et_confirmation_no);
+
+        mBtSubmit=(Button)findViewById(R.id.bt_submit);
+        mBtSubmit.setTransformationMethod(null);
+        mBtSubmit.setOnClickListener(this);
+        mTvLastName=(TextInputLayout)findViewById(R.id.input_layout_last);
+        mTvDateOfBirth=(TextInputLayout)findViewById(R.id.input_layout_date_birth);
+        mTvConfirmation=(TextInputLayout)findViewById(R.id.input_layout_coniframtion_no);
+        mBtSubmit.setTransformationMethod(null);
+        mTvTitle = (TextView) findViewById(R.id.tv_title);
+        mTvCountAppointment=(TextView)findViewById(R.id.tv_count_appointments);
+        mTvTitle.setText(getString(R.string.search));
+        final Validation validation=new Validation();
+
+        mEtLastName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                EditText editText = (EditText) v;
+                String text = editText.getText().toString();
+                if (!validation.isValidFirstName(text)) {
+                    mTvLastName.setError(getString(R.string.last_error_msg));
+                } else {
+                    mTvLastName.setErrorEnabled(false);
+                }
+            }
+        });
+
+
+    }
     @Override
     protected void onStart() {
         super.onStart();
@@ -471,6 +587,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             mTvSearch.setText(getString(R.string.upcomingAppointment));
                         mAppointmentListAdapter = new AppointmentListAdapter(MainActivity.this, histories);
                         mTvEmptyView.setVisibility(View.GONE);
+
                         mLvAppointmentList.setVisibility(View.VISIBLE);
                         mLvAppointmentList.setAdapter(mAppointmentListAdapter);
                         mLvAppointmentList.setOnItemClickListener(MainActivity.this);
@@ -529,7 +646,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 showMenu(view);
                 break;
             case R.id.iv_search:
-                openActivity(this, SearchAppointmentActivity.class);
+              /*  openActivity(this, SearchAppointmentActivity.class);*/
+              if(mLLSearchBox.getVisibility() != View.VISIBLE){
+                  mTvSearch.setText(getString(R.string.upcomingAppointment));
+                  mLLSearchBox.setVisibility(View.GONE);
+              }else {
+                  mTvSearch.setText(getString(R.string.find_your_appointment));
+                  mLLSearchBox.setVisibility(View.VISIBLE);
+              }
                 break;
             case R.id.tv_booking_app:
 
@@ -580,8 +704,127 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
 
                 break;
+            case R.id.bt_submit:
+                SearchApiCall();
+
         }
 
+    }
+
+    private void SearchApiCall() {
+        Validation validation =new Validation();
+        String strLastName=mEtLastName.getText().toString();
+        String strDob=mEtDob.getText().toString();
+        String strConfirmationNo=mEtConfirmNo.getText().toString();
+        InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+        if (imm.isActive()){
+            imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0); // hide
+        }
+        if(!validation.isValidFirstName(strLastName)){
+            mTvLastName.setError(getString(R.string.last_error_msg));
+        }else{
+            int count=0;
+            if(strConfirmationNo.equals("")) {
+                strConfirmationNo = "0";
+                count=0;
+            }
+            if(!strDob.equals("")||!strConfirmationNo.equals("0")) {
+                searchingData(strLastName,strDob,strConfirmationNo);
+                mTvDateOfBirth.setError(null);
+            }else{
+                mTvDateOfBirth.setError(getString(R.string.dobMsg));
+
+            }
+
+        }
+
+
+    }
+
+    private void searchingData(String strLastName, String strDob, String strConfirmationNo) {
+
+        if (mCommonProgressDialog == null) {
+            mCommonProgressDialog = ResvUtils.createProgressDialog(this);
+            mCommonProgressDialog.show();
+            mCommonProgressDialog.setMessage("Please wait...");
+            mCommonProgressDialog.setCancelable(false);
+        } else {
+            mCommonProgressDialog.show();
+        }
+
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
+
+        Call<SearchAppointment> call = apiService.getSearchAppointment(getString(R.string.token), getString(R.string.org_id), strLastName,strDob,strConfirmationNo);
+
+        call.enqueue(new Callback<SearchAppointment>() {
+            @Override
+            public void onResponse(Call<SearchAppointment> call, Response<SearchAppointment> response) {
+                response.raw().request().url();
+                if (mCommonProgressDialog != null)
+                    mCommonProgressDialog.cancel();
+                try {
+                    if (!response.isSuccessful()) {
+                        ResvUtils.createOKAlert(MainActivity.this, "Error", "No Appointment Found.");
+                    } else {
+                        histories = response.body().getResult();
+
+                        if (histories.size() > 0) {
+                            mLlSearch.setVisibility(View.VISIBLE);
+                            if(histories.size()>1)
+                                mTvSearch.setText(getString(R.string.upcomingAppointments));
+                            else
+                                mTvSearch.setText(getString(R.string.upcomingAppointment));
+                            mAppointmentListAdapter = new AppointmentListAdapter(MainActivity.this, histories);
+                            mTvEmptyView.setVisibility(View.GONE);
+                            mLvAppointmentList.setVisibility(View.VISIBLE);
+                            mLvAppointmentList.setAdapter(mAppointmentListAdapter);
+                            mLvAppointmentList.setOnItemClickListener(MainActivity.this);
+                        } else {
+                            mLlSearch.setVisibility(View.GONE);
+                            mTvSearch.setText(getString(R.string.upcomingAppointment));
+                            removingCompleteData();
+                            ResvUtils.createOKAlert(MainActivity.this, "Error", "No Search Found.", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    finish();
+                                }
+                            });
+                        }
+
+                        mTvCountAppointment.setText("" + histories.size());
+                        hidingKeyBoard();
+                    }
+                }catch(Exception e){
+                    mLvAppointmentList.setEmptyView(findViewById(R.id.tv_history));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SearchAppointment> call, Throwable t) {
+                // Log error here since request failed
+                Log.e(TAG, t.toString());
+                if (mCommonProgressDialog != null)
+                    mCommonProgressDialog.cancel();
+                ResvUtils.createOKAlert(MainActivity.this, "Error", "No Search Found.", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        finish();
+                    }
+                });
+                mLvAppointmentList.setEmptyView(findViewById(R.id.tv_history));
+
+            }
+        });
+
+    }
+    private void hidingKeyBoard() {
+        View views = this.getCurrentFocus();
+        if (views != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(views.getWindowToken(), 0);
+        }
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
 
 

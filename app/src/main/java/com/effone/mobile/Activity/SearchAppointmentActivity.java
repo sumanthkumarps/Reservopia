@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -60,6 +61,8 @@ public class SearchAppointmentActivity extends AppCompatActivity implements View
     private TextView mTvSearch;
     private String TAG="SearchActivity";
 
+    private TextInputLayout mTvLastName,mTvDateOfBirth,mTvConfirmation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,14 +103,34 @@ public class SearchAppointmentActivity extends AppCompatActivity implements View
         mLlSearch=(LinearLayout)findViewById(R.id.search_result_lay);
         mLlSearch.setVisibility(View.GONE);
         mBtSubmit=(Button)findViewById(R.id.bt_submit);
+        mBtSubmit.setTransformationMethod(null);
         mTvEmptyView=(LinearLayout) findViewById(R.id.tv_empty_view);
         mBtSubmit.setOnClickListener(this);
+        mTvLastName=(TextInputLayout)findViewById(R.id.input_layout_last);
+        mTvDateOfBirth=(TextInputLayout)findViewById(R.id.input_layout_date_birth);
+        mTvConfirmation=(TextInputLayout)findViewById(R.id.input_layout_coniframtion_no);
         mBtSubmit.setTransformationMethod(null);
         mTvTitle = (TextView) findViewById(R.id.tv_title);
         mTvCountAppointment=(TextView)findViewById(R.id.tv_count_appointments);
         mTvTitle.setText(getString(R.string.search));
         mLvAppointmentList=(ListView)findViewById(R.id.lv_upcomingAppointent);
         mLvAppointmentList.setOnItemClickListener(this);
+            final Validation validation=new Validation();
+
+        mEtLastName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                EditText editText = (EditText) v;
+                String text = editText.getText().toString();
+                if (!validation.isValidFirstName(text)) {
+                    mTvLastName.setError(getString(R.string.last_error_msg));
+                } else {
+                    mTvLastName.setErrorEnabled(false);
+                }
+            }
+        });
+
+
     }
 
     @Override
@@ -128,7 +151,7 @@ public class SearchAppointmentActivity extends AppCompatActivity implements View
             imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0); // hide
         }
         if(!validation.isValidFirstName(strLastName)){
-            mEtLastName.setError(getString(R.string.last_error_msg));
+            mTvLastName.setError(getString(R.string.last_error_msg));
         }else{
             int count=0;
             if(strConfirmationNo.equals("")) {
@@ -137,9 +160,9 @@ public class SearchAppointmentActivity extends AppCompatActivity implements View
             }
             if(!strDob.equals("")||!strConfirmationNo.equals("0")) {
                 searchingData(strLastName,strDob,strConfirmationNo);
-                mEtDob.setError(null);
+                mTvDateOfBirth.setError(null);
             }else{
-                mEtDob.setError(getString(R.string.dobMsg));
+                mTvDateOfBirth.setError(getString(R.string.dobMsg));
 
             }
 
