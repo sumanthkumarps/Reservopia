@@ -9,9 +9,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/search_lay"
         android:layout_below="@+id/header"
-        android:orientation="vertical"
-        android:padding="5dp">
-
+        android:orientation="vertical">
         <RelativeLayout
             android:id="@+id/login_info"
             android:layout_width="match_parent"
@@ -25,8 +23,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:id="@+id/table_lay"
-                android:layout_below="@+id/tv_reset_password_title"
-                android:background="@drawable/rounded_corner">
+                android:layout_below="@+id/tv_reset_password_title">
 
                 <LinearLayout
                     android:id="@+id/line1"

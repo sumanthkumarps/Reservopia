@@ -9,6 +9,7 @@ import android.content.Intent;
 import java.util.Arrays;
 import java.util.Calendar;
 
+import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.TextInputLayout;
@@ -17,7 +18,12 @@ import android.os.Bundle;
 import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.PopupMenu;
 import android.text.Editable;
+import android.text.Html;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextWatcher;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
@@ -386,8 +392,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
     LinearLayout mTvEmptyView;
-
+    private TextView mTVSearchErrorMsg;
     private void declarations() {
+        mTVSearchErrorMsg=(TextView)findViewById(R.id.tv_appointment_result);
         mTvEmptyView=(LinearLayout) findViewById(R.id.tv_empty_view);
         mTvSearch=(TextView)findViewById(R.id.tv_search_and_title);
         mIvSearch=(ImageView)findViewById(R.id.iv_search);
@@ -495,9 +502,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mTvDateOfBirth=(TextInputLayout)findViewById(R.id.input_layout_date_birth);
         mTvConfirmation=(TextInputLayout)findViewById(R.id.input_layout_coniframtion_no);
         mBtSubmit.setTransformationMethod(null);
-        mTvTitle = (TextView) findViewById(R.id.tv_title);
         mTvCountAppointment=(TextView)findViewById(R.id.tv_count_appointments);
-        mTvTitle.setText(getString(R.string.search));
         final Validation validation=new Validation();
 
         mEtLastName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -531,7 +536,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mTvCountAppointment=(TextView)findViewById(R.id.tv_count_appointments);
 
-
         checkingUpcomingAppointment();
         changingLogoutImages();
     }
@@ -539,10 +543,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void checkingUpcomingAppointment() {
         if(!AppPreferene.with(this).getEmail().equals("")) {
             upcomingAppointmentList();
-
         }
         else{
-         removingCompleteData();
+            mTvSearch.setText(getString(R.string.upcomingAppointment));
+            mTvCountAppointment.setVisibility(View.VISIBLE);
+            mLLSearchBox.setVisibility(View.GONE);
+            removingCompleteData();
+            mTVSearchErrorMsg.setText(getString(R.string.noappontmentfound));
         }
     }
 
@@ -593,6 +600,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         mLvAppointmentList.setOnItemClickListener(MainActivity.this);
                     }else
                         removingCompleteData();
+                    mTVSearchErrorMsg.setText(getString(R.string.noappontmentfound));
+                    mTvCountAppointment.setVisibility(View.VISIBLE);
                     mTvCountAppointment.setText("" + histories.size());
                 }catch (Exception e){
                     mLvAppointmentList.setEmptyView(findViewById(R.id.tv_history));
@@ -647,13 +656,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.iv_search:
               /*  openActivity(this, SearchAppointmentActivity.class);*/
-              if(mLLSearchBox.getVisibility() != View.VISIBLE){
+              if(mLLSearchBox.getVisibility() == View.VISIBLE){
                   mTvSearch.setText(getString(R.string.upcomingAppointment));
                   mLLSearchBox.setVisibility(View.GONE);
+                  checkingUpcomingAppointment();
+                  mTvCountAppointment.setVisibility(View.VISIBLE);
               }else {
                   mTvSearch.setText(getString(R.string.find_your_appointment));
+                  mTvCountAppointment.setVisibility(View.GONE);
+                  mTvEmptyView.setVisibility(View.GONE);
+                  mLvAppointmentList.setVisibility(View.GONE);
                   mLLSearchBox.setVisibility(View.VISIBLE);
               }
+                hidingKeyBoard();
                 break;
             case R.id.tv_booking_app:
 
@@ -741,8 +756,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private void searchingData(String strLastName, String strDob, String strConfirmationNo) {
-
+    private void searchingData(final String strLastName, final String strDob, final String strConfirmationNo) {
+        hidingKeyBoard();
         if (mCommonProgressDialog == null) {
             mCommonProgressDialog = ResvUtils.createProgressDialog(this);
             mCommonProgressDialog.show();
@@ -761,21 +776,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onResponse(Call<SearchAppointment> call, Response<SearchAppointment> response) {
                 response.raw().request().url();
+                hidingKeyBoard();
                 if (mCommonProgressDialog != null)
                     mCommonProgressDialog.cancel();
                 try {
+
                     if (!response.isSuccessful()) {
-                        ResvUtils.createOKAlert(MainActivity.this, "Error", "No Appointment Found.");
+                      //  ResvUtils.createOKAlert(MainActivity.this, "Error", "No Appointment Found.");
+                        mLLSearchBox.setVisibility(View.GONE);
+                        removingCompleteData();
+                        mTVSearchErrorMsg.setText("No Appointment found.");
                     } else {
                         histories = response.body().getResult();
 
                         if (histories.size() > 0) {
-                            mLlSearch.setVisibility(View.VISIBLE);
+                          ///  mLlSearch.setVisibility(View.VISIBLE);
                             mLLSearchBox.setVisibility(View.GONE);
-                            if(histories.size()>1)
-                                mTvSearch.setText(getString(R.string.upcomingAppointments));
-                            else
-                                mTvSearch.setText(getString(R.string.upcomingAppointment));
+                            if(histories.size()>1) {
+                              mTvSearch.setText(getString(R.string.search_result)/* + "( Last Name " + strLastName + "Confirmation No :" + strConfirmationNo + ")"*/);
+                            }else {
+                                mTvSearch.setText(getString(R.string.search_result)/* + "( Last Name " + strLastName + "Confirmation No :" + strConfirmationNo + ")"*/);
+                            }
                             mAppointmentListAdapter = new AppointmentListAdapter(MainActivity.this, histories);
                             mTvEmptyView.setVisibility(View.GONE);
                             mLvAppointmentList.setVisibility(View.VISIBLE);
@@ -784,7 +805,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         } else {
                             mLlSearch.setVisibility(View.GONE);
                             mLLSearchBox.setVisibility(View.GONE);
-                            mTvSearch.setText(getString(R.string.upcomingAppointment));
+                            mTvSearch.setText(getString(R.string.search_result));
                             removingCompleteData();
                             ResvUtils.createOKAlert(MainActivity.this, "Error", "No Search Found.", new DialogInterface.OnClickListener() {
                                 @Override
@@ -793,7 +814,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 }
                             });
                         }
-
+                        mTvCountAppointment.setVisibility(View.VISIBLE);
                         mTvCountAppointment.setText("" + histories.size());
                         hidingKeyBoard();
                     }

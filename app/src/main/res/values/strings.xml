@@ -130,7 +130,7 @@
     <string name="alphabets">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
     <string name="reset_pass">Reset Password</string>
     <string name="forgot_password_small">Forgot password :</string>
-    <string name="find_your_appointment">Find your appointment :</string>
+    <string name="find_your_appointment">Find your appointment </string>
     <string name="reset_pass_samll">Reset password :</string>
     <string name="forgot_title">Forgot Password</string>
     <string name="fromLogin">fromlogin</string>
@@ -165,5 +165,6 @@
     <string name="edit_profile">Edit Profile</string>
     <string name="email_error_msg_valid">Enter valid email.</string>
     <string name="details_updated">Your profile updated successfully.</string>
+    <string name="noappontmentfound">No appointment found,\n please book a new appointment.</string>
 
 </resources>
