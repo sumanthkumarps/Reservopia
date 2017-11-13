@@ -402,6 +402,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onStart() {
         super.onStart();
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         if (!ResvUtils.Operations.isOnline(this)) {
             ResvUtils.Operations.showNoNetworkActivity(this);
         }
@@ -414,7 +415,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mTvCountAppointment=(TextView)findViewById(R.id.tv_count_appointments);
 
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
         checkingUpcomingAppointment();
         changingLogoutImages();
     }
@@ -464,6 +465,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Result results = response.body().getResult();
                     histories = Arrays.asList(results.getUpcoming());
                     if(histories.size()>0) {
+                        if(histories.size()>1)
+                            mTvSearch.setText(getString(R.string.upcomingAppointments));
+                        else
+                            mTvSearch.setText(getString(R.string.upcomingAppointment));
                         mAppointmentListAdapter = new AppointmentListAdapter(MainActivity.this, histories);
                         mTvEmptyView.setVisibility(View.GONE);
                         mLvAppointmentList.setVisibility(View.VISIBLE);

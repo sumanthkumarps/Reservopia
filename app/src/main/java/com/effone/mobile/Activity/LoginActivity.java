@@ -1,6 +1,7 @@
 package com.effone.mobile.Activity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -14,6 +15,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -131,6 +133,23 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        View views = this.getCurrentFocus();
+        if (views != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(views.getWindowToken(), 0);
+        }
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+    }
+
+    @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.tv_login:
@@ -154,6 +173,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 finish();
                 break;
             case R.id.btnCancel:
+
                 getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
                 finish();
                 break;

@@ -2,6 +2,7 @@
     <string name="app_name">Reservopia</string>
     <string name="histroy">History</string>
     <string name="upcomingAppointment">Upcoming Appointment</string>
+    <string name="upcomingAppointments">Upcoming Appointments</string>
     <string name="select_location">Location </string>
     <string name="about">About</string>
     <string name="booking_app">Book Appointment</string>
@@ -163,5 +164,6 @@
     <string name="profile">Profile</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="email_error_msg_valid">Enter valid email.</string>
+    <string name="details_updated">Your profile updated successfully.</string>
 
 </resources>

@@ -371,6 +371,8 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
                 body.setGender(mAppointmentDateTime.getGender());
                 body.setPhone(mAppointmentDateTime.getPhone());
                 body.setTitle(mAppointmentDateTime.getTitle());
+                body.setEmail(mAppointmentDateTime.getEmail());
+                body.setUserID(mAppointmentDateTime.getUserID());
                 editAppointment=true;
 
             }
@@ -378,8 +380,10 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
             body.setAppointmentID(0);
             body.setLocID("" + locationTable);
             body.setProviderID(""+providerTable);
-            if(AppPreferene.with(LocationServiceActivity.this).getUserId().equals(""))
-                body.setUserID("0");
+            if(AppPreferene.with(LocationServiceActivity.this).getUserId().equals("")) {
+                if (!editAppointment)
+                    body.setUserID("0");
+            }
             else {
                 body.setUserID(AppPreferene.with(LocationServiceActivity.this).getUserId());
             }

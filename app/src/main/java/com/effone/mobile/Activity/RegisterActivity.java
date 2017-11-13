@@ -1,6 +1,7 @@
 package com.effone.mobile.Activity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
@@ -16,6 +17,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -130,6 +132,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 gettingUserDeatils();
             if (mEtEmail.getText().toString().trim().equals(""))
                 mCbCreateAccount.setVisibility(View.GONE);
+            if(isEditProfile){
+                mTvTitle.setText("Update details ");
+                mBtSubmit.setText("Update");
+            }
         }
         catch (Exception e){
             Log.e("",""+e);
@@ -143,7 +149,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         mCbCreateAccount.setVisibility(View.GONE);
         mTvTitle.setText(getString(R.string.edit_personal_info));
         mBtSubmit.setText(getString(R.string.booking_app));
-        mEtEmail.setText(AppPreferene.with(this).getEmail().trim());
+        mEtEmail.setText(appointmentBookingModel.getEmail());
         mEtEmail.setEnabled(false);
 
         try {
@@ -177,6 +183,23 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 break;
             }
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        View views = this.getCurrentFocus();
+        if (views != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(views.getWindowToken(), 0);
+        }
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
 
     private void gettingUserDeatils() {
@@ -216,9 +239,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         mStPassword = userDetailGet.getPassword();
                         RealmResults<TitleNames> titleNames = mRealm.where(TitleNames.class).findAll();
                         TitleNames titleName = mRealm.where(TitleNames.class).equalTo("Value", userDetailGet.getTitle()).findFirst();
-                     /*   ArrayAdapter myAdap = (ArrayAdapter) mSpTitle.getAdapter();
-                        int spinnerPosition = myAdap.getPosition(titleName.getText());
-                        mSpTitle.setSelection(spinnerPosition);*/
                         selectSpinnerValue(mSpTitle, titleName.getText());
                         if (userDetailGet.getGender().equals("male"))
                             male.setChecked(true);
@@ -226,11 +246,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             female.setChecked(true);
 
 
-              /*          appointmentBookingModel.setFirstName(userDetailGet.getFirstName());
-                        appointmentBookingModel.setLastName(userDetailGet.getLastName());
-                        appointmentBookingModel.setTitle(userDetailGet.getTitle());
-                        appointmentBookingModel.setGender(userDetailGet.getGender());
-                        appointmentBookingModel.setDateOfBirth(userDetailGet.getGender());*/
 
                     }
                 }
@@ -335,10 +350,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 if (AppPreferene.with(RegisterActivity.this).getUserId().equals("") || !text.equals(AppPreferene.with(RegisterActivity.this).getEmail())) {
                     if (!hasFocus) {
                         Validation validation = new Validation();
+                        if(text.length()!=0)
                         if (validation.isValidEmail(text)) {
                             checkingEmail(text);
                             mTvEmail.setErrorEnabled(false);
                         } else
+                            mTvEmail.setError(getString(R.string.email_error_msg_valid));
+                        else
                             mTvEmail.setError(getString(R.string.email_error_msg));
 
                     } else {
@@ -581,8 +599,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             else if(isEditProfile)
                 registerUser();
                 else
-            if (AppPreferene.with(this).getUserId().equals(""))
+            if (AppPreferene.with(this).getUserId().equals("")) {
+                if(isEditAppointment)
+                    mUserId=appointmentBookingModel.getUserID();
                 sendInformation();
+
+            }
             else {
                 addingUserDetailsToAppointmentBody();
                 bookingAppointmentWithOutUserDetails();
@@ -644,7 +666,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         user.setIsTempPassword(0);
         user.setOrgID(1);
         if(isEditProfile)
-           user.setUserID(AppPreferene.with(this).getEmail());
+           user.setUserID(AppPreferene.with(this).getUserId());
         else
             user.setUserID("0");
 
@@ -702,6 +724,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         if (rawResponse.body().getResult() != null && rawResponse.body().getResult().getID() != null) {
                             AppPreferene.with(RegisterActivity.this).setUserId(rawResponse.body().getResult().getID());
                             AppPreferene.with(RegisterActivity.this).setEmail(user.getEmail());
+                            if(isEditProfile)
+                                alertMsgForCreateUserSuccess(MainActivity.class,getString(R.string.details_updated));
+                                else
                             alertMsgForCreateUserSuccess(MainActivity.class,getString(R.string.account_create_msg));
 
                         } else {
@@ -861,7 +886,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     //get your response....
                     //Log.e(TAG, "RetroFit2.0 :RetroGetLogin: " + rawResponse.body());
                     final String id=rawResponse.body().getResult().getID();
-                    if(AppPreferene.with(this).getUserId().equals(""))
+                    if(AppPreferene.with(this).getUserId().equals("")&&!isEditAppointment)
                     {
                         alertMSgForConfirmation(rawResponse.body().getResult().getID(),getString(R.string.account_create_msg));
                     }else {

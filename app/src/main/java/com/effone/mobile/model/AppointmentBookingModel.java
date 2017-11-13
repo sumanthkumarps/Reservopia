@@ -165,6 +165,16 @@ public class AppointmentBookingModel implements Serializable {
 
     private String AuditID;
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    private String email;
+
     public String getAuditID() { return this.AuditID; }
 
     public void setAuditID(String AuditID) { this.AuditID = AuditID; }

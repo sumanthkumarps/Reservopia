@@ -14,7 +14,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight=".6"
+        android:layout_weight=".55"
         android:id="@+id/search_lay"
         android:layout_below="@+id/header"
         android:orientation="vertical"
@@ -37,24 +37,27 @@
                 android:textSize="@dimen/sub_text"
                 android:textStyle="bold" />
 
-            <TableLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:id="@+id/table_lay"
                 android:layout_below="@+id/tv_reset_password_title"
-                android:background="@drawable/rounded_corner">
+                android:background="@drawable/rounded_corner"
+               >
 
-                <TableRow
+                <LinearLayout
                     android:id="@+id/line1"
                     android:layout_width="match_parent"
+                    android:orientation="horizontal"
                     android:layout_height="50dp"
+
                    >
 
 
                     <TextView
                         android:id="@+id/textView"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:layout_alignBottom="@+id/et_email"
                         android:layout_alignParentLeft="true"
@@ -62,7 +65,7 @@
                         android:layout_alignParentTop="true"
                         android:layout_toLeftOf="@+id/tv_semi"
                         android:layout_toStartOf="@+id/tv_semi"
-
+                        android:layout_weight=".44"
                         android:gravity="left|center"
                         android:padding="5dp"
                         android:text="@string/last"
@@ -70,14 +73,14 @@
 
                     <TextView
                         android:id="@+id/tv_semi"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_above="@+id/cb_account"
                         android:layout_alignLeft="@+id/tv_semi2"
                         android:layout_alignParentTop="true"
                         android:layout_alignStart="@+id/tv_semi2"
                         android:layout_toLeftOf="@+id/tv_semi2"
-
+                        android:layout_weight=".01"
                         android:gravity="center"
                         android:text=":" />
 
@@ -88,26 +91,31 @@
                         android:layout_alignParentTop="true"
                         android:layout_toEndOf="@+id/textView32"
                         android:layout_toRightOf="@+id/textView32"
-                        android:layout_weight="1"
+                        android:layout_weight=".55"
                         android:hint="@string/lastname"
                         android:inputType="textCapSentences"
                         android:maxLength="45"
                         android:paddingRight="5dp"
                         android:singleLine="true"
                         android:textSize="@dimen/font_size" />
-                </TableRow>
+                </LinearLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:orientation="vertical"
 
-                <TableRow
+    android:layout_height="match_parent">
+                <LinearLayout
                     android:id="@+id/line2"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
+                    android:orientation="horizontal"
                     android:layout_below="@+id/line1"
                    >
 
 
                     <TextView
                         android:id="@+id/textView1"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:layout_alignBottom="@+id/et_email"
                         android:layout_alignParentLeft="true"
@@ -115,7 +123,7 @@
                         android:layout_alignParentTop="true"
                         android:layout_toLeftOf="@+id/tv_semi"
                         android:layout_toStartOf="@+id/tv_semi"
-
+                        android:layout_weight=".44"
                         android:gravity="left|center"
                         android:padding="5dp"
                         android:text="@string/dob"
@@ -123,14 +131,14 @@
 
                     <TextView
                         android:id="@+id/tv_semi1"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_above="@+id/cb_account"
                         android:layout_alignLeft="@+id/tv_semi2"
                         android:layout_alignParentTop="true"
                         android:layout_alignStart="@+id/tv_semi2"
                         android:layout_toLeftOf="@+id/tv_semi2"
-
+                        android:layout_weight=".01"
                         android:gravity="center"
                         android:text=":" />
 
@@ -138,27 +146,26 @@
                         android:id="@+id/et_date_birth"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
-                        android:layout_weight="1"
-                        android:layout_marginBottom="-5dp"
+                        android:layout_weight=".55"
                         android:drawableRight="@android:drawable/ic_menu_my_calendar"
                         android:hint="@string/dob_date"
                         android:inputType="number"
                         android:maxLength="15"
                         android:textSize="@dimen/font_size" />
-                </TableRow>
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/tv_or"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/line2"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginTop="10dp"
                     android:gravity="center"
+                    android:layout_marginBottom="-5dp"
                     android:text="@string/or"
                     android:textSize="@dimen/sub_text"
                     android:textStyle="bold" />
-                <TableRow
+                <LinearLayout
+                    android:orientation="horizontal"
                     android:id="@+id/line3"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -168,7 +175,7 @@
 
                     <TextView
                         android:id="@+id/textView2"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:layout_alignBottom="@+id/et_email"
                         android:layout_alignParentLeft="true"
@@ -176,7 +183,7 @@
                         android:layout_alignParentTop="true"
                         android:layout_toLeftOf="@+id/tv_semi"
                         android:layout_toStartOf="@+id/tv_semi"
-
+                        android:layout_weight=".45"
                         android:gravity="left|center"
                         android:padding="5dp"
                         android:text="@string/confirmation_no"
@@ -189,6 +196,7 @@
                         android:layout_above="@+id/cb_account"
                         android:layout_alignLeft="@+id/tv_semi2"
                         android:layout_alignParentTop="true"
+                        android:layout_weight=".01"
                         android:layout_alignStart="@+id/tv_semi2"
                         android:layout_toLeftOf="@+id/tv_semi2"
                         android:gravity="center"
@@ -198,37 +206,40 @@
                         android:id="@+id/et_confirmation_no"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
-                        android:layout_weight="1"
+                        android:layout_weight=".56"
                         android:layout_marginBottom="-5dp"
                         android:hint="@string/enter_confirmation_number"
                         android:inputType="number"
                         android:maxLength="15"
                         android:textSize="@dimen/font_size" />
-                </TableRow>
-            </TableLayout>
+                </LinearLayout>
+    <Button
+        android:id="@+id/bt_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:padding="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="5dp"
+        android:layout_below="@+id/table_lay"
+        android:layout_marginRight="5dp"
+        android:layout_weight="1"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/rounded_corner"
+        android:text="@string/search"
+        android:textColor="@color/blue"
+        android:textSize="@dimen/font_size" />
+</LinearLayout>
+            </LinearLayout>
 
-            <Button
-                android:id="@+id/bt_submit"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
 
-                android:layout_marginBottom="7dp"
-                android:layout_marginLeft="5dp"
-                android:layout_below="@+id/table_lay"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="20dp"
-                android:layout_weight="1"
-                android:background="@drawable/button_rounded_corner"
-                android:text="@string/submit_btn"
-                android:textColor="@color/inside_blue"
-                android:textSize="@dimen/font_size" />
 
         </RelativeLayout>
 
     </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_weight=".4"
+        android:layout_weight=".45"
         android:layout_height="0dp"
         android:id="@+id/search_result_lay"
         android:background="@color/list_back"
@@ -238,7 +249,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/gray">
+            android:background="@color/blue">
 
             <TextView
                 android:id="@+id/tv_count_appointments"
@@ -267,7 +278,7 @@
                 android:paddingTop="10dp"
                 android:text="@string/search_result"
 
-                android:textColor="@color/black"
+                android:textColor="@color/inside_blue"
                 android:textSize="@dimen/font_size"
                 android:textStyle="bold" />
 

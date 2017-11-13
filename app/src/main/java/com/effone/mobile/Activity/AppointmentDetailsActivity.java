@@ -109,6 +109,7 @@ public class AppointmentDetailsActivity extends AppCompatActivity implements Vie
             intent.putExtra("timeZone",mAppointmentDateTime.getScheduledTimeZone());
             intent.putExtra("location_id",mAppointmentDateTime.getLocID());
             intent.putExtra("selectedItem",mAppointmentDateTime);
+
             //intent.putExtra("date",mAppointmentDateTime.getAppointmentDateTime());
 
             startActivity(intent);

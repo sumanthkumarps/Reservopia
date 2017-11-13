@@ -2,6 +2,7 @@ package com.effone.mobile.Activity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -56,6 +57,7 @@ public class SearchAppointmentActivity extends AppCompatActivity implements View
     private ProgressDialog mCommonProgressDialog;
     private AppointmentListAdapter mAppointmentListAdapter;
     private List<History> histories;
+    private TextView mTvSearch;
     private String TAG="SearchActivity";
 
     @Override
@@ -68,10 +70,31 @@ public class SearchAppointmentActivity extends AppCompatActivity implements View
         ResvUtils.enableHomeButton(this);
         declare();
     }
+    @Override
+    protected void onPause() {
+        super.onPause();
+       hidingKeyBoard();
+    }
+
+    private void hidingKeyBoard() {
+        View views = this.getCurrentFocus();
+        if (views != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(views.getWindowToken(), 0);
+        }
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+    }
 
     private void declare() {
         mEtLastName=(EditText)findViewById(R.id.et_last_name);
         mEtDob=(EditText)findViewById(R.id.et_date_birth);
+        mTvSearch=(TextView)findViewById(R.id.tv_search_and_title);
         mEtDob.addTextChangedListener(mDateEntryWatcher);
         mEtConfirmNo=(EditText)findViewById(R.id.et_confirmation_no);
         mLlSearch=(LinearLayout)findViewById(R.id.search_result_lay);
@@ -155,6 +178,10 @@ public class SearchAppointmentActivity extends AppCompatActivity implements View
 
                         if (histories.size() > 0) {
                             mLlSearch.setVisibility(View.VISIBLE);
+                            if(histories.size()>1)
+                                mTvSearch.setText(getString(R.string.upcomingAppointments));
+                            else
+                                mTvSearch.setText(getString(R.string.upcomingAppointment));
                             mAppointmentListAdapter = new AppointmentListAdapter(SearchAppointmentActivity.this, histories);
                             mTvEmptyView.setVisibility(View.GONE);
                             mLvAppointmentList.setVisibility(View.VISIBLE);
@@ -162,6 +189,7 @@ public class SearchAppointmentActivity extends AppCompatActivity implements View
                             mLvAppointmentList.setOnItemClickListener(SearchAppointmentActivity.this);
                         } else {
                             mLlSearch.setVisibility(View.GONE);
+                            mTvSearch.setText(getString(R.string.upcomingAppointment));
                             removingCompleteData();
                             ResvUtils.createOKAlert(SearchAppointmentActivity.this, "Error", "No Search Found.", new DialogInterface.OnClickListener() {
                                 @Override
@@ -172,6 +200,7 @@ public class SearchAppointmentActivity extends AppCompatActivity implements View
                         }
 
                         mTvCountAppointment.setText("" + histories.size());
+                        hidingKeyBoard();
                     }
                 }catch(Exception e){
                         mLvAppointmentList.setEmptyView(findViewById(R.id.tv_history));

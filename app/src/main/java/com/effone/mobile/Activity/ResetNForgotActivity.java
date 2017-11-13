@@ -1,6 +1,7 @@
 package com.effone.mobile.Activity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -11,6 +12,8 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -73,7 +76,22 @@ public class ResetNForgotActivity extends AppCompatActivity implements View.OnCl
                 ApiClient.getClient().create(ApiInterface.class);
         declaration();
     }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        View views = this.getCurrentFocus();
+        if (views != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(views.getWindowToken(), 0);
+        }
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+    }
     private void declaration() {
         mEtEmail = (EditText) findViewById(R.id.et_email);
         mTvFromEmail=(TextView)findViewById(R.id.tv_from_email);
