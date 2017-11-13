@@ -668,7 +668,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         if(isEditProfile)
            user.setUserID(AppPreferene.with(this).getUserId());
         else
-            user.setUserID("0");
+            user.setUserID(mUserId);
 
         user.setIsEndUser(1);
         UserAddress userAddress = new UserAddress();
