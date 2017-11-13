@@ -771,6 +771,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                         if (histories.size() > 0) {
                             mLlSearch.setVisibility(View.VISIBLE);
+                            mLLSearchBox.setVisibility(View.GONE);
                             if(histories.size()>1)
                                 mTvSearch.setText(getString(R.string.upcomingAppointments));
                             else
@@ -782,6 +783,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             mLvAppointmentList.setOnItemClickListener(MainActivity.this);
                         } else {
                             mLlSearch.setVisibility(View.GONE);
+                            mLLSearchBox.setVisibility(View.GONE);
                             mTvSearch.setText(getString(R.string.upcomingAppointment));
                             removingCompleteData();
                             ResvUtils.createOKAlert(MainActivity.this, "Error", "No Search Found.", new DialogInterface.OnClickListener() {
