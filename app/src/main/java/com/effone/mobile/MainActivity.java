@@ -743,8 +743,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 strConfirmationNo = "0";
                 count=0;
             }
-            if(!strDob.equals("")||!strConfirmationNo.equals("0")) {
-                searchingData(strLastName,strDob,strConfirmationNo);
+            if((!strDob.equals("")&&mEtDob.getError()==null)||!strConfirmationNo.equals("0")) {
+                if(!strDob.equals("")&&mEtDob.getError()!=null)
+                    mTvDateOfBirth.setError(getString(R.string.dobMsg));
+                else
+                    searchingData(strLastName,strDob,strConfirmationNo);
                 mTvDateOfBirth.setError(null);
             }else{
                 mTvDateOfBirth.setError(getString(R.string.dobMsg));
@@ -807,12 +810,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             mLLSearchBox.setVisibility(View.GONE);
                             mTvSearch.setText(getString(R.string.search_result));
                             removingCompleteData();
-                            ResvUtils.createOKAlert(MainActivity.this, "Error", "No Search Found.", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    finish();
-                                }
-                            });
+                            mTVSearchErrorMsg.setText("No Appointment found.");
                         }
                         mTvCountAppointment.setVisibility(View.VISIBLE);
                         mTvCountAppointment.setText("" + histories.size());
@@ -829,12 +827,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.e(TAG, t.toString());
                 if (mCommonProgressDialog != null)
                     mCommonProgressDialog.cancel();
-                ResvUtils.createOKAlert(MainActivity.this, "Error", "No Search Found.", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        finish();
-                    }
-                });
+                mTVSearchErrorMsg.setText("No Appointment found.");
                 mLvAppointmentList.setEmptyView(findViewById(R.id.tv_history));
 
             }

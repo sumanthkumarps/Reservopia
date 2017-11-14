@@ -42,6 +42,7 @@
     <string name="address_coloumn">Address</string>
     <string name="phone_column">Phone</string>
     <string name="confirmation_no">Confirmation #</string>
+    <string name="confirmation_No">Confirmation No.</string>
     <string name="enter_confirmation_number">enter confirmation No.</string>
     <string name="confirmation_details">Confirmation Details</string>
     <string name="confirmation_details_small">Confirmation details :</string>
@@ -144,6 +145,7 @@
     <string name="enter_reset_code">enter reset code</string>
 
     <string name="emailMsg1">Invalid email</string>
+    <string name="invalid_date_for_dob">Invalid date for date of birth.</string>
     <string name="dobMsg">Please match the date format. Ex:  mm/dd/yyyy  (04/09/2002) </string>
 
 

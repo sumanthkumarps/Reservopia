@@ -41,6 +41,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/last"
+                            android:maxLength="20"
                             android:singleLine="true"/>
 
                     </android.support.design.widget.TextInputLayout>
@@ -107,6 +108,7 @@
                             android:id="@+id/et_date_birth"
                             android:layout_width="155dp"
                             android:singleLine="true"
+                            android:maxLength="10"
                             android:inputType="date"
                             android:layout_height="match_parent"
                             android:hint="Date Of Birth" />
@@ -136,8 +138,9 @@
                             android:singleLine="true"
                             android:inputType="number"
                             android:layout_height="wrap_content"
-                            android:hint="@string/confirmation"
-                            android:layout_weight="1" />
+                            android:hint="@string/confirmation_No"
+                            android:layout_weight="1"
+                            android:maxLength="10"/>
 
                     </android.support.design.widget.TextInputLayout>
                     <!--     <TextView
