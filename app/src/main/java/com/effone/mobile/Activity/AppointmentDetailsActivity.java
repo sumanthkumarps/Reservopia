@@ -3,6 +3,7 @@ package com.effone.mobile.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.effone.mobile.MainActivity;
 import com.effone.mobile.R;
 import com.effone.mobile.adapter.AppointmentListAdapter;
 import com.effone.mobile.common.AppPreferene;
@@ -66,12 +68,10 @@ public class AppointmentDetailsActivity extends AppCompatActivity implements Vie
         mTvUserName=(TextView)findViewById(R.id.tv_first_name);
         mTvEmail=(TextView)findViewById(R.id.tv_email);
         mTvLocName=(TextView)findViewById(R.id.tv_locName);
-
         mTvServiceName=(TextView)findViewById(R.id.tv_service);
         mTvProviderName=(TextView)findViewById(R.id.tv_provider_name);
         mTvCancelAppointment=(Button)findViewById(R.id.tv_cancel_appointment);
-
-       mTvConfirmationId=(TextView)findViewById(R.id.tv_confirmation);
+        mTvConfirmationId=(TextView)findViewById(R.id.tv_confirmation);
         mTvOrgName=(TextView)findViewById(R.id.tv_orgName);
         mTvAddress=(TextView)findViewById(R.id.tv_address);
         mTvEditAppointment=(Button)findViewById(R.id.tv_editAppointment);
@@ -94,7 +94,6 @@ public class AppointmentDetailsActivity extends AppCompatActivity implements Vie
     private void settingValues() {
         mTvTitile.setText(getString(R.string.appointment_details));
         mTvConfirmationId.setText(mAppointmentDateTime.getConfirmationNo());
-
         mTvLocName.setText(mAppointmentDateTime.getLocName());
         mTvUserName.setText(mAppointmentDateTime.getFirstName()+" "+mAppointmentDateTime.getLastName());
         mTvEmail.setText(mAppointmentDateTime.getEmail());
@@ -104,6 +103,12 @@ public class AppointmentDetailsActivity extends AppCompatActivity implements Vie
         mTvScheduledTimeZone.setText(mAppointmentDateTime.getScheduledTimeZone());
         mTvAddress.setText(AppPreferene.with(this).getAddress());
         mTvOrgName.setText(AppPreferene.with(this).getOrgination());
+        if(mAppointmentDateTime.getIsCancelled()) {
+            mTvEditAppointment.setEnabled(false);
+            mTvCancelAppointment.setText("Cancelled");
+            mTvCancelAppointment.setBackgroundColor(Color.GRAY);
+            mTvCancelAppointment.setTextColor(Color.RED);
+        }
 
     }
 
@@ -121,19 +126,22 @@ public class AppointmentDetailsActivity extends AppCompatActivity implements Vie
         if(view.getId() == R.id.iv_back_btn){
             finish();
         }else if(view.getId() == R.id.tv_editAppointment){
-            Intent intent= new Intent(this,LocationServiceActivity.class);
-            intent.putExtra("check",true);
-            intent.putExtra("id",mAppointmentDateTime.getConfirmationNo());
-            intent.putExtra("service_id",mAppointmentDateTime.getServiceID());
-            intent.putExtra("timeZone",mAppointmentDateTime.getScheduledTimeZone());
-            intent.putExtra("location_id",mAppointmentDateTime.getLocID());
-            intent.putExtra("selectedItem",mAppointmentDateTime);
 
-            //intent.putExtra("date",mAppointmentDateTime.getAppointmentDateTime());
-
-            startActivity(intent);
+            if(!mAppointmentDateTime.getIsCancelled()) {
+                Intent intent = new Intent(this, LocationServiceActivity.class);
+                intent.putExtra("check", true);
+                intent.putExtra("id", mAppointmentDateTime.getConfirmationNo());
+                intent.putExtra("service_id", mAppointmentDateTime.getServiceID());
+                intent.putExtra("timeZone", mAppointmentDateTime.getScheduledTimeZone());
+                intent.putExtra("location_id", mAppointmentDateTime.getLocID());
+                intent.putExtra("selectedItem", mAppointmentDateTime);
+                //intent.putExtra("date",mAppointmentDateTime.getAppointmentDateTime());
+                startActivity(intent);
+            }
         } else if(view.getId() == R.id.tv_cancel_appointment){
-            alertMsg(mAppointmentDateTime.getConfirmationNo());
+            if(!mAppointmentDateTime.getIsCancelled()) {
+                alertMsg(mAppointmentDateTime.getConfirmationNo());
+            }
         }
     }
 
@@ -171,7 +179,7 @@ public class AppointmentDetailsActivity extends AppCompatActivity implements Vie
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
 
-        Call<CancelAppointment> call = apiService.delCancelAppointment(getString(R.string.token),cancelAppointmentBoby);
+        Call<CancelAppointment> call = apiService.delCancelAppointment(getString(R.string.token),mAppointmentDateTime.getConfirmationNo());
 
         call.enqueue(new Callback<CancelAppointment>() {
             @Override
@@ -184,7 +192,8 @@ public class AppointmentDetailsActivity extends AppCompatActivity implements Vie
                         ResvUtils.createOKAlert(AppointmentDetailsActivity.this, "", "Appointment cancellation has done.", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                finish();
+                                Intent intent=new Intent(AppointmentDetailsActivity.this, MainActivity.class);
+                                startActivity(intent);
                             }
                         });
                     }else {

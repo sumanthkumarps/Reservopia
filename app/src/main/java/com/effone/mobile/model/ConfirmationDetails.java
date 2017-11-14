@@ -7,7 +7,13 @@ package com.effone.mobile.model;
 public class ConfirmationDetails {
     private String LocName;
 
+    private String Phone;
+
+    private String Count;
+
     private String AppointmentDateTime;
+
+    private String ProviderName;
 
     private String UserID;
 
@@ -15,11 +21,13 @@ public class ConfirmationDetails {
 
     private String LastName;
 
-    private String SendEmailReminder;
+    private String AuditID;
 
     private String AppointmentTypeRefID;
 
-    private String AuditID;
+    private String SendEmailReminder;
+
+    private String Year;
 
     private String ServiceName;
 
@@ -33,31 +41,41 @@ public class ConfirmationDetails {
 
     private String FirstName;
 
+    private String OrgLogo;
+
     private String Zip;
 
     private String StartTime;
 
     private String CancelledBy;
 
-    private String LocID;
-
     private String IsAssigned;
+
+    private String LocID;
 
     private String ScheduledDateTime;
 
     private String OrgName;
 
+    private String ProviderID;
+
     private String AssignedTo;
 
     private String City;
 
-    private String SendTextReminder;
+    private String Title;
 
     private String AppointmentID;
+
+    private String SendTextReminder;
 
     private String IsCheckedIn;
 
     private String ScheduledTimeZone;
+
+    private String Status;
+
+    private String DateOfBirth;
 
     private String LocTimeZone;
 
@@ -67,15 +85,19 @@ public class ConfirmationDetails {
 
     private String Email;
 
-    private String ServiceID;
-
     private String OrgID;
 
-    private String AdditionalEmail;
+    private String ServiceID;
+
+    private String Gender;
 
     private String EndTime;
 
+    private String AdditionalEmail;
+
     private String CancelTypeRefID;
+
+    private String HolidayDate;
 
     public String getLocName ()
     {
@@ -87,6 +109,26 @@ public class ConfirmationDetails {
         this.LocName = LocName;
     }
 
+    public String getPhone ()
+    {
+        return Phone;
+    }
+
+    public void setPhone (String Phone)
+    {
+        this.Phone = Phone;
+    }
+
+    public String getCount ()
+    {
+        return Count;
+    }
+
+    public void setCount (String Count)
+    {
+        this.Count = Count;
+    }
+
     public String getAppointmentDateTime ()
     {
         return AppointmentDateTime;
@@ -95,6 +137,16 @@ public class ConfirmationDetails {
     public void setAppointmentDateTime (String AppointmentDateTime)
     {
         this.AppointmentDateTime = AppointmentDateTime;
+    }
+
+    public String getProviderName ()
+    {
+        return ProviderName;
+    }
+
+    public void setProviderName (String ProviderName)
+    {
+        this.ProviderName = ProviderName;
     }
 
     public String getUserID ()
@@ -127,14 +179,14 @@ public class ConfirmationDetails {
         this.LastName = LastName;
     }
 
-    public String getSendEmailReminder ()
+    public String getAuditID ()
     {
-        return SendEmailReminder;
+        return AuditID;
     }
 
-    public void setSendEmailReminder (String SendEmailReminder)
+    public void setAuditID (String AuditID)
     {
-        this.SendEmailReminder = SendEmailReminder;
+        this.AuditID = AuditID;
     }
 
     public String getAppointmentTypeRefID ()
@@ -147,14 +199,24 @@ public class ConfirmationDetails {
         this.AppointmentTypeRefID = AppointmentTypeRefID;
     }
 
-    public String getAuditID ()
+    public String getSendEmailReminder ()
     {
-        return AuditID;
+        return SendEmailReminder;
     }
 
-    public void setAuditID (String AuditID)
+    public void setSendEmailReminder (String SendEmailReminder)
     {
-        this.AuditID = AuditID;
+        this.SendEmailReminder = SendEmailReminder;
+    }
+
+    public String getYear ()
+    {
+        return Year;
+    }
+
+    public void setYear (String Year)
+    {
+        this.Year = Year;
     }
 
     public String getServiceName ()
@@ -217,6 +279,16 @@ public class ConfirmationDetails {
         this.FirstName = FirstName;
     }
 
+    public String getOrgLogo ()
+    {
+        return OrgLogo;
+    }
+
+    public void setOrgLogo (String OrgLogo)
+    {
+        this.OrgLogo = OrgLogo;
+    }
+
     public String getZip ()
     {
         return Zip;
@@ -247,16 +319,6 @@ public class ConfirmationDetails {
         this.CancelledBy = CancelledBy;
     }
 
-    public String getLocID ()
-    {
-        return LocID;
-    }
-
-    public void setLocID (String LocID)
-    {
-        this.LocID = LocID;
-    }
-
     public String getIsAssigned ()
     {
         return IsAssigned;
@@ -265,6 +327,16 @@ public class ConfirmationDetails {
     public void setIsAssigned (String IsAssigned)
     {
         this.IsAssigned = IsAssigned;
+    }
+
+    public String getLocID ()
+    {
+        return LocID;
+    }
+
+    public void setLocID (String LocID)
+    {
+        this.LocID = LocID;
     }
 
     public String getScheduledDateTime ()
@@ -287,6 +359,16 @@ public class ConfirmationDetails {
         this.OrgName = OrgName;
     }
 
+    public String getProviderID ()
+    {
+        return ProviderID;
+    }
+
+    public void setProviderID (String ProviderID)
+    {
+        this.ProviderID = ProviderID;
+    }
+
     public String getAssignedTo ()
     {
         return AssignedTo;
@@ -307,14 +389,14 @@ public class ConfirmationDetails {
         this.City = City;
     }
 
-    public String getSendTextReminder ()
+    public String getTitle ()
     {
-        return SendTextReminder;
+        return Title;
     }
 
-    public void setSendTextReminder (String SendTextReminder)
+    public void setTitle (String Title)
     {
-        this.SendTextReminder = SendTextReminder;
+        this.Title = Title;
     }
 
     public String getAppointmentID ()
@@ -325,6 +407,16 @@ public class ConfirmationDetails {
     public void setAppointmentID (String AppointmentID)
     {
         this.AppointmentID = AppointmentID;
+    }
+
+    public String getSendTextReminder ()
+    {
+        return SendTextReminder;
+    }
+
+    public void setSendTextReminder (String SendTextReminder)
+    {
+        this.SendTextReminder = SendTextReminder;
     }
 
     public String getIsCheckedIn ()
@@ -345,6 +437,26 @@ public class ConfirmationDetails {
     public void setScheduledTimeZone (String ScheduledTimeZone)
     {
         this.ScheduledTimeZone = ScheduledTimeZone;
+    }
+
+    public String getStatus ()
+    {
+        return Status;
+    }
+
+    public void setStatus (String Status)
+    {
+        this.Status = Status;
+    }
+
+    public String getDateOfBirth ()
+    {
+        return DateOfBirth;
+    }
+
+    public void setDateOfBirth (String DateOfBirth)
+    {
+        this.DateOfBirth = DateOfBirth;
     }
 
     public String getLocTimeZone ()
@@ -387,16 +499,6 @@ public class ConfirmationDetails {
         this.Email = Email;
     }
 
-    public String getServiceID ()
-    {
-        return ServiceID;
-    }
-
-    public void setServiceID (String ServiceID)
-    {
-        this.ServiceID = ServiceID;
-    }
-
     public String getOrgID ()
     {
         return OrgID;
@@ -407,14 +509,24 @@ public class ConfirmationDetails {
         this.OrgID = OrgID;
     }
 
-    public String getAdditionalEmail ()
+    public String getServiceID ()
     {
-        return AdditionalEmail;
+        return ServiceID;
     }
 
-    public void setAdditionalEmail (String AdditionalEmail)
+    public void setServiceID (String ServiceID)
     {
-        this.AdditionalEmail = AdditionalEmail;
+        this.ServiceID = ServiceID;
+    }
+
+    public String getGender ()
+    {
+        return Gender;
+    }
+
+    public void setGender (String Gender)
+    {
+        this.Gender = Gender;
     }
 
     public String getEndTime ()
@@ -427,6 +539,16 @@ public class ConfirmationDetails {
         this.EndTime = EndTime;
     }
 
+    public String getAdditionalEmail ()
+    {
+        return AdditionalEmail;
+    }
+
+    public void setAdditionalEmail (String AdditionalEmail)
+    {
+        this.AdditionalEmail = AdditionalEmail;
+    }
+
     public String getCancelTypeRefID ()
     {
         return CancelTypeRefID;
@@ -437,9 +559,19 @@ public class ConfirmationDetails {
         this.CancelTypeRefID = CancelTypeRefID;
     }
 
+    public String getHolidayDate ()
+    {
+        return HolidayDate;
+    }
+
+    public void setHolidayDate (String HolidayDate)
+    {
+        this.HolidayDate = HolidayDate;
+    }
+
     @Override
     public String toString()
     {
-        return "ClassPojo [LocName = "+LocName+", AppointmentDateTime = "+AppointmentDateTime+", UserID = "+UserID+", IsLoggedIn = "+IsLoggedIn+", LastName = "+LastName+", SendEmailReminder = "+SendEmailReminder+", AppointmentTypeRefID = "+AppointmentTypeRefID+", AuditID = "+AuditID+", ServiceName = "+ServiceName+", Address2 = "+Address2+", ConfirmationNo = "+ConfirmationNo+", Address1 = "+Address1+", IsEndUser = "+IsEndUser+", FirstName = "+FirstName+", Zip = "+Zip+", StartTime = "+StartTime+", CancelledBy = "+CancelledBy+", LocID = "+LocID+", IsAssigned = "+IsAssigned+", ScheduledDateTime = "+ScheduledDateTime+", OrgName = "+OrgName+", AssignedTo = "+AssignedTo+", City = "+City+", SendTextReminder = "+SendTextReminder+", AppointmentID = "+AppointmentID+", IsCheckedIn = "+IsCheckedIn+", ScheduledTimeZone = "+ScheduledTimeZone+", LocTimeZone = "+LocTimeZone+", IsCancelled = "+IsCancelled+", State = "+State+", Email = "+Email+", ServiceID = "+ServiceID+", OrgID = "+OrgID+", AdditionalEmail = "+AdditionalEmail+", EndTime = "+EndTime+", CancelTypeRefID = "+CancelTypeRefID+"]";
+        return "ClassPojo [LocName = "+LocName+", Phone = "+Phone+", Count = "+Count+", AppointmentDateTime = "+AppointmentDateTime+", ProviderName = "+ProviderName+", UserID = "+UserID+", IsLoggedIn = "+IsLoggedIn+", LastName = "+LastName+", AuditID = "+AuditID+", AppointmentTypeRefID = "+AppointmentTypeRefID+", SendEmailReminder = "+SendEmailReminder+", Year = "+Year+", ServiceName = "+ServiceName+", Address2 = "+Address2+", ConfirmationNo = "+ConfirmationNo+", Address1 = "+Address1+", IsEndUser = "+IsEndUser+", FirstName = "+FirstName+", OrgLogo = "+OrgLogo+", Zip = "+Zip+", StartTime = "+StartTime+", CancelledBy = "+CancelledBy+", IsAssigned = "+IsAssigned+", LocID = "+LocID+", ScheduledDateTime = "+ScheduledDateTime+", OrgName = "+OrgName+", ProviderID = "+ProviderID+", AssignedTo = "+AssignedTo+", City = "+City+", Title = "+Title+", AppointmentID = "+AppointmentID+", SendTextReminder = "+SendTextReminder+", IsCheckedIn = "+IsCheckedIn+", ScheduledTimeZone = "+ScheduledTimeZone+", Status = "+Status+", DateOfBirth = "+DateOfBirth+", LocTimeZone = "+LocTimeZone+", IsCancelled = "+IsCancelled+", State = "+State+", Email = "+Email+", OrgID = "+OrgID+", ServiceID = "+ServiceID+", Gender = "+Gender+", EndTime = "+EndTime+", AdditionalEmail = "+AdditionalEmail+", CancelTypeRefID = "+CancelTypeRefID+", HolidayDate = "+HolidayDate+"]";
     }
 }

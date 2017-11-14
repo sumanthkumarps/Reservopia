@@ -75,7 +75,7 @@ public class History implements Serializable {
 
     private String LocTimeZone;
 
-    private String IsCancelled;
+    private Boolean IsCancelled;
 
     private String State;
 
@@ -383,11 +383,11 @@ public class History implements Serializable {
         this.LocTimeZone = LocTimeZone;
     }
 
-    public String getIsCancelled() {
+    public Boolean getIsCancelled() {
         return IsCancelled;
     }
 
-    public void setIsCancelled(String IsCancelled) {
+    public void setIsCancelled(Boolean IsCancelled) {
         this.IsCancelled = IsCancelled;
     }
 

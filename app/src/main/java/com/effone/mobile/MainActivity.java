@@ -586,12 +586,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     mCommonProgressDialog.cancel();
                 try {
                     Result results = response.body().getResult();
+
                     histories = Arrays.asList(results.getUpcoming());
                     if(histories.size()>0) {
                         if(histories.size()>1)
                             mTvSearch.setText(getString(R.string.upcomingAppointments));
                         else
                             mTvSearch.setText(getString(R.string.upcomingAppointment));
+
+
+
+
                         mAppointmentListAdapter = new AppointmentListAdapter(MainActivity.this, histories);
                         mTvEmptyView.setVisibility(View.GONE);
 

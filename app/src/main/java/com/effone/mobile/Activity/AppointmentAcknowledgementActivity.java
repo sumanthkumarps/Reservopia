@@ -29,7 +29,7 @@ public class AppointmentAcknowledgementActivity extends AppCompatActivity implem
     private static final String TAG ="" ;
 
     private TextView mTvConfirmationId,mTvEmail,mTvUserName,mTvLastName,mTvTitle,mTvPhoneNUmber,
-            mTvLocName,mTvServiceName,mTvAppointmentDateTime,mTvScheduledTimeZone,mTvAddress,mTvOrgName,mTvEditAppointment,mTvHeading;
+            mTvLocName,mTvServiceName,mTvAppointmentDateTime,mTvScheduledTimeZone,mTvAddress,mTvOrgName,mTvEditAppointment,mTvHeading,mTvProvider;
     private String confirmationCode;
 
     private ImageView mTvImgBackButton;
@@ -77,6 +77,7 @@ public class AppointmentAcknowledgementActivity extends AppCompatActivity implem
         mTvAddress=(TextView)findViewById(R.id.tv_address);
         mTvOrgName=(TextView)findViewById(R.id.tv_orgName);
         mTvPhoneNUmber=(TextView)findViewById(R.id.tv_phone_number);
+        mTvProvider=(TextView)findViewById(R.id.tv_provider_name);
 
         gettingDataFromServer();
     }
@@ -120,6 +121,7 @@ public class AppointmentAcknowledgementActivity extends AppCompatActivity implem
                     mTvAddress.setText(confirmationDetails.getAddress1() + " " + confirmationDetails.getCity() + " " + confirmationDetails.getState()
                             + " " + confirmationDetails.getZip());
                     mTvOrgName.setText(confirmationDetails.getOrgName());
+                    mTvProvider.setText(confirmationDetails.getProviderName());
                 }
                 else{
                     ResvUtils.createErrorAlert(AppointmentAcknowledgementActivity.this,getString(R.string.error),""+response.message());
