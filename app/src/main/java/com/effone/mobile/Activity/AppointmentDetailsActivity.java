@@ -188,7 +188,7 @@ public class AppointmentDetailsActivity extends AppCompatActivity implements Vie
                             }
                         });
                     }else {
-                        ResvUtils.createOKAlert(AppointmentDetailsActivity.this, "", "Unable to cancel the Appointment.", new DialogInterface.OnClickListener() {
+                        ResvUtils.createOKAlert(AppointmentDetailsActivity.this, "", getString(R.string.unable_to), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 finish();
@@ -196,7 +196,7 @@ public class AppointmentDetailsActivity extends AppCompatActivity implements Vie
                         });
                     }
                 }else{
-                    ResvUtils.createOKAlert(AppointmentDetailsActivity.this, "", "Unable to cancel the Appointment.", new DialogInterface.OnClickListener() {
+                    ResvUtils.createOKAlert(AppointmentDetailsActivity.this, "", getString(R.string.unable_to), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             finish();

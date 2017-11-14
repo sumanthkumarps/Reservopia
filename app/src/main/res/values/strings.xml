@@ -170,5 +170,6 @@
     <string name="email_error_msg_valid">Enter valid email.</string>
     <string name="details_updated">Your profile updated successfully.</string>
     <string name="noappontmentfound">No appointment found,\n please book a new appointment.</string>
+    <string name="unable_to">Unable to cancel the Appointment.</string>
 
 </resources>
