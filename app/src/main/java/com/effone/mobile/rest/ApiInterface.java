@@ -4,6 +4,8 @@ package com.effone.mobile.rest;
 
 import com.effone.mobile.model.AppointmentBookingModel;
 import com.effone.mobile.model.BookingAppointmentUserDetails;
+import com.effone.mobile.model.CancelAppointment;
+import com.effone.mobile.model.CancelAppointmentBoby;
 import com.effone.mobile.model.ChangePassword;
 import com.effone.mobile.model.Confirmation;
 import com.effone.mobile.model.DateTime;
@@ -22,7 +24,10 @@ import com.effone.mobile.model.UserDetails;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.HTTP;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
@@ -87,7 +92,8 @@ public interface ApiInterface {
     /*need to be implement and change params*/
     @GET("Register/ResetUserPassword")
     Call<ChangePassword> getChangedPassword(@Header("Token") String apiKey, @Query("email") String email, @Query("oldPassword")String oldPass, @Query("newPassword") String password);
-
-
+    @FormUrlEncoded
+    @DELETE("UserAppointment/CancelAppointment/")
+    Call<CancelAppointment> delCancelAppointment(@Header("Token") String apiKey, @Body CancelAppointmentBoby cancelAppointmentBoby);
 
 }

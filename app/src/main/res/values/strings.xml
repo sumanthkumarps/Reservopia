@@ -123,6 +123,8 @@
     <string name="forgot"><u>Forgot password?</u></string>
     <string name="signup">Sign up</string>
     <string name="cancel">Cancel</string>
+    <string name="cancel_appointment">Cancel Appointment</string>
+
     <string name="edit_appointment">Edit Appointment</string>
     <string name="allocated">This time slot already allocated.</string>
     <string name="histroy_noEmail">No email exists</string>

@@ -721,7 +721,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.bt_submit:
                 SearchApiCall();
-
+                break;
         }
 
     }
@@ -811,6 +811,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             mTvSearch.setText(getString(R.string.search_result));
                             removingCompleteData();
                             mTVSearchErrorMsg.setText("No Appointment found.");
+                         /*   ResvUtils.createOKAlert(MainActivity.this, "Error", "No Search Found.", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    finish();
+                                }
+                            });*/
                         }
                         mTvCountAppointment.setVisibility(View.VISIBLE);
                         mTvCountAppointment.setText("" + histories.size());

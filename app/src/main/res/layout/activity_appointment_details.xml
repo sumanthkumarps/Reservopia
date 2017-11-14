@@ -186,37 +186,69 @@
 
                         android:textSize="@dimen/font_size" />
                 </TableRow>
-
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     >
 
                     <TextView
-                        android:id="@+id/tv_log"
+                        android:id="@+id/tv_org"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:gravity="left|center"
-                        android:text="@string/Location"
+                        android:text="@string/orginzatrion"
                         android:textSize="@dimen/font_size" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
+                        android:textStyle="bold"
                         android:gravity="left"
+                        android:layout_marginRight="5dp"
                         android:text=":" />
 
                     <TextView
-                        android:id="@+id/tv_locName"
+                        android:id="@+id/tv_orgName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="left|center"
-
+                        android:textStyle="bold"
 
                         android:textSize="@dimen/font_size" />
                 </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <TextView
+                        android:id="@+id/tv_provider"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:gravity="left|center"
+                        android:text="@string/select_provider"
+                        android:textSize="@dimen/font_size" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:gravity="left"
+                        android:layout_marginRight="5dp"
+                        android:text=":" />
+
+                    <TextView
+                        android:id="@+id/tv_provider_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="left|center"
+                        android:textStyle="bold"
+
+                        android:textSize="@dimen/font_size" />
+                </TableRow>
+
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -304,32 +336,32 @@
                     >
 
                     <TextView
-                        android:id="@+id/tv_org"
+                        android:id="@+id/tv_log"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:gravity="left|center"
-                        android:text="@string/orginzatrion"
                         android:textStyle="bold"
+                        android:text="@string/Location"
                         android:textSize="@dimen/font_size" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textStyle="bold"
+
                         android:gravity="left"
-                        android:layout_marginRight="5dp"
                         android:text=":" />
 
                     <TextView
-                        android:id="@+id/tv_orgName"
+                        android:id="@+id/tv_locName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="left|center"
-                        android:textStyle="bold"
+
 
                         android:textSize="@dimen/font_size" />
                 </TableRow>
+
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -396,23 +428,37 @@
                 </TableRow>
             </TableLayout>
 
+            <Button
+                android:id="@+id/tv_cancel_appointment"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="5dp"
+            android:layout_marginTop="3dp"
+                android:background="@drawable/button_rounded_corner"
+                android:gravity="center"
+                android:text="@string/cancel_appointment"
+                android:textColor="@color/inside_blue"
+                android:textSize="@dimen/font_size" />
+
+            <Button
+                android:id="@+id/tv_editAppointment"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="7dp"
+                android:background="@drawable/button_rounded_corner"
+                android:gravity="center"
+                android:text="@string/edit_appointment"
+                android:textColor="@color/inside_blue"
+                android:textSize="@dimen/font_size" />
 
         </LinearLayout>
     </ScrollView>
 
-    <Button
-        android:id="@+id/tv_editAppointment"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@drawable/button_rounded_corner"
-        android:text="@string/edit_appointment"
-        android:textSize="@dimen/font_size"
-        android:gravity="center"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginBottom="7dp"
-        android:textColor="@color/inside_blue"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+
 </RelativeLayout>
