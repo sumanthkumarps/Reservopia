@@ -1071,15 +1071,21 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 }
             } else if (working.length() != 10) {
                 isValid = false;
+
             }
 
             if (!isValid || !isValidYear) {
-                if (!isValidYear)
+                if (!isValidYear) {
                     mEtDateOfBirth.setError("Invalid Year");
-                else
+                    mTvDob.setError(getString(R.string.dobMsg));
+                }
+                else {
                     mEtDateOfBirth.setError(getString(R.string.dobMsg));
+                    mTvDob.setError(getString(R.string.dobMsg));
+                }
             } else {
                 mEtDateOfBirth.setError(null);
+                mTvDob.setErrorEnabled(false);
             }
 
         }

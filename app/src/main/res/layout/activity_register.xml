@@ -557,19 +557,23 @@
                             android:gravity="center"
                             android:text=":" />
 
-                        <RelativeLayout
+                        <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight=".6"
+                            android:padding="5dp"
                             android:orientation="horizontal">
 
                             <ToggleButton
                                 android:id="@+id/tb_female"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="50dp"
                                 android:layout_alignParentEnd="true"
+                                android:layout_weight="1"
                                 android:layout_alignParentRight="true"
                                 android:layout_alignParentTop="true"
+                                android:gravity="center|center_vertical"
+                                android:layout_gravity="center_vertical"
                                 android:background="@drawable/selector"
                                 android:textColor="@drawable/toggle_color"
                                 android:textOff="Female"
@@ -578,7 +582,8 @@
 
                             <ToggleButton
                                 android:id="@+id/tb_male"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
                                 android:layout_height="50dp"
                                 android:layout_alignParentTop="true"
                                 android:layout_toLeftOf="@+id/tb_female"
@@ -586,12 +591,14 @@
                                 android:background="@drawable/selector"
                                 android:checked="true"
                                 android:text="Gender"
+                                android:gravity="center|center_vertical"
+                                android:layout_gravity="center_vertical"
                                 android:textColor="@drawable/toggle_color"
                                 android:textOff="Male"
                                 android:textOn="Male"
                                 android:textSize="@dimen/sub_text" />
 
-                        </RelativeLayout>
+                        </LinearLayout>
 
 
                     </LinearLayout>
