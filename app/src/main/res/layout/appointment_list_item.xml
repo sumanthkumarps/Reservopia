@@ -31,25 +31,27 @@
             />
     </TableRow>
 
+
     <TableRow>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="User name"
-        android:textSize="16sp"
-        />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Name"
+
+            android:textSize="16sp"
+            />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="left"
             android:padding="5dp"
             android:text=":" />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_nameofperson"
-        android:textSize="16sp"
-        />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:id="@+id/tv_nameofperson"
+            />
     </TableRow>
     <TableRow>
     <TextView
@@ -72,7 +74,26 @@
         android:id="@+id/tv_type_service_details"
     />
     </TableRow>
-
+    <TableRow>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/select_provider"
+            android:textSize="16sp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:padding="5dp"
+            android:text=":" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_provider_history"
+            android:textSize="16sp"
+            />
+    </TableRow>
     <TableRow>
     <TextView
         android:layout_width="match_parent"
@@ -101,6 +122,7 @@
             android:layout_height="wrap_content"
             android:text="@string/confirmationno"
             android:textSize="16sp"
+            android:textStyle="bold"
             />
 
         <TextView
@@ -109,6 +131,7 @@
             android:layout_height="wrap_content"
             android:gravity="left"
             android:padding="5dp"
+            android:textStyle="bold"
             android:text=":" />
 
         <TextView
@@ -116,7 +139,31 @@
             android:layout_height="wrap_content"
             android:id="@+id/tv_appointment_id"
             android:textSize="16sp"
+            android:textStyle="bold"
 
           />
+    </TableRow>
+    <TableRow>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/status"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:padding="5dp"
+            android:textStyle="bold"
+            android:text=":" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_status_history"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            />
     </TableRow>
 </TableLayout>

@@ -124,6 +124,8 @@ public class AppointmentHistoryActivity extends AppCompatActivity implements Vie
             historyAppointment.setConfirmationNo(histories.get(i).getConfirmationNo());
             historyAppointment.setDate(histories.get(i).getAppointmentDateTime());
             historyAppointment.setSerivice(histories.get(i).getServiceName());
+            historyAppointment.setProvider(histories.get(i).getProviderName());
+            historyAppointment.setStatus(histories.get(i).getStatus());
             historyAppointment.setAppointment_id(histories.get(i).getAppointmentID());
             mAppointments.add(historyAppointment);
         }

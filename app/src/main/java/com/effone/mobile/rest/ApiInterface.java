@@ -103,6 +103,4 @@ public interface ApiInterface {
     Call<CancelAppointment> delCancelAppointment(@Header("Token") String apiKey,@Query("confirmationNo") String confirmation);
 
 
-
-
 }

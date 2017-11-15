@@ -46,6 +46,8 @@ public class AppointmentHistoryAdapter extends ArrayAdapter<HistoryAppointment> 
             holder.mTvLocation= (TextView) vi.findViewById(R.id.tv_lab_address_details);
             holder.mTvName= (TextView) vi.findViewById(R.id.tv_nameofperson);
             holder.mTvService= (TextView) vi.findViewById(R.id.tv_type_service_details);
+            holder.mTvProvider= (TextView) vi.findViewById(R.id.tv_provider_history);
+            holder.mTvStatus= (TextView) vi.findViewById(R.id.tv_status_history);
             vi.setTag( holder );
         }else
             holder = (AppointmentListItems) vi.getTag();
@@ -57,7 +59,8 @@ public class AppointmentHistoryAdapter extends ArrayAdapter<HistoryAppointment> 
         holder.mTvName.setText(mhistoryAppointments.get(position).getName());
         holder.mTvService.setText(mhistoryAppointments.get(position).getSerivice());
 
-
+        holder.mTvProvider.setText(mhistoryAppointments.get(position).getProvider());
+        holder.mTvStatus.setText(mhistoryAppointments.get(position).getStatus());
         return vi;
     }
 
@@ -67,6 +70,8 @@ public class AppointmentHistoryAdapter extends ArrayAdapter<HistoryAppointment> 
         public TextView mTvService;
         public TextView mTvName;
         public TextView mTvLocation;
+        public TextView mTvProvider;
+        public TextView mTvStatus;
 
 
     }
