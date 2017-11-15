@@ -101,8 +101,9 @@ public class AppointmentDetailsActivity extends AppCompatActivity implements Vie
         mTvServiceName.setText(mAppointmentDateTime.getServiceName());
         mTvAppointmentDateTime.setText(Html.fromHtml(mAppointmentDateTime.getAppointmentDateTime()));
         mTvScheduledTimeZone.setText(mAppointmentDateTime.getScheduledTimeZone());
-        mTvAddress.setText(AppPreferene.with(this).getAddress());
-        mTvOrgName.setText(AppPreferene.with(this).getOrgination());
+        mTvAddress.setText(mAppointmentDateTime.getAddress1()+" "+ mAppointmentDateTime.getAddress2()+" "+mAppointmentDateTime.getCity()+" "+mAppointmentDateTime.getState()+" "+mAppointmentDateTime.getZip());
+        mTvOrgName.setText(mAppointmentDateTime.getOrgName());
+        mTvPhoneNmber.setText(mAppointmentDateTime.getPhone());
         if(mAppointmentDateTime.getIsCancelled()) {
             mTvEditAppointment.setEnabled(false);
             mTvCancelAppointment.setText("Cancelled");

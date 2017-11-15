@@ -122,6 +122,7 @@ public class AppointmentAcknowledgementActivity extends AppCompatActivity implem
                             + " " + confirmationDetails.getZip());
                     mTvOrgName.setText(confirmationDetails.getOrgName());
                     mTvProvider.setText(confirmationDetails.getProviderName());
+                    mTvPhoneNUmber.setText(confirmationDetails.getPhone());
                 }
                 else{
                     ResvUtils.createErrorAlert(AppointmentAcknowledgementActivity.this,getString(R.string.error),""+response.message());
