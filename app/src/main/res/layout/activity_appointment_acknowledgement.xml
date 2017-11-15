@@ -27,7 +27,8 @@
             android:text="@string/confirmation_msg"
             android:textAllCaps="false"
             android:textSize="@dimen/font_size"
-           android:textColor="@color/green_confirmation" />
+            android:drawableLeft="@drawable/done"
+           android:textColor="@color/about" />
 
     <TextView
         android:id="@+id/tv_serviceTypeAdapter"
