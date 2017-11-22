@@ -60,7 +60,7 @@
     <string name="title">Title</string>
     <string name="dob">Date Of Birth</string>
     <string name="signUp">Sign Up</string>
-    <string name="sign_up_and_book_appoint">Sign Up ......</string>
+    <string name="sign_up_and_book_appoint">Sign Up &amp; Book Appointment</string>
     <string name="time_Zone">Time zone</string>
     <string name="getDetails">Get Details</string>
 
@@ -126,6 +126,7 @@
     <string name="cancel_appointment">Cancel Appointment</string>
 
     <string name="edit_appointment">Edit Appointment</string>
+    <string name="edit">Edit</string>
     <string name="allocated">This time slot already allocated.</string>
     <string name="histroy_noEmail">No email exists</string>
     <string name="history_found">No history found.</string>

@@ -29,7 +29,7 @@
         <activity android:name=".Activity.AppointmentAcknowledgementActivity" />
         <activity android:name=".Activity.AppointmentHistoryActivity" />
         <activity android:name=".Activity.AppointmentDetailsActivity" />
-        <activity android:name=".Activity.RegisterActivity" />
+        <activity android:name=".Activity.RegisterActivity" android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity android:name=".Activity.NoNetworkActivity" />
         <!--
         <receiver android:name=".receivers.NetworkChangeReceiver">

@@ -104,8 +104,9 @@ public class AppointmentAcknowledgementActivity extends AppCompatActivity implem
                     ConfirmationDetails confirmationDetails = response.body().getResult();
                     if(isRegisteredUser) {
                         AppPreferene.with(AppointmentAcknowledgementActivity.this).setUserId(confirmationDetails.getUserID());
-                        AppPreferene.with(AppointmentAcknowledgementActivity.this).setEmail(confirmationDetails.getEmail());
+
                     }
+                    AppPreferene.with(AppointmentAcknowledgementActivity.this).setEmail(confirmationDetails.getEmail());
                     mTvConfirmationId.setText(confirmationDetails.getConfirmationNo());
                     mTvConfirmationNo.setText(confirmationDetails.getConfirmationNo());
                     mTvLastName.setText(confirmationDetails.getLastName());

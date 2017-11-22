@@ -155,7 +155,7 @@
                 android:drawableTop="@mipmap/ic_contact_us"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="@string/contact_us"
+                android:text="@string/search"
                 android:textColor="@color/about"
                 android:textStyle="bold"
                 android:textAlignment="center"

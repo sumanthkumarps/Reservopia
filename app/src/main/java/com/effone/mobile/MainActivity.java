@@ -399,7 +399,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mTvSearch=(TextView)findViewById(R.id.tv_search_and_title);
         mIvSearch=(ImageView)findViewById(R.id.iv_search);
         if(AppPreferene.with(this).getUserId().equals(""))
-            mIvSearch.setVisibility(View.VISIBLE);
+            mIvSearch.setVisibility(View.GONE);
         else
             mIvSearch.setVisibility(View.GONE);
         mLLSearchBox=(LinearLayout)findViewById(R.id.search_in);
@@ -659,7 +659,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.iv_back_btn:
                 showMenu(view);
                 break;
-            case R.id.iv_search:
+            case R.id.tv_contact_us:
               /*  openActivity(this, SearchAppointmentActivity.class);*/
               if(mLLSearchBox.getVisibility() == View.VISIBLE){
                   mTvSearch.setText(getString(R.string.upcomingAppointment));
@@ -899,7 +899,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         mIvSearch=(ImageView)findViewById(R.id.iv_search);
         if(AppPreferene.with(this).getUserId().equals(""))
-            mIvSearch.setVisibility(View.VISIBLE);
+            mIvSearch.setVisibility(View.GONE);
         else
             mIvSearch.setVisibility(View.GONE);
     }

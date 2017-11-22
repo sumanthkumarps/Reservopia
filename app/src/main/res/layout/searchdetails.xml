@@ -118,10 +118,9 @@
                     </android.support.design.widget.TextInputLayout>
                     <TextView
                         android:id="@+id/tv_or"
-                        android:layout_width="0dp"
+                        android:layout_width="20dp"
                         android:layout_height="match_parent"
                         android:layout_below="@+id/line2"
-                        android:layout_weight=".1"
                         android:gravity="center"
                         android:text="@string/or"
                         android:textSize="@dimen/sub_text"

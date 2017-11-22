@@ -90,6 +90,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         getWindow().setSoftInputMode(
@@ -546,7 +547,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             mTvLastName.setError(getString(R.string.last_error_msg));
             count++;
         }
-        if (!validate.isValidDate(mStDateOfBirth)) {
+        if (!validate.isValidDate(mStDateOfBirth)||mTvDob.getError()!=null) {
         mTvDob.setError(getString(R.string.dobMsg));
             count++;
         }

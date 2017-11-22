@@ -4,10 +4,13 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:isScrollContainer="false"
     android:background="@color/gray">
 <include
     android:id="@+id/header"
-    layout="@layout/fragment_common_header"/>
+    layout="@layout/fragment_common_header"
+
+    />
 
     <ScrollView
         android:id="@+id/scroller"
@@ -15,6 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/bt_submit"
         android:fillViewport="true"
+        android:isScrollContainer="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/header">
@@ -411,11 +415,14 @@
                             <EditText
                                 android:id="@+id/et_firstname"
                                 android:layout_width="match_parent"
+                                android:digits="0123456789*,qwertzuiopasdfghjklyxcvbnmQWERTZUIOPASDFGHJKLYXCVBNM"
                                 android:layout_height="50dp"
                                 android:layout_marginBottom="-5dp"
                                 android:hint="@string/firstname"
                                 android:inputType="textCapWords"
+                                android:imeOptions="actionNext"
                                 android:textSize="@dimen/font_size"
+                                android:singleLine="true"
                                 android:maxLength="25" />
                         </android.support.design.widget.TextInputLayout>
 
@@ -470,6 +477,9 @@
                                 android:hint="@string/lastname"
                                 android:textSize="@dimen/font_size"
                                 android:inputType="textCapSentences"
+                                android:imeOptions="actionNext"
+                                android:singleLine="true"
+                                android:digits="0123456789*,qwertzuiopasdfghjklyxcvbnmQWERTZUIOPASDFGHJKLYXCVBNM"
                                 android:maxLength="25" />
                         </android.support.design.widget.TextInputLayout>
 
@@ -624,7 +634,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginRight="5dp"
         android:layout_weight="1"
-        android:background="@drawable/button_rounded_corner"
+        android:background="@color/blue"
         android:text="@string/signUp"
         android:textColor="@color/inside_blue" />
 </RelativeLayout>

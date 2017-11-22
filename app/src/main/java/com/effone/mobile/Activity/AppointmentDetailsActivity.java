@@ -147,7 +147,7 @@ public class AppointmentDetailsActivity extends AppCompatActivity implements Vie
     }
 
     private void alertMsg(final String confirmationNo) {
-        ResvUtils.createYesOrNoDialog(AppointmentDetailsActivity.this, "Do you want cancel the appointment.", new DialogInterface.OnClickListener() {
+        ResvUtils.createYesOrNoDialog(AppointmentDetailsActivity.this, "Do you want cancel the appointment?", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 switch (id) {
                     case DialogInterface.BUTTON_POSITIVE:
