@@ -71,6 +71,8 @@
             android:layout_marginTop="5dp"
             android:background="@drawable/rounded_corner"
             android:gravity="left"
+            android:nestedScrollingEnabled="true"
+            android:choiceMode="multipleChoice"
             android:numColumns="4"></GridView>
     </LinearLayout>
 

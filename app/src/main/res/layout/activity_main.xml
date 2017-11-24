@@ -112,7 +112,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.33"
-                android:drawableTop="@mipmap/ic_booking_appiontment"
+                android:drawableTop="@mipmap/book"
                 android:gravity="center"
                 android:padding="10dp"
                 android:textColor="@color/about"

@@ -172,5 +172,8 @@
     <string name="details_updated">Your profile updated successfully.</string>
     <string name="noappontmentfound">No appointment found,\n please book a new appointment.</string>
     <string name="unable_to">Unable to cancel the Appointment.</string>
+    <string name="multiple_time_slot">Please select the time slots</string>
+    <string name="confirmation_timeSlot">Appointment Confirmation Time</string>
+    <string name="confirmation_timeSlot_msg">Please confirm the appointment time on</string>
 
 </resources>
