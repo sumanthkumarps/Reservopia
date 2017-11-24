@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatSpinner;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -216,7 +217,7 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
             if (serviceProvidedTable.getMaxAppointmentDuration() != null) {
                 String[] times = serviceProvidedTable.getMaxAppointmentDuration().toString().split(" ");
                 maxDuration = Integer.parseInt(times[0]);
-            } else maxDuration = 0;
+            } else maxDuration = 60;
         } catch (Exception e) {
             duration=0;
             maxDuration=0;
@@ -601,10 +602,12 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
     private void showingPopUpAlert(Context mContext, String startTime) {
         LayoutInflater layoutInflater =
                 (LayoutInflater)getBaseContext()
-                        .getSystemService(LAYOUT_INFLATER_SERVICE);
+                        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View popupView = layoutInflater.inflate(R.layout.popup, null);
         final PopupWindow popupWindow = new PopupWindow(
-                popupView, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                popupView, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT,true);
+
+        popupWindow.setOutsideTouchable(false);
         TextView startTimes=(TextView)popupView.findViewById(R.id.start_time);
         TextView msgDate=(TextView)popupView.findViewById(R.id.tv_date);
         msgDate.setText(getString(R.string.confirmation_timeSlot_msg)+" "
@@ -660,7 +663,7 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
                 popupWindow.dismiss();
             }});
 
-       popupWindow.showAsDropDown(mLvServiceType, 50, -30);
+      popupWindow.showAsDropDown(mLvServiceType, 50, -30);
     }
 
     private String[] removingNullValuesFromArray(String[] endTime) {
