@@ -103,7 +103,7 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
     private String mScheduledDate;
     private Calendar mCalendar;
     String[] timedate;
-
+    private  int duration,maxDuration;
     String formatedDate;
     private History mAppointmentDateTime;
 
@@ -207,6 +207,20 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
         getingDataForProvider(mRealm.where(ProviderTable.class).findAll().size());
         declarations();
 
+    }
+
+    private void gettingDurationAndMaxDuration(String loc_id, String service_ID) {
+        try {
+            ServiceProvidedTable serviceProvidedTable = mRealm.where(ServiceProvidedTable.class).equalTo("ServiceID", service_ID).equalTo("LocID", loc_id).findFirst();
+            duration = Integer.parseInt(serviceProvidedTable.getAppointmentDuration());
+            if (serviceProvidedTable.getMaxAppointmentDuration() != null) {
+                String[] times = serviceProvidedTable.getMaxAppointmentDuration().toString().split(" ");
+                maxDuration = Integer.parseInt(times[0]);
+            } else maxDuration = 0;
+        } catch (Exception e) {
+            duration=0;
+            maxDuration=0;
+        }
     }
 
     ProviderTable mProviderTable;
@@ -489,19 +503,14 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
         timeSlotStrings = (TimeSlotStrings) adapterView.getItemAtPosition(position);
-       /* else {
-            mTimeSlotStrings = (TimeSlotStrings) adapterView.getItemAtPosition(position);
-            timeSlotStrings.setEndTime(mTimeSlotStrings.getEndTime());
-        }*/
 
-        addingDataIntoArray(position,15,60);
-
+        if(maxDuration != 0 && duration != 0) {
+            addingDataIntoArray(position, duration, maxDuration);
+        }
         if (adapter != null && adapter.getCount() > 0) {
             adapter.setSelectedPosition(position);
             adapter.notifyDataSetChanged();
         }
-
-
     }
 
     private  String[] endTime;
@@ -743,6 +752,7 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
 
         if(mLocationTable!= null && getmServiceTable != null && mTimeZoneDetails != null && mProviderTable != null ){
             settingDataIntoGrid(mEtDate.getText().toString().trim(),""+mLocationTable.getLocID(),getmServiceTable.getServiceID(),mTimeZoneDetails.getStandardName(),mProviderTable.getUserID());
+            gettingDurationAndMaxDuration(String.valueOf(mLocationTable.getLocID()),getmServiceTable.getServiceID());
         }
 
     }
