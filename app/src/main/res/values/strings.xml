@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Reservopia</string>
-    <string name="histroy">History</string>
+    <string name="histroy">Appointment History</string>
     <string name="upcomingAppointment">Upcoming Appointment</string>
     <string name="upcomingAppointments">Upcoming Appointments</string>
     <string name="select_location">Location </string>
@@ -164,7 +164,7 @@
     <string name="resetPassword_msg"> We have sent a temporary code to your email id. Use that code to reset your password.</string>
     <string name="account_create_msg">Account created successfully.</string>
     <string name="or">or</string>
-    <string name="search">Search</string>
+    <string name="search">Search Appointment</string>
     <string name="search_result">Search result</string>
     <string name="profile">Profile</string>
     <string name="edit_profile">Edit Profile</string>

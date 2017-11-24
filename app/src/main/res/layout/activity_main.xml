@@ -112,14 +112,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.33"
-                android:drawableTop="@mipmap/book"
+                android:drawableTop="@mipmap/appointment"
                 android:gravity="center"
                 android:padding="10dp"
-                android:textColor="@color/about"
                 android:text="@string/booking_app"
-                android:textStyle="bold"
                 android:textAlignment="center"
-                android:textSize="@dimen/sub_about" />
+                android:textSize="@dimen/about" />
 
             <View
                 android:layout_width="match_parent"
@@ -132,14 +130,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.33"
-                android:drawableTop="@mipmap/ic_history"
+                android:drawableTop="@mipmap/appointment1"
                 android:gravity="center"
                 android:padding="10dp"
                 android:text="@string/histroy"
-                android:textStyle="bold"
-                android:textColor="@color/about"
                 android:textAlignment="center"
-                android:textSize="@dimen/sub_about" />
+                android:textSize="@dimen/about"/>
 
             <View
                 android:layout_width="match_parent"
@@ -152,14 +148,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.33"
-                android:drawableTop="@mipmap/ic_contact_us"
+                android:drawableTop="@mipmap/appointment"
                 android:gravity="center"
                 android:padding="10dp"
                 android:text="@string/search"
-                android:textColor="@color/about"
-                android:textStyle="bold"
                 android:textAlignment="center"
-                android:textSize="@dimen/sub_about" />
+                android:textSize="@dimen/about"/>
         </LinearLayout>
     </LinearLayout>
 
