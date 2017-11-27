@@ -504,8 +504,9 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
         timeSlotStrings = (TimeSlotStrings) adapterView.getItemAtPosition(position);
-
+            // maxDuration is  not equals to zero then only we will show the popup alert for selection of time interval more than the duration time (selection of multiple time slots based on maxDuration). we are getting maxDuration value from the ServiceProviderTable from the database
         if(maxDuration != 0 && duration != 0) {
+            //we are passing the selected item position and Duration and maxDuration
             addingDataIntoArray(position, duration, maxDuration);
         }
         if (adapter != null && adapter.getCount() > 0) {
@@ -515,11 +516,15 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
     }
 
     private  String[] endTime;
-    private void addingDataIntoArray(int position, int Duration,int maxDuration) {
-        endTime=new String[movies.get(0).getTimeSlotStrings().size()-position];
-        int k=0;
+    private void addingDataIntoArray(int selectedItemPosition, int Duration,int maxDuration) {
+
+        endTime=new String[movies.get(0).getTimeSlotStrings().size()-selectedItemPosition];
+        int index=0;
         try {
-            k = getTimeSlotsForSpinner(k, position, Duration, maxDuration);
+            //getting time slots to spinner and we are  passing index values 0
+            index = getTimeSlotsForSpinner(index, selectedItemPosition, Duration, maxDuration);
+
+            // showing the alert to the user for selection of multiple timeslots
             showingPopUpAlert(LocationServiceActivity.this,timeSlotStrings.getStartTime());
         }catch (Exception e){
             Log.e("timeSLot",e.getMessage());
@@ -528,40 +533,46 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
     }
    private ArrayList<TimeSlotStrings> timeSlotsStartEnds;
 
-    private int getTimeSlotsForSpinner(int arrayPosition, int position,int Duration,int maxDuration) {
+    private int getTimeSlotsForSpinner(int arrayPosition, int selectedItemPosition,int Duration,int maxDuration) {
         timeSlotsStartEnds =new ArrayList<TimeSlotStrings>();
-        for (int i = position; i < movies.get(0).getTimeSlotStrings().size(); i++) {
+        // her we are using for loop and we are declaring a new variable i, and loop start form the seleceted item positon and ends at the timeSlot array size
+        for (int i = selectedItemPosition; i < movies.get(0).getTimeSlotStrings().size(); i++) {
+
             if((arrayPosition* Duration) <= (maxDuration-Duration)) {
-                basedOnPostion(i,arrayPosition);
+                if(basedOnPostion(i,arrayPosition))
                 arrayPosition++;
+                else
+                    break;
             }else{
                 break;
             }
-            /*} else
-                if (gettingDifferencebetweenSlots(movies.get(0).getTimeSlotStrings().get(i - 1).getEndTime().toString(),
-                        movies.get(0).getTimeSlotStrings().get(i).getEndTime().toString())) {
 
-                    endTime[k] = parseDate(movies.get(0).getTimeSlotStrings().get(i).getEndTime().toString());
-             k++;
-            }
-              else
-                  break;*/
 
         }
         return  arrayPosition;
     }
 
-    private void basedOnPostion(int index, int arrayPosition) {
-        if(arrayPosition == 0)
-        endTime[arrayPosition] = parseDate(movies.get(0).getTimeSlotStrings().get(index).getEndTime().toString());
-        else if (gettingDifferencebetweenSlots(movies.get(0).getTimeSlotStrings().get(index - 1).getEndTime().toString(),
+    private boolean basedOnPostion(int index, int arrayPosition) {
+        //if arrayPosition variable value=0 means we are inserting data into array directly
+        if(arrayPosition == 0) {
+            endTime[arrayPosition] = parseDate(movies.get(0).getTimeSlotStrings().get(index).getEndTime().toString());
+            addingDataIntoList(arrayPosition,index);
+            return true;
+        }
+        else// if the arrayPosition variable value != 0 we are taking the difference between the current timeslot and previous timeslot the differnece matchs the duration then only we are inserting current time slot into the array
+            if (gettingDifferencebetweenSlots(movies.get(0).getTimeSlotStrings().get(index - 1).getEndTime().toString(),
                 movies.get(0).getTimeSlotStrings().get(index).getEndTime().toString())) {
             endTime[arrayPosition] = parseDate(movies.get(0).getTimeSlotStrings().get(index).getEndTime().toString());
-        }
-        addingDataIntoList(arrayPosition,index);
+            addingDataIntoList(arrayPosition,index);
+                return true;
+        }else
+            return false;
+
+
     }
 
     private void addingDataIntoList(int arrayPosition,int indexOfSlot) {
+        // Due to the usage of same adpter for Gird and Spinner we are swapping data. end value is assigned to start time and start time is assigned to endTime
         TimeSlotStrings timeSlotsStartEnd=new TimeSlotStrings();
         timeSlotsStartEnd.setEndTime(movies.get(0).getTimeSlotStrings().get(indexOfSlot).getStartTime());
         timeSlotsStartEnd.setStartTime(movies.get(0).getTimeSlotStrings().get(indexOfSlot).getEndTime());
