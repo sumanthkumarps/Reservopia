@@ -107,7 +107,7 @@
             android:orientation="vertical"
             android:padding="5dp">
 
-            <TextView
+                <TextView
                 android:id="@+id/tv_booking_app"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"

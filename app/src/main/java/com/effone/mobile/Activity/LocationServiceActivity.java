@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatSpinner;
@@ -27,7 +28,6 @@ import com.effone.mobile.R;
 import com.effone.mobile.adapter.LocationAdapter;
 import com.effone.mobile.adapter.ProviderTypeAdapter;
 import com.effone.mobile.adapter.ServiceTypeAdapter;
-import com.effone.mobile.adapter.SpinnerTimeSlotsAdapter;
 import com.effone.mobile.adapter.TimeSlotAdapter;
 import com.effone.mobile.adapter.TimeZoneAdapter;
 import com.effone.mobile.common.AppPreferene;
@@ -95,7 +95,7 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
     private EditText mEtDate;
     private GridView mGvTimeSlots;
     private TextView mTvSubmit;
-    private ArrayList<Time> movies;
+    private ArrayList<Time> movies,popupTimeSlots;
     private TimeSlotAdapter adapter;
     private String serviceTable;
 
@@ -108,7 +108,6 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
     private  int duration,maxDuration;
     String formatedDate;
     private History mAppointmentDateTime;
-    private boolean isSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -421,7 +420,10 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
             body.setAppointmentTypeRefID(27);
             body.setServiceID("" + serviceTable);
             body.setStartTime("" + timeSlotStrings.getStartTime());
+            if(mTimeSlotStrings.getEndTime()==null)
             body.setEndTime("" + timeSlotStrings.getEndTime());
+            else
+                body.setEndTime("" + mTimeSlotStrings.getStartTime());
             body.setScheduledTimeZone("" + timeZoneTable);
             body.setSendEmailReminder(0);
             body.setSendTextReminder(0);
@@ -439,51 +441,7 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
             intent.putExtra("appointment_details", body);
             intent.putExtra("editAppointment", editAppointment);
             startActivity(intent);
-          /*  if (!body.getUserID().equals("0")) {
-                ApiInterface apiService =
-                        ApiClient.getClient().create(ApiInterface.class);
-                Call<com.effone.mobile.model.Response> response = apiService.createAppointment(getString(R.string.token), body);
-                response.enqueue(new Callback<com.effone.mobile.model.Response>() {
-                    @Override
-                    public void onResponse(Call<com.effone.mobile.model.Response> call, Response<com.effone.mobile.model.Response> rawResponse) {
-                        try {
-                            if(!rawResponse.body().getResult().getOperation().equals("501")) {
-                                if (rawResponse.body().getResult().getID() != null) {
-// Toast.makeText(LocationServiceActivity.this, "done" + rawResponse.body().getResult().getID(), Toast.LENGTH_SHORT).show();
-                                    //get your response....
-                                    //Log.e(TAG, "RetroFit2.0 :RetroGetLogin: " + rawResponse.body());
-                                    Intent intent = new Intent(LocationServiceActivity.this, AppointmentAcknowledgementActivity.class);
-                                    intent.putExtra(getString(R.string.confirmation_no), rawResponse.body().getResult().getID());
-                                    startActivity(intent);
-                                    finish();
-                                } else {
-                                    ResvUtils.createErrorAlert(LocationServiceActivity.this, getString(R.string.error), "" + rawResponse.message());
-                                    new Handler().postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            finish();
-                                        }
-                                    }, 5000);
-                                }
-                            }else{
-                                ResvUtils.createErrorAlert(LocationServiceActivity.this, getString(R.string.error), "Appointment has been Booked " );
-                            }
 
-
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<com.effone.mobile.model.Response> call, Throwable throwable) {
-                        // other stuff...
-                        Log.e(TAG, "RetroFit2.0 :RetroGetLogin: " + throwable.toString());
-                    }
-                });
-            }else {
-
-            }*/
         } else {
             ResvUtils.createOKAlert(this, getResources().getString(R.string.time_slot_validation), getString(R.string.select_time_slot));
 
@@ -511,6 +469,9 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
             adapter.setSelectedPosition(position);
             adapter.notifyDataSetChanged();
         }
+        popupTimeSlots=new ArrayList<>();
+        popupTimeSlots=movies;
+       //Toast.makeText(LocationServiceActivity.this, movies.get(0).getTimeSlotStrings().get(position).getEndTime(),Toast.LENGTH_SHORT).show();
             // maxDuration is  not equals to zero then only we will show the popup alert for selection of time interval more than the duration time (selection of multiple time slots based on maxDuration). we are getting maxDuration value from the ServiceProviderTable from the database
         if(maxDuration != 0 && duration != 0) {
             //we are passing the selected item position and Duration and maxDuration
@@ -536,7 +497,7 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
 
     }
    private ArrayList<TimeSlotStrings> timeSlotsStartEnds;
-        // main logic implemented for filter time slots
+
     private int getTimeSlotsForSpinner(int arrayPosition, int selectedItemPosition,int Duration,int maxDuration) {
         if(timeSlotsStartEnds!=null){
             timeSlotsStartEnds=null;
@@ -545,6 +506,7 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
         // her we are using for loop and we are declaring a new variable i, and loop start form the seleceted item positon and ends at the timeSlot array size
         //movies is main time slot arrayList of Time Obect
         for (int i = selectedItemPosition; i < movies.get(0).getTimeSlotStrings().size(); i++) {
+
 
             if((arrayPosition* Duration) <= (maxDuration-Duration)) {
                 if(basedOnPostion(i,arrayPosition))
@@ -566,23 +528,22 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
             addingDataIntoList(arrayPosition,index);
             return true;
         }
-        else// if the arrayPosition variable value != 0 we are taking the difference between the current timeslot and previous timeslot the differnece matchs the duration then only we are inserting current time slot into the array
+        else{// if the arrayPosition variable value != 0 we are taking the difference between the current timeslot and previous timeslot the differnece matchs the duration then only we are inserting current time slot into the array
             if (gettingDifferencebetweenSlots(movies.get(0).getTimeSlotStrings().get(index - 1).getEndTime().toString(),
                 movies.get(0).getTimeSlotStrings().get(index).getEndTime().toString())) {
             addingDataIntoList(arrayPosition,index);
                 return true;
-        }else
-            return false;
-
-
+            } else
+                return false;
+        }
     }
 
     private void addingDataIntoList(int arrayPosition,int indexOfSlot) {
         // Due to the usage of same adpter for Gird and Spinner we are swapping data. end value is assigned to start time and start time is assigned to endTime
         TimeSlotStrings timeSlotsStartEnd=new TimeSlotStrings();
-        timeSlotsStartEnd.setEndTime(movies.get(0).getTimeSlotStrings().get(indexOfSlot).getStartTime());
-        timeSlotsStartEnd.setStartTime(movies.get(0).getTimeSlotStrings().get(indexOfSlot).getEndTime());
-        timeSlotsStartEnds.add(timeSlotsStartEnd);
+        timeSlotsStartEnd.setEndTime(popupTimeSlots.get(0).getTimeSlotStrings().get(indexOfSlot).getStartTime());
+        timeSlotsStartEnd.setStartTime(popupTimeSlots.get(0).getTimeSlotStrings().get(indexOfSlot).getEndTime());
+        timeSlotsStartEnds.add(arrayPosition,timeSlotsStartEnd);
     }
 
     private boolean gettingDifferencebetweenSlots(String start, String end) {
@@ -625,6 +586,9 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
                 popupView, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT,true);
 
         popupWindow.setOutsideTouchable(false);
+        popupWindow.setFocusable(true);
+        popupWindow.setBackgroundDrawable(new BitmapDrawable());
+
         TextView startTimes=(TextView)popupView.findViewById(R.id.start_time);
         TextView msgDate=(TextView)popupView.findViewById(R.id.tv_date);
         msgDate.setText(getString(R.string.confirmation_timeSlot_msg)+" "
@@ -644,8 +608,8 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
         Button btnSave = (Button)popupView.findViewById(R.id.btn_save);
         final Spinner popupSpinner = (Spinner)popupView.findViewById(R.id.popupspinner);
 
-        isSpinner=true;
-        SpinnerTimeSlotsAdapter timeSlotAdapter=new SpinnerTimeSlotsAdapter(getBaseContext(),timeSlotsStartEnds);
+
+       TimeSlotAdapter  timeSlotAdapter=new TimeSlotAdapter(getBaseContext(),timeSlotsStartEnds);
         popupSpinner.setAdapter(timeSlotAdapter);
 
      /*  popupSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -676,8 +640,10 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
             @Override
             public void onClick(View v) {
                 mTimeSlotStrings = (TimeSlotStrings) popupSpinner.getSelectedItem();
-                timeSlotStrings.setEndTime(mTimeSlotStrings.getStartTime());
+             //   timeSlotStrings.setEndTime(mTimeSlotStrings.getEndTime());
+
                 popupWindow.dismiss();
+
             }});
 
       popupWindow.showAsDropDown(mLvServiceType, 50, -30);
