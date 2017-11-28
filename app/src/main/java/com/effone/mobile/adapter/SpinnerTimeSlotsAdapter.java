@@ -49,13 +49,14 @@ import java.util.Locale;
 
 public class SpinnerTimeSlotsAdapter  extends BaseAdapter {
     private Context mContext;
-    private ArrayList<TimeSlotsStartEnd> web;
+    private ArrayList<TimeSlotStrings> web;
     private String formattedDate;
     private int selectedPosition = -1;
+    private  boolean isSpinner;
 
-
-    public SpinnerTimeSlotsAdapter(Context c, ArrayList<TimeSlotsStartEnd> web ) {
+    public SpinnerTimeSlotsAdapter(Context c, ArrayList<TimeSlotStrings> web ) {
         mContext = c;
+        this.isSpinner=isSpinner;
         this.web = web;
     }
     public void setSelectedPosition(int position) {
@@ -83,30 +84,22 @@ public class SpinnerTimeSlotsAdapter  extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         // TODO Auto-generated method stub
         View grid=convertView;
-        final  TimeSlotsFiel mTimeSlotsFiel;
+        final TimeSlotAdapter.TimeSlotsFiel mTimeSlotsFiel;
         LayoutInflater inflater = (LayoutInflater) mContext
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         if (convertView == null) {
-            mTimeSlotsFiel = new TimeSlotsFiel();
+            mTimeSlotsFiel = new TimeSlotAdapter.TimeSlotsFiel();
             convertView = inflater.inflate(R.layout.gird_single, null);
             mTimeSlotsFiel.mTvDateTime = (TextView) convertView.findViewById(R.id.grid_text);
             convertView.setTag(mTimeSlotsFiel);
         }else {
-            mTimeSlotsFiel = (TimeSlotsFiel) convertView.getTag();
+            mTimeSlotsFiel = (TimeSlotAdapter.TimeSlotsFiel) convertView.getTag();
         }
         DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm aa", Locale.US);
         DateFormat timeFormat = new SimpleDateFormat("hh:mm aa", Locale.US);
-        if (position == selectedPosition) {
-            convertView.setBackgroundColor(Color.parseColor("#0E68F0"));
-            mTimeSlotsFiel.mTvDateTime.setTextColor(Color.parseColor("#D2FFFF"));
-            mTimeSlotsFiel.mTvDateTime.setTypeface(null, Typeface.BOLD);
 
-        } else {
-            convertView.setBackgroundColor(Color.TRANSPARENT);
-            mTimeSlotsFiel.mTvDateTime.setTextColor(Color.BLACK);
-            mTimeSlotsFiel.mTvDateTime.setTypeface(null, Typeface.NORMAL);
-        }
+
 
         try {
             formattedDate = timeFormat.format(dateFormat.parse(web.get(position).getStartTime()));

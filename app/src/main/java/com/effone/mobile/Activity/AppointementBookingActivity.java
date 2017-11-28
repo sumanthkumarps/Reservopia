@@ -99,9 +99,10 @@ public class AppointementBookingActivity extends AppCompatActivity implements Ad
                 if (mCommonProgressDialog != null)
                     mCommonProgressDialog.cancel();
                 try {
+                    boolean isSpinner=false;
                     movies = response.body().getResult();
                     if (movies.size() > 0 && movies.get(0).getTimeSlotStrings().size() != 0) {
-                        adapter = new TimeSlotAdapter(AppointementBookingActivity.this, movies.get(1).getTimeSlotStrings());
+                        adapter = new TimeSlotAdapter(AppointementBookingActivity.this,movies.get(1).getTimeSlotStrings());
                         mGvTimeSlots.setAdapter(adapter);
                     } else {
                         //Toast.makeText(AppointementBookingActivity.this, "No Time SLots", Toast.LENGTH_SHORT).show();

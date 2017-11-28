@@ -29,10 +29,11 @@ public class TimeSlotAdapter  extends BaseAdapter {
     private ArrayList<TimeSlotStrings> web;
     private String formattedDate;
     private int selectedPosition = -1;
-
+    private  boolean isSpinner;
 
     public TimeSlotAdapter(Context c, ArrayList<TimeSlotStrings> web ) {
         mContext = c;
+        this.isSpinner=isSpinner;
         this.web = web;
     }
     public void setSelectedPosition(int position) {
@@ -74,6 +75,7 @@ public class TimeSlotAdapter  extends BaseAdapter {
         }
             DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm aa", Locale.US);
             DateFormat timeFormat = new SimpleDateFormat("hh:mm aa", Locale.US);
+
         if (position == selectedPosition) {
             convertView.setBackgroundColor(Color.parseColor("#0E68F0"));
             mTimeSlotsFiel.mTvDateTime.setTextColor(Color.parseColor("#D2FFFF"));

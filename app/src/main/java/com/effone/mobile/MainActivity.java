@@ -147,11 +147,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         declarations();
        //registerNetworkBroadcastForNougat();
         mRealm=Realm.getDefaultInstance();
+        try {
+            if (!AppPreferene.with(this).getPreLoad()) {
+                getLocationAndServicesAndSave();
+                getTitleAndSave();
+                getTimeZoneAndSave();
+            }
+        }catch (Exception e){
 
-        if(!AppPreferene.with(this).getPreLoad()){
-            getLocationAndServicesAndSave();
-            getTitleAndSave();
-            getTimeZoneAndSave();
         }
     }
 
@@ -165,8 +168,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onResponse(Call<GetTimeZones> call, Response<GetTimeZones> response) {
                 if (mCommonProgressDialog != null)
                     mCommonProgressDialog.cancel();
-                mTimeZoneDetails=response.body().getResult();
-                insertTimeZoneIntoDatabase();
+                if(response.isSuccessful()) {
+                    mTimeZoneDetails = response.body().getResult();
+                    insertTimeZoneIntoDatabase();
+                }
             }
 
             @Override
@@ -204,8 +209,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onResponse(Call<Title> call, Response<Title> response) {
                 if (mCommonProgressDialog != null)
                     mCommonProgressDialog.cancel();
-                mTitle=response.body().getResult();
-                insertTitleDataIntoDatabase();
+                if(response.isSuccessful()) {
+                    mTitle = response.body().getResult();
+                    insertTitleDataIntoDatabase();
+                }
             }
             @Override
             public void onFailure(Call<Title> call, Throwable t) {
@@ -251,12 +258,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onResponse(Call<LocationAndService> call, Response<LocationAndService> response) {
                 if (mCommonProgressDialog != null)
                     mCommonProgressDialog.cancel();
-                LocationAndServiceResult locationAndService = response.body().getResult();
-                mLocation = locationAndService.getLocations();
-                mService = locationAndService.getServices();
-                mProvider=locationAndService.getProviders();
-          //      mLocationXService = locationAndService.getLocationsXServices();
-                saveToRealm();
+                if(response.isSuccessful()) {
+                    LocationAndServiceResult locationAndService = response.body().getResult();
+                    mLocation = locationAndService.getLocations();
+                    mService = locationAndService.getServices();
+                    mProvider = locationAndService.getProviders();
+                    //      mLocationXService = locationAndService.getLocationsXServices();
+                    saveToRealm();
+                }
             }
 
             @Override
