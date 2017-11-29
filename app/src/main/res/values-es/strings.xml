@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Reservopia</string>
+    <string name="enter_phone">" ingrese el teléfono sin"</string>
+    <string name="enter_last">Introduzca el apellido</string>
+    <string name="enter_first">" ingresar nombre"</string>
+    <string name="dob_date">mm/dd/yyyy</string>
+    <string name="login_information">" Información Entrar :"</string>
+    <string name="personal_information">Detalles personales :</string>
+    <string name="select_time_slot">Seleccione un intervalo de tiempo.</string>
+    <string name="options">" Seleccione las opciones de cita:"</string>
+    <string name="no_internet_message">" ¡Sin conexión a Internet!"</string>
+    <string name="no_internet_connection_and_try_again">" Por favor, compruebe su conexión a Internet y vuelva a intentarlo."</string>
+    <string name="try_again">" Inténtalo de nuevo."</string>
+    <string name="status">" Estado"</string>
+    <string name="location_details">Detalles de ubicación :</string>
+    <string name="orginzatrion">" Organización"</string>
+    <string name="locName">LocName</string>
+    <string name="Booked">Reservado</string>
+    <string name="confirmation">" Confirmación"</string>
+    <string name="Location">Ubicación</string>
+    <string name="confirmation_msg">Gracias, tu cita está reservada.</string>
+    <string name="confirmationno">" ID de confirmación"</string>
+    <string name="login">Iniciar sesión</string>
+    <string name="login_samll">" iniciar sesión"</string>
+    <string name="logout">" Cerrar sesión"</string>
+    <string name="reset">Reiniciar</string>
+    <string name="reset_cap">Reiniciar</string>
+    <string name="forgot"><u>¿Se te olvidó tu contraseña?</u></string>
+    <string name="signup">" Regístrate"</string>
+    <string name="cancel">" Cancelar"</string>
+    <string name="cancel_appointment">Cancelar cita</string>
+    <string name="edit_appointment">Editar cita</string>
+    <string name="edit">Editar</string>
+    <string name="allocated">Este intervalo de tiempo ya asignado.</string>
+    <string name="histroy_noEmail">No hay correo electrónico</string>
+    <string name="history_found">No se encontró historia.</string>
+    <string name="something_went_wrong">Algo salió mal</string>
+    <string name="alphabets">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+    <string name="reset_pass">Restablecer la contraseña</string>
+    <string name="forgot_password_small">Olvidó passowrd:</string>
+    <string name="find_your_appointment">"Encuentra tu cita "</string>
+    <string name="reset_pass_samll">Restablecer la contraseña :</string>
+    <string name="forgot_title">Se te olvidó tu contraseña</string>
+    <string name="fromLogin">fromlogin</string>
+    <string name="isFromHomeScreen">isFromHomeScreen</string>
+    <string name="select_provider">Provider</string>
+    <string name="edit_personal_info">Editar información personal</string>
+    <string name="reset_code">
+Restablecer Código</string>
+    <string name="new_password">Nueva contraseña</string>
+    <string name="enter_new_password">
+Introduzca nueva contraseña</string>
+    <string name="enter_reset_code">
+ingrese el código de restablecimiento</string>
+
+    <string name="emailMsg1">
+Email inválido</string>
+    <string name="invalid_date_for_dob">
+Fecha inválida para la fecha de nacimiento.</string>
+    <string name="dobMsg">
+Por favor, haga coincidir el formato de fecha. Ej: mm / dd / aaaa (04/09/2002)</string>
+
+
+    <string name="all_field">
+Todos los campos son obligatorios.</string>
+    <string name="email_error_msg">
+correo electronico es requerido.</string>
+    <string name="phone_error_msg">
+Debe ser un número de 10 dígitos.</string>
+    <string name="password_error_msg">Debe contener de 6 a 15 caracteres.</string>
+    <string name="re_password_mssg">
+Debe coincidir con la contraseña.</string>
+
+    <string name="didnotmatch_error_msg">
+No coincide con la contraseña.</string>
+    <string name="first_error_msg">
+Se requiere el primer nombre.</string>
+    <string name="last_error_msg">El apellido es obligatorio.</string>
+    <string name="resetPassword_msg">
+Hemos enviado un código temporal a su id de correo electrónico. Use ese código para restablecer su contraseña.</string>
+    <string name="account_create_msg">
+Cuenta creada con éxito.</string>
+    <string name="or">
+o</string>
+    <string name="search">Buscar cita</string>
+    <string name="search_result">
+Resultado de búsqueda</string>
+    <string name="profile">Perfil</string>
+    <string name="edit_profile">
+Editar perfil</string>
+    <string name="email_error_msg_valid">
+Ingrese un email valido.</string>
+    <string name="details_updated">su perfil actualizado con éxito</string>
+    <string name="noappontmentfound">No se encontró cita, \ n por favor reserve una nueva cita.</string>
+    <string name="unable_to">
+No se puede cancelar la cita.</string>
+    <string name="multiple_time_slot">
+Por favor, seleccione los espacios de tiempo</string>
+    <string name="confirmation_timeSlot">
+Hora de confirmación de citas</string>
+    <string name="confirmation_timeSlot_msg">
+Por favor confirme la hora de la cita en</string>
+    <string name="about">" Acerca de"</string>
+    <string name="upcomingAppointment">" Próxima cita"</string>
+    <string name="upcomingAppointments">" Próximas citas"</string>
+    <string name="histroy">Historial de citas</string>
+    <string name="select_location">Ubicación</string>
+    <string name="booking_app">Reservar una cita</string>
+    <string name="aboutUs">" El usuario puede reservar una cita en línea eligiendo la ubicación, el servicio, el intervalo de tiempo y la fecha según su conveniencia y disponibilidad. Es completamente gratis y no requiere ninguna configuración."</string>
+    <string name="contact_us">Contáctenos</string>
+    <string name="scheduling">" Programar una cita"</string>
+    <string name="email">Email</string>
+    <string name="internet_connection">" Necesita una conexión de red para usar esta aplicación. Encienda la red móvil o Wi-Fi en Configuración."</string>
+    <string name="titleMsg">" No puede conectarse"</string>
+    <string name="settings">Configuraciones</string>
+    <string name="button">Cancelar</string>
+    <string name="phone">Teléfono</string>
+    <string name="radio_male">Masculino</string>
+    <string name="radio_female">Hembra</string>
+    <string name="names">Nombre</string>
+    <string name="first">Nombre de pila</string>
+    <string name="last">Apellido</string>
+    <string name="password">Contraseña</string>
+    <string name="conf_password">" Re contraseña"</string>
+    <string name="email_password">" Contraseña anterior"</string>
+    <string name="createAccount">" Crear una cuenta"</string>
+    <string name="submit">" Reservar una cita"</string>
+</resources>

@@ -204,6 +204,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void gettingUserDeatils() {
+        mBtSubmit.setEnabled(false);
         if (!AppPreferene.with(this).getUserId().equals("")) {
             gettingDetails(AppPreferene.with(RegisterActivity.this).getUserId(), AppPreferene.with(RegisterActivity.this).getEmail());
             if(!isFromHomeScreen){
@@ -211,6 +212,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             }else
             mBtSubmit.setText(getString(R.string.booking_app));
         } else {
+            mBtSubmit.setEnabled(true);
             if (appointmentBookingModel != null)
                 mBtSubmit.setText(getString(R.string.sign_up_and_book_appoint));
             else
@@ -227,6 +229,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void onResponse(Call<UserDetails> call, retrofit2.Response<UserDetails> response) {
                 response.raw().request().url();
+                mBtSubmit.setEnabled(true);
                 if (response.body() != null) {
 
                     UserDetailGet userDetailGet = response.body().getResult();
@@ -254,6 +257,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
             @Override
             public void onFailure(Call<UserDetails> call, Throwable t) {
+                mBtSubmit.setEnabled(true);
                 ResvUtils.createOKAlert(RegisterActivity.this, getString(R.string.error), getString(R.string.something_went_wrong));
             }
         });

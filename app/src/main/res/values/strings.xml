@@ -8,12 +8,11 @@
     <string name="booking_app">Book Appointment</string>
     <string name="contact_us">Contact Us</string>
     <string name="aboutUs">User can book online appointment by choosing location, service, time slot and date as per their convenience and availability. It’s completely free and doesn’t require any set up.</string>
-    <string name="scheduling">ScheduleAppointment</string>
+
     <string name="email">Email              </string>
     <string name="internet_connection">"You need a network connection to use this application. Please turn on mobile network or Wi-Fi in Settings.</string>
     <string name="titleMsg">Unable to connect</string>
     <string name="settings">Settings</string>
-    <string name="button">Cancel</string>
     <string name="phone">Phone </string>
     <string name="radio_male">Male</string>
     <string name="radio_female">Female</string>
@@ -83,7 +82,7 @@
     <string name="user_validation">User Registration</string>
     <string name="passworddoednotmatch">Password and Re-Password mismatch.</string>
     <string name="firstname">enter first name</string>
-    <string name="lastname">enter last name</string>
+    <string name="lastname" translatable="false">enter last name</string>
     <string name="dateofbirth">mm/dd/yyyy</string>
     <string name="phone1">enter phone</string>
     <string name="address1">enter address</string>
@@ -175,5 +174,7 @@
     <string name="multiple_time_slot">Please select the time slots</string>
     <string name="confirmation_timeSlot">Appointment Confirmation Time</string>
     <string name="confirmation_timeSlot_msg">Please confirm the appointment time on</string>
+    <string name="scheduling">sc</string>
+    <string name="button">Cancel</string>
 
 </resources>

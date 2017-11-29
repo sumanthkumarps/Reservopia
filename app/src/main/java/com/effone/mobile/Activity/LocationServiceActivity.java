@@ -420,7 +420,7 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
             body.setAppointmentTypeRefID(27);
             body.setServiceID("" + serviceTable);
             body.setStartTime("" + timeSlotStrings.getStartTime());
-            if(mTimeSlotStrings.getEndTime()==null)
+            if(mTimeSlotStrings==null)
             body.setEndTime("" + timeSlotStrings.getEndTime());
             else
                 body.setEndTime("" + mTimeSlotStrings.getStartTime());
@@ -440,9 +440,11 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
             Intent intent = new Intent(this, RegisterActivity.class);
             intent.putExtra("appointment_details", body);
             intent.putExtra("editAppointment", editAppointment);
+            mTvBookAppoin.setEnabled(true);
             startActivity(intent);
 
         } else {
+            mTvBookAppoin.setEnabled(true);
             ResvUtils.createOKAlert(this, getResources().getString(R.string.time_slot_validation), getString(R.string.select_time_slot));
 
         }
@@ -682,6 +684,7 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
                *//* changeButtonTitle(false);*//*
             }else{
                 Log.e("LocaitonService","post");*/
+            mTvBookAppoin.setEnabled(false);
 
             postingData("" + mLocationTable.getLocID(), getmServiceTable.getServiceID(), mTimeZoneDetails.getStandardName(),mProviderTable.getUserID());
 

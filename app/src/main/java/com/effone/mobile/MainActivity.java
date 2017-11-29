@@ -544,7 +544,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onResume();
 
         mTvCountAppointment=(TextView)findViewById(R.id.tv_count_appointments);
-
+        if(mLLSearchBox.getVisibility() != View.VISIBLE)
         checkingUpcomingAppointment();
         changingLogoutImages();
     }

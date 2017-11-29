@@ -77,7 +77,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="0.08"
                 android:gravity="left|center"
-                android:text="About"
+                android:text="@string/about"
                 android:textColor="@color/about"
                 android:textSize="@dimen/sub_text"
                 android:textStyle="bold" />

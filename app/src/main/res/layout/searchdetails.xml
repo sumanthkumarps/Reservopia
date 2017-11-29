@@ -109,7 +109,7 @@
                             android:layout_width="155dp"
                             android:singleLine="true"
                             android:maxLength="10"
-                            android:inputType="date"
+                            android:inputType="number"
                             android:layout_height="match_parent"
                             android:hint="Date Of Birth" />
 
