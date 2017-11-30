@@ -593,8 +593,7 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
 
         TextView startTimes=(TextView)popupView.findViewById(R.id.start_time);
         TextView msgDate=(TextView)popupView.findViewById(R.id.tv_date);
-        msgDate.setText(getString(R.string.confirmation_timeSlot_msg)+" "
-                + ResvUtils.parseDateToddMMyyyy(mEtDate.getText().toString(), "MM/dd/yyyy",
+        msgDate.setText( ResvUtils.parseDateToddMMyyyy(mEtDate.getText().toString(), "MM/dd/yyyy",
                 "MMM dd, yyyy"));
         DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm aa", Locale.US);
         DateFormat timeFormat = new SimpleDateFormat("hh:mm aa", Locale.US);

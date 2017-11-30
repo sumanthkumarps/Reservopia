@@ -2,34 +2,34 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/background_light"
     android:orientation="vertical"
     android:layout_margin="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/hostisMe"
+            android:background="@drawable/popuprounded_corner"
             android:orientation="vertical">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/header_line"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
+                android:background="@drawable/text_rounded_top_corners"
                 android:gravity="center"
+                android:padding="5dp"
                 android:textSize="@dimen/font_size"
-                android:padding="3dp"
                 android:textAlignment="center"
                 android:text="@string/confirmation_timeSlot"
                 />
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="@color/blue"/>
+            android:background="@color/black"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
+            android:background="@color/white"
             android:layout_margin="10dp"
             android:orientation="vertical" >
 
@@ -37,13 +37,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_date"
+                android:padding="5dp"
                 android:textSize="@dimen/sub_about"
-                android:textColor="@color/black"
-                android:text="@string/multiple_time_slot" />
+                android:text="Nov 10, 2017"
+                android:textColor="@color/about" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
+                android:layout_height="40dp"
+                android:padding="5dp"
                 android:orientation="horizontal" >
                 <TextView
                     android:layout_width="wrap_content"
@@ -52,7 +54,7 @@
                     android:gravity="center"
                     android:padding="5dp"
                     android:text="From"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/about" />
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -61,7 +63,7 @@
                     android:textAlignment="center"
                     android:gravity="center"
                     android:text="07:10 AM"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/about" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -69,7 +71,7 @@
                     android:textAlignment="center"
                     android:gravity="center"
                     android:text="to"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/about" />
             <Spinner
                 android:id="@+id/popupspinner"
                 android:layout_width="0dp"
@@ -79,28 +81,31 @@
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:orientation="horizontal" >
             <Button
                 android:id="@+id/dismiss"
                 android:layout_width="0dp"
-                android:layout_height="40dp"
+                android:layout_height="match_parent"
                 android:layout_weight=".5"
-                android:textColor="@color/inside_blue"
-                android:background="@color/blue"
-                android:text="Cancel" />
-                <View
-                    android:layout_width="2dp"
-                    android:layout_height="40dp"
-                    android:background="@color/inside_blue"/>
+                android:textColor="@color/popupheader"
+                android:background="@color/white"
+                android:gravity="right|center"
+                android:layout_marginRight="25dp"
+                android:text="@string/cancel"
+                android:padding="5dp"/>
+
                 <Button
                     android:id="@+id/btn_save"
                     android:layout_weight=".5"
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:textColor="@color/inside_blue"
-                    android:background="@color/blue"
-                    android:text="Save" />
+                    android:layout_marginLeft="15dp"
+                    android:layout_height="match_parent"
+                    android:gravity="left|center"
+                    android:padding="5dp"
+                    android:textColor="@color/popupheader"
+                    android:background="@color/white"
+                    android:text="@string/ok" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

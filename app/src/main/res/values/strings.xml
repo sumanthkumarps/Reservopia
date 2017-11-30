@@ -172,9 +172,11 @@
     <string name="noappontmentfound">No appointment found,\n please book a new appointment.</string>
     <string name="unable_to">Unable to cancel the Appointment.</string>
     <string name="multiple_time_slot">Please select the time slots</string>
-    <string name="confirmation_timeSlot">Appointment Confirmation Time</string>
+    <string name="confirmation_timeSlot">Select Appointment duration </string>
     <string name="confirmation_timeSlot_msg">Please confirm the appointment time on</string>
     <string name="scheduling">sc</string>
     <string name="button">Cancel</string>
+    <string name="save">O</string>
+    <string name="ok">Ok</string>
 
 </resources>

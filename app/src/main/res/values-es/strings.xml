@@ -46,61 +46,39 @@
     <string name="isFromHomeScreen">isFromHomeScreen</string>
     <string name="select_provider">Provider</string>
     <string name="edit_personal_info">Editar información personal</string>
-    <string name="reset_code">
-Restablecer Código</string>
+    <string name="reset_code">Restablecer Código</string>
     <string name="new_password">Nueva contraseña</string>
-    <string name="enter_new_password">
-Introduzca nueva contraseña</string>
-    <string name="enter_reset_code">
-ingrese el código de restablecimiento</string>
+    <string name="enter_new_password">Introduzca nueva contraseña</string>
+    <string name="enter_reset_code">ingrese el código de restablecimiento</string>
 
-    <string name="emailMsg1">
-Email inválido</string>
-    <string name="invalid_date_for_dob">
-Fecha inválida para la fecha de nacimiento.</string>
-    <string name="dobMsg">
-Por favor, haga coincidir el formato de fecha. Ej: mm / dd / aaaa (04/09/2002)</string>
+    <string name="emailMsg1">Email inválido</string>
+    <string name="invalid_date_for_dob">Fecha inválida para la fecha de nacimiento.</string>
+    <string name="dobMsg">Por favor, haga coincidir el formato de fecha. Ej: mm / dd / aaaa (04/09/2002)</string>
 
 
-    <string name="all_field">
-Todos los campos son obligatorios.</string>
-    <string name="email_error_msg">
-correo electronico es requerido.</string>
-    <string name="phone_error_msg">
-Debe ser un número de 10 dígitos.</string>
+    <string name="all_field">Todos los campos son obligatorios.</string>
+    <string name="email_error_msg">correo electronico es requerido.</string>
+    <string name="phone_error_msg">Debe ser un número de 10 dígitos.</string>
     <string name="password_error_msg">Debe contener de 6 a 15 caracteres.</string>
-    <string name="re_password_mssg">
-Debe coincidir con la contraseña.</string>
+    <string name="re_password_mssg">Debe coincidir con la contraseña.</string>
 
-    <string name="didnotmatch_error_msg">
-No coincide con la contraseña.</string>
-    <string name="first_error_msg">
-Se requiere el primer nombre.</string>
+    <string name="didnotmatch_error_msg">No coincide con la contraseña.</string>
+    <string name="first_error_msg">Se requiere el primer nombre.</string>
     <string name="last_error_msg">El apellido es obligatorio.</string>
-    <string name="resetPassword_msg">
-Hemos enviado un código temporal a su id de correo electrónico. Use ese código para restablecer su contraseña.</string>
-    <string name="account_create_msg">
-Cuenta creada con éxito.</string>
-    <string name="or">
-o</string>
+    <string name="resetPassword_msg">Hemos enviado un código temporal a su id de correo electrónico. Use ese código para restablecer su contraseña.</string>
+    <string name="account_create_msg">Cuenta creada con éxito.</string>
+    <string name="or">o</string>
     <string name="search">Buscar cita</string>
-    <string name="search_result">
-Resultado de búsqueda</string>
+    <string name="search_result">Resultado de búsqueda</string>
     <string name="profile">Perfil</string>
-    <string name="edit_profile">
-Editar perfil</string>
-    <string name="email_error_msg_valid">
-Ingrese un email valido.</string>
+    <string name="edit_profile">Editar perfil</string>
+    <string name="email_error_msg_valid">Ingrese un email valido.</string>
     <string name="details_updated">su perfil actualizado con éxito</string>
     <string name="noappontmentfound">No se encontró cita, \ n por favor reserve una nueva cita.</string>
-    <string name="unable_to">
-No se puede cancelar la cita.</string>
-    <string name="multiple_time_slot">
-Por favor, seleccione los espacios de tiempo</string>
-    <string name="confirmation_timeSlot">
-Hora de confirmación de citas</string>
-    <string name="confirmation_timeSlot_msg">
-Por favor confirme la hora de la cita en</string>
+    <string name="unable_to">No se puede cancelar la cita.</string>
+    <string name="multiple_time_slot">Por favor, seleccione los espacios de tiempo</string>
+    <string name="confirmation_timeSlot">Hora de confirmación de citas</string>
+    <string name="confirmation_timeSlot_msg">Por favor confirme la hora de la cita en</string>
     <string name="about">" Acerca de"</string>
     <string name="upcomingAppointment">" Próxima cita"</string>
     <string name="upcomingAppointments">" Próximas citas"</string>
