@@ -613,6 +613,11 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
 
        TimeSlotAdapter  timeSlotAdapter=new TimeSlotAdapter(getBaseContext(),timeSlotsStartEnds);
         popupSpinner.setAdapter(timeSlotAdapter);
+        if(timeSlotsStartEnds.size()==1)
+            popupSpinner.setEnabled(false);
+        else
+            popupSpinner.setEnabled(true);
+
 
      /*  popupSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
            public void onItemSelected(

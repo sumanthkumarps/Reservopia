@@ -8,11 +8,11 @@
     <string name="login_information">" Información Entrar :"</string>
     <string name="personal_information">Detalles personales :</string>
     <string name="select_time_slot">Seleccione un intervalo de tiempo.</string>
-    <string name="options">" Seleccione las opciones de cita:"</string>
+    <string name="options">"Seleccione las opciones de cita:"</string>
     <string name="no_internet_message">" ¡Sin conexión a Internet!"</string>
     <string name="no_internet_connection_and_try_again">" Por favor, compruebe su conexión a Internet y vuelva a intentarlo."</string>
     <string name="try_again">" Inténtalo de nuevo."</string>
-    <string name="status">" Estado"</string>
+    <string name="status">"Estado"</string>
     <string name="location_details">Detalles de ubicación :</string>
     <string name="orginzatrion">" Organización"</string>
     <string name="locName">LocName</string>
