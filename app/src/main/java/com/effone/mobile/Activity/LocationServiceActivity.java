@@ -28,6 +28,7 @@ import com.effone.mobile.R;
 import com.effone.mobile.adapter.LocationAdapter;
 import com.effone.mobile.adapter.ProviderTypeAdapter;
 import com.effone.mobile.adapter.ServiceTypeAdapter;
+import com.effone.mobile.adapter.SpinnerTimeSlotsAdapter;
 import com.effone.mobile.adapter.TimeSlotAdapter;
 import com.effone.mobile.adapter.TimeZoneAdapter;
 import com.effone.mobile.common.AppPreferene;
@@ -610,7 +611,7 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
         final Spinner popupSpinner = (Spinner)popupView.findViewById(R.id.popupspinner);
 
 
-       TimeSlotAdapter  timeSlotAdapter=new TimeSlotAdapter(getBaseContext(),timeSlotsStartEnds);
+        SpinnerTimeSlotsAdapter  timeSlotAdapter=new SpinnerTimeSlotsAdapter(getBaseContext(),timeSlotsStartEnds);
         popupSpinner.setAdapter(timeSlotAdapter);
         if(timeSlotsStartEnds.size()==1)
             popupSpinner.setEnabled(false);
@@ -652,7 +653,7 @@ public class LocationServiceActivity extends AppCompatActivity implements Adapte
 
             }});
 
-      popupWindow.showAsDropDown(mLvServiceType, 50, -30);
+      popupWindow.showAtLocation(mLvServiceType, Gravity.CENTER,0, 0);
     }
 
     private String[] removingNullValuesFromArray(String[] endTime) {

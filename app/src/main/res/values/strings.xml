@@ -52,6 +52,9 @@
     <string name="appointment_details">Appointment Details</string>
 
 
+    <string name="contine">Continue</string>
+
+
     <string name="org_id">14</string>
     <string name="token">B3Yhavq16yxYIDDVYT4hyS20Y597dsDa</string>
     <string name="noConn">No Conncetion</string>
@@ -172,11 +175,13 @@
     <string name="noappontmentfound">No appointment found,\n please book a new appointment.</string>
     <string name="unable_to">Unable to cancel the Appointment.</string>
     <string name="multiple_time_slot">Please select the time slots</string>
-    <string name="confirmation_timeSlot">Select Appointment duration </string>
+    <string name="confirmation_timeSlot"> Appointment duration </string>
     <string name="confirmation_timeSlot_msg">Please confirm the appointment time on</string>
     <string name="scheduling">sc</string>
     <string name="button">Cancel</string>
     <string name="save">O</string>
     <string name="ok">Ok</string>
+    <string name="to">To :</string>
+    <string name="from">From :</string>
 
 </resources>

@@ -29,11 +29,7 @@
             android:textSize="@dimen/font_size"
             android:drawableLeft="@drawable/done"
            android:textColor="@color/about" />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginTop="5dp"
-            android:background="@android:color/darker_gray"/>
+
     <TextView
         android:id="@+id/tv_serviceTypeAdapter"
         android:layout_width="match_parent"

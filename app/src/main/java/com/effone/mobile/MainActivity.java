@@ -672,11 +672,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
               /*  openActivity(this, SearchAppointmentActivity.class);*/
               if(mLLSearchBox.getVisibility() == View.VISIBLE){
                   mTvSearch.setText(getString(R.string.upcomingAppointment));
+                  mTvContactUs.setText(getString(R.string.search));
                   mLLSearchBox.setVisibility(View.GONE);
                   checkingUpcomingAppointment();
                   mTvCountAppointment.setVisibility(View.VISIBLE);
               }else {
                   mTvSearch.setText(getString(R.string.find_your_appointment));
+                  mTvContactUs.setText(getString(R.string.upcomingAppointment));
                   mTvCountAppointment.setVisibility(View.GONE);
                   mTvEmptyView.setVisibility(View.GONE);
                   mLvAppointmentList.setVisibility(View.GONE);

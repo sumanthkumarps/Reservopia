@@ -14,7 +14,7 @@
     <color name="home_back">#FEFEFE</color>
     <color name="list_back">#f2f2f2</color>
     <color name="background_home">#eeeeee</color>
-    <color name="upcoming_appointment_count">#F69B17</color>
+    <color name="upcoming_appointment_count">#21AA47</color>
 
 
     <color name="hostisMe">#9F9F9F</color>
@@ -30,4 +30,5 @@
         <color name="about">#083469</color>
     <color name="date">#0E68F0</color>
     <color name="upcoming_text">#666666</color>
+
 </resources>

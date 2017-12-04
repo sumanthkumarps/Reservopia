@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_margin="5dp">
+    android:background="@android:color/transparent"
+    >
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/popuprounded_corner"
+            android:padding="2dp"
             android:orientation="vertical">
             <TextView
                 android:layout_width="match_parent"
@@ -19,94 +21,104 @@
                 android:gravity="center"
                 android:padding="5dp"
                 android:textSize="@dimen/font_size"
+                android:textStyle="bold"
                 android:textAlignment="center"
                 android:text="@string/confirmation_timeSlot"
                 />
         <View
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="1dp"
             android:background="@color/black"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:layout_margin="10dp"
-            android:orientation="vertical" >
 
-            <TextView
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/tv_date"
-                android:padding="5dp"
-                android:textSize="@dimen/sub_about"
-                android:text="Nov 10, 2017"
-                android:textColor="@color/about" />
+                android:background="@drawable/pop_up_inner_corner"
+                android:orientation="vertical"
+                android:padding="3dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:padding="5dp"
-                android:orientation="horizontal" >
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:textAlignment="center"
-                    android:gravity="center"
-                    android:padding="5dp"
-                    android:text="From"
-                    android:textColor="@color/about" />
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight=".3"
-                    android:id="@+id/start_time"
-                    android:textAlignment="center"
-                    android:gravity="center"
-                    android:text="07:10 AM"
-                    android:textColor="@color/about" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight=".1"
-                    android:textAlignment="center"
-                    android:gravity="center"
-                    android:text="to"
-                    android:textColor="@color/about" />
-            <Spinner
-                android:id="@+id/popupspinner"
-                android:layout_width="0dp"
-                android:spinnerMode="dialog"
-                android:layout_weight=".5"
-                android:layout_height="match_parent" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:orientation="horizontal" >
-            <Button
-                android:id="@+id/dismiss"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight=".5"
-                android:textColor="@color/popupheader"
-                android:background="@color/white"
-                android:gravity="right|center"
-                android:layout_marginRight="25dp"
-                android:text="@string/cancel"
-                android:padding="5dp"/>
+                    android:id="@+id/tv_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="2dp"
+                    android:text="Nov 10, 2017"
+                    android:textColor="@color/about"
+                    android:textSize="@dimen/sub_about" />
 
-                <Button
-                    android:id="@+id/btn_save"
-                    android:layout_weight=".5"
-                    android:layout_width="0dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_height="match_parent"
-                    android:gravity="left|center"
-                    android:padding="5dp"
-                    android:textColor="@color/popupheader"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="left|center"
+                        android:paddingLeft="2dp"
+                        android:text="@string/from"
+                        android:layout_marginRight="5dp"
+                        android:textAlignment="center"
+                        android:textColor="@color/about" />
+
+                    <TextView
+                        android:id="@+id/start_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="left|center"
+                        android:text="07:10 AM"
+                        android:textAlignment="center"
+                        android:textColor="@color/about" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:layout_marginLeft="5dp"
+                     android:layout_marginRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:text="@string/to"
+                        android:textAlignment="center"
+                        android:textColor="@color/about" />
+
+                    <Spinner
+                        android:id="@+id/popupspinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+
+                        android:spinnerMode="dialog" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
                     android:background="@color/white"
-                    android:text="@string/ok" />
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/dismiss"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".5"
+                        android:background="@android:color/transparent"
+                        android:gravity="right|center"
+                        android:padding="5dp"
+                        android:paddingRight="25dp"
+                        android:text="@string/cancel"
+                        android:textColor="@color/popupheader" />
+
+                    <Button
+                        android:id="@+id/btn_save"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="15dp"
+                        android:layout_weight=".5"
+                        android:background="@android:color/transparent"
+                        android:gravity="left|center"
+                        android:padding="5dp"
+                        android:text="@string/ok"
+                        android:textColor="@color/popupheader" />
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

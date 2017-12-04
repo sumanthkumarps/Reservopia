@@ -104,7 +104,7 @@ public class SpinnerTimeSlotsAdapter  extends BaseAdapter {
         try {
             formattedDate = timeFormat.format(dateFormat.parse(web.get(position).getStartTime()));
             mTimeSlotsFiel.mTvDateTime.setText(formattedDate);
-
+            mTimeSlotsFiel.mTvDateTime.setTextColor(mContext.getResources().getColor(R.color.upcoming_appointment_count));
             //  textView.setLayoutParams(new GridView.LayoutParams(144, 144));
         } catch (Exception e) {
             Log.e("DATE", "" + e);

@@ -87,6 +87,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private boolean isEditAppointment;
     private TextInputLayout mTvFirstName, mTvLastName, mTvDob, mTvEmail, mTvPhone, mTvPassword, mTvConfirmPassword;
     private TitleAdapter tileAdapter;
+    private boolean checked;
+    private String temEmail="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,6 +126,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onResume() {
         super.onResume();
+        mBtSubmit.setEnabled(true);
         try {
             mEtEmail = (EditText) findViewById(R.id.et_email);
             mCbCreateAccount = (CheckBox) findViewById(R.id.cb_account);
@@ -204,14 +207,21 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void gettingUserDeatils() {
-        mBtSubmit.setEnabled(false);
+
         if (!AppPreferene.with(this).getUserId().equals("")) {
             gettingDetails(AppPreferene.with(RegisterActivity.this).getUserId(), AppPreferene.with(RegisterActivity.this).getEmail());
             if(!isFromHomeScreen){
-                mBtSubmit.setText(getString(R.string.signUp));
+                mBtSubmit.setText(getString(R.string.booking_app));
             }else
-            mBtSubmit.setText(getString(R.string.booking_app));
-        } else {
+            mBtSubmit.setText(getString(R.string.signUp));
+        }
+        else if(AppPreferene.with(this).getUserId().equals("")&&!AppPreferene.with(this).getEmail().equals("")){
+            if(!isFromHomeScreen){
+                mBtSubmit.setText(getString(R.string.booking_app));
+            }else
+            mBtSubmit.setText(getString(R.string.signUp));
+        }
+        else {
             mBtSubmit.setEnabled(true);
             if (appointmentBookingModel != null)
                 mBtSubmit.setText(getString(R.string.sign_up_and_book_appoint));
@@ -354,9 +364,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 String text = editText.getText().toString();
                 if (AppPreferene.with(RegisterActivity.this).getUserId().equals("") || !text.equals(AppPreferene.with(RegisterActivity.this).getEmail())) {
                     if (!hasFocus) {
+                        if(!text.equals(temEmail))
+                            checked=false;
                         Validation validation = new Validation();
                         if(text.length()!=0)
                         if (validation.isValidEmail(text)) {
+                            if(!checked)
                             checkingEmail(text);
                             mTvEmail.setErrorEnabled(false);
                         } else
@@ -365,10 +378,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             mTvEmail.setError(getString(R.string.email_error_msg));
 
                     } else {
-                        mCbCreateAccount.setVisibility(View.GONE);
-                        mCbCreateAccount.setChecked(false);
-                        if(!isFromHomeScreen)
-                        mLinearLayout.setVisibility(View.GONE);
+                        if(!checked) {
+                            mCbCreateAccount.setVisibility(View.GONE);
+                            mCbCreateAccount.setChecked(false);
+                            if (!isFromHomeScreen)
+                                mLinearLayout.setVisibility(View.GONE);
+                        }
                     }
                 }
             }
@@ -594,23 +609,25 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             if (mStPassword != null || mStPassword != "") {
 
             } else
-                mStPassword = " ";
+                mStPassword = "";
         }
         if (count == 0) {
             mMsg = "success";
-            mBtSubmit.setEnabled(false);
+
             if (isFromHomeScreen)
                 registerUser();
             else if(isEditProfile)
                 registerUser();
                 else
             if (AppPreferene.with(this).getUserId().equals("")) {
+                mBtSubmit.setEnabled(false);
                 if(isEditAppointment)
                     mUserId=appointmentBookingModel.getUserID();
                 sendInformation();
 
             }
             else {
+                mBtSubmit.setEnabled(false);
                 addingUserDetailsToAppointmentBody();
                 bookingAppointmentWithOutUserDetails();
             }
@@ -639,6 +656,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         response.enqueue(new Callback<com.effone.mobile.model.Response>() {
             @Override
             public void onResponse(Call<com.effone.mobile.model.Response> call, retrofit2.Response<Response> rawResponse) {
+                mBtSubmit.setEnabled(true);
                 onResponseFromServer(rawResponse);
             }
 
@@ -646,6 +664,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             public void onFailure(Call<com.effone.mobile.model.Response> call, Throwable throwable) {
                 // other stuff...
                 Log.e(TAG, "RetroFit2.0 :RetroGetLogin: " + throwable.toString());
+                mBtSubmit.setEnabled(true);
                 errorShowingDialog(throwable.getMessage());
 
             }
@@ -703,8 +722,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
         Call<Response> response = apiService.createAcount(getString(R.string.token), user);
         response.enqueue(new Callback<Response>() {
+
             @Override
             public void onResponse(Call<com.effone.mobile.model.Response> call, retrofit2.Response<Response> rawResponse) {
+                mBtSubmit.setEnabled(true);
                 if (mCommonProgressDialog != null)
                     mCommonProgressDialog.cancel();
                 if (mCommonProgressDialog != null)
@@ -854,6 +875,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             public void onFailure(Call<com.effone.mobile.model.Response> call, Throwable throwable) {
                 if (mCommonProgressDialog != null)
                     mCommonProgressDialog.cancel();
+                mBtSubmit.setEnabled(true);
                 errorShowingDialog(throwable.getMessage());
             }
         });
@@ -861,6 +883,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void onResponseFromServer(final retrofit2.Response<Response> rawResponse) {
+        mBtSubmit.setEnabled(true);
         if (mCommonProgressDialog != null)
             mCommonProgressDialog.cancel();
         if (!rawResponse.isSuccessful()) {
@@ -891,7 +914,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     //get your response....
                     //Log.e(TAG, "RetroFit2.0 :RetroGetLogin: " + rawResponse.body());
                     final String id=rawResponse.body().getResult().getID();
-                    if(AppPreferene.with(this).getUserId().equals("")&&!isEditAppointment)
+                    if(AppPreferene.with(this).getUserId().equals("")&&!isEditAppointment && mStPassword!=null)
                     {
                         alertMSgForConfirmation(rawResponse.body().getResult().getID(),getString(R.string.account_create_msg));
                     }else {
@@ -971,6 +994,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }*/
 
     private void checkingEmail(final String text) {
+
+        if(!temEmail.equals(text)) {
+            temEmail = text;
+            checked = true;
+        }
+        else
+            checked=false;
         Call<Response> response = apiService.getEmailExists(getString(R.string.token), text, getString(R.string.org_id));
         response.enqueue(new Callback<Response>() {
             @Override
@@ -982,7 +1012,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         if (rawResponse.body().getResult().getID().equals("0")) {
                             if(!isFromHomeScreen) {
                                 mCbCreateAccount.setVisibility(View.VISIBLE);
-                                ResvUtils.createOKAlert(RegisterActivity.this, "", "Email doesn’t exist. \n Please register. ");
+                                ResvUtils.createOKAlert(RegisterActivity.this, "", "Email doesn’t exist. \n Please register. ", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        mCbCreateAccount.setChecked(true);
+                                        mLinearLayout.setVisibility(View.VISIBLE);
+                                    }
+                                });
                             }
                         } else {
                             if (rawResponse.body().getResult().getOperation().equals("1") && rawResponse.body().getResult().getUserType().equals("3")) {
@@ -1002,7 +1038,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                     }
                                 });
                             } else {
-                                ResvUtils.createOKAlert(RegisterActivity.this, "", "Email already exists. \n Please register. ");
+                                ResvUtils.createOKAlert(RegisterActivity.this, "", "Email already exists. \n Please register. ", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        mCbCreateAccount.setChecked(true);
+                                        mLinearLayout.setVisibility(View.VISIBLE);
+                                    }
+                                });
                                if(!isFromHomeScreen)
                                 mCbCreateAccount.setVisibility(View.VISIBLE);
                                 mUserId = rawResponse.body().getResult().getID();
