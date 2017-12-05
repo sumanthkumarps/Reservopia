@@ -183,5 +183,6 @@
     <string name="ok">Ok</string>
     <string name="to">To :</string>
     <string name="from">From :</string>
+    <string name="cancel_msg_appoint">Appointment has been cancelled.</string>
 
 </resources>

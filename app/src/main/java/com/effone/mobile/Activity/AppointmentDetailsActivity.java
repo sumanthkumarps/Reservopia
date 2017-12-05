@@ -190,7 +190,7 @@ public class AppointmentDetailsActivity extends AppCompatActivity implements Vie
                     mCommonProgressDialog.cancel();
                 if(response.isSuccessful()){
                     if(response.body().getResult()){
-                        ResvUtils.createOKAlert(AppointmentDetailsActivity.this, "", "Appointment cancellation has done.", new DialogInterface.OnClickListener() {
+                        ResvUtils.createOKAlert(AppointmentDetailsActivity.this, "", getString(R.string.cancel_msg_appoint), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 Intent intent=new Intent(AppointmentDetailsActivity.this, MainActivity.class);

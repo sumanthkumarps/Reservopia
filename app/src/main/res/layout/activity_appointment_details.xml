@@ -65,7 +65,7 @@
                         android:id="@+id/tv_date_label"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
-                        android:gravity="left|center"
+                        android:gravity="left|top"
                         android:text="@string/date"
 
                         android:textSize="@dimen/font_size"
@@ -76,7 +76,7 @@
                         android:layout_height="match_parent"
                         android:gravity="left|top"
                         android:text=":"
-
+                        android:layout_marginTop="3dp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -85,7 +85,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
 
-                        android:gravity="left|center"
+                        android:gravity="left|top"
                         android:textSize="@dimen/font_size"
 
                         android:textStyle="bold" />
@@ -102,7 +102,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
 
-                        android:gravity="left|center"
+                        android:gravity="left|top"
                         android:layout_marginRight="20dp"
                         android:text="@string/time_Zone"
                         android:textSize="@dimen/font_size" />
@@ -113,6 +113,7 @@
                         android:gravity="left|top"
                         android:layout_marginRight="5dp"
                         android:text=":"
+                        android:layout_marginTop="3dp"
                         />
 
                     <TextView
@@ -121,7 +122,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
 
-                        android:gravity="left|center"
+                        android:gravity="left|top"
 
                         android:textSize="@dimen/font_size" />
                 </TableRow>
@@ -135,7 +136,7 @@
                         android:id="@+id/tv_service_label"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
-                        android:gravity="left|center"
+                        android:gravity="left|top"
                         android:text="@string/names"
                         android:textSize="@dimen/font_size" />
 
@@ -143,14 +144,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="left|top"
-                        android:text=":" />
+                        android:text=":"
+                        android:layout_marginTop="3dp"/>
 
                     <TextView
                         android:id="@+id/tv_first_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="left|center"
+                        android:gravity="left|top"
 
                         android:textSize="@dimen/font_size" />
                 </TableRow>
@@ -165,7 +167,7 @@
                         android:id="@+id/tv_email_label"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
-                        android:gravity="left|center"
+                        android:gravity="left|top"
 
                         android:text="@string/email"
                         android:textSize="@dimen/font_size" />
@@ -174,14 +176,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="left|top"
-                        android:text=":" />
+                        android:text=":"
+                        android:layout_marginTop="3dp"/>
 
                     <TextView
                         android:id="@+id/tv_email"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="left|center"
+                        android:gravity="left|top"
 
                         android:textSize="@dimen/font_size" />
                 </TableRow>
@@ -194,7 +197,7 @@
                         android:id="@+id/tv_org"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
-                        android:gravity="left|center"
+                        android:gravity="left|top"
                         android:text="@string/orginzatrion"
                         android:textStyle="bold"
                         android:textSize="@dimen/font_size" />
@@ -204,7 +207,7 @@
                         android:layout_height="match_parent"
                         android:gravity="left|top"
                         android:textStyle="bold"
-
+                        android:layout_marginTop="3dp"
                         android:layout_marginRight="5dp"
                         android:text=":" />
 
@@ -213,7 +216,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:gravity="left|center"
+                        android:gravity="left|top"
                         android:textStyle="bold"
 
                         android:textSize="@dimen/font_size" />
@@ -227,13 +230,13 @@
                         android:id="@+id/tv_provider"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
-                        android:gravity="left|center"
+                        android:gravity="left|top"
                         android:text="@string/select_provider"
                         android:textSize="@dimen/font_size" />
 
                     <TextView
                         android:layout_width="wrap_content"
-
+                        android:layout_marginTop="3dp"
                         android:textStyle="bold"
                         android:layout_height="match_parent"
                         android:gravity="left|top"
@@ -245,7 +248,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:gravity="left|center"
+                        android:gravity="left|top"
                         android:textSize="@dimen/font_size" />
                 </TableRow>
 
@@ -259,7 +262,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
 
-                        android:gravity="left|center"
+                        android:gravity="left|top"
 
                         android:text="@string/service"
                         android:textSize="@dimen/font_size" />
@@ -268,6 +271,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="left|top"
+                        android:layout_marginTop="3dp"
                         android:text=":" />
 
                     <TextView
@@ -275,7 +279,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:gravity="left|center"
+                        android:gravity="left|top"
 
                         android:textSize="@dimen/font_size" />
                 </TableRow>
@@ -287,7 +291,7 @@
                         android:id="@+id/tv_confirmation_no_label"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
-                        android:gravity="left|center"
+                        android:gravity="left|top"
                         android:text="@string/confirmation_no"
 
                         android:textSize="@dimen/font_size"
@@ -297,6 +301,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="left|top"
+                        android:layout_marginTop="3dp"
                         android:text=":"
 
                         android:textStyle="bold" />
@@ -307,7 +312,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
 
-                        android:gravity="left|center"
+                        android:gravity="left|top"
                         android:textSize="@dimen/font_size"
 
                         android:textStyle="bold" />
@@ -338,7 +343,7 @@
                         android:id="@+id/tv_log"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
-                        android:gravity="left|center"
+                        android:gravity="left|top"
                         android:textStyle="bold"
                         android:text="@string/Location"
                         android:layout_marginRight="50dp"
@@ -347,7 +352,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-
+                        android:layout_marginTop="3dp"
                         android:gravity="left|top"
                         android:text=":" />
 
@@ -356,7 +361,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="left|center"
+                        android:gravity="left|top"
                         android:textStyle="bold"
                         android:textSize="@dimen/font_size" />
                 </TableRow>
@@ -370,7 +375,7 @@
                         android:id="@+id/tv_add"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
-                        android:gravity="left|center"
+                        android:gravity="left|top"
 
                         android:text="@string/address"
                         android:textSize="@dimen/font_size" />
@@ -379,6 +384,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="left|top"
+                        android:layout_marginTop="3dp"
                         android:layout_marginRight="5dp"
                         android:text=":" />
 
@@ -387,7 +393,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="left|center"
+                        android:gravity="left|top"
 
                         android:textSize="@dimen/font_size" />
                 </TableRow>
@@ -401,7 +407,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
 
-                        android:gravity="left|center"
+                        android:gravity="left|top"
 
                         android:text="@string/phone"
                         android:textStyle="bold"
@@ -412,6 +418,7 @@
                         android:layout_height="match_parent"
                         android:textStyle="bold"
                         android:gravity="left|top"
+                        android:layout_marginTop="3dp"
                         android:layout_marginRight="5dp"
                         android:text=":" />
 
@@ -420,7 +427,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="left|center"
+                        android:gravity="left|top"
                         android:textStyle="bold"
 
                         android:textSize="@dimen/font_size" />
