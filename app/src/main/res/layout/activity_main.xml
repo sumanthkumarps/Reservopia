@@ -106,18 +106,50 @@
             android:layout_weight=".49"
             android:orientation="vertical"
             android:padding="5dp">
-
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="0.33">
                 <TextView
                 android:id="@+id/tv_booking_app"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.33"
-                android:drawableTop="@mipmap/appointment"
+                android:layout_height="match_parent"
+
+                android:drawableTop="@mipmap/appointment_without"
                 android:gravity="center"
                 android:padding="10dp"
                 android:text="@string/booking_app"
                 android:textAlignment="center"
                 android:textSize="@dimen/about" />
+
+    <TextView
+        android:id="@+id/tv_date_on_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="27dp"
+
+        android:textColor="@color/date_onicon"
+        android:textStyle="bold"
+        android:text="30" />
+
+    <TextView
+        android:id="@+id/tv_month_on_icon"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="5dp"
+        android:textColor="@color/date_onicon"
+        android:paddingLeft="8dp"
+
+        android:paddingBottom="2dp"
+        android:text="Nov"
+       android:textStyle="bold"
+        android:textSize="6sp" />
+</RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -130,7 +162,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.33"
-                android:drawableTop="@mipmap/appointment1"
+                android:drawableTop="@mipmap/history_new"
                 android:gravity="center"
                 android:padding="10dp"
                 android:text="@string/histroy"
@@ -148,7 +180,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.33"
-                android:drawableTop="@mipmap/appointment"
+                android:drawableTop="@mipmap/search_new"
                 android:gravity="center"
                 android:padding="10dp"
                 android:text="@string/search"

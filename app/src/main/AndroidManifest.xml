@@ -31,13 +31,13 @@
         <activity android:name=".Activity.AppointmentDetailsActivity" />
         <activity android:name=".Activity.RegisterActivity" android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity android:name=".Activity.NoNetworkActivity" />
-        <!--
-        <receiver android:name=".receivers.NetworkChangeReceiver">
+
+       <!-- <receiver android:name=".receivers.NetworkChangeReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
-        -->
+-->
 
         <activity android:name=".Activity.MultipleLocationServiceActivity" />
         <activity android:name=".Activity.NetworkErrorActivity" />

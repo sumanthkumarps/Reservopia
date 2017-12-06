@@ -91,7 +91,7 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener ,AdapterView.OnItemClickListener, PopupMenu.OnMenuItemClickListener {
 
-    private TextView mTvBookingAppiontemnt, mTvHistory, mTvContactUs, mTvAboutUsText,mTvDateTime,mTvTime;
+    private TextView mTvBookingAppiontemnt, mTvHistory, mTvContactUs, mTvAboutUsText,mTvDateTime,mTvTime,mTvDateOnIcon,mTvMonthOnIcon;
     private ImageView mImgIcon;
     private  Calendar mCalendar;
     private TextView mIvBackBtn;
@@ -422,6 +422,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mImgIcon = (ImageView) findViewById(R.id.img_icon);
         mTvDateTime=(TextView)findViewById(R.id.tv_dateandtime);
         mTvTime=(TextView)findViewById(R.id.tv_time);
+        mTvDateOnIcon=(TextView)findViewById(R.id.tv_date_on_icon);
+        mTvMonthOnIcon=(TextView)findViewById(R.id.tv_month_on_icon);
         mTvBookingAppiontemnt.setOnClickListener(this);
         mTvHistory.setOnClickListener(this);
         mTvContactUs.setOnClickListener(this);
@@ -653,10 +655,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy",Locale.US);
         String formattedDate = df.format(mCalendar.getTime());
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE",Locale.US);
+        SimpleDateFormat sdate = new SimpleDateFormat("dd",Locale.US);
+        SimpleDateFormat sdmonth = new SimpleDateFormat("MMM",Locale.US);
         Date d = new Date();
         String dayOfTheWeek = sdf.format(d);
             mTvDateTime.setText(formattedDate);
             mTvTime.setText(dayOfTheWeek);
+            mTvMonthOnIcon.setText(sdmonth.format(d).toUpperCase());
+            mTvDateOnIcon.setText(sdate.format(d));
 
     }
 
@@ -664,80 +670,87 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        switch(view.getId()){
-            case R.id.iv_back_btn:
-                showMenu(view);
-                break;
-            case R.id.tv_contact_us:
-              /*  openActivity(this, SearchAppointmentActivity.class);*/
-              if(mLLSearchBox.getVisibility() == View.VISIBLE){
-                  mTvSearch.setText(getString(R.string.upcomingAppointment));
-                  mTvContactUs.setText(getString(R.string.search));
-                  mLLSearchBox.setVisibility(View.GONE);
-                  checkingUpcomingAppointment();
-                  mTvCountAppointment.setVisibility(View.VISIBLE);
-              }else {
-                  mTvSearch.setText(getString(R.string.find_your_appointment));
-                  mTvContactUs.setText(getString(R.string.upcomingAppointment));
-                  mTvCountAppointment.setVisibility(View.GONE);
-                  mTvEmptyView.setVisibility(View.GONE);
-                  mLvAppointmentList.setVisibility(View.GONE);
-                  mLLSearchBox.setVisibility(View.VISIBLE);
-              }
-                hidingKeyBoard();
-                break;
-            case R.id.tv_booking_app:
 
-                if(ResvUtils.Operations.isOnline(this)) {
-                    if(AppPreferene.with(this).getPreLoad()) {
-                        openActivity(this, LocationServiceActivity.class);
+        if (!ResvUtils.Operations.isOnline(this)) {
+            ResvUtils.Operations.showNoNetworkActivity(this);
+        }
+        else {
+
+            switch (view.getId()) {
+                case R.id.iv_back_btn:
+                    showMenu(view);
+                    break;
+                case R.id.tv_contact_us:
+              /*  openActivity(this, SearchAppointmentActivity.class);*/
+                    if (mLLSearchBox.getVisibility() == View.VISIBLE) {
+                        mTvSearch.setText(getString(R.string.upcomingAppointment));
+                        mTvContactUs.setText(getString(R.string.search));
+                        mLLSearchBox.setVisibility(View.GONE);
+                        checkingUpcomingAppointment();
+                        mTvCountAppointment.setVisibility(View.VISIBLE);
+                    } else {
+                        mTvSearch.setText(getString(R.string.find_your_appointment));
+                        mTvContactUs.setText(getString(R.string.upcomingAppointment));
+                        mTvCountAppointment.setVisibility(View.GONE);
+                        mTvEmptyView.setVisibility(View.GONE);
+                        mLvAppointmentList.setVisibility(View.GONE);
+                        mLLSearchBox.setVisibility(View.VISIBLE);
+                    }
+                    hidingKeyBoard();
+                    break;
+                case R.id.tv_booking_app:
+
+                    if (ResvUtils.Operations.isOnline(this)) {
+                        if (AppPreferene.with(this).getPreLoad()) {
+                            openActivity(this, LocationServiceActivity.class);
                       /*  if (AppPreferene.with(this).getMulitpleService()) {
 
                         } *//*else {
                             openActivity(this, MultipleLocationServiceActivity.class);
                         }*/
-                    }
-                }else{
+                        }
+                    } else {
 
                         ResvUtils.Operations.showNoNetworkActivity(this);
 
-                }
+                    }
 
-                break;
-            case R.id.tv_history:
-                if(ResvUtils.Operations.isOnline(this)) {
-                openActivity(this, AppointmentHistoryActivity.class);
-                }else{
-                    ResvUtils.Operations.showNoNetworkActivity(this);
-                }
-                break;
-            case R.id.iv_home_btn:
-                if(AppPreferene.with(this).getUserId().equals("")){
-                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                    intent.putExtra(getString(R.string.isFromHomeScreen),true);
-                    startActivity(intent);
-                }else {
-                    ResvUtils.createYesOrNoDialog(this, "Are you sure you want to logout? ", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            switch (id) {
-                                case DialogInterface.BUTTON_POSITIVE:
-                                    removeDataFromPreference();
-                                    changingLogoutImages();
-                                    break;
+                    break;
+                case R.id.tv_history:
+                    if (ResvUtils.Operations.isOnline(this)) {
+                        openActivity(this, AppointmentHistoryActivity.class);
+                    } else {
+                        ResvUtils.Operations.showNoNetworkActivity(this);
+                    }
+                    break;
+                case R.id.iv_home_btn:
+                    if (AppPreferene.with(this).getUserId().equals("")) {
+                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                        intent.putExtra(getString(R.string.isFromHomeScreen), true);
+                        startActivity(intent);
+                    } else {
+                        ResvUtils.createYesOrNoDialog(this, "Are you sure you want to logout? ", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                switch (id) {
+                                    case DialogInterface.BUTTON_POSITIVE:
+                                        removeDataFromPreference();
+                                        changingLogoutImages();
+                                        break;
 
-                                case DialogInterface.BUTTON_NEGATIVE:
-                                    dialog.cancel();
+                                    case DialogInterface.BUTTON_NEGATIVE:
+                                        dialog.cancel();
 
-                                    break;
+                                        break;
+                                }
                             }
-                        }
-                    });
-                }
+                        });
+                    }
 
-                break;
-            case R.id.bt_submit:
-                SearchApiCall();
-                break;
+                    break;
+                case R.id.bt_submit:
+                    SearchApiCall();
+                    break;
+            }
         }
 
     }
