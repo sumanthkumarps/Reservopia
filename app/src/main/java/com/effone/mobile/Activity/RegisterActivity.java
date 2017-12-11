@@ -737,8 +737,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     TypeAdapter<UserDetails> adapter = gson.getAdapter(UserDetails.class);
                     try {
                         if (rawResponse.errorBody() != null)
-                            registerResponse =
-                                    adapter.fromJson(rawResponse.errorBody().string());
+                            registerResponse =adapter.fromJson(rawResponse.errorBody().string());
                         ResvUtils.createOKAlert(RegisterActivity.this, "Error", registerResponse.getMessage());
                     } catch (IOException e) {
 
@@ -1012,11 +1011,20 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         if (rawResponse.body().getResult().getID().equals("0")) {
                             if(!isFromHomeScreen) {
                                 mCbCreateAccount.setVisibility(View.VISIBLE);
-                                ResvUtils.createOKAlert(RegisterActivity.this, "", "Email doesn’t exist. \n Please register. ", new DialogInterface.OnClickListener() {
+                                ResvUtils.createRegisterContinueDialog(RegisterActivity.this, "Email doesn’t exist.\nWould you like to register or continue as a guest user.", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
-                                        mCbCreateAccount.setChecked(true);
-                                        mLinearLayout.setVisibility(View.VISIBLE);
+                                        switch (i) {
+                                            case DialogInterface.BUTTON_POSITIVE:
+                                                mCbCreateAccount.setChecked(true);
+                                                mLinearLayout.setVisibility(View.VISIBLE);
+                                                break;
+
+                                            case DialogInterface.BUTTON_NEGATIVE:
+                                                dialogInterface.cancel();
+                                                break;
+                                        }
+
                                     }
                                 });
                             }

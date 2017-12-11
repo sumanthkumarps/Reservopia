@@ -181,6 +181,11 @@ public class ResvUtils {
         builder.setMessage(title).setPositiveButton("Yes", listener)
                 .setNegativeButton("No", listener).show();
     }
+    public static void createRegisterContinueDialog(Context context, String title, DialogInterface.OnClickListener listener){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage(title).setPositiveButton("Register", listener)
+                .setNegativeButton("Continue", listener).show();
+    }
     public static String parseDateToddMMyyyy(String dateStr,String inputPattern, String outputPattern) {
 
         SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
