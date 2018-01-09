@@ -688,7 +688,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         user.setIsActive(1);
         user.setAuditID(0);
         user.setIsTempPassword(0);
-        user.setOrgID(1);
+        int org= Integer.parseInt(getString(R.string.org_id));
+        user.setOrgID(org);
         if(isEditProfile)
            user.setUserID(AppPreferene.with(this).getUserId());
         else
@@ -1005,7 +1006,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void onResponse(Call<Response> call, retrofit2.Response<Response> rawResponse) {
                 try {
-
+                    rawResponse.raw().request().url();
                     if (rawResponse.body().getResult().getID() != null) {
 
                         if (rawResponse.body().getResult().getID().equals("0")) {

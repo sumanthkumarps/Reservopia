@@ -10,7 +10,7 @@ public class Validation {
 
 
     Pattern letter = Pattern.compile("[a-zA-z]");
-    Pattern digit = Pattern.compile("[0-9]");
+    Pattern digit = Pattern.compile("^[1-9][0-9]{9}");
     Pattern special = Pattern.compile ("[!@#$%&*()_+=|<>?{}\\[\\]~-]");
     Pattern eight = Pattern.compile (".{6,15}");
     private static final String DATE_PATTERN =
@@ -48,7 +48,7 @@ public class Validation {
     }
 
     public boolean isValidPhone(String mStrPhone) {
-        String mStrPhone_pattern = "[0-9]{10}";
+        String mStrPhone_pattern = "^[1-9][0-9]{9}";
         Pattern pattern = Pattern.compile(mStrPhone_pattern);
         Matcher matcher = pattern.matcher(mStrPhone);
         return matcher.matches();
